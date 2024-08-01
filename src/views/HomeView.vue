@@ -6,24 +6,42 @@ import graph from "../components/icons/graph.vue";
 
 <template>
   <main>
-    <div class="flex gap-4">
-      <menuItems title="Menu Item 1">
+    <div class="flex gap-4 mb-3">
+      <menuItems title="Импульсы цены">
         <template #icon>
           <graph />
         </template>
       </menuItems>
-      <menuItems title="Menu Item 2">
+      <menuItems title="ТОП тикеры">
         <template #icon>
           <graph />
         </template>
       </menuItems>
-      <menuItems title="Menu Item 3">
+      <menuItems title="Ставки финансирования">
         <template #icon>
           <graph />
         </template>
       </menuItems>
     </div>
-
-    <Alert title="Hello" message="This is a message" />
+    <div class="flex gap-4">
+      <menuItems title="Градация  объёмов">
+        <template #icon>
+          <graph />
+        </template>
+      </menuItems>
+      <menuItems title="Рост активов">
+        <template #icon>
+          <graph />
+        </template>
+      </menuItems>
+      <menuItems title="Ослеживание актива">
+        <template #icon>
+          <graph />
+        </template>
+      </menuItems>
+    </div>
+    <h3>TOP 5 тикеры</h3>
+    <p>Последнее обновление:</p>
+    <Alert title="Welcome to smart trade!" message="Tade with us, success with us!" />
   </main>
 </template>
