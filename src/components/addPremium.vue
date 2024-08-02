@@ -12,8 +12,8 @@ import { PhCaretRight } from "@phosphor-icons/vue";
                 <p>Еще больше плюсов с Premium</p>
                 <p>Аналитика и дополнительные фунции</p>
             </div>
-            <div>
-                <PhCaretRight :size="32" />
+            <div class="flex flex-col justify-center">
+                <PhCaretRight :size="24" />
             </div>
         </div>
     </div>

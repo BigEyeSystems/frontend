@@ -2,8 +2,11 @@
 import { Alert } from "vue-tg";
 import menuItems from "../components/menuItem.vue";
 import Header from "../components/Header.vue";
-import addPremium from "@/components/addPremium.vue";
+import tickerFunding from "@/components/tickerFunding.vue";
 import { PhBell, PhPulse, PhMagnifyingGlass, PhPercent, PhChartBar, PhChartLine } from "@phosphor-icons/vue";
+import footerMenu from "@/components/footer.vue";
+import addPremium from "@/components/addPremium.vue";
+
 </script>
 
 <template>
@@ -52,6 +55,12 @@ import { PhBell, PhPulse, PhMagnifyingGlass, PhPercent, PhChartBar, PhChartLine 
       <div class="flex text-xs gap-1">
         <PhClock :size="16" /> 12:03 <PhCalendarDots :size="16" /> 9.01.2024
       </div> 
+    </div>
+    <div class="mt-4">
+      <tickerFunding/>
+    </div>
+    <div>
+      <footerMenu/>
     </div>
     <Alert title="Welcome to smart trade!" message="Tade with us, success with us!" />
   </main>
