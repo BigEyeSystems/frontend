@@ -1,12 +1,15 @@
 <script setup>
 import { Alert } from "vue-tg";
 import menuItems from "../components/menuItem.vue";
+import Header from "../components/Header.vue";
 import graph from "../components/icons/graph.vue";
+import cube from "../components/icons/cube.vue";
 </script>
 
 <template>
   <main>
-    <div class="flex gap-4 mb-3">
+    <Header UserName="John Doe" />
+    <div class="flex gap-4 my-4">
       <menuItems title="Импульсы цены">
         <template #icon>
           <graph />
@@ -14,7 +17,7 @@ import graph from "../components/icons/graph.vue";
       </menuItems>
       <menuItems title="ТОП тикеры">
         <template #icon>
-          <graph />
+          <cube />
         </template>
       </menuItems>
       <menuItems title="Ставки финансирования">
@@ -34,7 +37,7 @@ import graph from "../components/icons/graph.vue";
           <graph />
         </template>
       </menuItems>
-      <menuItems title="Ослеживание актива">
+      <menuItems title="Отслеживание актива">
         <template #icon>
           <graph />
         </template>
