@@ -1,8 +1,8 @@
 <template>
-    <div class="rounded-2xl p-px bg-gradient-to-r from-zinc-500 from-0% via-black via-50% to-zinc-500 to-100% w-1/3">
-        <div class="rounded-[calc(1.5rem-10px)] p-1 bg-[#17181C] h-24">
+    <div class="rounded-2xl p-px bg-gradient-to-r from-zinc-700 from-0% via-zinc-600 via-50% to-zinc-700 to-100% w-1/3">
+        <div class="rounded-[calc(1.5rem-10px)] p-1 px-2 bg-[#17181C] h-20 flex flex-col justify-center">
             <slot name="icon"></slot>
-            <p class="whitespace-normal">{{ title }}</p>
+            <p class="whitespace-normal text-xs">{{ title }}</p>
         </div>
     </div>
 </template>
