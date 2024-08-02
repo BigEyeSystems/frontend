@@ -3,40 +3,46 @@ import { PhHouseSimple, PhChartPieSlice, PhUsersThree, PhUser } from "@phosphor-
 import { ref, computed } from 'vue';
 
 const isClickedHome = ref(false);
-const toggleHome = () => {
-    isClickedHome.value = !isClickedHome.value;
-};
-const iconColorHome = computed(() => (isClickedHome.value ? 'white' : '#797979'));
-
-
 const isClicked = ref(false);
-
-const toggleAnalytics = () => {
-    isClicked.value = !isClicked.value;
-};
-const iconColor = computed(() => (isClicked.value ? 'white' : '#797979'));
-
-
 const isClickedReferral = ref(false);
-
-const toggleReferrals = () => {
-    isClickedReferral.value = !isClickedReferral.value;
-}
-const iconColorReferral = computed(() => (isClickedReferral.value ? 'white' : '#797979'));
-
 const isClickedProfile = ref(false);
 
+const resetAll = () => {
+    isClickedHome.value = false;
+    isClicked.value = false;
+    isClickedReferral.value = false;
+    isClickedProfile.value = false;
+};
+
+const toggleHome = () => {
+    resetAll();
+    isClickedHome.value = true;
+};
+
+const toggleAnalytics = () => {
+    resetAll();
+    isClicked.value = true;
+};
+
+const toggleReferrals = () => {
+    resetAll();
+    isClickedReferral.value = true;
+};
+
 const toggleProfile = () => {
-    isClickedProfile.value = !isClickedProfile.value;
-}
+    resetAll();
+    isClickedProfile.value = true;
+};
+
+const iconColorHome = computed(() => (isClickedHome.value ? 'white' : '#797979'));
+const iconColor = computed(() => (isClicked.value ? 'white' : '#797979'));
+const iconColorReferral = computed(() => (isClickedReferral.value ? 'white' : '#797979'));
 const iconColorProfile = computed(() => (isClickedProfile.value ? 'white' : '#797979'));
 
-
-
-
 </script>
+
 <template>
-    <div class="rounded-[calc(1.5rem-10px)] p-1 bg-[#17181C] p-3 flex justify-between text-xs ">
+    <div class="rounded-[calc(1.5rem-10px)] p-1 bg-[#17181C] p-3 flex justify-between text-xs">
         <div class="flex flex-col justify-center gap-1" @click="toggleHome">
             <div class="flex justify-center">
                 <PhHouseSimple :size="24" :class="{'text-white fill-current': isClickedHome}" :color="iconColorHome"/>
