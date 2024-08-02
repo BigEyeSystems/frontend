@@ -42,7 +42,7 @@ const iconColorProfile = computed(() => (isClickedProfile.value ? 'white' : '#79
 </script>
 
 <template>
-    <div class="rounded-[calc(1.5rem-10px)] p-1 bg-[#17181C] p-3 flex justify-between text-xs">
+    <div class="rounded-[calc(1.5rem-10px)] p-1 bg-[#212225] p-3 flex justify-between text-xs">
         <div class="flex flex-col justify-center gap-1" @click="toggleHome">
             <div class="flex justify-center">
                 <PhHouseSimple :size="24" :class="{'text-white fill-current': isClickedHome}" :color="iconColorHome"/>

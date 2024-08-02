@@ -29,7 +29,6 @@
           { name: "1000pepeusdt", amount: "3 583 377 248.89", value: "2 342 344", change: 2.30 },
           { name: "1000pepeusdt", amount: "3 583 377 248.89", value: "2 342 344", change: 2.30 },
           { name: "1000pepeusdt", amount: "3 583 377 248.89", value: "2 342 344", change: 2.30 },
-          { name: "1000pepeusdt", amount: "3 583 377 248.89", value: "2 342 344", change: 2.30 }
         ]
       }
     },
