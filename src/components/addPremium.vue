@@ -4,7 +4,7 @@ import { PhCaretRight } from "@phosphor-icons/vue";
 </script>
 <template>
     <div class="rounded-2xl p-px bg-gradient-to-r from-black from-0% via-black via-95% to-[#FFE500] to-100%">
-        <div class="rounded-[calc(1.5rem-10px)] p-1 bg-[#17181C] py-4 flex justify-between">
+        <div class="rounded-[calc(1.5rem-10px)] p-1 bg-[#17181C] py-4 flex justify-between px-3">
             <div>
                 <crown />
             </div>

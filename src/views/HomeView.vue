@@ -6,7 +6,7 @@ import tickerFunding from "@/components/tickerFunding.vue";
 import { PhBell, PhPulse, PhMagnifyingGlass, PhPercent, PhChartBar, PhChartLine, PhClock, PhCalendarDots } from "@phosphor-icons/vue";
 import footerMenu from "@/components/footer.vue";
 import addPremium from "@/components/addPremium.vue";
-
+import ticker from "@/components/ticker.vue"
 </script>
 
 <template>
@@ -60,7 +60,9 @@ import addPremium from "@/components/addPremium.vue";
       <div class="my-4">
         <tickerFunding/>
       </div>
-
+      <div class="my-4">
+        <ticker/>
+      </div>
     </main>
       <footer class="fixed bottom-0 left-0 w-full mt-48">
         <footerMenu class="w-[85vw]"/>
