@@ -11,8 +11,8 @@
         </thead>
         <tbody>
           <tr v-for="(item, index) in data" :key="index">
-            <td>{{ item.name }}</td>
             <td>
+              {{ item.name }}
               <span :class="{'positive': item.changePercentage > 0, 'negative': item.changePercentage < 0}">
                 {{ item.changePercentage.toFixed(2) }}%
               </span>

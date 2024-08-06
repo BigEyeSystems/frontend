@@ -6,7 +6,16 @@ import PhosphorIcons from "@phosphor-icons/vue"
 import App from './App.vue'
 import router from './router'
 import  {VueTelegramPlugin} from 'vue-tg'
-
+import { createRouter, createWebHistory } from 'vue-router'
+const router = createRouter({
+  history: createWebHistory(),
+  routes: [
+    {
+        path: '/',
+        component: () => import('./views/HomeView.vue')
+    }
+]
+})
 
 const app = createApp(App)
 
