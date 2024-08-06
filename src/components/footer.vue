@@ -1,6 +1,7 @@
 <script setup>
 import { PhHouseSimple, PhChartPieSlice, PhUsersThree, PhUser } from "@phosphor-icons/vue";
 import { ref, computed } from 'vue';
+import { RouterLink } from "vue-router";
 
 const isClickedHome = ref(false);
 const isClicked = ref(false);
@@ -17,6 +18,7 @@ const resetAll = () => {
 const toggleHome = () => {
     resetAll();
     isClickedHome.value = true;
+
 };
 
 const toggleAnalytics = () => {
@@ -38,34 +40,39 @@ const iconColorHome = computed(() => (isClickedHome.value ? 'white' : '#797979')
 const iconColor = computed(() => (isClicked.value ? 'white' : '#797979'));
 const iconColorReferral = computed(() => (isClickedReferral.value ? 'white' : '#797979'));
 const iconColorProfile = computed(() => (isClickedProfile.value ? 'white' : '#797979'));
-
 </script>
 
 <template>
-    <div class="rounded-[calc(1.5rem-10px)] p-1 bg-[#212225] p-3 flex justify-between text-xs">
-        <div class="flex flex-col justify-center gap-1" @click="toggleHome">
-            <div class="flex justify-center">
-                <PhHouseSimple :size="24" :class="{'text-white fill-current': isClickedHome}" :color="iconColorHome"/>
+    <div id="app" class="rounded-[calc(1.5rem-10px)] p-1 bg-[#212225] p-3 flex justify-between text-xs">
+        <RouterLink to="/">
+            <div class="flex flex-col justify-center gap-1" @click="toggleHome">
+                <div class="flex justify-center">
+                    <PhHouseSimple :size="24" :class="{ 'text-white fill-current': isClickedHome }"
+                        :color="iconColorHome" />
+                </div>
+                <p :class="{ 'text-white': isClickedHome, 'text-[#797979]': !isClickedHome }">Home</p>
             </div>
-            <p :class="{'text-white': isClickedHome, 'text-[#797979]': !isClickedHome}">Home</p>
-        </div>
-        <div class="flex flex-col justify-center gap-1" @click="toggleAnalytics">
-            <div class="flex justify-center">
-                <PhChartPieSlice :size="24" :class="{'text-white fill-current': isClicked}" :color="iconColor"/>
+        </RouterLink>
+        <RouterLink to='/impulse'>
+            <div class="flex flex-col justify-center gap-1" @click="toggleAnalytics">
+                <div class="flex justify-center">
+                    <PhChartPieSlice :size="24" :class="{ 'text-white fill-current': isClicked }" :color="iconColor" />
+                </div>
+                <p :class="{ 'text-white': isClicked, 'text-[#797979]': !isClicked }">Analytics</p>
             </div>
-            <p :class="{'text-white': isClicked, 'text-[#797979]': !isClicked}">Analytics</p>
-        </div>
+        </RouterLink>
         <div class="flex flex-col justify-center gap-1" @click="toggleReferrals">
             <div class="flex justify-center">
-                <PhUsersThree :size="24" :class="{'text-white fill-current': isClickedReferral}" :color="iconColorReferral"/>
+                <PhUsersThree :size="24" :class="{ 'text-white fill-current': isClickedReferral }"
+                    :color="iconColorReferral" />
             </div>
-            <p :class="{'text-white': isClickedReferral, 'text-[#797979]': !isClickedReferral}">Referrals</p>
+            <p :class="{ 'text-white': isClickedReferral, 'text-[#797979]': !isClickedReferral }">Referrals</p>
         </div>
         <div class="flex flex-col justify-center gap-1" @click="toggleProfile">
             <div class="flex justify-center">
-                <PhUser :size="24" :class="{'text-white fill-current': isClickedProfile}" :color="iconColorProfile"/>
+                <PhUser :size="24" :class="{ 'text-white fill-current': isClickedProfile }" :color="iconColorProfile" />
             </div>
-            <p :class="{'text-white': isClickedProfile, 'text-[#797979]': !isClickedProfile}">Profile</p>
+            <p :class="{ 'text-white': isClickedProfile, 'text-[#797979]': !isClickedProfile }">Profile</p>
         </div>
     </div>
 </template>

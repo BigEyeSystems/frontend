@@ -10,17 +10,16 @@ const router = createRouter({
   history: createWebHistory(),
   routes: [
     {
-        path: '/',
-        component: () => import('./views/HomeView.vue')
+      path: '/impulse',
+      component:() => import('./views/ImpulseView.vue'),
+      name: '/impulse',
+    },
+    {
+      path: '/',
+      component:() => import('./views/HomeView.vue'),
+      name:  '/',
     }
 ]
 })
 
-const app = createApp(App)
-
-app.use(createPinia())
-app.use(router)
-app.use(PhosphorIcons)
-app.use(VueTelegramPlugin)
-
-app.mount('#app')
+createApp(App).use(router).use(createPinia()).use(PhosphorIcons).use(VueTelegramPlugin).mount('#app')

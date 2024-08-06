@@ -12,7 +12,7 @@ import ticker from "@/components/ticker.vue"
 <template>
   <div class="flex flex-col min-h-screen">
     <Header UserName="John Doe" />
-    <main class="flex-grow z-1 p-4">
+    <div class="flex-grow z-1 p-4">
       <div class="flex gap-4 my-4">
         <menuItems title="Импульсы цены">
           <template #icon>
@@ -48,33 +48,39 @@ import ticker from "@/components/ticker.vue"
         </menuItems>
       </div>
       <div class="my-4">
-        <addPremium/>
+        <addPremium />
       </div>
       <p class="text-sm font-semibold">TOP 5 тикеры</p>
       <div class="flex justify-between">
         <p class="text-xs">Последнее обновление:</p>
         <div class="flex text-xs gap-1">
-          <PhClock :size="16" /> 12:03 <PhCalendarDots :size="16" /> 9.01.2024
-        </div> 
+          <PhClock :size="16" /> 12:03
+          <PhCalendarDots :size="16" /> 9.01.2024
+        </div>
       </div>
       <div class="my-4">
-        <tickerFunding/>
+        <tickerFunding />
       </div>
       <div class="my-4">
-        <ticker/>
+        <div class="text-xs flex justify-between mb-2">
+          <p>Последние импульсы</p>
+          <p>смотреть все</p>
+        </div>
+        <div class="flex justify-between mb-3">
+          <p class="text-xs">Последнее обновление:</p>
+          <div class="flex text-xs gap-1">
+            <PhClock :size="16" /> 12:03
+            <PhCalendarDots :size="16" /> 9.01.2024
+          </div>
+        </div>
+        <ticker />
       </div>
-    </main>
-      <footer class="fixed bottom-0 left-0 w-full mt-48">
-        <footerMenu class="w-[85vw]"/>
-      </footer>
-    <Alert title="Welcome to smart trade!" message="Trade with us, success with us!" />
+    </div>
+    <footer class="fixed bottom-0 left-0 w-full mt-48 mb-4">
+      <footerMenu class="w-[85vw]"/>
+    </footer>
   </div>
 </template>
 
-<style scoped>
-  footer {
-    z-index: 1000;
-    display: flex;
-    justify-content: center
-  }
+<style>
 </style>
