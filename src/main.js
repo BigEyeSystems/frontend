@@ -4,7 +4,6 @@ import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import PhosphorIcons from "@phosphor-icons/vue"
 import App from './App.vue'
-import router from './router'
 import  {VueTelegramPlugin} from 'vue-tg'
 import { createRouter, createWebHistory } from 'vue-router'
 const router = createRouter({
