@@ -19,11 +19,21 @@ import footerMenu from "@/components/footer.vue";
 import addPremium from "@/components/addPremium.vue";
 import ticker from "@/components/ticker.vue";
 import ImpulseView from "./ImpulseView.vue";
+import GradationView from "./GradationView.vue";
+import ActiveGrowthView from "./ActiveGrowthView.vue";
 const open = ref(false);
+const openGradation = ref(false);
+const openGradationGrowth = ref(false);
+
 
 const toggleTeleport = () => {
   open.value = !open.value;
-  console.log("sasd");
+};
+const toggleTeleportGradation = () => {
+  openGradation.value = !openGradation.value;
+};
+const toggleTeleportGradationGrowth = () => {
+  openGradationGrowth.value = !openGradationGrowth.value;
 };
 </script>
 
@@ -49,12 +59,12 @@ const toggleTeleport = () => {
         </menuItems>
       </div>
       <div class="flex gap-4">
-        <menuItems title="Градация объёмов">
+        <menuItems title="Градация объёмов" @click = "toggleTeleportGradation">
           <template #icon>
             <PhChartBar :size="21" />
           </template>
         </menuItems>
-        <menuItems title="Рост активов">
+        <menuItems title="Рост активов" @click="toggleTeleportGradationGrowth">
           <template #icon>
             <PhChartLine :size="21" />
           </template>
@@ -86,7 +96,7 @@ const toggleTeleport = () => {
         <div class="flex justify-between mb-3">
           <p class="text-xs">Последнее обновление:</p>
           <div class="flex text-xs gap-1">
-            <PhClock :size="16" /> 12:03 <PhCalendarDots :size="16" /> 9.01.2024
+            <PhCclock :size="16" /> 12:03 <PhCalendarDots :size="16" /> 9.01.2024
           </div>
         </div>
         <ticker />
@@ -100,6 +110,28 @@ const toggleTeleport = () => {
           <button @click="open=false"><PhX :size="21" /></button>
         </div>
           <ImpulseView />
+        </div>
+      </Teleport>
+      <Teleport to="body">
+        <div v-if="openGradation"
+          class="modal h-[90vh] rounded-t-3xl bg-black fixed bottom-0 w-full py-5 px-4 overflow-auto"
+        >
+        <div class="flex justify-between">
+          <p>Градация активов по росту объёма</p>
+          <button @click="toggleTeleportGradation"><PhX :size="21" /></button>
+        </div>
+          <GradationView />
+        </div>
+      </Teleport>
+      <Teleport to="body">
+        <div v-if="openGradationGrowth"
+          class="modal h-[90vh] rounded-t-3xl bg-black fixed bottom-0 w-full py-5 px-4 overflow-auto"
+        >
+        <div class="flex justify-between">
+          <p>Градация активов по росту цены</p>
+          <button @click="toggleTeleportGradationGrowth"><PhX :size="21" /></button>
+        </div>
+          <ActiveGrowthView />
         </div>
       </Teleport>
     </div>
