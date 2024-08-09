@@ -21,9 +21,11 @@ import ticker from "@/components/ticker.vue";
 import ImpulseView from "./ImpulseView.vue";
 import GradationView from "./GradationView.vue";
 import ActiveGrowthView from "./ActiveGrowthView.vue";
+import trackingTickerView from "./trackingTickerView.vue";
 const open = ref(false);
 const openGradation = ref(false);
 const openGradationGrowth = ref(false);
+const openTrackingTicker = ref(false);
 
 
 const toggleTeleport = () => {
@@ -34,6 +36,9 @@ const toggleTeleportGradation = () => {
 };
 const toggleTeleportGradationGrowth = () => {
   openGradationGrowth.value = !openGradationGrowth.value;
+};
+const toggleTrackingTicker = () => {
+  openTrackingTicker.value = !openTrackingTicker.value;
 };
 </script>
 
@@ -69,9 +74,9 @@ const toggleTeleportGradationGrowth = () => {
             <PhChartLine :size="21" />
           </template>
         </menuItems>
-        <menuItems title="Отслеживание актива">
+        <menuItems title="Отслеживание актива" @click="toggleTrackingTicker">
           <template #icon>
-            <PhMagnifyingGlass :size="21" />
+            <PhMagnifyingGlass :size="21"/>
           </template>
         </menuItems>
       </div>
@@ -132,6 +137,17 @@ const toggleTeleportGradationGrowth = () => {
           <button @click="toggleTeleportGradationGrowth"><PhX :size="21" /></button>
         </div>
           <ActiveGrowthView />
+        </div>
+      </Teleport>
+      <Teleport to="body">
+        <div v-if="openTrackingTicker"
+          class="modal h-[90vh] rounded-t-3xl bg-black fixed bottom-0 w-full py-5 px-4 overflow-auto"
+        >
+        <div class="flex justify-between">
+          <p>Отслеживание актива</p>
+          <button @click="toggleTrackingTicker"><PhX :size="21" /></button>
+        </div>
+          <trackingTickerView />
         </div>
       </Teleport>
     </div>

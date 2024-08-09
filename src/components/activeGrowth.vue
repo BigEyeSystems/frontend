@@ -1,6 +1,5 @@
 <script setup>
 import ButtonView from "./button.vue";
-
 import { ref } from "vue";
 
 const showGradationGrowth= ref(false);
@@ -22,6 +21,15 @@ const toggleGradationGrowth= () => {
             </div>
         </div>
         <ButtonView :text="'Получить информацию'" :on-click="toggleGradationGrowth" class="my-3" />
-
+        <div v-if="showGradationGrowth">
+            <p class="mb-3">Результат запроса</p>
+            <div class="flex justify-between">
+                <p class="text-xs">Последнее обновление:</p>
+                <div class="flex text-xs gap-1">
+                    <PhClock :size="16" /> 12:03
+                    <PhCalendarDots :size="16" /> 9.01.2024
+                </div>
+            </div>
+        </div>
     </div>
 </template>
