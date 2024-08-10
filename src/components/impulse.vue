@@ -31,7 +31,11 @@ const toggleImpulse = () => {
       </div>
     </div>
 
-    <ButtonView :text="'Получить информацию'" :on-click="toggleImpulse" class="mt-4"/>
+    <ButtonView v-if="!showImpulse" :text="'Получить информацию'" :on-click="toggleImpulse" class="mt-4"/>
+    <div v-else>
+      <ButtonView  :text="'Добавить информацию'" class="my-3" />
+    </div>
+
     <div v-if="showImpulse">
       <p class="my-4">Выберите импульс для сохранения в историю</p>
       <div class="mb-4">

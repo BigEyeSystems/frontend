@@ -20,7 +20,9 @@ const toggleGradationGrowth= () => {
                 </div>
             </div>
         </div>
-        <ButtonView :text="'Получить информацию'" :on-click="toggleGradationGrowth" class="my-3" />
+        <ButtonView v-if="!showGradationGrowth" :text="'Получить информацию'" :on-click="toggleGradationGrowth" class="my-3" />
+        <ButtonView v-else :text="'Обновить информацию'" class="my-3" />
+
         <div v-if="showGradationGrowth">
             <p class="mb-3">Результат запроса</p>
             <div class="flex justify-between">

@@ -22,11 +22,12 @@ import ImpulseView from "./ImpulseView.vue";
 import GradationView from "./GradationView.vue";
 import ActiveGrowthView from "./ActiveGrowthView.vue";
 import trackingTickerView from "./trackingTickerView.vue";
+import FundingDataView from "./FundingDataView.vue";
 const open = ref(false);
 const openGradation = ref(false);
 const openGradationGrowth = ref(false);
 const openTrackingTicker = ref(false);
-
+const openFundingData = ref(false);
 
 const toggleTeleport = () => {
   open.value = !open.value;
@@ -39,6 +40,9 @@ const toggleTeleportGradationGrowth = () => {
 };
 const toggleTrackingTicker = () => {
   openTrackingTicker.value = !openTrackingTicker.value;
+};
+const toggleFundingData = () => {
+  openFundingData.value = !openFundingData.value;
 };
 </script>
 
@@ -57,14 +61,14 @@ const toggleTrackingTicker = () => {
             <PhBell :size="21" />
           </template>
         </menuItems>
-        <menuItems title="Ставки финансирования">
+        <menuItems title="Ставки финансирования" @click="toggleFundingData">
           <template #icon>
             <PhPercent :size="21" />
           </template>
         </menuItems>
       </div>
       <div class="flex gap-4">
-        <menuItems title="Градация объёмов" @click = "toggleTeleportGradation">
+        <menuItems title="Градация объёмов" @click= "toggleTeleportGradation">
           <template #icon>
             <PhChartBar :size="21" />
           </template>
@@ -148,6 +152,17 @@ const toggleTrackingTicker = () => {
           <button @click="toggleTrackingTicker"><PhX :size="21" /></button>
         </div>
           <trackingTickerView />
+        </div>
+      </Teleport>
+      <Teleport to="body">
+        <div v-if="openFundingData"
+          class="modal h-[90vh] rounded-t-3xl bg-black fixed bottom-0 w-full py-5 px-4 overflow-auto"
+        >
+        <div class="flex justify-between">
+          <p>Ставки финансирования</p>
+          <button @click="toggleFundingData"><PhX :size="21" /></button>
+        </div>
+          <FundingDataView />
         </div>
       </Teleport>
     </div>
