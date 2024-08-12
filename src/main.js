@@ -10,14 +10,14 @@ const router = createRouter({
   history: createWebHistory(),
   routes: [
     {
-      path: '/impulse',
-      component:() => import('./views/ImpulseView.vue'),
-      name: '/impulse',
-    },
-    {
       path: '/',
       component:() => import('./views/HomeView.vue'),
       name:  '/',
+    },
+    {
+      path: '/analytics',
+      component:() => import('./views/AnalyticsView.vue'),
+      name: '/analytics'
     }
 ]
 })

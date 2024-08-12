@@ -13,7 +13,8 @@ import {
   PhChartLine,
   PhClock,
   PhCalendarDots,
-  PhX
+  PhX,
+  PhCrownSimple
 } from "@phosphor-icons/vue";
 import footerMenu from "@/components/footer.vue";
 import addPremium from "@/components/addPremium.vue";
@@ -114,8 +115,12 @@ const toggleFundingData = () => {
         <div v-if="open"
           class="modal h-[90vh] rounded-t-3xl bg-black fixed bottom-0 w-full py-5 px-4 overflow-auto"
         >
-        <div class="flex justify-between">
-          <p>Отслеживание импульсов цены</p>
+        <div class="flex justify-between mb-3">
+          <div class="flex gap-3 items-center">
+            <PhCrownSimple :size="32" color="#f4ed15" weight="fill" />
+            <p class="font-bold text-sm">Отслеживание импульсов цены</p>
+          </div>
+
           <button @click="open=false"><PhX :size="21" /></button>
         </div>
           <ImpulseView />
@@ -125,8 +130,11 @@ const toggleFundingData = () => {
         <div v-if="openGradation"
           class="modal h-[90vh] rounded-t-3xl bg-black fixed bottom-0 w-full py-5 px-4 overflow-auto"
         >
-        <div class="flex justify-between">
-          <p>Градация активов по росту объёма</p>
+        <div class="flex justify-between mb-3">
+          <div class="flex gap-3 items-center">
+            <PhCrownSimple :size="32" color="#f4ed15" weight="fill" />
+            <p class="font-bold text-sm">Градация активов по росту объёма</p>
+          </div>
           <button @click="toggleTeleportGradation"><PhX :size="21" /></button>
         </div>
           <GradationView />
@@ -136,8 +144,11 @@ const toggleFundingData = () => {
         <div v-if="openGradationGrowth"
           class="modal h-[90vh] rounded-t-3xl bg-black fixed bottom-0 w-full py-5 px-4 overflow-auto"
         >
-        <div class="flex justify-between">
-          <p>Градация активов по росту цены</p>
+        <div class="flex justify-between mb-3">
+          <div class="flex gap-3 items-center">
+            <PhCrownSimple :size="32" color="#f4ed15" weight="fill" />
+            <p class="font-bold text-sm">Градация активов по росту цены</p>
+          </div>
           <button @click="toggleTeleportGradationGrowth"><PhX :size="21" /></button>
         </div>
           <ActiveGrowthView />
@@ -147,8 +158,11 @@ const toggleFundingData = () => {
         <div v-if="openTrackingTicker"
           class="modal h-[90vh] rounded-t-3xl bg-black fixed bottom-0 w-full py-5 px-4 overflow-auto"
         >
-        <div class="flex justify-between">
-          <p>Отслеживание актива</p>
+        <div class="flex justify-between mb-3">
+          <div class="flex gap-3 items-center">
+            <PhCrownSimple :size="32" color="#f4ed15" weight="fill" />
+            <p class="font-bold text-sm">Отслеживание актива</p>
+          </div>
           <button @click="toggleTrackingTicker"><PhX :size="21" /></button>
         </div>
           <trackingTickerView />
@@ -158,8 +172,11 @@ const toggleFundingData = () => {
         <div v-if="openFundingData"
           class="modal h-[90vh] rounded-t-3xl bg-black fixed bottom-0 w-full py-5 px-4 overflow-auto"
         >
-        <div class="flex justify-between">
-          <p>Ставки финансирования</p>
+        <div class="flex justify-between mb-3">
+          <div class="flex gap-3 items-center">
+            <PhCrownSimple :size="32" color="#f4ed15" weight="fill" />
+            <p class="font-bold text-sm">Ставки финансирования</p>
+          </div>
           <button @click="toggleFundingData"><PhX :size="21" /></button>
         </div>
           <FundingDataView />
