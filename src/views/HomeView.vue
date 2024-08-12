@@ -49,7 +49,8 @@ const toggleFundingData = () => {
 const tg = window.Telegram.WebApp;
 const user = tg.initData;
 
-console.log(user)
+console.log("Almaz is making test, dont be scared");
+console.log(user);
 </script>
 
 <template>
