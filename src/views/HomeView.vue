@@ -45,6 +45,11 @@ const toggleTrackingTicker = () => {
 const toggleFundingData = () => {
   openFundingData.value = !openFundingData.value;
 };
+
+const tg = window.Telegram.WebApp;
+const user = tg.initData;
+
+console.log(user)
 </script>
 
 <template>
