@@ -123,7 +123,7 @@ console.log(user);
         >
         <div class="flex justify-between mb-3">
           <div class="flex gap-3 items-center">
-            <PhCrownSimple :size="32" color="#f4ed15" weight="fill" />
+            <PhCrownSimple :size="32" color="#d9d900" weight="fill" />
             <p class="font-bold text-sm">Отслеживание импульсов цены</p>
           </div>
 
@@ -138,7 +138,7 @@ console.log(user);
         >
         <div class="flex justify-between mb-3">
           <div class="flex gap-3 items-center">
-            <PhCrownSimple :size="32" color="#f4ed15" weight="fill" />
+            <PhCrownSimple :size="32" color="#d9d900" weight="fill" />
             <p class="font-bold text-sm">Градация активов по росту объёма</p>
           </div>
           <button @click="toggleTeleportGradation"><PhX :size="21" /></button>
@@ -152,7 +152,7 @@ console.log(user);
         >
         <div class="flex justify-between mb-3">
           <div class="flex gap-3 items-center">
-            <PhCrownSimple :size="32" color="#f4ed15" weight="fill" />
+            <PhCrownSimple :size="32" color="#d9d900" weight="fill" />
             <p class="font-bold text-sm">Градация активов по росту цены</p>
           </div>
           <button @click="toggleTeleportGradationGrowth"><PhX :size="21" /></button>
@@ -166,7 +166,7 @@ console.log(user);
         >
         <div class="flex justify-between mb-3">
           <div class="flex gap-3 items-center">
-            <PhCrownSimple :size="32" color="#f4ed15" weight="fill" />
+            <PhCrownSimple :size="32" color="#d9d900" weight="fill" />
             <p class="font-bold text-sm">Отслеживание актива</p>
           </div>
           <button @click="toggleTrackingTicker"><PhX :size="21" /></button>
@@ -180,7 +180,7 @@ console.log(user);
         >
         <div class="flex justify-between mb-3">
           <div class="flex gap-3 items-center">
-            <PhCrownSimple :size="32" color="#f4ed15" weight="fill" />
+            <PhCrownSimple :size="32" color="#d9d900" weight="fill" />
             <p class="font-bold text-sm">Ставки финансирования</p>
           </div>
           <button @click="toggleFundingData"><PhX :size="21" /></button>

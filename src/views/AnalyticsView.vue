@@ -20,7 +20,7 @@ const toggleAnalytics = () => {
     <div class="flex flex-col min-h-screen">
         <div class="text-xs">
             <div class="flex gap-3">
-                <PhCrownSimple :size="32" color="#f4ed15" weight="fill" />
+                <PhCrownSimple :size="32" color="#d9d900" weight="fill" />
                 <h1 class="text-lg font-semibold">Analytics</h1>
             </div>
 
