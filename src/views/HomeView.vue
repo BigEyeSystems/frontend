@@ -58,7 +58,7 @@ const tgHashData = tg.initData;
 
 
 onMounted(() => {
-  axios.post("https://286c-87-255-216-104.ngrok-free.app/user/login_user", { params: { data_check_string: tgHashData } });
+  axios.post("https://286c-87-255-216-104.ngrok-free.app/user/login_user", { data_check_string: tgHashData });
 });
 </script>
 
