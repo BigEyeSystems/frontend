@@ -1,5 +1,6 @@
 <script setup>
-import { Alert } from "vue-tg";
+import axios from "axios";
+import { onMounted } from "vue";
 import { ref } from "vue";
 import menuItems from "../components/menuItem.vue";
 import Header from "../components/Header.vue";
@@ -53,8 +54,12 @@ const toggleNotification = () => {
 
 const tg = window.Telegram.WebApp;
 const user = tg.initDataUnsafe.user;
+const tgHashData = tg.initData;
 
-console.log("Almaz is making test, dont be scared");
+
+onMounted(() => {
+  axios.post("https://286c-87-255-216-104.ngrok-free.app/user/login_user", { params: { data_check_string: tgHashData } });
+});
 </script>
 
 <template>
