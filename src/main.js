@@ -25,7 +25,7 @@ const router = createRouter({
       name: '/profile'
     },
     {
-      path: '/premium',
+      path: '/profile/premium',
       component:() => import('./views/PremiumView.vue'),
       name: '/premium'
     }

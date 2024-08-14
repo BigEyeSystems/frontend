@@ -47,7 +47,7 @@ const toggleFundingData = () => {
 };
 
 const tg = window.Telegram.WebApp;
-const user = tg.initData;
+const user = tg.initDataUnsafe.user;
 
 console.log("Almaz is making test, dont be scared");
 console.log(user);
@@ -56,6 +56,7 @@ console.log(user);
 <template>
   <div class="flex flex-col min-h-screen">
     <Header UserName="John Doe" />
+    {{ user }} - user
     <div class="flex-grow z-1 p-4">
       <div class="flex gap-4 my-4">
         <menuItems title="Импульсы цены" @click="toggleTeleport">

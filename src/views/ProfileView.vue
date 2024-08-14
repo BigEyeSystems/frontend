@@ -11,7 +11,7 @@ import {
 import { useRouter } from "vue-router";
 const router = useRouter();
 const openPremium = () => {
-  router.push("/premium");
+  router.push("/profile/premium");
 };
 </script>
 <template>
