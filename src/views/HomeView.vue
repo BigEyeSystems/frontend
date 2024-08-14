@@ -24,6 +24,7 @@ import ActiveGrowthView from "./ActiveGrowthView.vue";
 import trackingTickerView from "./trackingTickerView.vue";
 import FundingDataView from "./FundingDataView.vue";
 import NotificationView from "./NotificationView.vue";
+
 const open = ref(false);
 const openGradation = ref(false);
 const openGradationGrowth = ref(false);
