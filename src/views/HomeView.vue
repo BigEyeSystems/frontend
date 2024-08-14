@@ -18,17 +18,18 @@ import {
 } from "@phosphor-icons/vue";
 import footerMenu from "@/components/footer.vue";
 import addPremium from "@/components/addPremium.vue";
-import ticker from "@/components/ticker.vue";
 import ImpulseView from "./ImpulseView.vue";
 import GradationView from "./GradationView.vue";
 import ActiveGrowthView from "./ActiveGrowthView.vue";
 import trackingTickerView from "./trackingTickerView.vue";
 import FundingDataView from "./FundingDataView.vue";
+import NotificationView from "./NotificationView.vue";
 const open = ref(false);
 const openGradation = ref(false);
 const openGradationGrowth = ref(false);
 const openTrackingTicker = ref(false);
 const openFundingData = ref(false);
+const openNotification = ref(false);
 
 const toggleTeleport = () => {
   open.value = !open.value;
@@ -45,17 +46,19 @@ const toggleTrackingTicker = () => {
 const toggleFundingData = () => {
   openFundingData.value = !openFundingData.value;
 };
+const toggleNotification = () => {
+  openNotification.value = !openNotification.value;
+};
 
 const tg = window.Telegram.WebApp;
 const user = tg.initDataUnsafe.user;
 
 console.log("Almaz is making test, dont be scared");
-console.log(user);
 </script>
 
 <template>
   <div class="flex flex-col min-h-screen">
-    <Header :UserName = "user.username" />
+    <Header :UserName = "user?.username" />
     <div class="flex-grow z-1 p-4">
       <div class="flex gap-4 my-4">
         <menuItems title="Импульсы цены" @click="toggleTeleport">
@@ -63,7 +66,7 @@ console.log(user);
             <PhPulse :size="21" />
           </template>
         </menuItems>
-        <menuItems title="Ваши уведомления">
+        <menuItems title="Ваши уведомления" @click="toggleNotification">
           <template #icon>
             <PhBell :size="21" />
           </template>
@@ -103,19 +106,6 @@ console.log(user);
       </div>
       <div class="my-4">
         <tickerFunding />
-      </div>
-      <div class="my-4">
-        <div class="text-xs flex justify-between mb-2">
-          <p>Последние импульсы</p>
-          <p>смотреть все</p>
-        </div>
-        <div class="flex justify-between mb-3">
-          <p class="text-xs">Последнее обновление:</p>
-          <div class="flex text-xs gap-1">
-            <PhCclock :size="16" /> 12:03 <PhCalendarDots :size="16" /> 9.01.2024
-          </div>
-        </div>
-        <ticker />
       </div>
       <Teleport to="body">
         <div v-if="open"
@@ -186,6 +176,20 @@ console.log(user);
           <button @click="toggleFundingData"><PhX :size="21" /></button>
         </div>
           <FundingDataView />
+        </div>
+      </Teleport>
+      <Teleport to="body">
+        <div v-if="openNotification"
+          class="modal h-[90vh] rounded-t-3xl bg-black fixed bottom-0 w-full py-5 px-4 overflow-auto"
+        >
+        <div class="flex justify-between mb-3">
+          <div class="flex gap-3 items-center">
+            <PhBell :size="32"/>
+            <p class="font-bold text-sm">Уведомления</p>
+          </div>
+          <button @click="toggleNotification"><PhX :size="21" /></button>
+        </div>
+          <NotificationView />
         </div>
       </Teleport>
     </div>
