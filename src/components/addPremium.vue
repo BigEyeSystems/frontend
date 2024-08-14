@@ -6,7 +6,7 @@ import { PhCrownSimple } from "@phosphor-icons/vue";
     <div class="rounded-2xl p-px bg-gradient-to-r from-black from-0% via-black via-95% to-[#FFE500] to-100%">
         <div class="rounded-[calc(1.5rem-10px)] p-1 bg-[#17181C] py-4 flex justify-between px-3">
             <div>
-                <PhCrownSimple :size="32" color="#d9d900" weight="fill" />
+                <PhCrownSimple :size="32" color="#ffe500" weight="fill" />
             </div>
             <div class="flex flex-col content-center text-xs">
                 <p>Еще больше плюсов с Premium</p>

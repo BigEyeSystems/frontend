@@ -23,6 +23,11 @@ const router = createRouter({
       path: '/profile',
       component:() => import('./views/ProfileView.vue'),
       name: '/profile'
+    },
+    {
+      path: '/premium',
+      component:() => import('./views/PremiumView.vue'),
+      name: '/premium'
     }
 ]
 })
