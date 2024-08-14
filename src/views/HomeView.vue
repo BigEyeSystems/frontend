@@ -200,4 +200,3 @@ console.log("Almaz is making test, dont be scared");
   </div>
 </template>
 
-<style></style>
