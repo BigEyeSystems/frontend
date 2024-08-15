@@ -62,11 +62,15 @@ onMounted(() => {
     data_check_string: tgHashData,
   });
   const connection = new WebSocket(
-  "ws://286c-87-255-216-104.ngrok-free.app/ws/top_5_fundings/123"
+  "wss://286c-87-255-216-104.ngrok-free.app/ws/top_5_fundings/123"
 );
   connection.onopen = function (event) {
     console.log(event);
     console.log("Connected!");
+  };
+  connection.onmessage = function (event) {
+    console.log(event);
+    console.log("Message received: " + event.data);
   };
 });
 </script>
