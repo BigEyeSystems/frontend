@@ -2,9 +2,14 @@
 import ButtonView from "./button.vue";
 import { ref } from "vue";
 
-const showGradationGrowth= ref(false);
-const toggleGradationGrowth= () => {
-  showGradationGrowth.value = !showGradationGrowth.value;
+const selectedInterval = ref(null);
+const selectInterval = (index) => {
+  selectedInterval.value = index;
+};
+
+const showGradationGrowth = ref(false);
+const toggleGradationGrowth = () => {
+    showGradationGrowth.value = !showGradationGrowth.value;
 };
 </script>
 <template>
@@ -13,14 +18,18 @@ const toggleGradationGrowth= () => {
             <div class="mb-3">
                 <p>Выберите интервал</p>
                 <div class="flex gap-2 mt-3">
-                    <button class="bg-[#17181C] w-full py-2 rounded">5 мин</button>
-                    <button class="bg-[#17181C] w-full py-2 rounded">30 мин</button>
-                    <button class="bg-[#17181C] w-full py-2 rounded">60 мин</button>
-                    <button class="bg-[#17181C] w-full py-2 rounded">4 часа</button>
+                    <button v-for="(interval, index) in [5, 30, 60, 4]" :key="index" :class="{
+                        'bg-[#7064F3]': selectedInterval === index,
+                        'bg-[#17181C]': selectedInterval !== index
+                    }" @click="selectInterval(index)" class="w-full py-2 rounded">
+                        <p v-if="interval !== 4">{{ interval }} мин</p>
+                        <p v-else>{{ interval }} часа </p>
+                    </button>
                 </div>
             </div>
         </div>
-        <ButtonView v-if="!showGradationGrowth" :text="'Получить информацию'" :on-click="toggleGradationGrowth" class="my-3" />
+        <ButtonView v-if="!showGradationGrowth" :text="'Получить информацию'" :on-click="toggleGradationGrowth"
+            class="my-3" />
         <ButtonView v-else :text="'Обновить информацию'" class="my-3" />
 
         <div v-if="showGradationGrowth">

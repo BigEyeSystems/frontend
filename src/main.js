@@ -28,6 +28,11 @@ const router = createRouter({
       path: '/profile/premium',
       component:() => import('./views/PremiumView.vue'),
       name: '/premium'
+    },
+    {
+      path: '/referrals',
+      component:() => import('./views/ReferralsView.vue'),
+      name:'/referrals'
     }
 ]
 })

@@ -42,7 +42,7 @@ const selectHistory = (index) => {
       </div>
       <div>
         <p>История</p>
-        <input class="w-full my-3 p-2" type="text" />
+        <input class="w-full my-3 p-2 bg-red" type="text" />
         <div class="flex gap-2 my-3">
           <button
             v-for="(history, index) in [5, 10, 15, 20]"

@@ -1,10 +1,13 @@
 <script setup>
 import ButtonView from "./button.vue";
 import { ref } from "vue";
-
-const showGradation= ref(false);
-const toggleGradation= () => {
-  showGradation.value = !showGradation.value;
+const selectedInterval = ref(null);
+const selectInterval = (index) => {
+  selectedInterval.value = index;
+};
+const showGradation = ref(false);
+const toggleGradation = () => {
+    showGradation.value = !showGradation.value;
 };
 </script>
 <template>
@@ -13,10 +16,13 @@ const toggleGradation= () => {
             <div class="mb-3">
                 <p>выберите временной интервал за какое время вы хотите получить информацию</p>
                 <div class="flex gap-2 mt-3">
-                    <button class="bg-[#17181C] w-full py-2 rounded">5 мин</button>
-                    <button class="bg-[#17181C] w-full py-2 rounded">30 мин</button>
-                    <button class="bg-[#17181C] w-full py-2 rounded">60 мин</button>
-                    <button class="bg-[#17181C] w-full py-2 rounded">4 часа</button>
+                    <button v-for="(interval, index) in [5, 30, 60, 4]" :key="index" :class="{
+                        'bg-[#7064F3]': selectedInterval === index,
+                        'bg-[#17181C]': selectedInterval !== index
+                    }" @click="selectInterval(index)" class="w-full py-2 rounded">
+                         <p v-if="interval !== 4">{{ interval }} мин</p>
+                         <p v-else>{{ interval }} часа </p>
+                    </button>
                 </div>
             </div>
         </div>
