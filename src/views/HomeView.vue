@@ -55,7 +55,7 @@ const toggleNotification = () => {
 const tg = window.Telegram.WebApp;
 const user = tg.initDataUnsafe.user;
 const tgHashData = tg.initData;
-
+const data = ref(null);
 
 onMounted(() => {
   axios.post("https://286c-87-255-216-104.ngrok-free.app/user/login_user", {
@@ -70,7 +70,7 @@ onMounted(() => {
   };
   connection.onmessage = function (event) {
     console.log(event);
-    console.log("Message received: " + event.data);
+    data.value = JSON.parse(event.data);
   };
 });
 </script>
@@ -113,6 +113,7 @@ onMounted(() => {
           </template>
         </menuItems>
       </div>
+      {{ data }}
       <div class="my-4">
         <addPremium />
       </div>
