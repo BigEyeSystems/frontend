@@ -15,7 +15,7 @@ import {
   PhClock,
   PhCalendarDots,
   PhX,
-  PhCrownSimple
+  PhCrownSimple,
 } from "@phosphor-icons/vue";
 import footerMenu from "@/components/footer.vue";
 import addPremium from "@/components/addPremium.vue";
@@ -58,13 +58,22 @@ const tgHashData = tg.initData;
 
 
 onMounted(() => {
-  axios.post("https://286c-87-255-216-104.ngrok-free.app/user/login_user", { data_check_string: tgHashData });
+  axios.post("https://286c-87-255-216-104.ngrok-free.app/user/login_user", {
+    data_check_string: tgHashData,
+  });
+  const connection = new WebSocket(
+  "wss://echo.websocket.org"
+);
+  connection.onopen = function (event) {
+    console.log(event);
+    console.log("Connected!");
+  };
 });
 </script>
 
 <template>
   <div class="flex flex-col min-h-screen">
-    <Header :UserName = "user?.username" />
+    <Header :UserName="user?.username" />
     <div class="flex-grow z-1 p-4">
       <div class="flex gap-4 my-4">
         <menuItems title="Импульсы цены" @click="toggleTeleport">
@@ -84,7 +93,7 @@ onMounted(() => {
         </menuItems>
       </div>
       <div class="flex gap-4">
-        <menuItems title="Градация объёмов" @click= "toggleTeleportGradation">
+        <menuItems title="Градация объёмов" @click="toggleTeleportGradation">
           <template #icon>
             <PhChartBar :size="21" />
           </template>
@@ -96,7 +105,7 @@ onMounted(() => {
         </menuItems>
         <menuItems title="Отслеживание актива" @click="toggleTrackingTicker">
           <template #icon>
-            <PhMagnifyingGlass :size="21"/>
+            <PhMagnifyingGlass :size="21" />
           </template>
         </menuItems>
       </div>
@@ -114,87 +123,95 @@ onMounted(() => {
         <tickerFunding />
       </div>
       <Teleport to="body">
-        <div v-if="open"
+        <div
+          v-if="open"
           class="modal h-[90vh] rounded-t-3xl bg-black fixed bottom-0 w-full py-5 px-4 overflow-auto"
         >
-        <div class="flex justify-between mb-3">
-          <div class="flex gap-3 items-center">
-            <PhCrownSimple :size="32" color="#ffe500" weight="fill" />
-            <p class="font-bold text-sm">Отслеживание импульсов цены</p>
-          </div>
+          <div class="flex justify-between mb-3">
+            <div class="flex gap-3 items-center">
+              <PhCrownSimple :size="32" color="#ffe500" weight="fill" />
+              <p class="font-bold text-sm">Отслеживание импульсов цены</p>
+            </div>
 
-          <button @click="open=false"><PhX :size="21" /></button>
-        </div>
+            <button @click="open = false"><PhX :size="21" /></button>
+          </div>
           <ImpulseView />
         </div>
       </Teleport>
       <Teleport to="body">
-        <div v-if="openGradation"
+        <div
+          v-if="openGradation"
           class="modal h-[90vh] rounded-t-3xl bg-black fixed bottom-0 w-full py-5 px-4 overflow-auto"
         >
-        <div class="flex justify-between mb-3">
-          <div class="flex gap-3 items-center">
-            <PhCrownSimple :size="32" color="#ffe500" weight="fill" />
-            <p class="font-bold text-sm">Градация активов по росту объёма</p>
+          <div class="flex justify-between mb-3">
+            <div class="flex gap-3 items-center">
+              <PhCrownSimple :size="32" color="#ffe500" weight="fill" />
+              <p class="font-bold text-sm">Градация активов по росту объёма</p>
+            </div>
+            <button @click="toggleTeleportGradation"><PhX :size="21" /></button>
           </div>
-          <button @click="toggleTeleportGradation"><PhX :size="21" /></button>
-        </div>
           <GradationView />
         </div>
       </Teleport>
       <Teleport to="body">
-        <div v-if="openGradationGrowth"
+        <div
+          v-if="openGradationGrowth"
           class="modal h-[90vh] rounded-t-3xl bg-black fixed bottom-0 w-full py-5 px-4 overflow-auto"
         >
-        <div class="flex justify-between mb-3">
-          <div class="flex gap-3 items-center">
-            <PhCrownSimple :size="32" color="#ffe500" weight="fill" />
-            <p class="font-bold text-sm">Градация активов по росту цены</p>
+          <div class="flex justify-between mb-3">
+            <div class="flex gap-3 items-center">
+              <PhCrownSimple :size="32" color="#ffe500" weight="fill" />
+              <p class="font-bold text-sm">Градация активов по росту цены</p>
+            </div>
+            <button @click="toggleTeleportGradationGrowth">
+              <PhX :size="21" />
+            </button>
           </div>
-          <button @click="toggleTeleportGradationGrowth"><PhX :size="21" /></button>
-        </div>
           <ActiveGrowthView />
         </div>
       </Teleport>
       <Teleport to="body">
-        <div v-if="openTrackingTicker"
+        <div
+          v-if="openTrackingTicker"
           class="modal h-[90vh] rounded-t-3xl bg-black fixed bottom-0 w-full py-5 px-4 overflow-auto"
         >
-        <div class="flex justify-between mb-3">
-          <div class="flex gap-3 items-center">
-            <PhCrownSimple :size="32" color="#ffe500" weight="fill" />
-            <p class="font-bold text-sm">Отслеживание актива</p>
+          <div class="flex justify-between mb-3">
+            <div class="flex gap-3 items-center">
+              <PhCrownSimple :size="32" color="#ffe500" weight="fill" />
+              <p class="font-bold text-sm">Отслеживание актива</p>
+            </div>
+            <button @click="toggleTrackingTicker"><PhX :size="21" /></button>
           </div>
-          <button @click="toggleTrackingTicker"><PhX :size="21" /></button>
-        </div>
           <trackingTickerView />
         </div>
       </Teleport>
       <Teleport to="body">
-        <div v-if="openFundingData"
+        <div
+          v-if="openFundingData"
           class="modal h-[90vh] rounded-t-3xl bg-black fixed bottom-0 w-full py-5 px-4 overflow-auto"
         >
-        <div class="flex justify-between mb-3">
-          <div class="flex gap-3 items-center">
-            <PhCrownSimple :size="32" color="#ffe500" weight="fill" />
-            <p class="font-bold text-sm">Ставки финансирования</p>
+          <div class="flex justify-between mb-3">
+            <div class="flex gap-3 items-center">
+              <PhCrownSimple :size="32" color="#ffe500" weight="fill" />
+              <p class="font-bold text-sm">Ставки финансирования</p>
+            </div>
+            <button @click="toggleFundingData"><PhX :size="21" /></button>
           </div>
-          <button @click="toggleFundingData"><PhX :size="21" /></button>
-        </div>
           <FundingDataView />
         </div>
       </Teleport>
       <Teleport to="body">
-        <div v-if="openNotification"
+        <div
+          v-if="openNotification"
           class="modal h-[90vh] rounded-t-3xl bg-black fixed bottom-0 w-full py-5 px-4 overflow-auto"
         >
-        <div class="flex justify-between mb-3">
-          <div class="flex gap-3 items-center">
-            <PhBell :size="32"/>
-            <p class="font-bold text-sm">Уведомления</p>
+          <div class="flex justify-between mb-3">
+            <div class="flex gap-3 items-center">
+              <PhBell :size="32" />
+              <p class="font-bold text-sm">Уведомления</p>
+            </div>
+            <button @click="toggleNotification"><PhX :size="21" /></button>
           </div>
-          <button @click="toggleNotification"><PhX :size="21" /></button>
-        </div>
           <NotificationView />
         </div>
       </Teleport>
@@ -204,4 +221,3 @@ onMounted(() => {
     </footer>
   </div>
 </template>
-
