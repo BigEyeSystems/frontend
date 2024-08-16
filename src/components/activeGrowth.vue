@@ -19,7 +19,7 @@ const toggleGradationGrowth = () => {
                 <p>Выберите интервал</p>
                 <div class="flex gap-2 mt-3">
                     <button v-for="(interval, index) in [5, 30, 60, 4]" :key="index" :class="{
-                        'bg-[#7064F3]': selectedInterval === index,
+                        'bg-[#92FBDB] text-black font-semibold': selectedInterval === index,
                         'bg-[#17181C]': selectedInterval !== index
                     }" @click="selectInterval(index)" class="w-full py-2 rounded">
                         <p v-if="interval !== 4">{{ interval }} мин</p>

@@ -30,7 +30,7 @@ const selectHistory = (index) => {
             v-for="(interval, index) in [1, 5, 15, 60]"
             :key="index"
             :class="{
-              'bg-[#7064F3]': selectedInterval === index,
+              'bg-[#92FBDB] text-black font-semibold': selectedInterval === index,
               'bg-[#17181C]': selectedInterval !== index
             }"
             @click="selectInterval(index)"
@@ -42,13 +42,13 @@ const selectHistory = (index) => {
       </div>
       <div>
         <p>История</p>
-        <input class="w-full my-3 p-2 bg-red" type="text" />
+        <input class="w-full my-3 p-3 rounded-lg border-transparent focus:outline-none" type="text" />
         <div class="flex gap-2 my-3">
           <button
             v-for="(history, index) in [5, 10, 15, 20]"
             :key="index"
             :class="{
-              'bg-[#7064F3]': selectedHistory === index,
+              'bg-[#92FBDB] text-black font-semibold': selectedHistory === index,
               'bg-[#17181C]': selectedHistory !== index
             }"
             @click="selectHistory(index)"

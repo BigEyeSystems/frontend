@@ -24,13 +24,13 @@ const toggleAnalytics = () => {
                 <h1 class="text-lg font-semibold">Analytics</h1>
             </div>
 
-            <div class="flex gap-2 my-3">
+            <div class="flex gap-2 my-4">
                 <button class="bg-[#17181C] w-full py-2 rounded-xl">Информация о тикере</button>
                 <button class="bg-[#17181C] w-full py-2 rounded-xl">Коррелятор активов</button>
                 <button class="bg-[#17181C] w-full py-2 rounded-xl">Суточный объём актива</button>
             </div>
             <p>Введите торговую пару к USDT</p>
-            <input class="w-full my-3 p-2" type="text" />
+            <input class="w-full mt-4 mb-3 p-3 rounded-lg border-transparent focus:outline-none" type="text" placeholder="Search Here"/>
             <div class="flex gap-2">
                 <button v-for="(active, index) in ['BNB', 'EDU', 'PEOPLE', 'ETHFI']" :key="index" :class="{
                     'bg-[#7064F3]': selectedActive === index,
@@ -39,7 +39,7 @@ const toggleAnalytics = () => {
                     {{ active }}
                 </button>
             </div>
-            <ButtonView v-if="!showAnalytics" :text="'Получить информацию'" :on-click="toggleAnalytics" class="mt-5" />
+            <ButtonView v-if="!showAnalytics" :text="'Получить информацию'" :on-click="toggleAnalytics" class="mt-4" />
             <ButtonView v-else :text="'Обновить информацию'" :on-click="toggleAnalytics" class="mt-5" />
             <div v-if="showAnalytics">
                 <div class="flex justify-between mt-3">
@@ -54,7 +54,7 @@ const toggleAnalytics = () => {
 
         </div>
         <footer class="fixed bottom-0 left-0 w-full mt-48 mb-4">
-            <footerMenu class="w-[85vw]" />
+            <footerMenu class="w-[90vw]" />
         </footer>
     </div>
 </template>

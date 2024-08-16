@@ -79,7 +79,7 @@ onMounted(() => {
 <template>
   <div class="flex flex-col min-h-screen">
     <Header :UserName="user?.username" />
-    <div class="flex-grow z-1 p-4">
+    <div class="flex-grow z-1 py-4">
       <div class="flex gap-4 my-4">
         <menuItems title="Импульсы цены" @click="toggleTeleport">
           <template #icon>
@@ -91,7 +91,7 @@ onMounted(() => {
             <PhBell :size="21" />
           </template>
         </menuItems>
-        <menuItems title="Ставки финансирования" @click="toggleFundingData">
+        <menuItems title="Ставки финан- сирования" @click="toggleFundingData">
           <template #icon>
             <PhPercent :size="21" />
           </template>
@@ -222,7 +222,7 @@ onMounted(() => {
       </Teleport>
     </div>
     <footer class="fixed bottom-0 left-0 w-full mt-48 mb-4">
-      <footerMenu class="w-[85vw]" />
+      <footerMenu class="w-[90vw]" />
     </footer>
   </div>
 </template>

@@ -1,4 +1,5 @@
 <script setup>
+import crown from "@/components/icons/crown.vue";
 import footerMenu from "@/components/footer.vue";
 import profileButton from "@/components/profileButton.vue";
 import {
@@ -13,28 +14,31 @@ const router = useRouter();
 const openPremium = () => {
   router.push("/profile/premium");
 };
+
+const tg = window.Telegram.WebApp;
+const user = tg.initDataUnsafe.user;
 </script>
 <template>
   <div>
-    <div class="flex mb-4 items-center gap-2">
-      <div class="border rounded-full p-1">
-        <PhCrownSimple :size="46" color="#ffe500" weight="fill" />
+    <div class="flex mb-4 items-center gap-4">
+      <div class="border rounded-full p-2">
+        <crown class="h-8 w-8"/>
       </div>
       <div>
-        <p class="text-lg font-bold">John Doe</p>
+        <p class="text-lg font-bold"> {{ user?.username }} </p>
         <p>Nov 10 2024</p>
       </div>
     </div>
-    <div class="flex flex-col gap-3">
+    <div class="flex flex-col gap-4">
       <button
-        class="bg-gradient-to-r from-[#ffffff1f] from-10% via-[#ffffff12] via-20% to-[#ffe500] to-90% w-full p-3 rounded-2xl font-semibold flex justify-between items-center" @click="openPremium"
+        class="bg-gradient-to-r from-[#2dbde866] to-[#0070a566] w-full p-4 rounded-lg font-semibold flex justify-between items-center" @click="openPremium"
       >
         <div class="flex gap-3">
           <PhCrownSimple :size="24" color="#fff" />
           <p class="text-sm">Premium</p>
         </div>
         <div class="flex flex-col justify-center">
-          <PhCaretRight :size="24" color="#0c0c0c"/>
+          <PhCaretRight :size="24"/>
         </div>
       </button>
       <profileButton :text="'Кошелек'">
@@ -59,7 +63,7 @@ const openPremium = () => {
       </profileButton>
     </div>
     <footer class="fixed bottom-0 left-0 w-full mt-48 mb-4">
-      <footerMenu class="w-[85vw]" />
+      <footerMenu class="w-[90vw]" />
     </footer>
   </div>
 </template>

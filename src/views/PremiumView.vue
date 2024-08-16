@@ -1,5 +1,6 @@
 <script setup>
 import { reactive } from 'vue';
+import crown from '@/components/icons/crown.vue';
 import footerMenu from "@/components/footer.vue";
 import premiumPeriod from '@/components/premiumPeriod.vue';
 
@@ -17,9 +18,8 @@ const features = reactive([
 </script>
 <template>
   <div>
-    <div class="flex mb-4 items-center gap-3">
-      <div class="border border-[#ffefef29] rounded-full p-1">
-        <PhCrownSimple :size="46" color="#ffe500" weight="fill" />
+    <div class="flex mb-4 items-center gap-4">
+      <div class="border border-[#ffefef29] rounded-full p-9">
       </div>
       <div>
         <p class="text-lg font-bold">John Doe</p>
@@ -28,7 +28,7 @@ const features = reactive([
     </div>
     <div class="bg-[#17181c] py-2 px-1 rounded-xl">
       <div class="p-1 py-4 flex gap-3 px-3">
-        <div>
+        <div class="flex items-center">
           <crown/>
         </div>
         <div class="flex flex-col content-center text-xs">
@@ -36,7 +36,7 @@ const features = reactive([
           <p class="text-xs">Аналитика и дополнительные фунции</p>
         </div>
       </div>
-      <div class="flex gap-3 overflow-x-scroll">
+      <div class="flex gap-3 overflow-x-scroll pb-4">
         <premiumPeriod :period="1" :cost="300"/>
         <premiumPeriod :period="3" :cost="280"/>
         <premiumPeriod :period="6" :cost="250"/>
@@ -61,7 +61,7 @@ const features = reactive([
       </div>
     </div>
     <footer class="fixed bottom-0 left-0 w-full mt-48 mb-4">
-      <footerMenu class="w-[85vw]" />
+      <footerMenu class="w-[90vw]" />
     </footer>
   </div>
 </template>
