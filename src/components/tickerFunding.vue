@@ -11,8 +11,8 @@
             <p>{{ item.amount }}$</p>
         </div>
         <div class="flex justify-between pb-2"> 
-            <p class="text-[#B8B8B8]">= {{ item.value }}$ (изменения цены за сутки)</p>
-            <p :style="{ color: item.change > 0 ? 'green' : 'red' }">{{ item.change }}%</p>
+            <p class="text-[#B8B8B8]">= {{ item.value }}$</p>
+            <p class="text-[#B8B8B8]">5 мин назад: <span :style="{ color: item.change > 0 ? 'green' : 'red' }"> {{ item.change }}%</span></p>
         </div>
 
       </div>
@@ -24,11 +24,11 @@
     data() {
       return {
         data: [
-          { name: "1000pepeusdt", amount: "3 583 377 248.89", value: "2 342 344", change: 2.30 },
-          { name: "1000pepeusdt", amount: "3 583 377 248.89", value: "2 342 344", change: 2.30 },
-          { name: "1000pepeusdt", amount: "3 583 377 248.89", value: "2 342 344", change: 2.30 },
-          { name: "1000pepeusdt", amount: "3 583 377 248.89", value: "2 342 344", change: 2.30 },
-          { name: "1000pepeusdt", amount: "3 583 377 248.89", value: "2 342 344", change: 2.30 },
+          { name: "1000pepeusdt", amount: "-1.7243%", value: "0.0080104$ (+25.8%)", change: 2.30 },
+          { name: "1000pepeusdt", amount: "-1.7243%", value: "0.0080104$ (+25.8%)", change: 2.30 },
+          { name: "1000pepeusdt", amount: "-1.7243%", value: "0.0080104$ (+25.8%)", change: 2.30 },
+          { name: "1000pepeusdt", amount: "-1.7243%", value: "0.0080104$ (+25.8%)", change: 2.30 },
+          { name: "1000pepeusdt", amount: "-1.7243%", value: "0.0080104$ (+25.8%)", change: 2.30 },
         ]
       }
     },

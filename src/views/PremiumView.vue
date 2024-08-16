@@ -29,7 +29,7 @@ const features = reactive([
     <div class="bg-[#17181c] py-2 px-1 rounded-xl">
       <div class="p-1 py-4 flex gap-3 px-3">
         <div>
-          <PhCrownSimple :size="32" color="#ffe500" weight="fill" />
+          <crown/>
         </div>
         <div class="flex flex-col content-center text-xs">
           <p class="text-sm font-semibold">Еще больше плюсов с Premium</p>

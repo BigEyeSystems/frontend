@@ -12,7 +12,13 @@ const props = defineProps({
 </script>
 
 <template>
-    <button @click="props.onClick" class="bg-[#7064F3] w-full p-3 rounded-2xl font-semibold">
+    <button @click="props.onClick" class="bg-[#92FBDB] w-full p-3 rounded-xl font-semibold btn text-black">
         {{ text }}
     </button>
 </template>
+
+<style scoped>
+.btn{
+    box-shadow: 0px 2px 10px 0px rgba(146, 251, 219, 0.50);
+}
+</style>

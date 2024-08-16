@@ -4,7 +4,7 @@
     <div>
         <div class="flex gap-3">
             <div>
-                <PhCrownSimple :size="32" color="#ffe500" weight="fill" />
+                <crown/>
             </div>
             <p class="text-lg font-semibold">Referrals</p>
         </div>

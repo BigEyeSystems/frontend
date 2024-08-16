@@ -25,6 +25,7 @@ import ActiveGrowthView from "./ActiveGrowthView.vue";
 import trackingTickerView from "./trackingTickerView.vue";
 import FundingDataView from "./FundingDataView.vue";
 import NotificationView from "./NotificationView.vue";
+import crown from "../components/icons/crown.vue";
 
 const open = ref(false);
 const openGradation = ref(false);
@@ -85,7 +86,7 @@ onMounted(() => {
             <PhPulse :size="21" />
           </template>
         </menuItems>
-        <menuItems title="Ваши уведомления" @click="toggleNotification">
+        <menuItems title="Настройка уведомлений" @click="toggleNotification">
           <template #icon>
             <PhBell :size="21" />
           </template>
@@ -113,7 +114,6 @@ onMounted(() => {
           </template>
         </menuItems>
       </div>
-      {{ data }}
       <div class="my-4">
         <addPremium />
       </div>
@@ -134,7 +134,7 @@ onMounted(() => {
         >
           <div class="flex justify-between mb-3">
             <div class="flex gap-3 items-center">
-              <PhCrownSimple :size="32" color="#ffe500" weight="fill" />
+              <crown/>
               <p class="font-bold text-sm">Отслеживание импульсов цены</p>
             </div>
 
@@ -150,7 +150,7 @@ onMounted(() => {
         >
           <div class="flex justify-between mb-3">
             <div class="flex gap-3 items-center">
-              <PhCrownSimple :size="32" color="#ffe500" weight="fill" />
+              <crown/>
               <p class="font-bold text-sm">Градация активов по росту объёма</p>
             </div>
             <button @click="toggleTeleportGradation"><PhX :size="21" /></button>
@@ -165,7 +165,7 @@ onMounted(() => {
         >
           <div class="flex justify-between mb-3">
             <div class="flex gap-3 items-center">
-              <PhCrownSimple :size="32" color="#ffe500" weight="fill" />
+              <crown/>
               <p class="font-bold text-sm">Градация активов по росту цены</p>
             </div>
             <button @click="toggleTeleportGradationGrowth">
@@ -182,7 +182,7 @@ onMounted(() => {
         >
           <div class="flex justify-between mb-3">
             <div class="flex gap-3 items-center">
-              <PhCrownSimple :size="32" color="#ffe500" weight="fill" />
+              <crown/>
               <p class="font-bold text-sm">Отслеживание актива</p>
             </div>
             <button @click="toggleTrackingTicker"><PhX :size="21" /></button>
@@ -197,7 +197,7 @@ onMounted(() => {
         >
           <div class="flex justify-between mb-3">
             <div class="flex gap-3 items-center">
-              <PhCrownSimple :size="32" color="#ffe500" weight="fill" />
+              <crown/>
               <p class="font-bold text-sm">Ставки финансирования</p>
             </div>
             <button @click="toggleFundingData"><PhX :size="21" /></button>
