@@ -15,6 +15,10 @@ const features = reactive([
   { name: 'Суточные объемы', basic: '-', premium: '+' },
   { name: 'Доступ к новым функциям', basic: '-', premium: '+' }
 ]);
+
+
+const tg = window.Telegram.WebApp;
+const user = tg.initDataUnsafe.user;
 </script>
 <template>
   <div>
@@ -22,7 +26,7 @@ const features = reactive([
       <div class="border border-[#ffefef29] rounded-full p-9">
       </div>
       <div>
-        <p class="text-lg font-bold">John Doe</p>
+        <p class="text-lg font-bold">{{ user?.username }} </p>
         <p>Nov 10 2024</p>
       </div>
     </div>
