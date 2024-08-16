@@ -21,7 +21,7 @@ const toggleTrackingTicker = () => {
     <div v-if="!showTrackingTicker">
       <div class="mb-3">
         <p>Введите название актива</p>
-        <input class="w-full my-3 p-3 rounded-lg border-transparent focus:outline-none" type="text" />
+        <input class="w-full my-3 p-3 rounded-lg border-transparent focus:outline-none bg-[#17181C] focus:bg-[#17181C]" type="text" />
         <div class="flex gap-2 mt-3">
           <button v-for="(active, index) in ['BNB', 'EDU', 'PEOPLE', 'ETHFI']" :key="index" :class="{
             'bg-[#92FBDB] text-black font-semibold': selectedActive === index,

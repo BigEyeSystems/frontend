@@ -30,7 +30,7 @@ const toggleAnalytics = () => {
                 <button class="bg-[#17181C] w-full py-2 rounded-xl">Суточный объём актива</button>
             </div>
             <p>Введите торговую пару к USDT</p>
-            <input class="w-full mt-4 mb-3 p-3 rounded-lg border-transparent focus:outline-none" type="text" placeholder="Search Here"/>
+            <input class="w-full mt-4 mb-3 p-3 rounded-lg border-transparent focus:outline-none bg-[#17181C] focus:bg-[#17181C]" type="text" placeholder="Search Here"/>
             <div class="flex gap-2">
                 <button v-for="(active, index) in ['BNB', 'EDU', 'PEOPLE', 'ETHFI']" :key="index" :class="{
                     'bg-[#7064F3]': selectedActive === index,
