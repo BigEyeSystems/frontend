@@ -56,10 +56,11 @@ const toggleNotification = () => {
 const tg = window.Telegram.WebApp;
 const user = tg.initDataUnsafe.user;
 const tgHashData = tg.initData;
+console.log(tgHashData)
 const data = ref(null);
 
 onMounted(() => {
-  axios.post("https://286c-87-255-216-104.ngrok-free.app/user/login_user", {
+  axios.post("https://3f97-178-91-253-104.ngrok-free.app/user/login_user", {
     data_check_string: tgHashData,
   });
   const connection = new WebSocket(
