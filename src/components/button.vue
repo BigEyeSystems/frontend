@@ -12,8 +12,9 @@ const props = defineProps({
 </script>
 
 <template>
-    <button @click="props.onClick" class="bg-[#92FBDB] w-full p-3 rounded-xl font-semibold btn text-black">
+    <button @click="props.onClick" class="bg-[#92FBDB] w-full p-3 rounded-xl font-semibold btn text-black flex  justify-center items-center gap-2">
         {{ text }}
+        <slot name="icon"></slot>
     </button>
 </template>
 

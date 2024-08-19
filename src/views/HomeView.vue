@@ -1,22 +1,9 @@
 <script setup>
 import axios from "axios";
-import { onMounted } from "vue";
-import { ref } from "vue";
+import { onMounted, onBeforeUnmount, ref } from "vue";
 import menuItems from "../components/menuItem.vue";
 import Header from "../components/Header.vue";
 import tickerFunding from "@/components/tickerFunding.vue";
-import {
-  PhBell,
-  PhPulse,
-  PhMagnifyingGlass,
-  PhPercent,
-  PhChartBar,
-  PhChartLine,
-  PhClock,
-  PhCalendarDots,
-  PhX,
-  PhCrownSimple,
-} from "@phosphor-icons/vue";
 import footerMenu from "@/components/footer.vue";
 import addPremium from "@/components/addPremium.vue";
 import ImpulseView from "./ImpulseView.vue";
@@ -26,7 +13,6 @@ import trackingTickerView from "./trackingTickerView.vue";
 import FundingDataView from "./FundingDataView.vue";
 import NotificationView from "./NotificationView.vue";
 import crown from "../components/icons/crown.vue";
-
 const open = ref(false);
 const openGradation = ref(false);
 const openGradationGrowth = ref(false);
@@ -58,28 +44,36 @@ const user = tg.initDataUnsafe.user;
 const tgHashData = tg.initData;
 console.log(tgHashData)
 const data = ref(null);
-
+let connection;
 onMounted(() => {
   axios.post("https://3f97-178-91-253-104.ngrok-free.app/user/login_user", {
     data_check_string: tgHashData,
   });
-  const connection = new WebSocket(
-  "wss://3f97-178-91-253-104.ngrok-free.app/ws/top_5_fundings/123"
+  connection = new WebSocket(
+  "wss://dsde1736.fornex.org/ws/top_5_fundings/12311233"
 );
   connection.onopen = function (event) {
     console.log(event);
     console.log("Connected!");
   };
-  connection.onmessage = function (event) {
-    console.log(event);
-    data.value = JSON.parse(event.data);
-  };
+  connection.onmessage = function(e){
+    data.value = e.data
+  }
+
+});
+
+onBeforeUnmount(() => {
+  if (connection) {
+    connection.close(1000, 'Closing connection');
+    console.log('WebSocket connection closed');
+  }
 });
 </script>
 
 <template>
   <div class="flex flex-col min-h-screen">
     <Header :UserName="user?.username" />
+    <!-- {{ data }} -->
     <div class="flex-grow z-1 py-4">
       <div class="flex gap-4 my-4">
         <menuItems title="Импульсы цены" @click="toggleTeleport">

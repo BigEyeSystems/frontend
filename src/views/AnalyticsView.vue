@@ -1,7 +1,5 @@
 <script setup>
 import { ref } from "vue";
-import { PhCrownSimple } from "@phosphor-icons/vue";
-
 import footerMenu from "@/components/footer.vue";
 import ButtonView from "../components/button.vue";
 const selectedActive = ref(null);
