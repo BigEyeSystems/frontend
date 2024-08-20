@@ -42,15 +42,20 @@ const toggleNotification = () => {
 const tg = window.Telegram.WebApp;
 const user = tg.initDataUnsafe.user;
 const tgHashData = tg.initData;
-console.log(tgHashData)
+console.log(tgHashData);
 const data = ref(null);
 let connection;
 onMounted(() => {
-  axios.post("https://dsde1736.fornex.org/api/user/login_user", {
-    data_check_string: tgHashData,
-  }).then(function (response) {
-    console.log(response + 'response');
-  });
+  axios
+    .post("https://dsde1736.fornex.org/api/user/login_user", {
+      data_check_string: tgHashData,
+    })
+    .then(function (response) {
+      console.log(JSON.stringify(response.data) + " response");
+    })
+    .catch(function (error) {
+      console.error("There was an error!", error);
+    });
   connection = new WebSocket(
     "wss://dsde1736.fornex.org/ws/top_5_fundings/12311233"
   );
@@ -58,14 +63,14 @@ onMounted(() => {
     console.log(event);
     console.log("Connected!");
   };
-  connection.onmessage = function(e){
-    data.value = e.data
-  }
+  connection.onmessage = function (e) {
+    data.value = e.data;
+  };
 });
 onBeforeUnmount(() => {
   if (connection) {
-    connection.close(1000, 'Closing connection');
-    console.log('WebSocket connection closed');
+    connection.close(1000, "Closing connection");
+    console.log("WebSocket connection closed");
   }
 });
 </script>
@@ -129,7 +134,7 @@ onBeforeUnmount(() => {
         >
           <div class="flex justify-between mb-3">
             <div class="flex gap-3 items-center">
-              <crown/>
+              <crown />
               <p class="font-bold text-sm">Отслеживание импульсов цены</p>
             </div>
 
@@ -145,7 +150,7 @@ onBeforeUnmount(() => {
         >
           <div class="flex justify-between mb-3">
             <div class="flex gap-3 items-center">
-              <crown/>
+              <crown />
               <p class="font-bold text-sm">Градация активов по росту объёма</p>
             </div>
             <button @click="toggleTeleportGradation"><PhX :size="21" /></button>
@@ -160,7 +165,7 @@ onBeforeUnmount(() => {
         >
           <div class="flex justify-between mb-3">
             <div class="flex gap-3 items-center">
-              <crown/>
+              <crown />
               <p class="font-bold text-sm">Градация активов по росту цены</p>
             </div>
             <button @click="toggleTeleportGradationGrowth">
@@ -177,7 +182,7 @@ onBeforeUnmount(() => {
         >
           <div class="flex justify-between mb-3">
             <div class="flex gap-3 items-center">
-              <crown/>
+              <crown />
               <p class="font-bold text-sm">Отслеживание актива</p>
             </div>
             <button @click="toggleTrackingTicker"><PhX :size="21" /></button>
@@ -192,7 +197,7 @@ onBeforeUnmount(() => {
         >
           <div class="flex justify-between mb-3">
             <div class="flex gap-3 items-center">
-              <crown/>
+              <crown />
               <p class="font-bold text-sm">Ставки финансирования</p>
             </div>
             <button @click="toggleFundingData"><PhX :size="21" /></button>
