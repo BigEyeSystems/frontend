@@ -46,12 +46,14 @@ console.log(tgHashData)
 const data = ref(null);
 let connection;
 onMounted(() => {
-  axios.post("https://3f97-178-91-253-104.ngrok-free.app/user/login_user", {
+  axios.post("https://dsde1736.fornex.org/api/user/login_user", {
     data_check_string: tgHashData,
+  }).then(function (response) {
+    console.log(response);
   });
   connection = new WebSocket(
-  "wss://dsde1736.fornex.org/ws/top_5_fundings/12311233"
-);
+    "wss://dsde1736.fornex.org/ws/top_5_fundings/12311233"
+  );
   connection.onopen = function (event) {
     console.log(event);
     console.log("Connected!");
@@ -59,9 +61,7 @@ onMounted(() => {
   connection.onmessage = function(e){
     data.value = e.data
   }
-
 });
-
 onBeforeUnmount(() => {
   if (connection) {
     connection.close(1000, 'Closing connection');
