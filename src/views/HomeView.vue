@@ -49,7 +49,7 @@ onMounted(() => {
   axios.post("https://dsde1736.fornex.org/api/user/login_user", {
     data_check_string: tgHashData,
   }).then(function (response) {
-    console.log(response);
+    console.log(response + 'response');
   });
   connection = new WebSocket(
     "wss://dsde1736.fornex.org/ws/top_5_fundings/12311233"
