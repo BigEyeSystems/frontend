@@ -125,7 +125,7 @@ onBeforeUnmount(() => {
         </div>
       </div>
       <div class="my-4">
-        <tickerFunding />
+        <tickerFunding :detail="data"/>
       </div>
       <Teleport to="body">
         <div

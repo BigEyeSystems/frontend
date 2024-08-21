@@ -23,7 +23,7 @@ const user = tg.initDataUnsafe.user;
 <template>
   <div>
     <div class="flex mb-4 items-center gap-4">
-      <div class="border border-[#ffefef29] rounded-full p-9">
+      <div class="border border-[#ffefef29] rounded-full p-7">
       </div>
       <div>
         <p class="text-lg font-bold">{{ user?.username }} </p>

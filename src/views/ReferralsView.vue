@@ -30,8 +30,26 @@ import footerMenu from "@/components/footer.vue";
         </template>
       </ButtonView>
     </div>
+
+    <div class="flex justify-between items-center px-4 py-3 bg-gradient-to-r from-[#ffffff1f] to-[#ffffff12] rounded-xl my-4">
+      <div class="flex gap-1">
+        <p class="text-sm font-semibold text-[#b8b8b8]">Ваш баланс:</p>
+        <p class="text-sm font-semibold">0 TON</p>
+      </div>
+      <button class="text-sm font-semibold bg-[#92FBDB] text-black p-2 rounded-lg">Вывести</button>
+    </div>
+
+    <div class="flex border border-solid  border-[#2f2f2f99]">
+      <button class="w-1/2 py-1 px-2">Транзакции</button>
+      <button class="w-1/2 py-1 px-2">Как это работает?</button>
+    </div>
+
+    <div class="flex justify-center bg-[#17181C] py-7 rounded-2xl text-[#aeaeae] mt-4">
+      <p>Вы еще не пригласили друзей</p>
+    </div>
+
     <footer class="fixed bottom-0 left-0 w-full mt-48 mb-4">
-      <footerMenu class="w-[85vw]" ></footerMenu>
+      <footerMenu class="w-[90vw]" ></footerMenu>
     </footer>
   </div>
 </template>
