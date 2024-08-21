@@ -27,12 +27,17 @@ const router = createRouter({
     {
       path: '/profile/premium',
       component:() => import('./views/PremiumView.vue'),
-      name: '/premium'
+      name: '/profile/premium'
     },
     {
       path: '/referrals',
       component:() => import('./views/ReferralsView.vue'),
       name:'/referrals'
+    },
+    {
+      path: '/profile/settings',
+      component:() => import('./views/SettingsView.vue'),
+      name: '/profile/settings'
     }
 ]
 })

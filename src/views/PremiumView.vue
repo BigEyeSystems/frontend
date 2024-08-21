@@ -1,8 +1,9 @@
 <script setup>
 import { reactive } from 'vue';
 import crown from '@/components/icons/crown.vue';
-import footerMenu from "@/components/footer.vue";
+import ButtonMenu from '../components/button.vue';
 import premiumPeriod from '@/components/premiumPeriod.vue';
+import router from '@/router';
 
 const features = reactive([
   { name: 'Импульсы', basic: '+', premium: '+' },
@@ -17,23 +18,19 @@ const features = reactive([
 ]);
 
 
-const tg = window.Telegram.WebApp;
-const user = tg.initDataUnsafe.user;
 </script>
 <template>
   <div>
-    <div class="flex mb-4 items-center gap-4">
-      <div class="border border-[#ffefef29] rounded-full p-7">
-      </div>
+    <div class="flex mb-4 items-center justify-between w-1/2">
+      <button class="flex text-sm text-[#B8B8B8] items-center" @click="$router.go(-1)"><PhCaretLeft :size="22" color="#B8B8B8" />Назад</button>
       <div>
-        <p class="text-lg font-bold">{{ user?.username }} </p>
-        <p>Nov 10 2024</p>
+        <p class="text-lg font-semibold translate-x-2/4">Premium</p>
       </div>
     </div>
     <div class="bg-[#17181c] py-2 px-1 rounded-xl">
       <div class="p-1 py-4 flex gap-3 px-3">
         <div class="flex items-center">
-          <crown/>
+          <crown />
         </div>
         <div class="flex flex-col content-center text-xs">
           <p class="text-sm font-semibold">Еще больше плюсов с Premium</p>
@@ -64,8 +61,10 @@ const user = tg.initDataUnsafe.user;
         </table>
       </div>
     </div>
-    <footer class="fixed bottom-0 left-0 w-full mt-48 mb-4">
-      <footerMenu class="w-[90vw]" />
+    <footer class="fixed bottom-0 left-0 w-full mt-48 mb-4 px-4">
+      <button class="bg-gradient-to-r from-[#2DBDE8] to-[#0070A5] shadow-sm shadow-[#92fbdb80] w-full p-3 rounded-xl font-semibold btn flex  justify-center items-center gap-2 mt-4">
+          Подключить
+      </button>
     </footer>
   </div>
 </template>

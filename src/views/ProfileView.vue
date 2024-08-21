@@ -46,7 +46,7 @@ const user = tg.initDataUnsafe.user;
           <PhWallet :size="24" />
         </template>
       </profileButton>
-      <profileButton :text="'Настройки'">
+      <profileButton :text="'Настройки'" @click="router.push('/profile/settings')">
         <template #icon>
           <PhGear :size="24" />
         </template>
