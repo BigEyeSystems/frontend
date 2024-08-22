@@ -1,6 +1,8 @@
 <script setup>
-import { reactive } from 'vue';
-import premiumPeriod from '@/components/premiumPeriod.vue';
+import { ref } from 'vue';
+import { Switch } from 'ant-design-vue';
+
+const checked = ref(true);
 
 </script>
 <template>
@@ -27,8 +29,12 @@ import premiumPeriod from '@/components/premiumPeriod.vue';
                 <div class="flex gap-1">
                     <p class="text-sm">Уведомления от Smart Analytics</p>
                 </div>
-                <button class="text-sm font-semibold bg-[#92FBDB] text-black p-2 rounded-lg"></button>
+                <Switch default-checked  v-model:checked="checked" @change="onChange" />
             </div>
+        </div>
+        <p>Крипто рынок</p>
+        <div>
+            <div><p>Импульсы</p></div>
         </div>
     </div>
 </template>
