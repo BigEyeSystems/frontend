@@ -1,6 +1,7 @@
 <script setup>
 import { ref } from 'vue';
 import { Switch } from 'ant-design-vue';
+import LocalesView from './LocalesView.vue';
 const checkedNotification = ref(true);
 const checkedImpulse = ref(true);
 const checkedActive = ref(false);
@@ -16,7 +17,10 @@ const checkedRSI = ref(false);
 const checkedTradeRecommendations = ref(true);
 const checkedFibonacciNotice = ref(true);
 const checkedGrowthGradation = ref(true);
-
+const openLocales = ref(false);
+const toggleTeleport = () => {
+    openLocales.value = !openLocales.value;
+};
 </script>
 <template>
     <div>
@@ -30,7 +34,7 @@ const checkedGrowthGradation = ref(true);
         </div>
         <div>
             <div
-                class="flex justify-between items-center px-4 py-3 bg-gradient-to-r from-[#ffffff1f] to-[#ffffff12] rounded-xl my-4">
+                class="flex justify-between items-center px-4 py-3 bg-gradient-to-r from-[#ffffff1f] to-[#ffffff12] rounded-xl my-4"  @click="toggleTeleport">
                 <div class="flex flex-col gap-1">
                     <p class="text-sm font-semibold">Русский</p>
                     <p class="text-xs text-[#b8b8b8]">Язык</p>
@@ -104,6 +108,21 @@ const checkedGrowthGradation = ref(true);
                 <Switch default-checked  v-model:checked="checkedTrendTouch" @change="onChange" />
             </div>
         </div>
+        <Teleport to="body">
+        <div
+          v-if="openLocales"
+          class="modal h-[60vh] rounded-t-3xl bg-black fixed bottom-0 w-full py-5 px-4 overflow-auto"
+        >
+          <div class="flex justify-between mb-3">
+            <div class="flex gap-3 items-center">
+                <PhList :size="32"/>
+                <p class="text-lg font-bold">Смена языка</p>
+            </div>
+            <button @click="openLocales = false"><PhX :size="21" /></button>
+          </div>
+          <LocalesView />
+        </div>
+      </Teleport>
     </div>
 </template>
 <style scoped>

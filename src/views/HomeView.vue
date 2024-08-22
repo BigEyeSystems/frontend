@@ -124,7 +124,7 @@ onBeforeUnmount(() => {
           <PhClock :size="16" /> 12:03 <PhCalendarDots :size="16" /> 9.01.2024
         </div>
       </div>
-      <div class="my-4">
+      <div class="my-4 mb-20">
         <tickerFunding :detail="data"/>
       </div>
       <Teleport to="body">
@@ -221,8 +221,8 @@ onBeforeUnmount(() => {
         </div>
       </Teleport>
     </div>
-    <footer class="fixed bottom-0 left-0 w-full mt-48 mb-4">
-      <footerMenu class="w-[90vw]" />
+    <footer class="fixed bottom-0 left-0 w-full mt-48 mb-4 px-4">
+      <footerMenu/>
     </footer>
   </div>
 </template>

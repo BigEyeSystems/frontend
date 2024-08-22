@@ -51,8 +51,8 @@ const toggleAnalytics = () => {
             </div>
 
         </div>
-        <footer class="fixed bottom-0 left-0 w-full mt-48 mb-4">
-            <footerMenu class="w-[90vw]" />
+        <footer class="fixed bottom-0 left-0 w-full mt-48 mb-4 px-4">
+            <footerMenu />
         </footer>
     </div>
 </template>

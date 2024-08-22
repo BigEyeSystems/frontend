@@ -1,0 +1,25 @@
+<script setup></script>
+<template>
+    <div>
+        <input class="w-full my-4 p-3 rounded-lg border-transparent focus:outline-none bg-[#17181C] focus:bg-[#17181C]" type="text" placeholder="Поиск">
+        <div class="bg-gradient-to-r from-[#ffffff1f] to-[#ffffff12] px-4 py-3 rounded-lg text-sm">
+            <div class="flex justify-between py-4 setting-border">
+                <div class="flex flex-col gap-1">
+                    <p class="text-sm font-semibold">Русский</p>
+                    <p class="text-xs text-[#b8b8b8]">Русский</p>
+                </div>
+            </div>
+            <div class="flex justify-between py-4">
+                <div class="flex flex-col gap-1">
+                    <p class="text-sm font-semibold">Английский</p>
+                    <p class="text-xs text-[#b8b8b8]">English</p>
+                </div>
+            </div>
+        </div>  
+    </div>
+</template>
+<style scoped>
+.setting-border{
+    border-bottom: 0.5px solid #4B4B4B;
+}
+</style>
