@@ -10,6 +10,7 @@
     "test:unit": "vitest"
   },
   "dependencies": {
+    "@fontsource/inter": "^5.0.20",
     "@phosphor-icons/vue": "^2.2.1",
     "ant-design-vue": "^4.2.3",
     "axios": "^1.7.4",

@@ -6,6 +6,7 @@ import PhosphorIcons from "@phosphor-icons/vue"
 import App from './App.vue'
 import  {VueTelegramPlugin} from 'vue-tg'
 import { createRouter, createWebHistory } from 'vue-router'
+import '@fontsource/inter';
 const router = createRouter({
   history: createWebHistory(),
   routes: [
