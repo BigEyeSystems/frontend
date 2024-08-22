@@ -39,7 +39,7 @@ import footerMenu from "@/components/footer.vue";
       <button class="text-sm font-semibold bg-[#92FBDB] text-black p-2 rounded-lg">Вывести</button>
     </div>
 
-    <div class="flex border border-solid  border-[#2f2f2f99]">
+    <div class="flex border border-solid  border-[#2f2f2f99] rounded-lg">
       <button class="w-1/2 py-1 px-2">Транзакции</button>
       <button class="w-1/2 py-1 px-2">Как это работает?</button>
     </div>
