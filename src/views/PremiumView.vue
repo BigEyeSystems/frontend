@@ -27,7 +27,7 @@ const features = reactive([
         <p class="text-lg font-semibold translate-x-2/4">Premium</p>
       </div>
     </div>
-    <div class="bg-[#17181c] py-2 px-1 rounded-xl">
+    <div class="bg-[#17181c] py-2 px-1 rounded-xl mb-16">
       <div class="p-1 py-4 flex gap-3 px-3">
         <div class="flex items-center">
           <crown />

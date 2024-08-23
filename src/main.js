@@ -39,7 +39,13 @@ const router = createRouter({
       path: '/profile/settings',
       component:() => import('./views/SettingsView.vue'),
       name: '/profile/settings'
-    }
+    },
+    {
+      path: '/profile/wallet',
+      component:() => import('./views/WalletView.vue'),
+      name: '/profile/wallet'
+    },
+
 ]
 })
 

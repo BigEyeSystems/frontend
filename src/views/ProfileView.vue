@@ -41,7 +41,7 @@ const user = tg.initDataUnsafe.user;
           <PhCaretRight :size="24"/>
         </div>
       </button>
-      <profileButton :text="'Кошелек'">
+      <profileButton :text="'Кошелек'" @click="router.push('/profile/wallet')">
         <template #icon>
           <PhWallet :size="24" />
         </template>
