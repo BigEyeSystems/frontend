@@ -67,7 +67,7 @@ const selectHistory = (index) => {
       class="mt-4"
     />
     <div v-else>
-      <ButtonView :text="'Добавить информацию'" class="my-3" />
+      <ButtonView :text="'Добавить отслеживание (макс. 3)'" class="my-3" />
     </div>
 
     <div v-if="showImpulse">

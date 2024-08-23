@@ -1,3 +1,16 @@
+<script setup>
+import { PhBell } from "@phosphor-icons/vue";
+const props = defineProps({
+    UserName: {
+        type: String,
+        required: true
+    },
+    lang:{
+        type: String,
+        required: true
+    }
+})
+</script>
 <template>
 <div class="flex justify-between">
     <div>
@@ -6,17 +19,9 @@
             {{ UserName }}
         </p>
     </div>
-    <div class="flex flex-col justify-center">
+    <div class="flex justify-center items-center gap-3">
+        <div class="text-xs font-semibold p-2 bg-[#7474802e] rounded-full">{{lang}}</div>
         <PhBell :size="24" />
     </div>
 </div>
 </template>
-<script setup>
-import { PhBell } from "@phosphor-icons/vue";
-const props = defineProps({
-    UserName: {
-        type: String,
-        required: true
-    }
-})
-</script>
