@@ -4,20 +4,10 @@ import crown from '@/components/icons/crown.vue';
 import ButtonMenu from '../components/button.vue';
 import premiumPeriod from '@/components/premiumPeriod.vue';
 import router from '@/router';
-
-const features = reactive([
-  { name: 'Импульсы', basic: '+', premium: '+' },
-  { name: 'ТОП тикеры', basic: '+', premium: '+' },
-  { name: 'Рост объемов', basic: '-', premium: '+' },
-  { name: 'Динамика цены и объемов', basic: '-', premium: '+' },
-  { name: 'Ослеживание актива', basic: '-', premium: '+' },
-  { name: 'Информация о тикере', basic: '-', premium: '+' },
-  { name: 'Корреляция двух активов', basic: '-', premium: '+' },
-  { name: 'Суточные объемы', basic: '-', premium: '+' },
-  { name: 'Доступ к новым функциям', basic: '-', premium: '+' }
-]);
-
-
+import check from '@/components/icons/check.vue';
+import checkPremium from '@/components/icons/checkPremium.vue';
+import infinity from '@/components/icons/infinity.vue';
+import close from '@/components/icons/close.vue';
 </script>
 <template>
   <div>
@@ -47,15 +37,85 @@ const features = reactive([
           <thead>
             <tr>
               <th>Название</th>
-              <th>Basic</th>
-              <th>Premium</th>
+              <th style="text-align: center;">Basic</th>
+              <th style="text-align: center;">Premium</th>
             </tr>
           </thead>
           <tbody>
-            <tr v-for="(item, index) in features" :key="index">
-              <td>{{ item.name }}</td>
-              <td style="text-align: center">{{ item.basic }}</td>
-              <td style="text-align: center">{{ item.premium }}</td>
+            <tr >
+              <td class="text-xs font-semibold">Импульсы</td>
+              <td style="text-align: center;"><p class="text-sm">1</p><p class="text-xs">актив</p></td>
+              <td style="text-align: center;"><p class="text-sm">3</p><p class="text-xs">актива</p></td>
+            </tr>
+            <tr >
+              <td class="text-xs font-semibold">Ослеживание актива</td>
+              <td style="text-align: center;"><p class="text-sm">1</p><p class="text-xs">актив</p></td>
+              <td style="text-align: center;"><p class="text-sm">3</p><p class="text-xs">актива</p></td>
+            </tr>
+            <tr>
+              <td class="text-xs font-semibold">Ставки финансирования</td>
+              <td style="text-align: center; align-items: center;"><div class="flex justify-center"><check/></div></td>
+              <td style="text-align: center; align-items: center;"><div class="flex justify-center"><checkPremium/></div></td>
+            </tr>
+            <tr>
+              <td class="text-xs font-semibold">Информация о тикере</td>
+              <td style="text-align: center; align-items: center;"><p class="text-sm">5</p><p class="text-xs">запросов</p></td>
+              <td style="text-align: center; align-items: center;"><div class="flex justify-center"><infinity/></div></td>
+            </tr>
+            <tr>
+              <td class="text-xs font-semibold">Корреляция двух активов</td>
+              <td style="text-align: center; align-items: center;"><p class="text-sm">5</p><p class="text-xs">запросов</p></td>
+              <td style="text-align: center; align-items: center;"><div class="flex justify-center"><infinity/></div></td>
+            </tr>
+            <tr>
+              <td class="text-xs font-semibold">История торговых объемов</td>
+              <td style="text-align: center;"><p class="text-sm">10</p><p class="text-xs">дней</p></td>
+              <td style="text-align: center;"><p class="text-sm">40</p><p class="text-xs">дней</p></td>
+            </tr>
+            <tr>
+              <td class="text-xs font-semibold">Доступ к новым функциям</td>
+              <td><div class="flex justify-center"><close/></div></td>
+              <td style="text-align: center; align-items: center;"><div class="flex justify-center"><checkPremium/></div></td>
+            </tr>
+            <tr>
+              <td class="text-xs font-semibold">Имбалансы (FVG)</td>
+              <td style="text-align: center;"><p class="text-sm">1</p><p class="text-xs">актив</p></td>
+              <td style="text-align: center;"><p class="text-sm">5</p><p class="text-xs">актив</p></td>
+            </tr>
+            <tr>
+              <td class="text-xs font-semibold">Снятие ключевых ликвидностей</td>
+              <td style="text-align: center;"><p class="text-sm">1</p><p class="text-xs">вида</p></td>
+              <td style="text-align: center;"><p class="text-sm">4</p><p class="text-xs">вида</p></td>
+            </tr>
+            <tr>
+              <td class="text-xs font-semibold">Градация роста объемов</td>
+              <td style="text-align: center;"><p class="text-sm">2</p><p class="text-xs">таймфрейма</p></td>
+              <td style="text-align: center;"><p class="text-sm">4</p><p class="text-xs">таймфрейма</p></td>
+            </tr>
+            <tr>
+              <td class="text-xs font-semibold">ТОП тикеры</td>
+              <td><div class="flex justify-center"><check/></div></td>
+              <td style="text-align: center; align-items: center;"><div class="flex justify-center"><checkPremium/></div></td>
+            </tr>
+            <tr>
+              <td class="text-xs font-semibold">Уведомления по Фибоначчи</td>
+              <td><div class="flex justify-center"><close/></div></td>
+              <td style="text-align: center; align-items: center;"><div class="flex justify-center"><checkPremium/></div></td>
+            </tr>
+            <tr>
+              <td class="text-xs font-semibold">Торговые рекомендации</td>
+              <td style="text-align: center; align-items: center;"><p class="text-sm">2</p><p class="text-xs">в месяц</p></td>
+              <td style="text-align: center; align-items: center;"><div class="flex justify-center"><infinity/></div></td>
+            </tr>
+            <tr>
+              <td class="text-xs font-semibold">RSI (Дивергенции конвергенции)</td>
+              <td style="text-align: center;"><p class="text-sm">3</p><p class="text-xs">актива</p></td>
+              <td style="text-align: center;"><p class="text-sm">6</p><p class="text-xs">активов</p></td>
+            </tr>
+            <tr>
+              <td class="text-xs font-semibold">Касание трендовых</td>
+              <td style="text-align: center;"><p class="text-sm">1</p><p class="text-xs">таймфреймов</p></td>
+              <td style="text-align: center;"><p class="text-sm">5</p><p class="text-xs">таймфреймов</p></td>
             </tr>
           </tbody>
         </table>

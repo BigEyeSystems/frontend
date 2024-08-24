@@ -17,32 +17,30 @@
         <div v-for="(item, index) in fundingData.top_tickers_by_volume.first_5" :key="index" class="text-xs mb-2">
           <div class="flex justify-between">
             <p>{{ item.symbol }}</p>
-            <p>{{ item.lastPrice }}$</p>
+            <p>{{ parseFloat(item.quoteVolume).toFixed(1) }}$</p>
           </div>
           <div class="flex justify-between pb-2">
-            <p class="text-[#B8B8B8]">= {{ item.quoteVolume }}$</p>
+            <p class="text-[#B8B8B8]">= {{ item.lastPrice }}$(<span :style="{ color: item.priceChangePercent > 0 ? 'green' : 'red' }">{{ parseFloat(item.priceChangePercent).toFixed(2) }}%</span>)</p>
             <p class="text-[#B8B8B8]">
-              5 мин назад:
-              <span :style="{ color: item.priceChangePercent > 0 ? 'green' : 'red' }">
-                {{ item.priceChangePercent }}%</span>
+              {{ parseFloat(item.quoteVolume).toFixed(1)}}$
             </p>
           </div>
         </div>
       </div>
     </div>
-    <div v-else-if="showFundingFirstFive">
+    <div v-else-if="showFundingLastFive">
       <div v-if="fundingData && fundingData.top_tickers && fundingData.top_tickers.last_5">
         <div v-for="(item, index) in fundingData.top_tickers.last_5" :key="index" class="text-xs mb-2">
           <div class="flex justify-between">
             <p>{{ item.symbol }}</p>
-            <p>{{ item.fundingRate }}$</p>
+            <p>{{ parseFloat(item.fundingRate).toFixed(4) }}%</p>
           </div>
           <div class="flex justify-between pb-2">
-            <p class="text-[#B8B8B8]">= {{ item.fundingTime }}$</p>
+            <p class="text-[#B8B8B8]">= {{ item.markPrice }}$</p>
             <p class="text-[#B8B8B8]">
               5 мин назад:
-              <span :style="{ color: item.markPrice > 0 ? 'green' : 'red' }">
-                {{ item.markPrice }}%</span>
+              <span :style="{ color: item.fundingRate > 0 ? 'green' : 'red' }">
+                {{ parseFloat(item.fundingRate).toFixed(4) }}%</span>
             </p>
           </div>
         </div>
@@ -51,19 +49,19 @@
           Loading...
       </div>
     </div>
-    <div v-else-if="showFundingLastFive">
+    <div v-else-if="showFundingFirstFive">
       <div v-if="fundingData && fundingData.top_tickers && fundingData.top_tickers.first_5">
         <div v-for="(item, index) in fundingData.top_tickers.first_5" :key="index" class="text-xs mb-2">
           <div class="flex justify-between">
             <p>{{ item.symbol }}</p>
-            <p>{{ item.fundingRate }}$</p>
+            <p>{{ parseFloat(item.fundingRate).toFixed(4) }}%</p>
           </div>
           <div class="flex justify-between pb-2">
-            <p class="text-[#B8B8B8]">= {{ item.fundingTime }}$</p>
+            <p class="text-[#B8B8B8]">= {{ item.markPrice }}$</p>
             <p class="text-[#B8B8B8]">
               5 мин назад:
-              <span :style="{ color: item.markPrice > 0 ? 'green' : 'red' }">
-                {{ item.markPrice }}%</span>
+              <span :style="{ color: item.fundingRate > 0 ? 'green' : 'red' }">
+                {{ parseFloat(item.fundingRate).toFixed(4) }}%</span>
             </p>
           </div>
         </div>

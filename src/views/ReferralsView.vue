@@ -2,6 +2,7 @@
 import crown from "../components/icons/crown.vue";
 import ButtonView from "../components/button.vue";
 import footerMenu from "@/components/footer.vue";
+
 </script>
 <template>
   <div>
