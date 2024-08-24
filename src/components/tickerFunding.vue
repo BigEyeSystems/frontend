@@ -1,7 +1,6 @@
 <template>
   <div class="rounded-[calc(1.5rem-10px)] p-1 bg-[#17181C] p-3">
     <div class="flex text-xs justify-between border rounded border-[#2F2F2F99] mb-2" style="padding: 1px;">
-
       <button @click="sortByFundingAsc" class="focus:font-semibold focus:bg-gradient-to-r focus:from-[#ffffff1f] focus:to-[#ffffff12] py-1 px-2 focus:rounded">
         По фандингу (+)
       </button>
