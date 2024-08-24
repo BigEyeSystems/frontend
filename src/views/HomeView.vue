@@ -47,7 +47,7 @@ const data = ref(null);
 let connection;
 onMounted(() => {
   axios
-    .post("https://0d5c-85-117-112-217.ngrok-free.app/user/login_user", {
+    .post("https://dsde1736.fornex.org/api/user/login_user", {
       data_check_string: tgHashData,
     })
     .then(function (response) {

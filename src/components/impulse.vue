@@ -26,7 +26,7 @@ const selectPercent = (index, percent) => {
 const showImpulseData = () => {
   axios.post("https://0d5c-85-117-112-217.ngrok-free.app/notify/set_impulse", {interval: changeInterval, percentage: changePercent}, {
     headers: {
-      Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZWxlZ3JhbV9pZCI6NzM3MjcxMjI4LCJ1c2VybmFtZSI6ImRhZ2FtYTA3IiwidXNlcl9pZCI6MiwiZXhwIjoxNzI0NTExNjQ3fQ.PSQ7WPCIsuCk6e34Hl10q_8a231UyyrfE_Jo-SKyh_8`
+      Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZWxlZ3JhbV9pZCI6NzM3MjcxMjI4LCJ1c2VybmFtZSI6ImRhZ2FtYTA3IiwidXNlcl9pZCI6MiwiZXhwIjoxNzI0NTEzNDgxfQ.se0hkcB6V9_e2ZO2X3lpukq_1wIAiqXsrHyYWlN5ZKg`
     }
   })
     .then(response => {
