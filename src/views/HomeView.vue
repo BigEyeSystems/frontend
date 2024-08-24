@@ -13,6 +13,7 @@ import trackingTickerView from "./trackingTickerView.vue";
 import FundingDataView from "./FundingDataView.vue";
 import NotificationView from "./NotificationView.vue";
 import crown from "../components/icons/crown.vue";
+const isToken = ref('');
 const open = ref(false);
 const openGradation = ref(false);
 const openGradationGrowth = ref(false);
@@ -39,6 +40,8 @@ const toggleNotification = () => {
   openNotification.value = !openNotification.value;
 };
 
+
+
 const tg = window.Telegram.WebApp;
 const user = tg.initDataUnsafe.user;
 const tgHashData = tg.initData;
@@ -54,6 +57,7 @@ onMounted(() => {
       console.log('YaY')
       console.log(JSON.stringify(response.data) + " response");
       localStorage.setItem('token', response.data.token);
+      isToken.value = localStorage.getItem('token')
     })
     .catch(function (error) {
       console.error("There was an error!", error);
@@ -80,6 +84,7 @@ onBeforeUnmount(() => {
 <template>
   <div class="flex flex-col min-h-screen">
     <Header :UserName="user?.username" :lang="'RU'"/>
+    {{ isToken }}
     <div class="flex-grow z-1 py-4">
       <div class="flex gap-4 my-4">
         <menuItems title="Импульсы цены" @click="toggleTeleport">
