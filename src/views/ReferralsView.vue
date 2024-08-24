@@ -2,7 +2,15 @@
 import crown from "../components/icons/crown.vue";
 import ButtonView from "../components/button.vue";
 import footerMenu from "@/components/footer.vue";
-
+import { ref } from "vue";
+const isrTansaction = ref(true);
+const isProcess = ref(false);
+const showTransaction = () => {
+  isrTansaction.value = true;
+}
+const showProcess = () => {
+  isProcess.value = true;
+}
 </script>
 <template>
   <div>
@@ -41,11 +49,11 @@ import footerMenu from "@/components/footer.vue";
     </div>
 
     <div class="flex border border-solid  border-[#2f2f2f99] rounded-lg">
-      <button class="w-1/2 py-1 px-2">Транзакции</button>
+      <button class="w-1/2 py-1 px-2" @click="showTransaction">Транзакции</button>
       <button class="w-1/2 py-1 px-2">Как это работает?</button>
     </div>
 
-    <div class="flex justify-center bg-[#17181C] py-7 rounded-2xl text-[#aeaeae] mt-4">
+    <div v-if="showTransaction" class="flex justify-center bg-[#17181C] py-7 rounded-2xl text-[#aeaeae] mt-4">
       <p>Вы еще не пригласили друзей</p>
     </div>
 

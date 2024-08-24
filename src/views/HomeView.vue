@@ -47,7 +47,7 @@ const data = ref(null);
 let connection;
 onMounted(() => {
   axios
-    .post("https://dsde1736.fornex.org/api/user/login_user", {
+    .post("https://0d5c-85-117-112-217.ngrok-free.app/user/login_user", {
       data_check_string: tgHashData,
     })
     .then(function (response) {
@@ -78,7 +78,6 @@ onBeforeUnmount(() => {
 <template>
   <div class="flex flex-col min-h-screen">
     <Header :UserName="user?.username" :lang="'RU'"/>
-    <!-- {{ data }} -->
     <div class="flex-grow z-1 py-4">
       <div class="flex gap-4 my-4">
         <menuItems title="Импульсы цены" @click="toggleTeleport">
