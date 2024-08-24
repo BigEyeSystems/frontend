@@ -24,7 +24,7 @@ const selectPercent = (index, percent) => {
   changePercent.value = percent;
 };
 const showImpulseData = () => {
-  axios.post("https://dsde1736.fornex.org/api/notify/set_impulse", {interval: changeInterval, percentage: changePercent}, {
+  axios.post("https://dsde1736.fornex.org/api/notify/set_impulse", {interval: Number(changeInterval), percentage: Number(changePercent)}, {
     headers: {
       Authorization: `Bearer ${localStorage.getItem('token')}`
     }
