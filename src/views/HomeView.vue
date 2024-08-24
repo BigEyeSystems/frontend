@@ -80,7 +80,6 @@ onBeforeUnmount(() => {
 <template>
   <div class="flex flex-col min-h-screen">
     <Header :UserName="user?.username" :lang="'RU'"/>
-    {{ localStorage.getItem('token') }}
     <div class="flex-grow z-1 py-4">
       <div class="flex gap-4 my-4">
         <menuItems title="Импульсы цены" @click="toggleTeleport">
