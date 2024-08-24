@@ -24,11 +24,24 @@ const selectPercent = (index, percent) => {
   changePercent.value = percent;
 };
 const showImpulseData = () => {
-  axios.post("https://dsde1736.fornex.org/api/notify/set_impulse", {interval: Number(changeInterval), percentage: Number(changePercent)}, {
-    headers: {
-      Authorization: `Bearer ${localStorage.getItem('token')}`
-    }
-  })
+  const intervalValue = changeInterval.value !== null ? Number(changeInterval.value) : 0;
+  const percentValue = changePercent.value !== null ? Number(changePercent.value) : 0;  
+  
+  if (isNaN(intervalValue) || isNaN(percentValue)) {
+    console.error("Invalid interval or percentage value.");
+    return;
+  }
+
+  axios.post("https://dsde1736.fornex.org/api/notify/set_impulse", 
+    {
+      interval: intervalValue,
+      percentage: percentValue
+    }, 
+    {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`
+      }
+    })
     .then(response => {
       console.log(response.data);
     })
@@ -36,6 +49,7 @@ const showImpulseData = () => {
       console.error(error);
     });
 }
+
 </script>
 
 <template>
