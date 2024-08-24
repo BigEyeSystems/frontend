@@ -7,9 +7,11 @@ const isrTansaction = ref(true);
 const isProcess = ref(false);
 const showTransaction = () => {
   isrTansaction.value = true;
+  isProcess.value = false;
 }
 const showProcess = () => {
   isProcess.value = true;
+  isrTansaction.value = false;
 }
 </script>
 <template>
@@ -49,11 +51,11 @@ const showProcess = () => {
     </div>
 
     <div class="flex border border-solid  border-[#2f2f2f99] rounded-lg">
-      <button class="w-1/2 py-1 px-2" @click="showTransaction">Транзакции</button>
-      <button class="w-1/2 py-1 px-2">Как это работает?</button>
+      <button class="w-1/2 py-1 px-2" @click="showTransaction" :class="[ isrTansaction ? 'font-semibold bg-gradient-to-r from-[#ffffff1f] to-[#ffffff12] rounded' : '']">Транзакции</button>
+      <button class="w-1/2 py-1 px-2" @click="showProcess" :class="[ isProcess ? 'font-semibold bg-gradient-to-r from-[#ffffff1f] to-[#ffffff12] rounded' : '']">Как это работает?</button>
     </div>
 
-    <div v-if="showTransaction" class="flex justify-center bg-[#17181C] py-7 rounded-2xl text-[#aeaeae] mt-4">
+    <div v-if="isrTansaction" class="flex justify-center bg-[#17181C] py-7 rounded-2xl text-[#aeaeae] mt-4">
       <p>Вы еще не пригласили друзей</p>
     </div>
 

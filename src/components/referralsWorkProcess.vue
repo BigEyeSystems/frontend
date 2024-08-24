@@ -12,5 +12,8 @@ const props = defineProps({
 })
 </script>
 <template>
-    <div></div>
+    <div>
+        <p>{{ title }}</p>
+        <p>{{ text }}</p>
+    </div>
 </template>
