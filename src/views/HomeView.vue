@@ -53,6 +53,7 @@ onMounted(() => {
     .then(function (response) {
       console.log('YaY')
       console.log(JSON.stringify(response.data) + " response");
+      localStorage.setItem('token', response.data.token);
     })
     .catch(function (error) {
       console.error("There was an error!", error);
