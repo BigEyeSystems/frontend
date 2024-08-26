@@ -59,7 +59,6 @@ onMounted(() => {
       data_check_string: tgHashData,
     })
     .then(function (response) {
-      console.log('YaY')
       console.log(JSON.stringify(response.data) + " response");
       localStorage.setItem('token', response.data.token);
       isToken.value = localStorage.getItem('token')

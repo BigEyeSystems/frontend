@@ -22,7 +22,7 @@ const showProcess = () => {
 
 const copyReferral = async () => {
   try {
-    const response = await axios.get("https://dsde1736.fornex.org/api/notify/set_impulse", {
+    const response = await axios.get("https://dsde1736.fornex.org/api/user/get_referral_link", {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`
       }
