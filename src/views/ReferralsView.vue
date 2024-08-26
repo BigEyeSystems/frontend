@@ -14,6 +14,22 @@ const showProcess = () => {
   isProcess.value = true;
   isrTansaction.value = false;
 }
+const copyReferral = () => {
+  const link = ref('');
+  axios.get("https://dsde1736.fornex.org/api/notify/set_impulse", 
+    {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`
+      }
+    })
+    .then(response => {
+      link.value = response.data;
+    })
+    .catch(error => {
+      console.error(error);
+    });
+  navigator.clipboard.writeText(link.value);
+}
 </script>
 <template>
   <div>
@@ -36,7 +52,7 @@ const showProcess = () => {
           <img src="../components/icons/ton_logo.png" alt="ton" class="w-20" />
         </div>
       </div>
-      <ButtonView :text="'Скопировать ссылку'" class="mt-4">
+      <ButtonView :text="'Скопировать ссылку'" class="mt-4" >
         <template #icon>
           <PhCards  :size="21" />
         </template>

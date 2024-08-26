@@ -45,7 +45,6 @@ const showImpulseData = () => {
       console.error(error);
     });
     showImpulse.value = !showImpulse.value;
-
 }
 
 </script>
