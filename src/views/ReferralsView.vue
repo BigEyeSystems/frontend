@@ -4,33 +4,37 @@ import ButtonView from "../components/button.vue";
 import footerMenu from "@/components/footer.vue";
 import { ref } from "vue";
 import referralsWorkProcess from "../components/referralsWorkProcess.vue";
+import axios from "axios"; 
+
 const isrTansaction = ref(true);
 const isProcess = ref(false);
+const link = ref(''); 
+
 const showTransaction = () => {
   isrTansaction.value = true;
   isProcess.value = false;
-}
+};
+
 const showProcess = () => {
   isProcess.value = true;
   isrTansaction.value = false;
-}
-const copyReferral = () => {
-  const link = ref('');
-  axios.get("https://dsde1736.fornex.org/api/notify/set_impulse", 
-    {
+};
+
+const copyReferral = async () => {
+  try {
+    const response = await axios.get("https://dsde1736.fornex.org/api/notify/set_impulse", {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`
       }
-    })
-    .then(response => {
-      link.value = response.data;
-    })
-    .catch(error => {
-      console.error(error);
     });
-  navigator.clipboard.writeText(link.value);
-}
+    link.value = response.data;
+    await navigator.clipboard.writeText(link.value);
+  } catch (error) {
+    console.error('Failed to copy referral link:', error);
+  }
+};
 </script>
+
 <template>
   <div>
     <div class="flex gap-3">
