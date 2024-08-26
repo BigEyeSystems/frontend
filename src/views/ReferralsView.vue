@@ -27,7 +27,7 @@ const copyReferral = async () => {
         Authorization: `Bearer ${localStorage.getItem('token')}`
       }
     });
-    link.value = response.data;
+    link.value = response.data.link;
     await navigator.clipboard.writeText(link.value);
   } catch (error) {
     console.error('Failed to copy referral link:', error);
