@@ -21,7 +21,7 @@
           <div class="flex justify-between pb-2">
             <p class="text-[#B8B8B8]">= {{ item.lastPrice }}$(<span :style="{ color: item.priceChangePercent > 0 ? 'green' : 'red' }">{{ parseFloat(item.priceChangePercent).toFixed(2) }}%</span>)</p>
             <p class="text-[#B8B8B8]">
-              {{ parseFloat(item.quoteVolume).toFixed(1)}}$
+              5 мин назад: {{ parseFloat(item.quoteVolume).toFixed(1)}}$
             </p>
           </div>
         </div>

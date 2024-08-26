@@ -1,5 +1,10 @@
 <script setup>
 import ButtonView from "../components/button.vue";
+import { ref } from "vue";
+const isBinded = ref(false);
+const bindWallet = () => {
+  isBinded.value = !isBinded.value;
+}
 </script>
 <template>
   <div>
@@ -16,14 +21,18 @@ import ButtonView from "../components/button.vue";
         <div class="flex justify-between">
           <div class="flex flex-col justify-center">
             <p class="text-sm font-semibold">Кошелек TON</p>
-            <p class="text-wrap text-sm text-[#B8B8B8]">Не привязан</p>
+            <p v-if="!isBinded" class="text-wrap text-sm text-[#B8B8B8]">Не привязан</p>
+            <p v-if="isBinded" class="text-wrap text-sm text-[#B8B8B8]">Привязан</p>
           </div>
           <div>
             <img src="../components/icons/ton_logo.png" alt="ton" class="w-12" />
           </div>
         </div>
       </div>
-      <ButtonView :text="'Подключить кошелек'" class="mt-4"/>
+      <ButtonView v-if="!isBinded" :text="'Подключить кошелек'" class="mt-4" :on-click="bindWallet"/>
+      <button v-if="isBinded" class="bg-[#17181C] w-full p-3 rounded-xl font-semibold flex  justify-center items-center gap-2 mt-4" @click="bindWallet">
+        Отвязать кошелек
+    </button>
     </div>
   </div>
 </template>

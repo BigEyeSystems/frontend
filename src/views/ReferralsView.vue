@@ -3,6 +3,7 @@ import crown from "../components/icons/crown.vue";
 import ButtonView from "../components/button.vue";
 import footerMenu from "@/components/footer.vue";
 import { ref } from "vue";
+import referralsWorkProcess from "../components/referralsWorkProcess.vue";
 const isrTansaction = ref(true);
 const isProcess = ref(false);
 const showTransaction = () => {
@@ -50,13 +51,35 @@ const showProcess = () => {
       <button class="text-sm font-semibold bg-[#92FBDB] text-black p-2 rounded-lg">Вывести</button>
     </div>
 
-    <div class="flex border border-solid  border-[#2f2f2f99] rounded-lg">
-      <button class="w-1/2 py-1 px-2" @click="showTransaction" :class="[ isrTansaction ? 'font-semibold bg-gradient-to-r from-[#ffffff1f] to-[#ffffff12] rounded' : '']">Транзакции</button>
-      <button class="w-1/2 py-1 px-2" @click="showProcess" :class="[ isProcess ? 'font-semibold bg-gradient-to-r from-[#ffffff1f] to-[#ffffff12] rounded' : '']">Как это работает?</button>
+    <div class="flex border border-solid  border-[#2f2f2f99] rounded-lg mb-4" style="padding: 1px;">
+      <button class="w-1/2 py-1 px-2 text-xs" @click="showTransaction" :class="[ isrTansaction ? 'font-semibold bg-gradient-to-r from-[#ffffff1f] to-[#ffffff12] rounded' : '']">Транзакции</button>
+      <button class="w-1/2 py-1 px-2 text-xs" @click="showProcess" :class="[ isProcess ? 'font-semibold bg-gradient-to-r from-[#ffffff1f] to-[#ffffff12] rounded' : '']">Как это работает?</button>
     </div>
 
-    <div v-if="isrTansaction" class="flex justify-center bg-[#17181C] py-7 rounded-2xl text-[#aeaeae] mt-4">
+    <div v-if="isrTansaction" class="flex justify-center bg-[#17181C] py-7 rounded-2xl text-xs text-[#aeaeae] mb-24">
       <p>Вы еще не пригласили друзей</p>
+    </div>
+    <div v-if="isProcess" class="flex flex-col gap-2 mb-24">
+      <referralsWorkProcess :title="'Скопировать ссылку'" :text="'Нажмите кнопку в баннере'">
+        <template #icon>
+          <PhCards :size="24" />
+        </template>
+      </referralsWorkProcess>
+      <referralsWorkProcess :title="'Поделиться ссылкой'" :text="'Отправьте ссылку в удобном мессенджере'">
+        <template #icon>
+          <PhWhatsappLogo :size="24" />
+        </template>
+      </referralsWorkProcess>
+      <referralsWorkProcess :title="'Покупка подписки'" :text="'Приглашенный должен приобрести подписку'">
+        <template #icon>
+          <PhUserPlus :size="24" />
+        </template>
+      </referralsWorkProcess>
+      <referralsWorkProcess :title="'Реферальная система'" :text="'Подключите кошелек тон, и выведите деньги'">
+        <template #icon>
+          <PhConfetti :size="24" />
+        </template>
+      </referralsWorkProcess>
     </div>
 
     <footer class="fixed bottom-0 left-0 w-full mt-48 mb-4 px-4">

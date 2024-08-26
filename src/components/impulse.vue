@@ -9,10 +9,6 @@ const selectedInterval = ref(null);
 const selectedPercent = ref(null);
 const showImpulse = ref(false);
 
-const toggleImpulse = () => {
-  showImpulse.value = !showImpulse.value;
-
-};
 
 const selectInterval = (index, interval) => {
   selectedInterval.value = index;
@@ -48,6 +44,8 @@ const showImpulseData = () => {
     .catch(error => {
       console.error(error);
     });
+    showImpulse.value = !showImpulse.value;
+
 }
 
 </script>
@@ -82,8 +80,7 @@ const showImpulseData = () => {
       </div>
     </div>
 
-    <ButtonView v-if="!showImpulse" :text="'Получить информацию'" :on-click="toggleImpulse" class="mt-4"
-      @click="showImpulseData" />
+    <ButtonView v-if="!showImpulse" :text="'Получить информацию'" class="mt-4" @click="showImpulseData" />
     <div v-else>
       <ButtonView :text="'Добавить отслеживание (макс. 3)'" class="my-3" />
     </div>
