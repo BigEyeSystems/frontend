@@ -1,6 +1,7 @@
 <script setup>
 import axios from "axios";
 import { onMounted, onBeforeUnmount, ref } from "vue";
+import LocalesView from './LocalesView.vue';
 import menuItems from "../components/menuItem.vue";
 import Header from "../components/Header.vue";
 import tickerFunding from "@/components/tickerFunding.vue";
@@ -13,6 +14,10 @@ import trackingTickerView from "./trackingTickerView.vue";
 import FundingDataView from "./FundingDataView.vue";
 import NotificationView from "./NotificationView.vue";
 import crown from "../components/icons/crown.vue";
+const openLocales = ref(false);
+const toggleTeleportLocale = () => {
+  openLocales.value = !openLocales.value;
+};
 const isToken = ref('');
 const open = ref(false);
 const openGradation = ref(false);
@@ -83,7 +88,7 @@ onBeforeUnmount(() => {
 
 <template>
   <div class="flex flex-col min-h-screen">
-    <Header :UserName="user?.username" :lang="'RU'"/>
+    <Header :UserName="user?.username" :lang="'RU'" @changeLocale="toggleTeleportLocale" />
     <div class="flex-grow z-1 py-4">
       <div class="flex gap-4 my-4">
         <menuItems title="Импульсы цены" @click="toggleTeleport">
@@ -126,108 +131,151 @@ onBeforeUnmount(() => {
       <div class="flex justify-between">
         <p class="text-xs">Последнее обновление:</p>
         <div class="flex text-xs gap-1">
-          <PhClock :size="16" /> 12:03 <PhCalendarDots :size="16" /> 9.01.2024
+          <PhClock :size="12" /> 12:03
+          <PhCalendarDots :size="16" /> 9.01.2024
         </div>
       </div>
       <div class="my-4 mb-20">
-        <tickerFunding :detail="data"/>
+        <tickerFunding :detail="data" />
       </div>
       <Teleport to="body">
-        <div
-          v-if="open"
-          class="modal h-[90vh] rounded-t-3xl bg-black fixed bottom-0 w-full py-5 px-4 overflow-auto"
-        >
-          <div class="flex justify-between mb-3">
-            <div class="flex gap-3 items-center">
-              <crown />
-              <p class="font-bold text-sm">Отслеживание импульсов цены</p>
-            </div>
+        <transition name="modal">
+          <div v-if="open" class="modal h-[90vh] rounded-t-3xl bg-black fixed bottom-0 w-full py-5 px-4 overflow-auto">
+            <div class="flex justify-between mb-3">
+              <div class="flex gap-3 items-center">
+                <crown />
+                <p class="font-bold text-sm">Отслеживание импульсов цены</p>
+              </div>
 
-            <button @click="open = false"><PhX :size="21" /></button>
+              <button @click="open = false">
+                <PhX :size="21" />
+              </button>
+            </div>
+            <ImpulseView />
           </div>
-          <ImpulseView />
-        </div>
+        </transition>
       </Teleport>
       <Teleport to="body">
-        <div
-          v-if="openGradation"
-          class="modal h-[90vh] rounded-t-3xl bg-black fixed bottom-0 w-full py-5 px-4 overflow-auto"
-        >
-          <div class="flex justify-between mb-3">
-            <div class="flex gap-3 items-center">
-              <crown />
-              <p class="font-bold text-sm">Градация активов по росту объёма</p>
+        <transition name="modal">
+          <div v-if="openGradation"
+            class="modal h-[90vh] rounded-t-3xl bg-black fixed bottom-0 w-full py-5 px-4 overflow-auto">
+            <div class="flex justify-between mb-3">
+              <div class="flex gap-3 items-center">
+                <crown />
+                <p class="font-bold text-sm">Градация активов по росту объёма</p>
+              </div>
+              <button @click="toggleTeleportGradation">
+                <PhX :size="21" />
+              </button>
             </div>
-            <button @click="toggleTeleportGradation"><PhX :size="21" /></button>
+            <GradationView />
           </div>
-          <GradationView />
-        </div>
+        </transition>
       </Teleport>
       <Teleport to="body">
-        <div
-          v-if="openGradationGrowth"
-          class="modal h-[90vh] rounded-t-3xl bg-black fixed bottom-0 w-full py-5 px-4 overflow-auto"
-        >
-          <div class="flex justify-between mb-3">
-            <div class="flex gap-3 items-center">
-              <crown />
-              <p class="font-bold text-sm">Градация активов по росту цены</p>
+        <transition name="modal">
+          <div v-if="openGradationGrowth"
+            class="modal h-[90vh] rounded-t-3xl bg-black fixed bottom-0 w-full py-5 px-4 overflow-auto">
+            <div class="flex justify-between mb-3">
+              <div class="flex gap-3 items-center">
+                <crown />
+                <p class="font-bold text-sm">Градация активов по росту цены</p>
+              </div>
+              <button @click="toggleTeleportGradationGrowth">
+                <PhX :size="21" />
+              </button>
             </div>
-            <button @click="toggleTeleportGradationGrowth">
-              <PhX :size="21" />
-            </button>
+            <ActiveGrowthView />
           </div>
-          <ActiveGrowthView />
-        </div>
+        </transition>
       </Teleport>
       <Teleport to="body">
-        <div
-          v-if="openTrackingTicker"
-          class="modal h-[90vh] rounded-t-3xl bg-black fixed bottom-0 w-full py-5 px-4 overflow-auto"
-        >
-          <div class="flex justify-between mb-3">
-            <div class="flex gap-3 items-center">
-              <crown />
-              <p class="font-bold text-sm">Отслеживание актива</p>
+        <transition name="modal">
+          <div v-if="openTrackingTicker"
+            class="modal h-[90vh] rounded-t-3xl bg-black fixed bottom-0 w-full py-5 px-4 overflow-auto">
+            <div class="flex justify-between mb-3">
+              <div class="flex gap-3 items-center">
+                <crown />
+                <p class="font-bold text-sm">Отслеживание актива</p>
+              </div>
+              <button @click="toggleTrackingTicker">
+                <PhX :size="21" />
+              </button>
             </div>
-            <button @click="toggleTrackingTicker"><PhX :size="21" /></button>
+            <trackingTickerView />
           </div>
-          <trackingTickerView />
-        </div>
+        </transition>
       </Teleport>
       <Teleport to="body">
-        <div
-          v-if="openFundingData"
-          class="modal h-[90vh] rounded-t-3xl bg-black fixed bottom-0 w-full py-5 px-4 overflow-auto"
-        >
-          <div class="flex justify-between mb-3">
-            <div class="flex gap-3 items-center">
-              <crown />
-              <p class="font-bold text-sm">Ставки финансирования</p>
+        <transition name="modal">
+          <div v-if="openFundingData"
+            class="modal h-[90vh] rounded-t-3xl bg-black fixed bottom-0 w-full py-5 px-4 overflow-auto">
+            <div class="flex justify-between mb-3">
+              <div class="flex gap-3 items-center">
+                <crown />
+                <p class="font-bold text-sm">Ставки финансирования</p>
+              </div>
+              <button @click="toggleFundingData">
+                <PhX :size="21" />
+              </button>
             </div>
-            <button @click="toggleFundingData"><PhX :size="21" /></button>
+            <FundingDataView />
           </div>
-          <FundingDataView />
-        </div>
+        </transition>
       </Teleport>
       <Teleport to="body">
-        <div
-          v-if="openNotification"
-          class="modal h-[90vh] rounded-t-3xl bg-black fixed bottom-0 w-full py-5 px-4 overflow-auto"
-        >
-          <div class="flex justify-between mb-3">
-            <div class="flex gap-3 items-center">
-              <PhBell :size="32" />
-              <p class="font-bold text-sm">Уведомления</p>
+        <transition name="modal">
+          <div v-if="openNotification"
+            class="modal h-[90vh] rounded-t-3xl bg-black fixed bottom-0 w-full py-5 px-4 overflow-auto">
+            <div class="flex justify-between mb-3">
+              <div class="flex gap-3 items-center">
+                <PhBell :size="32" />
+                <p class="font-bold text-sm">Уведомления</p>
+              </div>
+              <button @click="toggleNotification">
+                <PhX :size="21" />
+              </button>
             </div>
-            <button @click="toggleNotification"><PhX :size="21" /></button>
+            <NotificationView />
           </div>
-          <NotificationView />
-        </div>
+        </transition>
+      </Teleport>
+      <Teleport to="body">
+        <transition name="modal">
+          <div v-if="openLocales"
+            class="modal h-[60vh] rounded-t-3xl bg-black fixed bottom-0 w-full py-5 px-4 overflow-auto">
+            <div class="flex justify-between mb-3">
+              <div class="flex gap-3 items-center">
+                <PhList :size="32" />
+                <p class="text-lg font-bold">Смена языка</p>
+              </div>
+              <button @click="openLocales = false">
+                <PhX :size="21" />
+              </button>
+            </div>
+            <LocalesView />
+          </div>
+        </transition>
       </Teleport>
     </div>
     <footer class="fixed bottom-0 left-0 w-full mt-48 mb-4 px-4">
-      <footerMenu/>
+      <footerMenu />
     </footer>
   </div>
 </template>
+<style scoped>
+.modal-enter-active,
+.modal-leave-active {
+  transition: transform 0.3s ease-in-out;
+}
+
+.modal-enter-from,
+.modal-leave-to {
+  transform: translateY(100%);
+}
+
+.modal-enter-to,
+.modal-leave-from {
+  transform: translateY(0);
+}
+</style>

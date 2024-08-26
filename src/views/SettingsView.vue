@@ -33,8 +33,8 @@ const toggleTeleport = () => {
             </div>
         </div>
         <div>
-            <div
-                class="flex justify-between items-center px-4 py-3 bg-gradient-to-r from-[#ffffff1f] to-[#ffffff12] rounded-xl my-4"  @click="toggleTeleport">
+            <div class="flex justify-between items-center px-4 py-3 bg-gradient-to-r from-[#ffffff1f] to-[#ffffff12] rounded-xl my-4"
+                @click="toggleTeleport">
                 <div class="flex flex-col gap-1">
                     <p class="text-sm font-semibold">Русский</p>
                     <p class="text-xs text-[#b8b8b8]">Язык</p>
@@ -46,87 +46,104 @@ const toggleTeleport = () => {
                 <div class="flex gap-1">
                     <p class="text-sm">Уведомления от Smart Analytics</p>
                 </div>
-                <Switch default-checked  v-model:checked="checkedNotification" @change="onChange" />
+                <Switch default-checked v-model:checked="checkedNotification" @change="onChange" />
             </div>
         </div>
         <p class="text-sm font-semibold mb-4">Крипто рынок</p>
         <div class="bg-gradient-to-r from-[#ffffff1f] to-[#ffffff12] px-4 py-3 rounded-lg text-sm">
             <div class="flex justify-between py-4 setting-border">
                 <p>Импульсы</p>
-                <Switch default-checked  v-model:checked="checkedImpulse" @change="onChange" />
+                <Switch default-checked v-model:checked="checkedImpulse" @change="onChange" />
             </div>
             <div class="flex justify-between py-4 setting-border">
                 <p>Ослеживание актива</p>
-                <Switch default-checked  v-model:checked="checkedActive" @change="onChange" />
+                <Switch default-checked v-model:checked="checkedActive" @change="onChange" />
             </div>
             <div class="flex justify-between py-4 setting-border">
                 <p>Ставки финансирования</p>
-                <Switch default-checked  v-model:checked="checkedFundFinance" @change="onChange" />
+                <Switch default-checked v-model:checked="checkedFundFinance" @change="onChange" />
             </div>
             <div class="flex justify-between py-4 setting-border">
                 <p>Информация о тикере</p>
-                <Switch default-checked  v-model:checked="checkedTickerInfo" @change="onChange" />
+                <Switch default-checked v-model:checked="checkedTickerInfo" @change="onChange" />
             </div>
             <div class="flex justify-between py-4 setting-border">
                 <p>Корреляция двух активов</p>
-                <Switch default-checked  v-model:checked="checkedActiveCorrelation" @change="onChange" />
+                <Switch default-checked v-model:checked="checkedActiveCorrelation" @change="onChange" />
             </div>
             <div class="flex justify-between py-4 setting-border">
                 <p>История торговых объемов</p>
-                <Switch default-checked  v-model:checked="checkedTradingHistory" @change="onChange" />
+                <Switch default-checked v-model:checked="checkedTradingHistory" @change="onChange" />
             </div>
             <div class="flex justify-between py-4 setting-border">
                 <p>Доступ к новым функциям</p>
-                <Switch default-checked  v-model:checked="checkedFunctionPremission" @change="onChange" />
+                <Switch default-checked v-model:checked="checkedFunctionPremission" @change="onChange" />
             </div>
             <div class="flex justify-between py-4 setting-border">
                 <p>Имбалансы (FVG)</p>
-                <Switch default-checked  v-model:checked="checkedImbalances" @change="onChange" />
+                <Switch default-checked v-model:checked="checkedImbalances" @change="onChange" />
             </div>
             <div class="flex justify-between py-4 setting-border">
                 <p>Снятие ключевых ликвидностей </p>
-                <Switch default-checked  v-model:checked="checkedCancelKeyLiquidity" @change="onChange" />
+                <Switch default-checked v-model:checked="checkedCancelKeyLiquidity" @change="onChange" />
             </div>
             <div class="flex justify-between py-4 setting-border">
                 <p>Градация роста объемов</p>
-                <Switch default-checked  v-model:checked="checkedGrowthGradation" @change="onChange" />
+                <Switch default-checked v-model:checked="checkedGrowthGradation" @change="onChange" />
             </div>
             <div class="flex justify-between py-4 setting-border">
                 <p>Уведомления по Фибоначчи </p>
-                <Switch default-checked  v-model:checked="checkedFibonacciNotice" @change="onChange" />
+                <Switch default-checked v-model:checked="checkedFibonacciNotice" @change="onChange" />
             </div>
             <div class="flex justify-between py-4 setting-border">
                 <p>Торговые рекомендации</p>
-                <Switch default-checked  v-model:checked="checkedTradeRecommendations" @change="onChange" />
+                <Switch default-checked v-model:checked="checkedTradeRecommendations" @change="onChange" />
             </div>
             <div class="flex justify-between py-4 setting-border">
                 <p>RSI (Дивергенции конвергенции)</p>
-                <Switch default-checked  v-model:checked="checkedRSI" @change="onChange" />
+                <Switch default-checked v-model:checked="checkedRSI" @change="onChange" />
             </div>
             <div class="flex justify-between py-4">
                 <p>Касание трендовых </p>
-                <Switch default-checked  v-model:checked="checkedTrendTouch" @change="onChange" />
+                <Switch default-checked v-model:checked="checkedTrendTouch" @change="onChange" />
             </div>
         </div>
         <Teleport to="body">
-        <div
-          v-if="openLocales"
-          class="modal h-[60vh] rounded-t-3xl bg-black fixed bottom-0 w-full py-5 px-4 overflow-auto"
-        >
-          <div class="flex justify-between mb-3">
-            <div class="flex gap-3 items-center">
-                <PhList :size="32"/>
-                <p class="text-lg font-bold">Смена языка</p>
-            </div>
-            <button @click="openLocales = false"><PhX :size="21" /></button>
-          </div>
-          <LocalesView />
-        </div>
-      </Teleport>
+            <transition name="modal">
+                <div v-if="openLocales"
+                    class="modal h-[60vh] rounded-t-3xl bg-black fixed bottom-0 w-full py-5 px-4 overflow-auto">
+                    <div class="flex justify-between mb-3">
+                        <div class="flex gap-3 items-center">
+                            <PhList :size="32" />
+                            <p class="text-lg font-bold">Смена языка</p>
+                        </div>
+                        <button @click="openLocales = false">
+                            <PhX :size="21" />
+                        </button>
+                    </div>
+                    <LocalesView />
+                </div>
+            </transition>
+        </Teleport>
     </div>
 </template>
 <style scoped>
-.setting-border{
+.setting-border {
     border-bottom: 0.5px solid #4B4B4B;
+}
+
+.modal-enter-active,
+.modal-leave-active {
+    transition: transform 0.3s ease-in-out;
+}
+
+.modal-enter-from,
+.modal-leave-to {
+    transform: translateY(100%);
+}
+
+.modal-enter-to,
+.modal-leave-from {
+    transform: translateY(0);
 }
 </style>
