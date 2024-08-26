@@ -28,9 +28,21 @@ const copyReferral = async () => {
       }
     });
     link.value = response.data.link;
-    await navigator.clipboard.writeText(link.value);
+    try {
+      await navigator.clipboard.writeText(link.value);
+      alert('Referral link copied to clipboard!');
+    } catch (clipboardError) {
+      const textArea = document.createElement('textarea');
+      textArea.value = link.value;
+      document.body.appendChild(textArea);
+      textArea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textArea);
+      alert('Referral link copied to clipboard using fallback method!');
+    }
   } catch (error) {
     console.error('Failed to copy referral link:', error);
+    alert('Failed to copy referral link');
   }
 };
 </script>
