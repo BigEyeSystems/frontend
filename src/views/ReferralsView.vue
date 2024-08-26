@@ -52,7 +52,7 @@ const copyReferral = () => {
           <img src="../components/icons/ton_logo.png" alt="ton" class="w-20" />
         </div>
       </div>
-      <ButtonView :text="'Скопировать ссылку'" class="mt-4" >
+      <ButtonView :text="'Скопировать ссылку'" class="mt-4" @click="copyReferral">
         <template #icon>
           <PhCards  :size="21" />
         </template>
