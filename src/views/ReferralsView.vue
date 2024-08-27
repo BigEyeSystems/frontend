@@ -30,7 +30,7 @@ const copyReferral = async () => {
     link.value = response.data.link;
     try {
       await navigator.clipboard.writeText(link.value);
-      alert('Referral link copied to clipboard!');
+      console.log('Referral link copied to clipboard!');
     } catch (clipboardError) {
       const textArea = document.createElement('textarea');
       textArea.value = link.value;
@@ -38,11 +38,11 @@ const copyReferral = async () => {
       textArea.select();
       document.execCommand('copy');
       document.body.removeChild(textArea);
-      alert('Referral link copied to clipboard using fallback method!');
+      console.log('Referral link copied to clipboard using fallback method!');
     }
   } catch (error) {
     console.error('Failed to copy referral link:', error);
-    alert('Failed to copy referral link');
+    console.log('Failed to copy referral link');
   }
 };
 </script>
