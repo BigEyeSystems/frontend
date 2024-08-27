@@ -1,20 +1,15 @@
 <script setup>
+import { ref } from "vue";
 import crown from "@/components/icons/crown.vue";
 import footerMenu from "@/components/footer.vue";
 import profileButton from "@/components/profileButton.vue";
-import {
-  PhWallet,
-  PhGear,
-  PhHeadset,
-  PhInfo,
-  PhCrownSimple,
-} from "@phosphor-icons/vue";
 import { useRouter } from "vue-router";
 const router = useRouter();
 const openPremium = () => {
   router.push("/profile/premium");
 };
-
+const options = { year: 'numeric', month: 'short', day: 'numeric' };
+const currentDate = ref(new Date().toLocaleDateString('en-US', options));
 const tg = window.Telegram.WebApp;
 const user = tg.initDataUnsafe.user;
 </script>
@@ -26,7 +21,7 @@ const user = tg.initDataUnsafe.user;
       </div>
       <div>
         <p class="text-lg font-bold"> {{ user?.username }} </p>
-        <p>Nov 10 2024</p>
+        <p class="text-xs text-[#79869B] font-medium">{{ currentDate }}</p>
       </div>
     </div>
     <div class="flex flex-col gap-4">
@@ -34,7 +29,7 @@ const user = tg.initDataUnsafe.user;
         class="bg-gradient-to-r from-[#2dbde866] to-[#0070a566] w-full p-4 rounded-lg font-semibold flex justify-between items-center" @click="openPremium"
       >
         <div class="flex gap-3">
-          <PhCrownSimple :size="24" color="#fff" />
+          <PhSketchLogo :size="24"/>
           <p class="text-sm">Premium</p>
         </div>
         <div class="flex flex-col justify-center">
