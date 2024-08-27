@@ -6,7 +6,6 @@ import { ref } from "vue";
 import referralsWorkProcess from "../components/referralsWorkProcess.vue";
 import axios from "axios";
 import { notification } from "ant-design-vue";
-import "ant-design-vue/es/notification/style/css";
 
 const isrTansaction = ref(true);
 const isProcess = ref(false);
