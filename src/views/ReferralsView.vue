@@ -35,8 +35,7 @@ const copyReferral = async () => {
     try {
       await navigator.clipboard.writeText(link.value);
       notification.open({
-        message: "Success",
-        description: "Реферальная ссылка скопирована!",
+        message: "Успешно скопирована",
         type: "success",
       });
       console.log("Referral link copied to clipboard!");
