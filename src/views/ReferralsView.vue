@@ -36,11 +36,8 @@ const copyReferral = async () => {
       await navigator.clipboard.writeText(link.value);
       notification.open({
         message: "Success",
-        description: "This is a success notification message.",
+        description: ".",
         type: "success",
-        onClick: () => {
-          console.log("Notification Clicked!");
-        },
       });
       console.log("Referral link copied to clipboard!");
     } catch (clipboardError) {
