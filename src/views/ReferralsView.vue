@@ -36,7 +36,7 @@ const copyReferral = async () => {
       await navigator.clipboard.writeText(link.value);
       notification.open({
         message: "Success",
-        description: ".",
+        description: "Реферальная ссылка скопирована!",
         type: "success",
       });
       console.log("Referral link copied to clipboard!");
@@ -49,11 +49,8 @@ const copyReferral = async () => {
       document.body.removeChild(textArea);
       notification.open({
         message: "Success",
-        description: "This is a success notification message.",
+        description: "Реферальная ссылка скопирована!",
         type: "success",
-        onClick: () => {
-          console.log("Notification Clicked!");
-        },
       });
       console.log("Referral link copied to clipboard using fallback method!");
     }
