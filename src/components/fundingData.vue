@@ -1,15 +1,29 @@
 <script setup>
 import ButtonView from "./button.vue";
 import { ref } from "vue";
-
+import axios from "axios";
 const showFundingData = ref(false);
-const toggleFundingData = () => {
-    showFundingData.value = !showFundingData.value;
+const fundingData = ref(null);
+const toggleFundingData = async () => {
+    try {
+        const response = await axios.get(
+            "https://dsde1736.fornex.org/api/data/funding_data",
+            {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem("token")}`,
+                },
+            }
+        );
+        showFundingData.value = !showFundingData.value;
+        fundingData.value = response.data;
+    }
+    catch(error){
+        console.log('Funding data ' + error );
+    }
 };
 </script>
 <template>
     <div class="text-xs">
-
         <ButtonView v-if="!showFundingData" :text="'Получить информацию'" @click="toggleFundingData" class="my-3" />
         <ButtonView v-else :text="'Обновить информацию'" class="my-3" />
         <div v-if="showFundingData">
@@ -21,6 +35,7 @@ const toggleFundingData = () => {
                     <PhCalendarDots :size="16" /> 9.01.2024
                 </div>
             </div>
+            {{ fundingData }}
         </div>
     </div>
 </template>
