@@ -4,19 +4,16 @@ import { Switch } from 'ant-design-vue';
 import LocalesView from './LocalesView.vue';
 const checkedNotification = ref(true);
 const checkedImpulse = ref(true);
-const checkedActive = ref(false);
+const checkedActive = ref(true);
 const checkedFundFinance = ref(true);
-const checkedTickerInfo = ref(true);
-const checkedActiveCorrelation = ref(true);
-const checkedTradingHistory = ref(false);
-const checkedFunctionPremission = ref(true);
-const checkedImbalances = ref(true);
-const checkedCancelKeyLiquidity = ref(true);
+const checkedFunctionPremission = ref(false);
+const checkedImbalances = ref(false);
+const checkedCancelKeyLiquidity = ref(false);
 const checkedTrendTouch = ref(false);
 const checkedRSI = ref(false);
-const checkedTradeRecommendations = ref(true);
-const checkedFibonacciNotice = ref(true);
-const checkedGrowthGradation = ref(true);
+const checkedTradeRecommendations = ref(false);
+const checkedFibonacciNotice = ref(false);
+const checkedGrowthGradation = ref(false);
 const openLocales = ref(false);
 const toggleTeleport = () => {
     openLocales.value = !openLocales.value;
@@ -64,48 +61,36 @@ const toggleTeleport = () => {
                 <Switch default-checked v-model:checked="checkedFundFinance" @change="onChange" />
             </div>
             <div class="flex justify-between py-4 setting-border">
-                <p>Информация о тикере</p>
-                <Switch default-checked v-model:checked="checkedTickerInfo" @change="onChange" />
-            </div>
-            <div class="flex justify-between py-4 setting-border">
-                <p>Корреляция двух активов</p>
-                <Switch default-checked v-model:checked="checkedActiveCorrelation" @change="onChange" />
-            </div>
-            <div class="flex justify-between py-4 setting-border">
-                <p>История торговых объемов</p>
-                <Switch default-checked v-model:checked="checkedTradingHistory" @change="onChange" />
-            </div>
-            <div class="flex justify-between py-4 setting-border">
                 <p>Доступ к новым функциям</p>
-                <Switch default-checked v-model:checked="checkedFunctionPremission" @change="onChange" />
+                <Switch default-checked v-model:checked="checkedFunctionPremission" @change="onChange" disabled/>
             </div>
             <div class="flex justify-between py-4 setting-border">
                 <p>Имбалансы (FVG)</p>
-                <Switch default-checked v-model:checked="checkedImbalances" @change="onChange" />
+                <Switch default-checked v-model:checked="checkedImbalances" @change="onChange" disabled/>
             </div>
             <div class="flex justify-between py-4 setting-border">
                 <p>Снятие ключевых ликвидностей </p>
-                <Switch default-checked v-model:checked="checkedCancelKeyLiquidity" @change="onChange" />
+                <Switch default-checked v-model:checked="checkedCancelKeyLiquidity" @change="onChange" disabled/>
             </div>
             <div class="flex justify-between py-4 setting-border">
                 <p>Градация роста объемов</p>
-                <Switch default-checked v-model:checked="checkedGrowthGradation" @change="onChange" />
+                <Switch default-checked v-model:checked="checkedGrowthGradation" @change="onChange" disabled/>
             </div>
             <div class="flex justify-between py-4 setting-border">
                 <p>Уведомления по Фибоначчи </p>
-                <Switch default-checked v-model:checked="checkedFibonacciNotice" @change="onChange" />
+                <Switch default-checked v-model:checked="checkedFibonacciNotice" @change="onChange" disabled/>
             </div>
             <div class="flex justify-between py-4 setting-border">
                 <p>Торговые рекомендации</p>
-                <Switch default-checked v-model:checked="checkedTradeRecommendations" @change="onChange" />
+                <Switch default-checked v-model:checked="checkedTradeRecommendations" @change="onChange" disabled/>
             </div>
             <div class="flex justify-between py-4 setting-border">
                 <p>RSI (Дивергенции конвергенции)</p>
-                <Switch default-checked v-model:checked="checkedRSI" @change="onChange" />
+                <Switch default-checked v-model:checked="checkedRSI" @change="onChange" disabled/>
             </div>
             <div class="flex justify-between py-4">
                 <p>Касание трендовых </p>
-                <Switch default-checked v-model:checked="checkedTrendTouch" @change="onChange" />
+                <Switch default-checked v-model:checked="checkedTrendTouch" @change="onChange" disabled/>
             </div>
         </div>
         <Teleport to="body">
