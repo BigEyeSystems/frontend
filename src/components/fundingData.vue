@@ -61,8 +61,6 @@ const toggleFundingData = async () => {
     catch(error){
         console.log('Funding data ' + error );
     }
-    showFundingData.value = !showFundingData.value;
-
 };
 </script>
 <template>
