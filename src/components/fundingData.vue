@@ -1,7 +1,48 @@
 <script setup>
 import ButtonView from "./button.vue";
-import { ref } from "vue";
 import axios from "axios";
+import { use } from "echarts/core";
+import { CanvasRenderer } from "echarts/renderers";
+import { LineChart } from "echarts/charts";
+import { UniversalTransition } from 'echarts/features';
+import {
+  TitleComponent,
+  TooltipComponent,
+  LegendComponent,
+  GridComponent
+} from "echarts/components";
+import VChart, { THEME_KEY } from "vue-echarts";
+import { ref, provide } from "vue";
+
+use([
+  GridComponent,
+  CanvasRenderer,
+  LineChart,
+  TitleComponent,
+  TooltipComponent,
+  LegendComponent,
+  UniversalTransition
+]);
+
+const option = ref({
+    xAxis: {
+    type: 'category',
+    data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+  },
+  yAxis: {
+    type: 'value'
+  },
+  series: [
+    {
+      data: [150, 230, 224, 218, 135, 147, 260],
+      type: 'line'
+    },
+    {
+      data: [100, 250, 140, 210, 190, 240, 120],
+      type: 'line'
+    }
+  ]
+});
 const showFundingData = ref(false);
 const fundingData = ref(null);
 const toggleFundingData = async () => {
@@ -20,6 +61,8 @@ const toggleFundingData = async () => {
     catch(error){
         console.log('Funding data ' + error );
     }
+    showFundingData.value = !showFundingData.value;
+
 };
 </script>
 <template>
@@ -36,6 +79,17 @@ const toggleFundingData = async () => {
                 </div>
             </div>
             {{ fundingData }}
+            <div class="flex justify-center">
+                <v-chart class="chart" :option="option" />
+            </div>
         </div>
     </div>
 </template>
+
+
+<style scoped>
+.chart {
+  height: 350px;
+  width: 350px;
+}
+</style>
