@@ -14,6 +14,7 @@ import trackingTickerView from "./trackingTickerView.vue";
 import FundingDataView from "./FundingDataView.vue";
 import NotificationView from "./NotificationView.vue";
 import crown from "../components/icons/crown.vue";
+import { data } from "autoprefixer";
 const openLocales = ref(false);
 const toggleTeleportLocale = () => {
   openLocales.value = !openLocales.value;
@@ -46,7 +47,8 @@ const toggleNotification = () => {
 };
 
 
-
+const topTickerTime = ref('');
+const topTickerDate = ref('');
 const tg = window.Telegram.WebApp;
 const user = tg.initDataUnsafe.user;
 const tgHashData = tg.initData;
@@ -76,6 +78,9 @@ onMounted(() => {
   connection.onmessage = function (e) {
     data.value = e.data;
   };
+  const date = new Date(data.value.top_tickers_by_volume.last_update_time)
+  topTickerDate.value = date.toISOString().split('T')[0];
+  topTickerTime.value = date.toTimeString().split(' ')[0];
 });
 onBeforeUnmount(() => {
   if (connection) {
@@ -132,7 +137,7 @@ onBeforeUnmount(() => {
         <p class="text-xs">Последнее обновление:</p>
         <div class="flex text-xs gap-1">
           <PhClock :size="12" /> 12:03
-          <PhCalendarDots :size="16" /> 9.01.2024
+          <PhCalendarDots :size="16" /> {{topTickerDate}}
         </div>
       </div>
       <div class="my-4 mb-20">
