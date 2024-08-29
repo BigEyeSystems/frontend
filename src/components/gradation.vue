@@ -6,6 +6,7 @@ const selectedInterval = ref(null);
 const selectInterval = (index) => {
   selectedInterval.value = index;
 };
+const downloadData = ref(null);
 const gradationData = ref(null); 
 const showGradation = ref(false);
 const toggleGradation = async () => {
@@ -20,6 +21,28 @@ const toggleGradation = async () => {
         );
         gradationData.value = response.data;
         showGradation.value = !showGradation.value;
+    }
+    catch(error){
+        console.log('Funding data ' + error );
+    }
+};
+const downloadGradationGrowthFile = async (id) => {
+    try {
+        const response = await axios.get(
+            "https://dsde1736.fornex.org/api/download_growth",{file_id: id},
+            {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem("token")}`,
+                },
+            }
+        );
+        downloadData.value = response.data;
+        const url = window.URL.createObjectURL(new Blob([response.data]));
+        const link = document.createElement("a");
+        link.href = url;
+        link.setAttribute("download", "gradation_growth.csv");
+        document.body.appendChild(link);
+        link.click();
     }
     catch(error){
         console.log('Funding data ' + error );
@@ -54,11 +77,14 @@ const toggleGradation = async () => {
                     <PhCalendarDots :size="16" /> 9.01.2024
                 </div>
             </div>
-            <div>
-                <div></div>
+            <div class="bg-[#17181C] p-2" @click="downloadGradationGrowthFile(gradationData.file_id)">
+                <div>
+                    <p class="text-sm font-semibold">
+                      {{ gradationData?.file_name }}
+                    </p>
+                </div>
             </div>
-            {{ gradationData }}
-            {{ gradationData?.file_name }}
+            {{ downloadData }}
         </div>
     </div>
 </template>
