@@ -77,10 +77,11 @@ onMounted(() => {
   };
   connection.onmessage = function (e) {
     data.value = e.data;
+    const tickerDate = new Date(data.value.top_tickers_by_volume.last_update_time)
+    topTickerDate.value = tickerDate.toISOString().split('T')[0];
+    topTickerTime.value = tickerDate.toTimeString().split(' ')[0];
   };
-  const tickerDate = new Date(data.value.top_tickers_by_volume.last_update_time)
-  topTickerDate.value = tickerDate.toISOString().split('T')[0];
-  topTickerTime.value = tickerDate.toTimeString().split(' ')[0];
+
 });
 onBeforeUnmount(() => {
   if (connection) {
@@ -133,7 +134,6 @@ onBeforeUnmount(() => {
       </div>
       <p class="text-sm font-semibold">TOP 5 тикеры</p>
       <div class="flex justify-between">
-        {{ data }}
         <p class="text-xs">Последнее обновление:</p>
         <div class="flex text-xs gap-1">
           <PhClock :size="12" /> 12:03
