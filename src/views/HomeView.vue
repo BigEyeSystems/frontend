@@ -78,9 +78,9 @@ onMounted(() => {
   connection.onmessage = function (e) {
     data.value = e.data;
   };
-  const date = new Date(data.value.top_tickers_by_volume.last_update_time)
-  topTickerDate.value = date.toISOString().split('T')[0];
-  topTickerTime.value = date.toTimeString().split(' ')[0];
+  const tickerDate = new Date(data.value.top_tickers_by_volume.last_update_time)
+  topTickerDate.value = tickerDate.toISOString().split('T')[0];
+  topTickerTime.value = tickerDate.toTimeString().split(' ')[0];
 });
 onBeforeUnmount(() => {
   if (connection) {
