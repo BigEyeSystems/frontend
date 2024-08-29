@@ -45,9 +45,9 @@ const toggleNotification = () => {
   openNotification.value = !openNotification.value;
 };
 
-
+const tickerDate = ref(Date)
 const topTickerTime = ref('');
-const topTickerDate = ref('');
+const topTickerDate = ref(Date);
 const tg = window.Telegram.WebApp;
 const user = tg.initDataUnsafe.user;
 const tgHashData = tg.initData;
@@ -77,7 +77,7 @@ onMounted(() => {
   connection.onmessage = function (e) {
     data.value = e.data;
   };
-  const tickerDate = new Date(data.value.top_tickers_by_volume.last_update_time)
+  tickerDate.value = new Date(data.value.top_tickers_by_volume.last_update_time)
   topTickerDate.value = tickerDate.toISOString().split('T')[0];
   topTickerTime.value = tickerDate.toTimeString().split(' ')[0];
 });
@@ -132,6 +132,8 @@ onBeforeUnmount(() => {
       </div>
       <p class="text-sm font-semibold">TOP 5 тикеры</p>
       <div class="flex justify-between">
+        {{ data }}
+        {{ tickerDate }}
         <p class="text-xs">Последнее обновление:</p>
         <div class="flex text-xs gap-1">
           <PhClock :size="12" /> 12:03
