@@ -46,21 +46,23 @@ const option = ref({
 const showFundingData = ref(false);
 const fundingData = ref(null);
 const toggleFundingData = async () => {
-    try {
-        const response = await axios.get(
-            "https://dsde1736.fornex.org/api/data/funding_data",
-            {
-                headers: {
-                    Authorization: `Bearer ${localStorage.getItem("token")}`,
-                },
-            }
-        );
-        showFundingData.value = !showFundingData.value;
-        fundingData.value = response.data;
-    }
-    catch(error){
-        console.log('Funding data ' + error );
-    }
+    // try {
+    //     const response = await axios.get(
+    //         "https://dsde1736.fornex.org/api/data/funding_data",
+    //         {
+    //             headers: {
+    //                 Authorization: `Bearer ${localStorage.getItem("token")}`,
+    //             },
+    //         }
+    //     );
+    //     showFundingData.value = !showFundingData.value;
+    //     fundingData.value = response.data;
+    // }
+    // catch(error){
+    //     console.log('Funding data ' + error );
+    // }
+    showFundingData.value = !showFundingData.value;
+
 };
 </script>
 <template>
@@ -76,9 +78,23 @@ const toggleFundingData = async () => {
                     <PhCalendarDots :size="16" /> 9.01.2024
                 </div>
             </div>
-            {{ fundingData }}
+            <!-- {{ fundingData }} -->
             <div class="flex justify-center">
                 <v-chart class="chart" :option="option" />
+            </div>
+            <div class="flex">
+              <div>
+                <p>{{ fundingData?.positive_quantity }}</p>
+                <p>Кол-во положительных фандингов</p>
+              </div>
+              <div>
+                <p>{{ fundingData?.negative_quantity }}</p>
+                <p>Кол-во отрицательных фандингов</p>
+              </div>
+              <div>
+                {{ fundingData?.neutral_quantity }}
+                <p>Кол-во нейтральных фандингов</p>
+              </div>
             </div>
         </div>
     </div>
