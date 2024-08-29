@@ -96,7 +96,7 @@ const toggleTeleport = () => {
         <Teleport to="body">
             <transition name="modal">
                 <div v-if="openLocales"
-                    class="modal h-[60vh] rounded-t-3xl bg-black fixed bottom-0 w-full py-5 px-4 overflow-auto">
+                    class="modal h-[60vh] rounded-t-3xl bg-black fixed bottom-0 w-full py-5 px-4 overflow-auto border-t border-white">
                     <div class="flex justify-between mb-3">
                         <div class="flex gap-3 items-center">
                             <PhList :size="32" />
