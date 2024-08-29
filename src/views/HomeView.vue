@@ -133,7 +133,7 @@ onBeforeUnmount(() => {
         <p class="text-xs">Последнее обновление:</p>
         <div class="flex text-xs gap-1">
           <PhClock :size="12" /> 12:03
-          <PhCalendarDots :size="16" /> {{data.top_tickers_by_volume.last_update_time}}
+          <PhCalendarDots :size="16" /> {{data?.top_tickers_by_volume?.last_update_time}}
         </div>
       </div>
       <div class="my-4 mb-20">
