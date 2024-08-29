@@ -5,9 +5,24 @@ const selectedInterval = ref(null);
 const selectInterval = (index) => {
   selectedInterval.value = index;
 };
+const gradationData = ref(null); 
 const showGradation = ref(false);
-const toggleGradation = () => {
-    showGradation.value = !showGradation.value;
+const toggleGradation = async () => {
+    try {
+        const response = await axios.get(
+            "https://dsde1736.fornex.org/api/data/gradation_growth",
+            {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem("token")}`,
+                },
+            }
+        );
+        gradationData.value = response.data;
+        showGradation.value = !showGradation.value;
+    }
+    catch(error){
+        console.log('Funding data ' + error );
+    }
 };
 </script>
 <template>
@@ -38,6 +53,7 @@ const toggleGradation = () => {
                     <PhCalendarDots :size="16" /> 9.01.2024
                 </div>
             </div>
+            {{ gradationData }}
         </div>
     </div>
 </template>

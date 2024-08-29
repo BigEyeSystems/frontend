@@ -59,8 +59,8 @@ const toggleFundingData = async () => {
                 },
             }
         );
-        showFundingData.value = !showFundingData.value;
         fundingData.value = response.data;
+        showFundingData.value = !showFundingData.value;
     }
     catch(error){
         console.log('Funding data ' + error );
