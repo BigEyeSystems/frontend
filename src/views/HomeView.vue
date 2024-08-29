@@ -76,6 +76,7 @@ onMounted(() => {
   };
   connection.onmessage = function (e) {
     data.value = e.data;
+    console.log(data.value.top_tickers_by_volume);
   };
   tickerDate.value = new Date(data.value.top_tickers_by_volume.last_update_time)
   topTickerDate.value = tickerDate.toISOString().split('T')[0];
