@@ -1,6 +1,7 @@
 <script setup>
 import ButtonView from "./button.vue";
 import { ref } from "vue";
+import axios from "axios";
 const selectedInterval = ref(null);
 const selectInterval = (index) => {
   selectedInterval.value = index;
