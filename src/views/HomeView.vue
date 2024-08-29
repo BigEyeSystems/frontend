@@ -76,15 +76,16 @@ onMounted(() => {
   };
   connection.onmessage = function (e) {
     data.value = e.data;
-    console.log(data.value.top_tickers_by_volume);
   };
 });
 const tickerData = computed(() => {
-  try {
-    return JSON.parse(data.value);
-  } catch (e) {
-    console.error("Failed to parse funding data:", e);
-    return null;
+  if (data.value) {
+    try {
+      return JSON.parse(data.value);
+    } catch (e) {
+      console.error("Failed to parse funding data:", e);
+      return null;
+    }
   }
 });
 onBeforeUnmount(() => {
@@ -141,7 +142,7 @@ onBeforeUnmount(() => {
         <p class="text-xs">Последнее обновление:</p>
         <div class="flex text-xs gap-1">
           <PhClock :size="12" /> 12:03
-          <PhCalendarDots :size="16" /> {{tickerData?.top_tickers_by_volume?.last_update_time}}
+          <PhCalendarDots :size="16" /> {{ tickerData?.top_tickers_by_volume?.last_update_time }}
         </div>
       </div>
       <div class="my-4 mb-20">
