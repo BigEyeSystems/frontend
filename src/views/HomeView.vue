@@ -14,7 +14,6 @@ import trackingTickerView from "./trackingTickerView.vue";
 import FundingDataView from "./FundingDataView.vue";
 import NotificationView from "./NotificationView.vue";
 import crown from "../components/icons/crown.vue";
-import { data } from "autoprefixer";
 const openLocales = ref(false);
 const toggleTeleportLocale = () => {
   openLocales.value = !openLocales.value;
@@ -77,11 +76,10 @@ onMounted(() => {
   };
   connection.onmessage = function (e) {
     data.value = e.data;
-    const tickerDate = new Date(data.value.top_tickers_by_volume.last_update_time)
-    topTickerDate.value = tickerDate.toISOString().split('T')[0];
-    topTickerTime.value = tickerDate.toTimeString().split(' ')[0];
   };
-
+  const tickerDate = new Date(data.value.top_tickers_by_volume.last_update_time)
+  topTickerDate.value = tickerDate.toISOString().split('T')[0];
+  topTickerTime.value = tickerDate.toTimeString().split(' ')[0];
 });
 onBeforeUnmount(() => {
   if (connection) {
