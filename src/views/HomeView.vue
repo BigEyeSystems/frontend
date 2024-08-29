@@ -45,9 +45,8 @@ const toggleNotification = () => {
   openNotification.value = !openNotification.value;
 };
 
-const tickerDate = ref(Date)
-const topTickerTime = ref('');
-const topTickerDate = ref(Date);
+
+
 const tg = window.Telegram.WebApp;
 const user = tg.initDataUnsafe.user;
 const tgHashData = tg.initData;
@@ -77,16 +76,6 @@ onMounted(() => {
   connection.onmessage = function (e) {
     data.value = e.data;
   };
-});
-const tickerData = computed(() => {
-  if (data.value) {
-    try {
-      return JSON.parse(data.value);
-    } catch (e) {
-      console.error("Failed to parse funding data:", e);
-      return null;
-    }
-  }
 });
 onBeforeUnmount(() => {
   if (connection) {
@@ -142,7 +131,7 @@ onBeforeUnmount(() => {
         <p class="text-xs">Последнее обновление:</p>
         <div class="flex text-xs gap-1">
           <PhClock :size="12" /> 12:03
-          <PhCalendarDots :size="16" /> {{ tickerData?.top_tickers_by_volume?.last_update_time }}
+          <PhCalendarDots :size="16" /> 9.01.2024
         </div>
       </div>
       <div class="my-4 mb-20">
