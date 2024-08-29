@@ -86,15 +86,15 @@ const toggleFundingData = async () => {
             </div>
             <div class="flex">
               <div class="flex gap-2 items-center">
-                <div class="px-3 bg-[#33A721] text-sm font-semibold h-7">{{ fundingData?.positive_quantity }}</div>
+                <div class="px-3 bg-[#33A721] text-sm font-semibold h-4 flex items-center">{{ fundingData?.positive_quantity }}</div>
                 <p class="text-xs text-[#B8B8B8]">Кол-во положительных фандингов</p>
               </div>
               <div class="flex gap-2 items-center">
-                <p class="px-3 bg-[#CA3140] text-sm font-semibold h-7">{{ fundingData?.negative_quantity }}</p>
+                <p class="px-3 bg-[#CA3140] text-sm font-semibold h-4 flex items-center">{{ fundingData?.negative_quantity }}</p>
                 <p class="text-xs text-[#B8B8B8]">Кол-во отрицательных фандингов</p>
               </div>
               <div class="flex gap-2 items-center">
-                <p class="px-3 bg-white text-sm font-semibold h-7">{{ fundingData?.neutral_quantity }}</p>
+                <p class="px-3 bg-white text-sm font-semibold h-4 flex items-center text-black">{{ fundingData?.neutral_quantity }}</p>
                 <p class="text-xs text-[#B8B8B8]">Кол-во нейтральных фандингов</p>
               </div>
             </div>
