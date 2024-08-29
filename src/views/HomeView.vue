@@ -128,6 +128,7 @@ onBeforeUnmount(() => {
       </div>
       <p class="text-sm font-semibold">TOP 5 тикеры</p>
       <div class="flex justify-between">
+        {{ data }}
         <p class="text-xs">Последнее обновление:</p>
         <div class="flex text-xs gap-1">
           <PhClock :size="12" /> 12:03
