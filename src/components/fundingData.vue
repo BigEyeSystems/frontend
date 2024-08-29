@@ -82,17 +82,17 @@ const toggleFundingData = async () => {
                 <v-chart class="chart" :option="option" />
             </div>
             <div class="flex">
-              <div>
-                <p>{{ fundingData?.positive_quantity }}</p>
-                <p>Кол-во положительных фандингов</p>
+              <div class="flex gap-2">
+                <p class="px-3 bg-[#33A721] text-sm font-semibold">{{ fundingData?.positive_quantity }}</p>
+                <p class="text-xs text-[#B8B8B8]">Кол-во положительных фандингов</p>
               </div>
-              <div>
-                <p>{{ fundingData?.negative_quantity }}</p>
-                <p>Кол-во отрицательных фандингов</p>
+              <div class="flex gap-2">
+                <p class="px-3 bg-[#CA3140] text-sm font-semibold">{{ fundingData?.negative_quantity }}</p>
+                <p class="text-xs text-[#B8B8B8]">Кол-во отрицательных фандингов</p>
               </div>
-              <div>
-                {{ fundingData?.neutral_quantity }}
-                <p>Кол-во нейтральных фандингов</p>
+              <div class="flex gap-2">
+                <p class="px-3 bg-white text-sm font-semibold">{{ fundingData?.neutral_quantity }}</p>
+                <p class="text-xs text-[#B8B8B8]">Кол-во нейтральных фандингов</p>
               </div>
             </div>
         </div>
