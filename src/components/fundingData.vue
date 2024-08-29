@@ -40,7 +40,11 @@ const option = ref({
     {
       data: [100, 250, 140, 210, 190, 240, 120],
       type: 'line'
-    }
+    },
+    {
+      data: [100, 120, 230, 210, 150, 195, 155],
+      type: 'line'
+    },
   ]
 });
 const showFundingData = ref(false);
@@ -61,7 +65,6 @@ const toggleFundingData = async () => {
     catch(error){
         console.log('Funding data ' + error );
     }
-
 };
 </script>
 <template>
@@ -82,16 +85,16 @@ const toggleFundingData = async () => {
                 <v-chart class="chart" :option="option" />
             </div>
             <div class="flex">
-              <div class="flex gap-2">
-                <p class="px-3 bg-[#33A721] text-sm font-semibold">{{ fundingData?.positive_quantity }}</p>
+              <div class="flex gap-2 items-center">
+                <div class="px-3 bg-[#33A721] text-sm font-semibold h-7">{{ fundingData?.positive_quantity }}</div>
                 <p class="text-xs text-[#B8B8B8]">Кол-во положительных фандингов</p>
               </div>
-              <div class="flex gap-2">
-                <p class="px-3 bg-[#CA3140] text-sm font-semibold">{{ fundingData?.negative_quantity }}</p>
+              <div class="flex gap-2 items-center">
+                <p class="px-3 bg-[#CA3140] text-sm font-semibold h-7">{{ fundingData?.negative_quantity }}</p>
                 <p class="text-xs text-[#B8B8B8]">Кол-во отрицательных фандингов</p>
               </div>
-              <div class="flex gap-2">
-                <p class="px-3 bg-white text-sm font-semibold">{{ fundingData?.neutral_quantity }}</p>
+              <div class="flex gap-2 items-center">
+                <p class="px-3 bg-white text-sm font-semibold h-7">{{ fundingData?.neutral_quantity }}</p>
                 <p class="text-xs text-[#B8B8B8]">Кол-во нейтральных фандингов</p>
               </div>
             </div>
