@@ -2,13 +2,16 @@
 import ButtonView from "./button.vue";
 import { ref } from "vue";
 import axios from "axios";
+
 const selectedInterval = ref(null);
 const selectInterval = (index) => {
   selectedInterval.value = index;
 };
+
 const downloadData = ref(null);
 const gradationData = ref(null); 
 const showGradation = ref(false);
+
 const toggleGradation = async () => {
     try {
         const response = await axios.get(
@@ -21,11 +24,11 @@ const toggleGradation = async () => {
         );
         gradationData.value = response.data;
         showGradation.value = !showGradation.value;
-    }
-    catch(error){
-        console.log('Funding data ' + error );
+    } catch(error) {
+        console.log('Error fetching data: ' + error );
     }
 };
+
 const downloadGradationGrowthFile = async (id) => {
     try {
         const response = await axios.get(
@@ -34,21 +37,30 @@ const downloadGradationGrowthFile = async (id) => {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem("token")}`,
                 },
+                responseType: 'blob', 
             }
         );
-        downloadData.value = response.data;
-        const blob = new Blob([response.data], {type: 'text/csv; charset=utf-8'});
-        const url = URL.createObjectURL(blob);
-        const link = document.createElement('a');
-        link.href = url;
-        link.setAttribute("download", "gradation_growth.csv");
-        document.body.appendChild(link);
-        link.click();
-        URL.revokeObjectURL(url);
-        document.body.removeChild(link);
-    }
-    catch(error){
-        console.log('Funding data ' + error );
+
+        const blob = new Blob([response.data], { type: 'text/csv;charset=utf-8;' });
+
+        if (window.navigator && window.navigator.msSaveOrOpenBlob) {
+            window.navigator.msSaveOrOpenBlob(blob, 'gradation_growth.csv');
+        } else {
+            const url = URL.createObjectURL(blob);
+
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', 'gradation_growth.csv');
+
+            link.style.display = 'none';
+            document.body.appendChild(link);
+            link.click();
+
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+        }
+    } catch(error) {
+        console.log('Error downloading data: ' + error );
     }
 };
 </script>
