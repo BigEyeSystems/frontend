@@ -23,7 +23,9 @@ use([
   LegendComponent,
   UniversalTransition
 ]);
-
+const dayData = ref(false);
+const weekData = ref(false);
+const monthData = ref(false);
 const option = ref({
     xAxis: {
     type: 'category',
@@ -49,22 +51,38 @@ const option = ref({
 });
 const showFundingData = ref(false);
 const fundingData = ref(null);
+const showWeeklyData = () => {
+  dayData.value = false;
+  weekData.value = true;
+  monthData.value = false;
+};
+const showMonthlyData = () => {
+  dayData.value = false;
+  weekData.value = false;
+  monthData.value = true;
+};
+const showDailyData = () => {
+  dayData.value = true;
+  weekData.value = false;
+  monthData.value = false;
+};
 const toggleFundingData = async () => {
-    try {
-        const response = await axios.get(
-            "https://dsde1736.fornex.org/api/data/funding_data",
-            {
-                headers: {
-                    Authorization: `Bearer ${localStorage.getItem("token")}`,
-                },
-            }
-        );
-        fundingData.value = response.data;
-        showFundingData.value = !showFundingData.value;
-    }
-    catch(error){
-        console.log('Funding data ' + error );
-    }
+    // try {
+    //     const response = await axios.get(
+    //         "https://dsde1736.fornex.org/api/data/funding_data",
+    //         {
+    //             headers: {
+    //                 Authorization: `Bearer ${localStorage.getItem("token")}`,
+    //             },
+    //         }
+    //     );
+    //     fundingData.value = response.data;
+    //     showFundingData.value = !showFundingData.value;
+    // }
+    // catch(error){
+    //     console.log('Funding data ' + error );
+    // }
+    showFundingData.value = true;
 };
 </script>
 <template>
@@ -80,7 +98,11 @@ const toggleFundingData = async () => {
                     <PhCalendarDots :size="16" /> 9.01.2024
                 </div>
             </div>
-            <!-- {{ fundingData }} -->
+            <div class="flex gap-2 mt-4">
+              <button class="bg-[#17181C] p-2 w-full text-xs text-[#B8B8B8]" :class="[dayData ? 'bg-[#92FBDB] text-black font-semibold' : '']" @click="showDailyData">За день</button>
+              <button class="bg-[#17181C] p-2 w-full text-xs text-[#B8B8B8]" :class="[weekData ? 'bg-[#92FBDB] text-black font-semibold' : '']" @click="showWeeklyData">За неделю</button>
+              <button class="bg-[#17181C] p-2 w-full text-xs text-[#B8B8B8]" :class="[monthData ? 'bg-[#92FBDB] text-black font-semibold' : '']" @click="showMonthlyData">За месяц</button>
+            </div>
             <div class="flex justify-center">
                 <v-chart class="chart" :option="option" />
             </div>

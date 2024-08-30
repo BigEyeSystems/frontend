@@ -8,7 +8,7 @@ const selectInterval = (index) => {
   selectedInterval.value = index;
 };
 
-const downloadData = ref(null);
+const historyData = ref(null);
 const gradationData = ref(null); 
 const showGradation = ref(false);
 
@@ -27,35 +27,36 @@ const toggleGradation = async () => {
     } catch(error) {
         console.log('Error fetching data: ' + error );
     }
+    try {
+        const responseHistory = await axios.get(
+            "https://dsde1736.fornex.org/api/data/gradation_growth_history?growth_type=Volume",
+            {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem("token")}`,
+                },
+            }
+        );
+        historyData.value = responseHistory.data;
+    } catch(error) {
+        console.log('Error fetching data: ' + error );
+    }
 };
 
-// const downloadGradationGrowthFile = async (id) => {
-//     try {
-//         const response = await axios.get(
-//             `https://dsde1736.fornex.org/api/download-growth?file_id=${id}`,
-//             {
-//                 headers: {
-//                     Authorization: `Bearer ${localStorage.getItem("token")}`,
-//                 },
-//                 responseType: 'text',
-//             }
-//         );
-
-//         downloadData.value = response.data;
-
-//         const csvContent = 'data:text/csv;charset=utf-8,' + encodeURIComponent(downloadData.value);
-
-//         const link = document.createElement('a');
-//         link.setAttribute('href', csvContent);
-//         link.setAttribute('download', 'gradation_growth.csv');
-//         document.body.appendChild(link);
-
-//         link.click();
-//         document.body.removeChild(link);
-//     } catch(error) {
-//         console.log('Error downloading data: ' + error );
-//     }
-// };
+const downloadGradationGrowthFile = async (id) => {
+    try {
+        const response = await axios.get(
+            `https://dsde1736.fornex.org/api/download-growth?file_id=${id}`,
+            {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem("token")}`,
+                },
+                responseType: 'text',
+            }
+        );
+    } catch(error) {
+        console.log('Error downloading data: ' + error );
+    }
+};
 </script>
 
 <template>
@@ -78,7 +79,7 @@ const toggleGradation = async () => {
         <ButtonView v-else :text="'Обновить информацию'" class="my-3" />
 
         <div v-if="showGradation">
-            <p class="mb-3">Результат запроса</p>
+            <p class="mb-3 text-sm font-semibold">Результат запроса</p>
             <div class="flex justify-between">
                 <p class="text-xs">Последнее обновление:</p>
                 <div class="flex text-xs gap-1">
@@ -86,7 +87,7 @@ const toggleGradation = async () => {
                     <PhCalendarDots :size="16" /> 9.01.2024
                 </div>
             </div>
-            <div class="bg-[#17181C] p-2 rounded-xl cursor-pointer my-4 flex justify-between items-center">
+            <div class="bg-[#17181C] p-2 rounded-xl cursor-pointer my-4 flex justify-between items-center" @click="downloadGradationGrowthFile(gradationData?.file_id)">
                 <div class="flex gap-3 items-center">
                     <div class="p-1 bg-[#797979] rounded">
                         <PhFile :size="24" color="#fff"/>
@@ -96,6 +97,10 @@ const toggleGradation = async () => {
                     </p>
                 </div>
                 <PhDownloadSimple :size="24" />
+            </div>
+            <p class="mb-3 text-sm font-semibold">История</p>
+            <div>
+                {{ historyData }}
             </div>
         </div>
     </div>
