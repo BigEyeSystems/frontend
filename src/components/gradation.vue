@@ -78,14 +78,13 @@ const downloadGradationGrowthFile = async (id) => {
                     <PhCalendarDots :size="16" /> 9.01.2024
                 </div>
             </div>
-            <div class="bg-[#17181C] p-2" @click="downloadGradationGrowthFile(gradationData.file_id)">
+            <div class="bg-[#17181C] p-2 rounded-xl cursor-pointer" @click="downloadGradationGrowthFile(gradationData.file_id)">
                 <div>
                     <p class="text-sm font-semibold">
                       {{ gradationData?.file_name }}
                     </p>
                 </div>
             </div>
-            {{ downloadData }}
         </div>
     </div>
 </template>
