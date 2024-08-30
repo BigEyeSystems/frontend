@@ -37,33 +37,27 @@ const downloadGradationGrowthFile = async (id) => {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem("token")}`,
                 },
-                responseType: 'blob', 
+                responseType: 'text', // Ensure the response is treated as plain text
             }
         );
 
-        const blob = new Blob([response.data], { type: 'text/csv;charset=utf-8;' });
+        downloadData.value = response.data;
 
-        if (window.navigator && window.navigator.msSaveOrOpenBlob) {
-            window.navigator.msSaveOrOpenBlob(blob, 'gradation_growth.csv');
-        } else {
-            const url = URL.createObjectURL(blob);
+        const csvContent = 'data:text/csv;charset=utf-8,' + encodeURIComponent(downloadData.value);
 
-            const link = document.createElement('a');
-            link.href = url;
-            link.setAttribute('download', 'gradation_growth.csv');
+        const link = document.createElement('a');
+        link.setAttribute('href', csvContent);
+        link.setAttribute('download', 'gradation_growth.csv');
+        document.body.appendChild(link);
 
-            link.style.display = 'none';
-            document.body.appendChild(link);
-            link.click();
-
-            document.body.removeChild(link);
-            URL.revokeObjectURL(url);
-        }
+        link.click();
+        document.body.removeChild(link);
     } catch(error) {
         console.log('Error downloading data: ' + error );
     }
 };
 </script>
+
 <template>
     <div class="text-xs">
         <div v-if="!showGradation">
