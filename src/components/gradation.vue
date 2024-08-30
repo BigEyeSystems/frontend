@@ -88,7 +88,7 @@ const toggleGradation = async () => {
             </div>
             <div class="bg-[#17181C] p-2 rounded-xl cursor-pointer my-4 flex justify-between items-center">
                 <div class="flex gap-3 items-center">
-                    <div class="p-2 bg-[#797979] rounded">
+                    <div class="p-1 bg-[#797979] rounded">
                         <PhFile :size="24" color="#fff"/>
                     </div>
                     <p class="text-sm font-semibold">
