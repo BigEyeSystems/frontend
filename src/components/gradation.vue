@@ -23,39 +23,39 @@ const toggleGradation = async () => {
             }
         );
         gradationData.value = response.data;
-        showGradation.value = !showGradation.value;
+        showGradation.value = true;
     } catch(error) {
         console.log('Error fetching data: ' + error );
     }
 };
 
-const downloadGradationGrowthFile = async (id) => {
-    try {
-        const response = await axios.get(
-            `https://dsde1736.fornex.org/api/download-growth?file_id=${id}`,
-            {
-                headers: {
-                    Authorization: `Bearer ${localStorage.getItem("token")}`,
-                },
-                responseType: 'text', // Ensure the response is treated as plain text
-            }
-        );
+// const downloadGradationGrowthFile = async (id) => {
+//     try {
+//         const response = await axios.get(
+//             `https://dsde1736.fornex.org/api/download-growth?file_id=${id}`,
+//             {
+//                 headers: {
+//                     Authorization: `Bearer ${localStorage.getItem("token")}`,
+//                 },
+//                 responseType: 'text',
+//             }
+//         );
 
-        downloadData.value = response.data;
+//         downloadData.value = response.data;
 
-        const csvContent = 'data:text/csv;charset=utf-8,' + encodeURIComponent(downloadData.value);
+//         const csvContent = 'data:text/csv;charset=utf-8,' + encodeURIComponent(downloadData.value);
 
-        const link = document.createElement('a');
-        link.setAttribute('href', csvContent);
-        link.setAttribute('download', 'gradation_growth.csv');
-        document.body.appendChild(link);
+//         const link = document.createElement('a');
+//         link.setAttribute('href', csvContent);
+//         link.setAttribute('download', 'gradation_growth.csv');
+//         document.body.appendChild(link);
 
-        link.click();
-        document.body.removeChild(link);
-    } catch(error) {
-        console.log('Error downloading data: ' + error );
-    }
-};
+//         link.click();
+//         document.body.removeChild(link);
+//     } catch(error) {
+//         console.log('Error downloading data: ' + error );
+//     }
+// };
 </script>
 
 <template>
@@ -86,7 +86,7 @@ const downloadGradationGrowthFile = async (id) => {
                     <PhCalendarDots :size="16" /> 9.01.2024
                 </div>
             </div>
-            <div class="bg-[#17181C] p-2 rounded-xl cursor-pointer" @click="downloadGradationGrowthFile(gradationData.file_id)">
+            <div class="bg-[#17181C] p-2 rounded-xl cursor-pointer">
                 <div>
                     <p class="text-sm font-semibold">
                       {{ gradationData?.file_name }}
