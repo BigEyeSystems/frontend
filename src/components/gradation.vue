@@ -86,8 +86,11 @@ const toggleGradation = async () => {
                     <PhCalendarDots :size="16" /> 9.01.2024
                 </div>
             </div>
-            <div class="bg-[#17181C] p-2 rounded-xl cursor-pointer">
-                <div>
+            <div class="bg-[#17181C] p-2 rounded-xl cursor-pointer my-4">
+                <div class="flex gap-2 items-center">
+                    <div class="p-2 bg-[#797979]">
+                        <PhFile :size="24" color="#fff"/>
+                    </div>
                     <p class="text-sm font-semibold">
                       {{ gradationData?.file_name }}
                     </p>
