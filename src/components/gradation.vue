@@ -86,8 +86,8 @@ const toggleGradation = async () => {
                     <PhCalendarDots :size="16" /> 9.01.2024
                 </div>
             </div>
-            <div class="bg-[#17181C] p-2 rounded-xl cursor-pointer my-4">
-                <div class="flex gap-2 items-center">
+            <div class="bg-[#17181C] p-2 rounded-xl cursor-pointer my-4 flex justify-between">
+                <div class="flex gap-3 items-center">
                     <div class="p-2 bg-[#797979]">
                         <PhFile :size="24" color="#fff"/>
                     </div>
@@ -95,6 +95,7 @@ const toggleGradation = async () => {
                       {{ gradationData?.file_name }}
                     </p>
                 </div>
+                <PhDownloadSimple :size="24" />
             </div>
         </div>
     </div>
