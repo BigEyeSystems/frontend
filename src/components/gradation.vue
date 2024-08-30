@@ -44,6 +44,8 @@ const downloadGradationGrowthFile = async (id) => {
         link.setAttribute("download", "gradation_growth.csv");
         document.body.appendChild(link);
         link.click();
+        URL.revokeObjectURL(url);
+        document.body.removeChild(link);
     }
     catch(error){
         console.log('Funding data ' + error );
