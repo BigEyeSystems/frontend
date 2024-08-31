@@ -67,22 +67,21 @@ const showDailyData = () => {
   monthData.value = false;
 };
 const toggleFundingData = async () => {
-    // try {
-    //     const response = await axios.get(
-    //         "https://dsde1736.fornex.org/api/data/funding_data",
-    //         {
-    //             headers: {
-    //                 Authorization: `Bearer ${localStorage.getItem("token")}`,
-    //             },
-    //         }
-    //     );
-    //     fundingData.value = response.data;
-    //     showFundingData.value = !showFundingData.value;
-    // }
-    // catch(error){
-    //     console.log('Funding data ' + error );
-    // }
-    showFundingData.value = true;
+    try {
+        const response = await axios.get(
+            "https://dsde1736.fornex.org/api/data/funding_data",
+            {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem("token")}`,
+                },
+            }
+        );
+        fundingData.value = response.data;
+        showFundingData.value = true;
+    }
+    catch(error){
+        console.log('Funding data ' + error );
+    }
 };
 </script>
 <template>
