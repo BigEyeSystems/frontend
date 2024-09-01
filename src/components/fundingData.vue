@@ -50,6 +50,7 @@ const option = ref({
   ]
 });
 const showFundingData = ref(false);
+const historyData = ref(null);
 const fundingData = ref(null);
 const showWeeklyData = () => {
   dayData.value = false;
@@ -82,6 +83,19 @@ const toggleFundingData = async () => {
     catch(error){
         console.log('Funding data ' + error );
     }
+    try {
+        const responseHistory = await axios.get(
+            "https://dsde1736.fornex.org/api/data/funding_data_history",
+            {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem("token")}`,
+                },
+            }
+        );
+        historyData.value = responseHistory.data;
+    } catch(error) {
+        console.log('Error fetching data: ' + error );
+    }
 };
 </script>
 <template>
@@ -98,9 +112,9 @@ const toggleFundingData = async () => {
                 </div>
             </div>
             <div class="flex gap-2 mt-4">
-              <button class="bg-[#17181C] p-2 w-full text-xs text-[#B8B8B8]" :class="[dayData ? 'bg-[#92FBDB] text-black font-semibold' : '']" @click="showDailyData">За день</button>
-              <button class="bg-[#17181C] p-2 w-full text-xs text-[#B8B8B8]" :class="[weekData ? 'bg-[#92FBDB] text-black font-semibold' : '']" @click="showWeeklyData">За неделю</button>
-              <button class="bg-[#17181C] p-2 w-full text-xs text-[#B8B8B8]" :class="[monthData ? 'bg-[#92FBDB] text-black font-semibold' : '']" @click="showMonthlyData">За месяц</button>
+              <button class="bg-[#17181C] p-2 w-full text-xs text-[#B8B8B8] rounded" :class="[dayData ? 'bg-[#92FBDB] text-black font-semibold' : '']" @click="showDailyData">За день</button>
+              <button class="bg-[#17181C] p-2 w-full text-xs text-[#B8B8B8] rounded" :class="[weekData ? 'bg-[#92FBDB] text-black font-semibold' : '']" @click="showWeeklyData">За неделю</button>
+              <button class="bg-[#17181C] p-2 w-full text-xs text-[#B8B8B8] rounded" :class="[monthData ? 'bg-[#92FBDB] text-black font-semibold' : '']" @click="showMonthlyData">За месяц</button>
             </div>
             <div class="flex justify-center">
                 <v-chart class="chart" :option="option" />
@@ -119,6 +133,7 @@ const toggleFundingData = async () => {
                 <p class="text-xs text-[#B8B8B8]">Кол-во нейтральных фандингов</p>
               </div>
             </div>
+            {{historyData}}
         </div>
     </div>
 </template>
