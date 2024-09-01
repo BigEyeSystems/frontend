@@ -99,8 +99,11 @@ const downloadGradationGrowthFile = async (id) => {
                 <PhDownloadSimple :size="24" />
             </div>
             <p class="mb-3 text-sm font-semibold">История</p>
-            <div>
-                {{ historyData }}
+            <div v-if="historyData">
+                {{ historyData.data }}
+            </div>
+            <div v-else>
+                No data
             </div>
         </div>
     </div>
