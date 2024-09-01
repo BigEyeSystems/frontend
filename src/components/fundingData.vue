@@ -61,7 +61,7 @@ const toggleFundingData = async () => {
     option.value = {
       xAxis: {
         type: "category",
-        data: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+        data: fundingData.value.graph_data.time_interval,
       },
       yAxis: {
         type: "value",
@@ -71,14 +71,14 @@ const toggleFundingData = async () => {
           data: fundingData.value.graph_data.positive,
           type: "line",
         },
-        // {
-        //   data: [100, 250, 140, 210, 190, 240, 120],
-        //   type: 'line'
-        // },
-        // {
-        //   data: [100, 120, 230, 210, 150, 195, 155],
-        //   type: 'line'
-        // },
+        {
+          data: fundingData.value.graph_data.negative,
+          type: 'line'
+        },
+        {
+          data: fundingData.value.graph_data.neutral,
+          type: 'line'
+        },
       ],
     };
   } catch (error) {
