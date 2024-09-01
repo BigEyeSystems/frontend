@@ -68,7 +68,7 @@ const toggleFundingData = async () => {
       },
       series: [
         {
-          data: fundingData.value.positive,
+          data: fundingData.value.graph_data.positive,
           type: "line",
         },
         // {
@@ -139,8 +139,6 @@ const toggleFundingData = async () => {
           За месяц
         </button>
       </div>
-      {{fundingData.graph_data}}
-      ----------------------------------------------------------------------------------------------
       {{ fundingData.graph_data.positive }}
       <div class="flex justify-center">
         <v-chart class="chart" :option="option" />
