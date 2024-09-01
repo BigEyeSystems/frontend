@@ -139,6 +139,7 @@ const toggleFundingData = async () => {
           За месяц
         </button>
       </div>
+      {{fundingData}}
       {{ fundingData.positive }}
       <div class="flex justify-center">
         <v-chart class="chart" :option="option" />
