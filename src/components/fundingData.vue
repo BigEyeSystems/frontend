@@ -116,6 +116,7 @@ const toggleFundingData = async () => {
               <button class="bg-[#17181C] p-2 w-full text-xs text-[#B8B8B8] rounded" :class="[weekData ? 'bg-[#92FBDB] text-black font-semibold' : '']" @click="showWeeklyData">За неделю</button>
               <button class="bg-[#17181C] p-2 w-full text-xs text-[#B8B8B8] rounded" :class="[monthData ? 'bg-[#92FBDB] text-black font-semibold' : '']" @click="showMonthlyData">За месяц</button>
             </div>
+            {{ fundingData }}
             <div class="flex justify-center">
                 <v-chart class="chart" :option="option" />
             </div>
