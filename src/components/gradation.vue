@@ -45,7 +45,7 @@ const toggleGradation = async () => {
 const downloadGradationGrowthFile = async (id) => {
     try {
         const response = await axios.get(
-            `https://dsde1736.fornex.org/api/download-growth?file_id=${id}`,
+            `https://dsde1736.fornex.org/api/webhook/send_growth_data?file_id=${id}`,
             {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem("token")}`,
