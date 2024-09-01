@@ -26,29 +26,7 @@ use([
 const dayData = ref(false);
 const weekData = ref(false);
 const monthData = ref(false);
-const option = ref({
-    xAxis: {
-    type: 'category',
-    data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-  },
-  yAxis: {
-    type: 'value'
-  },
-  series: [
-    {
-      data: [150, 230, 224, 218, 135, 147, 260],
-      type: 'line'
-    },
-    {
-      data: [100, 250, 140, 210, 190, 240, 120],
-      type: 'line'
-    },
-    {
-      data: [100, 120, 230, 210, 150, 195, 155],
-      type: 'line'
-    },
-  ]
-});
+
 const showFundingData = ref(false);
 const historyData = ref(null);
 const fundingData = ref(null);
@@ -97,6 +75,29 @@ const toggleFundingData = async () => {
         console.log('Error fetching data: ' + error );
     }
 };
+const option = ref({
+    xAxis: {
+    type: 'category',
+    data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+  },
+  yAxis: {
+    type: 'value'
+  },
+  series: [
+    {
+      data: fundingData.value.positive,
+      type: 'line'
+    },
+    // {
+    //   data: [100, 250, 140, 210, 190, 240, 120],
+    //   type: 'line'
+    // },
+    // {
+    //   data: [100, 120, 230, 210, 150, 195, 155],
+    //   type: 'line'
+    // },
+  ]
+});
 </script>
 <template>
     <div class="text-xs">
@@ -116,7 +117,6 @@ const toggleFundingData = async () => {
               <button class="bg-[#17181C] p-2 w-full text-xs text-[#B8B8B8] rounded" :class="[weekData ? 'bg-[#92FBDB] text-black font-semibold' : '']" @click="showWeeklyData">За неделю</button>
               <button class="bg-[#17181C] p-2 w-full text-xs text-[#B8B8B8] rounded" :class="[monthData ? 'bg-[#92FBDB] text-black font-semibold' : '']" @click="showMonthlyData">За месяц</button>
             </div>
-            {{ fundingData }}
             <div class="flex justify-center">
                 <v-chart class="chart" :option="option" />
             </div>
