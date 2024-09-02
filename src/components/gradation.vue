@@ -102,9 +102,13 @@ const downloadGradationGrowthFile = async (id) => {
             <div v-if="historyData">
                 <div v-for="(file,index) in historyData.data" key="index">
                     <div class="flex justify-between">
-                        <p class="text-[#B8B8B8] text-sm">Дата создания</p>
-                        {{ file }}
-                        <p>{{ file.date }}</p>
+                        <p class="text-[#B8B8B8] text-xs">Дата создания</p>
+                        <div class="flex gap-1 text-xs">
+                            <PhClock :size="12" />
+                            <p>{{ file.time }}</p>
+                            <PhCalendarDots :size="16" />
+                            <p>{{ file.date }}</p>
+                        </div>
                     </div>
                     <div class="bg-[#17181C] p-2 rounded-xl cursor-pointer my-4 flex justify-between items-center" @click="downloadGradationGrowthFile(file.file_id)">
                         <div class="flex gap-3 items-center">
