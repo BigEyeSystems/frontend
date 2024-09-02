@@ -16,7 +16,7 @@ const showGradation = ref(false);
 const toggleGradation = async () => {
     try {
         const response = await axios.get(
-            `https://dsde1736.fornex.org/api/data/gradation_growth?interval=${fileInterval}?growth_type=Volume`,
+            `https://dsde1736.fornex.org/api/data/gradation_growth?interval=${fileInterval.value}?growth_type=Volume`,
             {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem("token")}`,
