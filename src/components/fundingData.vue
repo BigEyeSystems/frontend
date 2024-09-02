@@ -168,7 +168,9 @@ const toggleFundingData = async () => {
           <p class="text-xs text-[#B8B8B8]">Кол-во нейтральных фандингов</p>
         </div>
       </div>
-      {{ fundingData }}
+      <p class="mb-3 text-sm font-semibold">История</p>
+      <p class="text-[#B8B8B8] text-xs">Дата создания</p>
+      {{ historyData }}
     </div>
   </div>
 </template>
