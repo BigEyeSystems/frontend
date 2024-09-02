@@ -100,7 +100,23 @@ const downloadGradationGrowthFile = async (id) => {
             </div>
             <p class="mb-3 text-sm font-semibold">История</p>
             <div v-if="historyData">
-                {{ historyData.data }}
+                <div v-for="(file,index) in historyData.data" key="index">
+                    <div>
+                        <p>Дата создания</p>
+                        <p>{{ file.date }}</p>
+                    </div>
+                    <div class="bg-[#17181C] p-2 rounded-xl cursor-pointer my-4 flex justify-between items-center" @click="downloadGradationGrowthFile(file.file_id)">
+                        <div class="flex gap-3 items-center">
+                            <div class="p-1 bg-[#797979] rounded">
+                                <PhFile :size="24" color="#fff"/>
+                            </div>
+                            <p class="text-sm font-semibold">
+                                {{ file.file_name }}
+                            </p>
+                        </div>
+                        <PhDownloadSimple :size="24" />
+                    </div>
+                </div>
             </div>
             <div v-else>
                 No data
