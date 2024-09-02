@@ -11,7 +11,6 @@
         По фандингу (-)
       </button>
     </div>
-    {{ fundingData }}
     <div v-if="showFundingByVolume">
       <div v-if="fundingData && fundingData.top_tickers_by_volume && fundingData.top_tickers_by_volume.first_5">
         <div v-for="(item, index) in fundingData.top_tickers_by_volume.first_5" :key="index" class="text-xs mb-2">
