@@ -139,7 +139,6 @@ const toggleFundingData = async () => {
           За месяц
         </button>
       </div>
-      {{ fundingData.graph_data.positive }}
       <div class="flex justify-center">
         <v-chart class="chart" :option="option" />
       </div>
@@ -169,6 +168,7 @@ const toggleFundingData = async () => {
           <p class="text-xs text-[#B8B8B8]">Кол-во нейтральных фандингов</p>
         </div>
       </div>
+      {{ fundingData }}
     </div>
   </div>
 </template>
