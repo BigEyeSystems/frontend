@@ -2,10 +2,11 @@
 import ButtonView from "./button.vue";
 import { ref } from "vue";
 import axios from "axios";
-
+const fileInterval = ref(30);
 const selectedInterval = ref(null);
-const selectInterval = (index) => {
+const selectInterval = (index, interval) => {
   selectedInterval.value = index;
+  fileInterval.value = interval;
 };
 
 const historyData = ref(null);
@@ -15,7 +16,7 @@ const showGradation = ref(false);
 const toggleGradation = async () => {
     try {
         const response = await axios.get(
-            "https://dsde1736.fornex.org/api/data/gradation_growth",
+            `https://dsde1736.fornex.org/api/data/gradation_growth?interval=${fileInterval}?growth_type=Volume`,
             {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -68,7 +69,7 @@ const downloadGradationGrowthFile = async (id) => {
                     <button v-for="(interval, index) in [5, 30, 60, 4]" :key="index" :class="{
                         'bg-[#92FBDB] text-black font-semibold': selectedInterval === index,
                         'bg-[#17181C]': selectedInterval !== index
-                    }" @click="selectInterval(index)" class="w-full py-2 rounded">
+                    }" @click="selectInterval(index, interval)" class="w-full py-2 rounded">
                          <p v-if="interval !== 4">{{ interval }} мин</p>
                          <p v-else>{{ interval }} часа </p>
                     </button>
@@ -103,7 +104,7 @@ const downloadGradationGrowthFile = async (id) => {
                 <div v-for="(file,index) in historyData.data" key="index">
                     <div class="flex justify-between">
                         <p class="text-[#B8B8B8] text-xs">Дата создания</p>
-                        <div class="flex gap-1 text-xs">
+                        <div class="flex gap-1 text-xs items-center">
                             <PhClock :size="12" />
                             <p>{{ file.time }}</p>
                             <PhCalendarDots :size="16" />
