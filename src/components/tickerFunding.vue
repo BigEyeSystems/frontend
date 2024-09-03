@@ -38,8 +38,8 @@
             <p class="text-[#B8B8B8]">= {{ item.markPrice }}$</p>
             <p class="text-[#B8B8B8]">
               5 мин назад:
-              <span :style="{ color: item.5_min_value > 0 ? 'green' : 'red' }">
-                {{ parseFloat(item.5_min_value).toFixed(4) }}%</span>
+              <span :style="{ color: item['5_min_value'] > 0 ? 'green' : 'red' }">
+                {{ parseFloat(item['5_min_value']).toFixed(4) }}%</span>
             </p>
           </div>
         </div>
@@ -59,8 +59,8 @@
             <p class="text-[#B8B8B8]">= {{ item.markPrice }}$</p>
             <p class="text-[#B8B8B8]">
               5 мин назад:
-              <span :style="{ color: item.5_min_value > 0 ? 'green' : 'red' }">
-                {{ parseFloat(item.5_min_value).toFixed(4) }}%</span>
+              <span :style="{ color: item['5_min_value'] > 0 ? 'green' : 'red' }">
+                {{ parseFloat(item['5_min_value']).toFixed(4) }}%</span>
             </p>
           </div>
         </div>
