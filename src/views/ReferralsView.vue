@@ -2,7 +2,7 @@
 import crown from "../components/icons/crown.vue";
 import ButtonView from "../components/button.vue";
 import footerMenu from "@/components/footer.vue";
-import notification from "@/components/notification.vue";
+import Notification from "@/components/notification.vue";
 import { ref } from "vue";
 import referralsWorkProcess from "../components/referralsWorkProcess.vue";
 import axios from "axios";
@@ -171,7 +171,7 @@ const copyReferral = async () => {
     <Teleport to="body">
         <transition name="modal">
           <div v-if="isNotification">
-            <notification :openNotification = isNotification />
+            <Notification :openNotification = isNotification />
           </div>
         </transition>
       </Teleport>
@@ -185,5 +185,19 @@ const copyReferral = async () => {
   background-image: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" width="358" height="156" viewBox="0 0 358 156" fill="none"><g filter="url(%23filter0_f_593_24028)"><path d="M382 33.4369L382 112L-24 112L-24 33.4369C57.361 -39.9942 219.036 164.167 382 33.4369Z" fill="%2392FBDB" fill-opacity="0.4"/></g><defs><filter id="filter0_f_593_24028" x="-106.113" y="-65.113" width="570.226" height="259.226" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB"><feFlood flood-opacity="0" result="BackgroundImageFix"/><feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/><feGaussianBlur stdDeviation="41.0565" result="effect1_foregroundBlur_593_24028"/></filter></defs></svg>');
   background-repeat: no-repeat;
   background-size: cover;
+}
+.modal-enter-active,
+.modal-leave-active {
+  transition: transform 0.3s ease-in-out;
+}
+
+.modal-enter-from,
+.modal-leave-to {
+  transform: translateY(100%);
+}
+
+.modal-enter-to,
+.modal-leave-from {
+  transform: translateY(0);
 }
 </style>
