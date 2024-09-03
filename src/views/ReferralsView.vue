@@ -2,7 +2,6 @@
 import crown from "../components/icons/crown.vue";
 import ButtonView from "../components/button.vue";
 import footerMenu from "@/components/footer.vue";
-import Notification from "@/components/notification.vue";
 import { ref } from "vue";
 import referralsWorkProcess from "../components/referralsWorkProcess.vue";
 import axios from "axios";
@@ -170,8 +169,12 @@ const copyReferral = async () => {
     </div>
     <Teleport to="body">
         <transition name="modal">
-          <div v-if="isNotification">
-            <Notification :openNotification = isNotification />
+          <div v-if="isNotification" class="h-full w-full flex items-center justify-between">
+            <div class="bg-black p-4">
+              <p>
+                Ссылка скопирована в буфер обмена
+              </p>
+            </div>
           </div>
         </transition>
       </Teleport>
