@@ -169,7 +169,7 @@ const copyReferral = async () => {
     </div>
     <Teleport to="body">
         <transition name="modal">
-          <div v-if="isNotification" class="absolute h-full w-full flex items-center justify-between z-999">
+          <div v-if="isNotification" class="h-screen w-full flex items-center justify-between">
             <div class="bg-black p-4">
               <p>
                 Ссылка скопирована в буфер обмена
