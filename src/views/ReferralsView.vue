@@ -2,6 +2,7 @@
 import crown from "../components/icons/crown.vue";
 import ButtonView from "../components/button.vue";
 import footerMenu from "@/components/footer.vue";
+import notification from "@/components/notification.vue";
 import { ref } from "vue";
 import referralsWorkProcess from "../components/referralsWorkProcess.vue";
 import axios from "axios";
@@ -10,6 +11,7 @@ import { notification } from "ant-design-vue";
 const isrTansaction = ref(true);
 const isProcess = ref(false);
 const link = ref("");
+const isNotification = ref(false);
 
 const showTransaction = () => {
   isrTansaction.value = true;
@@ -32,12 +34,9 @@ const copyReferral = async () => {
       }
     );
     link.value = response.data.link;
-    try {
+    try {       
       await navigator.clipboard.writeText(link.value);
-      notification.open({
-        message: "Успешно скопирована",
-        type: "success",
-      });
+      isNotification.value = true;
       console.log("Referral link copied to clipboard!");
     } catch (clipboardError) {
       const textArea = document.createElement("textarea");
@@ -46,11 +45,7 @@ const copyReferral = async () => {
       textArea.select();
       document.execCommand("copy");
       document.body.removeChild(textArea);
-      notification.open({
-        message: "Success",
-        description: "Реферальная ссылка скопирована!",
-        type: "success",
-      });
+      isNotification.value = true;
       console.log("Referral link copied to clipboard using fallback method!");
     }
   } catch (error) {
@@ -174,7 +169,13 @@ const copyReferral = async () => {
         </template>
       </referralsWorkProcess>
     </div>
-
+    <Teleport to="body">
+        <transition name="modal">
+          <div v-if="isNotification">
+            <notification :openNotification = isNotification />
+          </div>
+        </transition>
+      </Teleport>
     <footer class="fixed bottom-0 left-0 w-full mt-48 mb-4 px-4">
       <footerMenu />
     </footer>
