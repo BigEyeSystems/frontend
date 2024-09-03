@@ -11,7 +11,6 @@
         По фандингу (-)
       </button>
     </div>
-    {{ fundingData }}
     <div v-if="showFundingByVolume">
       <div v-if="fundingData && fundingData.top_tickers_by_volume && fundingData.top_tickers_by_volume.first_5">
         <div v-for="(item, index) in fundingData.top_tickers_by_volume.first_5" :key="index" class="text-xs mb-2">
@@ -33,14 +32,14 @@
         <div v-for="(item, index) in fundingData.top_tickers.last_5" :key="index" class="text-xs mb-2">
           <div class="flex justify-between">
             <p>{{ item.symbol }}</p>
-            <p>{{ parseFloat(item.fundingRate).toFixed(4) }}%</p>
+            <p>{{ parseFloat(item.lastFundingRate).toFixed(4) }}%</p>
           </div>
           <div class="flex justify-between pb-2">
             <p class="text-[#B8B8B8]">= {{ item.markPrice }}$</p>
             <p class="text-[#B8B8B8]">
               5 мин назад:
-              <span :style="{ color: item.fundingRate > 0 ? 'green' : 'red' }">
-                {{ parseFloat(item.fundingRate).toFixed(4) }}%</span>
+              <span :style="{ color: item.5_min_value > 0 ? 'green' : 'red' }">
+                {{ parseFloat(item.5_min_value).toFixed(4) }}%</span>
             </p>
           </div>
         </div>
@@ -54,14 +53,14 @@
         <div v-for="(item, index) in fundingData.top_tickers.first_5" :key="index" class="text-xs mb-2">
           <div class="flex justify-between">
             <p>{{ item.symbol }}</p>
-            <p>{{ parseFloat(item.fundingRate).toFixed(4) }}%</p>
+            <p>{{ parseFloat(item.lastFundingRate).toFixed(4) }}%</p>
           </div>
           <div class="flex justify-between pb-2">
             <p class="text-[#B8B8B8]">= {{ item.markPrice }}$</p>
             <p class="text-[#B8B8B8]">
               5 мин назад:
-              <span :style="{ color: item.fundingRate > 0 ? 'green' : 'red' }">
-                {{ parseFloat(item.fundingRate).toFixed(4) }}%</span>
+              <span :style="{ color: item.5_min_value > 0 ? 'green' : 'red' }">
+                {{ parseFloat(item.5_min_value).toFixed(4) }}%</span>
             </p>
           </div>
         </div>
