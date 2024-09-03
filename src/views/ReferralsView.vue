@@ -54,7 +54,7 @@ const copyReferral = async () => {
 </script>
 
 <template>
-  <div>
+  <div class="relative">
     <div class="flex gap-3">
       <div>
         <crown />
@@ -169,7 +169,7 @@ const copyReferral = async () => {
     </div>
     <Teleport to="body">
         <transition name="modal">
-          <div v-if="isNotification" class="h-full w-full flex items-center justify-between">
+          <div v-if="isNotification" class="absolute h-full w-full flex items-center justify-between ">
             <div class="bg-black p-4">
               <p>
                 Ссылка скопирована в буфер обмена
