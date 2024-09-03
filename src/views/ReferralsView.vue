@@ -32,7 +32,7 @@ const copyReferral = async () => {
       }
     );
     link.value = response.data.link;
-    try {       
+    try {
       await navigator.clipboard.writeText(link.value);
       isNotification.value = true;
       console.log("Referral link copied to clipboard!");
@@ -168,16 +168,18 @@ const copyReferral = async () => {
       </referralsWorkProcess>
     </div>
     <Teleport to="body">
-        <transition name="modal">
-          <div v-if="isNotification" class="h-screen w-full flex items-center justify-between">
-            <div class="bg-black p-4">
-              <p>
-                Ссылка скопирована в буфер обмена
-              </p>
-            </div>
+      <transition name="modal">
+        <div
+          v-if="isNotification"
+          class="modal fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50"
+        >
+          <div class="bg-white p-4 rounded-lg">
+            <p>Ссылка скопирована в буфер обмена</p>
           </div>
-        </transition>
-      </Teleport>
+        </div>
+      </transition>
+    </Teleport>
+
     <footer class="fixed bottom-0 left-0 w-full mt-48 mb-4 px-4">
       <footerMenu />
     </footer>
