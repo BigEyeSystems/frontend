@@ -170,7 +170,7 @@ const copyReferral = async () => {
     <Teleport to="body">
       <div
         v-if="isNotification"
-        class="modal fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 px-4"
+        class="modal fixed inset-0 flex items-center justify-center z-50 px-4"
       >
         <transition name="modal">
           <div class="bg-[#222222b3] py-4 px-5 rounded-lg w-full">
