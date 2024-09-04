@@ -2,18 +2,37 @@
 import ButtonView from "./button.vue";
 import ticker from "./ticker.vue";
 import { ref } from "vue";
+import axios from "axios";
+
+const tickerName = ref('');
+const tickerData = ref(null);
 const selectedInterval = ref(null);
 const selectInterval = (index) => {
   selectedInterval.value = index;
 };
 
 const selectedActive = ref(null);
-const selectActive = (index) => {
+const selectActive = (index, active) => {
     selectedActive.value = index;
+    tickerName.value = active;
 };
 const showTrackingTicker = ref(false);
-const toggleTrackingTicker = () => {
-  showTrackingTicker.value = !showTrackingTicker.value;
+const toggleTrackingTicker = async () => {
+  try {
+    const response = await axios.get(
+      `https://dsde1736.fornex.org/api/data/analytics/ticker_information?ticker=${tickerName.value}`,
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    );
+    tickerData.value = response.data;
+    showTrackingTicker.value = true;
+  } catch (error) {
+    console.log("Error fetching data: " + error);
+  }
+
 };
 </script>
 <template>
@@ -26,7 +45,7 @@ const toggleTrackingTicker = () => {
           <button v-for="(active, index) in ['BNB', 'EDU', 'PEOPLE', 'ETHFI']" :key="index" :class="{
             'bg-[#92FBDB] text-black font-semibold': selectedActive === index,
             'bg-[#17181C]': selectedActive !== index
-          }" @click="selectActive(index)" class="w-full py-2 rounded">
+          }" @click="selectActive(index, active)" class="w-full py-2 rounded">
             {{ active }}
           </button>
         </div>
@@ -52,6 +71,7 @@ const toggleTrackingTicker = () => {
 
     <ButtonView :text="'Добавить трекер'" :on-click="toggleTrackingTicker" class="my-4" />
     <div v-if="showTrackingTicker">
+      {{ tickerData }}
       <div class="mb-4">
         <ticker />
       </div>

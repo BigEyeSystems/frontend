@@ -27,6 +27,8 @@ const option = ref(null);
 const dayData = ref(false);
 const weekData = ref(false);
 const monthData = ref(false);
+const intervalIndex = ref(7);
+
 
 const showFundingData = ref(false);
 const historyData = ref(null);
@@ -40,11 +42,13 @@ const showMonthlyData = () => {
   dayData.value = false;
   weekData.value = false;
   monthData.value = true;
+  intervalIndex.value = 30;
 };
 const showDailyData = () => {
   dayData.value = true;
   weekData.value = false;
   monthData.value = false;
+  intervalIndex.value = 1;
 };
 const toggleFundingData = async () => {
   try {
@@ -102,7 +106,7 @@ const showDate = (timestamp) => {
   let dateObject = new Date(timestamp);
   let datePart = dateObject.toISOString().split("T")[0];
   let timePart = dateObject.toTimeString().split(" ")[0];
-  return `${timePart} ${datePart}`;
+  return `${datePart} ${timePart}`;
 };
 </script>
 <template>
