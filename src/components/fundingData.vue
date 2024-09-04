@@ -151,7 +151,7 @@ const toggleFundingData = async () => {
       </div>
       <p class="my-4 text-sm font-semibold">История</p>
       <div v-for="(data, index) in historyData.data" :key="index">
-        <div class="my-4 bg-[#17181C] px-3 py-4">
+        <div class="flex flex-col gap-6 my-4 bg-[#17181C] px-3 py-4 rounded-lg">
           <p class="text-[#B8B8B8] text-xs">Дата создания</p>
           <div class="flex justify-between w-full">
             <p>Кол-во положительных фандингов:</p>
