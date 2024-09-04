@@ -175,11 +175,11 @@ const copyReferral = async () => {
         >
           <div class="bg-[#222222b3] py-4 px-5 rounded-lg">
             <div class="flex justify-end">
-              <button @click="isNotification = false" class="bg-[#7474802e] p-1 rounded-full">
+              <button @click="isNotification = false" class="bg-[#7474802e] p-2 rounded-full">
                 <PhX :size="21" />
               </button>
             </div>
-            <p class="text-lg py-2">Ссылка скопирована в буфер обмена</p>
+            <p class="text-lg py-2 font-semibold text-center">Ссылка скопирована</p>
           </div>
         </div>
       </transition>
