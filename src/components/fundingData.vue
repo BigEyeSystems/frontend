@@ -98,6 +98,12 @@ const toggleFundingData = async () => {
     console.log("Error fetching data: " + error);
   }
 };
+const showDate = (timestamp) => {
+  let dateObject = new Date(timestamp);
+  let datePart = dateObject.toISOString().split("T")[0];
+  let timePart = dateObject.toTimeString().split(" ")[0];
+  return `${timePart} ${datePart}`;
+};
 </script>
 <template>
   <div class="text-xs">
@@ -154,7 +160,7 @@ const toggleFundingData = async () => {
         <div class="flex flex-col gap-6 my-4 bg-[#17181C] px-3 py-4 rounded-lg">
           <div class="flex justify-between">
             <p class="text-[#B8B8B8] text-xs">Дата создания</p>
-            <p>{{ data.created }}</p>
+            <p>{{ showDate(data.created) }}</p>
           </div>
           <div class="flex justify-between w-full">
             <p>Кол-во положительных фандингов:</p>
