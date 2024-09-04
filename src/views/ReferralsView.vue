@@ -168,21 +168,26 @@ const copyReferral = async () => {
       </referralsWorkProcess>
     </div>
     <Teleport to="body">
-      <transition name="modal">
-        <div
-          v-if="isNotification"
-          class="modal fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 px-4"
-        >
+      <div
+        v-if="isNotification"
+        class="modal fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 px-4"
+      >
+        <transition name="modal">
           <div class="bg-[#222222b3] py-4 px-5 rounded-lg w-full">
             <div class="flex justify-end">
-              <button @click="isNotification = false" class="bg-[#7474802e] p-2 rounded-full">
+              <button
+                @click="isNotification = false"
+                class="bg-[#7474802e] p-2 rounded-full"
+              >
                 <PhX :size="21" />
               </button>
             </div>
-            <p class="text-lg py-2 font-semibold text-center">Ссылка скопирована</p>
+            <p class="text-lg py-2 font-semibold text-center">
+              Ссылка скопирована
+            </p>
           </div>
-        </div>
-      </transition>
+        </transition>
+      </div>
     </Teleport>
 
     <footer class="fixed bottom-0 left-0 w-full mt-48 mb-4 px-4">
