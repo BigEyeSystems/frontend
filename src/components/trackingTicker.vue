@@ -18,21 +18,7 @@ const selectActive = (index, active) => {
 };
 const showTrackingTicker = ref(false);
 const toggleTrackingTicker = async () => {
-  try {
-    const response = await axios.get(
-      `https://dsde1736.fornex.org/api/data/analytics/ticker_information?ticker=${tickerName.value}`,
-      {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      }
-    );
-    tickerData.value = response.data;
-    showTrackingTicker.value = true;
-  } catch (error) {
-    console.log("Error fetching data: " + error);
-  }
-
+  showTrackingTicker.value = true;
 };
 </script>
 <template>
@@ -71,7 +57,6 @@ const toggleTrackingTicker = async () => {
 
     <ButtonView :text="'Добавить трекер'" :on-click="toggleTrackingTicker" class="my-4" />
     <div v-if="showTrackingTicker">
-      {{ tickerData }}
       <div class="mb-4">
         <ticker />
       </div>
