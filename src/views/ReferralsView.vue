@@ -173,7 +173,7 @@ const copyReferral = async () => {
           v-if="isNotification"
           class="modal fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 px-4"
         >
-          <div class="bg-[##222222b3] p-4 rounded-lg">
+          <div class="bg-[#222222b3] p-4 rounded-lg">
             <div class="flex justify-end">
               <button @click="isNotification = false">
                 <PhX :size="21" />
