@@ -2,6 +2,7 @@
 import { ref } from 'vue';
 import { Switch } from 'ant-design-vue';
 import LocalesView from './LocalesView.vue';
+import axios from 'axios';
 const checkedNotification = ref(true);
 const checkedImpulse = ref(true);
 const checkedActive = ref(true);
