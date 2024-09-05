@@ -33,7 +33,6 @@ const copyReferral = async () => {
     );
     link.value = response.data.link;
 
-    // Check if the device is an iPhone
     const isIphone = /iPhone|iPad|iPod/i.test(navigator.userAgent);
 
     if (!isIphone && navigator.clipboard && typeof navigator.clipboard.writeText === "function") {
@@ -43,18 +42,31 @@ const copyReferral = async () => {
     } else {
       const textArea = document.createElement("textarea");
       textArea.value = link.value;
+      textArea.style.position = "absolute";
+      textArea.style.left = "-9999px"; // Move it off-screen
       document.body.appendChild(textArea);
       textArea.select();
-      document.execCommand("copy");
+      textArea.setSelectionRange(0, 99999); // For iOS devices
+
+      const successful = document.execCommand("copy");
+
+      if (successful) {
+        console.log("Referral link copied using textarea fallback");
+      } else {
+        prompt("Copy this link:", link.value);
+        console.log("Manual copy prompt displayed for the user");
+      }
+
       document.body.removeChild(textArea);
       isNotification.value = true;
-      console.log("Referral link copied to clipboard using fallback method!");
     }
   } catch (error) {
     console.error("Failed to copy referral link:", error);
+    isNotification.value = true;
     console.log("Failed to copy referral link");
   }
 };
+
 
 </script>
 
