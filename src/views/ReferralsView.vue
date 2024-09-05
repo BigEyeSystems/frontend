@@ -32,11 +32,15 @@ const copyReferral = async () => {
       }
     );
     link.value = response.data.link;
-    try {
+
+    // Check if the device is an iPhone
+    const isIphone = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+    if (!isIphone && navigator.clipboard && typeof navigator.clipboard.writeText === "function") {
       await navigator.clipboard.writeText(link.value);
       isNotification.value = true;
       console.log("Referral link copied to clipboard!");
-    } catch (clipboardError) {
+    } else {
       const textArea = document.createElement("textarea");
       textArea.value = link.value;
       document.body.appendChild(textArea);
@@ -51,6 +55,7 @@ const copyReferral = async () => {
     console.log("Failed to copy referral link");
   }
 };
+
 </script>
 
 <template>
