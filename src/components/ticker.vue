@@ -10,7 +10,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(item, index) in props.detail" :key="index">
+        <tr v-for="(item, index) in tickerData" :key="index">
           <td>
             {{ item.active_name }}
             <span :class="{ 'positive': item.percent > 0, 'negative': item.percent < 0 }">
@@ -33,6 +33,15 @@ const props = defineProps({
     required: true
   }
 })
+
+const tickerData = computed(() => {
+  try {
+    return JSON.parse(props.detail);
+  } catch (e) {
+    console.error("Failed to parse funding data:", e);
+    return null;
+  }
+});
 
 const data = ref([
   { name: 'COMBOUSDT', change: 13.78, date: 'Сегодня 12:03', changePercentage: 5.02 },
