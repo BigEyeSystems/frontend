@@ -25,7 +25,7 @@ use([
 ]);
 const option = ref(null);
 const dayData = ref(false);
-const weekData = ref(false);
+const weekData = ref(true);
 const monthData = ref(false);
 const intervalIndex = ref(7);
 
@@ -37,6 +37,7 @@ const showWeeklyData = () => {
   dayData.value = false;
   weekData.value = true;
   monthData.value = false;
+  intervalIndex.value = 7;
 };
 const showMonthlyData = () => {
   dayData.value = false;
@@ -53,7 +54,7 @@ const showDailyData = () => {
 const toggleFundingData = async () => {
   try {
     const response = await axios.get(
-      "https://dsde1736.fornex.org/api/data/funding_data",
+      `https://dsde1736.fornex.org/api/data/funding_data?interval=${intervalIndex.value}`,
       {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
