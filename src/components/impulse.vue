@@ -126,7 +126,7 @@ const showImpulseData = async () => {
     <div v-if="showImpulse">
       <p class="my-4">Выберите импульс для сохранения в историю</p>
       <div class="mb-4">
-        <ticker :detail = impulseData.impulses_history />
+        <ticker :detail = impulseData?.impulses_history />
       </div>
     </div>
   </div>
