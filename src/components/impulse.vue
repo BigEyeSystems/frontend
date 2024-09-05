@@ -125,18 +125,6 @@ const showImpulseData = async () => {
 
     <div v-if="showImpulse">
       <p class="my-4">Выберите импульс для сохранения в историю</p>
-      <tbody>
-        <tr v-for="(item, index) in impulseData?.impulses_history" :key="index">
-          <td>
-            {{ item.active_name }}
-            <span :class="{ 'positive': item.percent > 0, 'negative': item.percent < 0 }">
-              {{ item.percent.toFixed(2) }}%
-            </span>
-          </td>
-          <td>{{ item.day_percent.toFixed(2) }}%</td>
-          <td>{{ item.date }}</td>
-        </tr>
-      </tbody>
       <div class="mb-4">
         <ticker :detail = impulseData?.impulses_history />
       </div>
