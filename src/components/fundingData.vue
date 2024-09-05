@@ -33,23 +33,134 @@ const intervalIndex = ref(7);
 const showFundingData = ref(false);
 const historyData = ref(null);
 const fundingData = ref(null);
-const showWeeklyData = () => {
+const showWeeklyData = async () => {
   dayData.value = false;
   weekData.value = true;
   monthData.value = false;
   intervalIndex.value = 7;
+  try {
+    const response = await axios.get(
+      `https://dsde1736.fornex.org/api/data/funding_data?interval=${intervalIndex.value}`,
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    );
+    fundingData.value = response.data;
+    showFundingData.value = true;
+    option.value = {
+      xAxis: {
+        type: "category",
+        data: fundingData.value.graph_data.time_interval,
+      },
+      yAxis: {
+        type: "value",
+      },
+      series: [
+        {
+          data: fundingData.value.graph_data.positive,
+          type: "line",
+        },
+        {
+          data: fundingData.value.graph_data.negative,
+          type: 'line'
+        },
+        {
+          data: fundingData.value.graph_data.neutral,
+          type: 'line'
+        },
+      ],
+    };
+  } catch (error) {
+    console.log("Funding data " + error);
+  }
 };
-const showMonthlyData = () => {
+const showMonthlyData = async () => {
   dayData.value = false;
   weekData.value = false;
   monthData.value = true;
   intervalIndex.value = 30;
+  try {
+    const response = await axios.get(
+      `https://dsde1736.fornex.org/api/data/funding_data?interval=${intervalIndex.value}`,
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    );
+    fundingData.value = response.data;
+    showFundingData.value = true;
+    option.value = {
+      xAxis: {
+        type: "category",
+        data: fundingData.value.graph_data.time_interval,
+      },
+      yAxis: {
+        type: "value",
+      },
+      series: [
+        {
+          data: fundingData.value.graph_data.positive,
+          type: "line",
+        },
+        {
+          data: fundingData.value.graph_data.negative,
+          type: 'line'
+        },
+        {
+          data: fundingData.value.graph_data.neutral,
+          type: 'line'
+        },
+      ],
+    };
+  } catch (error) {
+    console.log("Funding data " + error);
+  }
 };
-const showDailyData = () => {
+const showDailyData = async () => {
   dayData.value = true;
   weekData.value = false;
   monthData.value = false;
   intervalIndex.value = 1;
+  try {
+    const response = await axios.get(
+      `https://dsde1736.fornex.org/api/data/funding_data?interval=${intervalIndex.value}`,
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    );
+    fundingData.value = response.data;
+    showFundingData.value = true;
+    option.value = {
+      xAxis: {
+        type: "category",
+        data: fundingData.value.graph_data.time_interval,
+      },
+      yAxis: {
+        type: "value",
+      },
+      series: [
+        {
+          data: fundingData.value.graph_data.positive,
+          type: "line",
+        },
+        {
+          data: fundingData.value.graph_data.negative,
+          type: 'line'
+        },
+        {
+          data: fundingData.value.graph_data.neutral,
+          type: 'line'
+        },
+      ],
+    };
+  } catch (error) {
+    console.log("Funding data " + error);
+  }
 };
 const toggleFundingData = async () => {
   try {
