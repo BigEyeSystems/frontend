@@ -12,7 +12,7 @@ import {
   GridComponent,
 } from "echarts/components";
 import VChart, { THEME_KEY } from "vue-echarts";
-import { ref, provide } from "vue";
+import { ref, provide, onMounted } from "vue";
 
 use([
   GridComponent,
@@ -162,7 +162,7 @@ const showDailyData = async () => {
     console.log("Funding data " + error);
   }
 };
-const toggleFundingData = async () => {
+onMounted( async () =>  {
   try {
     const response = await axios.get(
       `https://dsde1736.fornex.org/api/data/funding_data?interval=${intervalIndex.value}`,
@@ -213,7 +213,7 @@ const toggleFundingData = async () => {
   } catch (error) {
     console.log("Error fetching data: " + error);
   }
-};
+});
 const showDate = (timestamp) => {
   let dateObject = new Date(timestamp);
   let datePart = dateObject.toISOString().split("T")[0];
@@ -223,9 +223,8 @@ const showDate = (timestamp) => {
 </script>
 <template>
   <div class="text-xs">
-    <ButtonView v-if="!showFundingData" :text="'Получить информацию'" @click="toggleFundingData" class="my-3" />
-    <ButtonView v-else :text="'Обновить информацию'" class="my-3" />
-    <div v-if="showFundingData">
+    <ButtonView :text="'Обновить информацию'" class="my-3" />
+    <div v-if="fundingData">
       <p class="mb-3">Результат запроса</p>
       <div class="flex justify-between">
         <p class="text-xs">Последнее обновление:</p>
