@@ -18,6 +18,23 @@ const openLocales = ref(false);
 const toggleTeleport = () => {
     openLocales.value = !openLocales.value;
 };
+const responseSettings = ref(null);
+
+onMounted(async () => {
+    try {
+    const response = await axios.get(
+      "https://dsde1736.fornex.org/api/data/funding_data_history",
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    );
+    responseSettings.value = response.data;
+  } catch (error) {
+    console.log("Error fetching data: " + error);
+  }
+});
 </script>
 <template>
     <div>
@@ -46,6 +63,7 @@ const toggleTeleport = () => {
                 <Switch default-checked v-model:checked="checkedNotification" @change="onChange" />
             </div>
         </div>
+        {{ responseSettings }}
         <p class="text-sm font-semibold mb-4">Крипто рынок</p>
         <div class="bg-gradient-to-r from-[#ffffff1f] to-[#ffffff12] px-4 py-3 rounded-lg text-sm">
             <div class="flex justify-between py-4 setting-border">

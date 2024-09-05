@@ -222,9 +222,9 @@ const showDate = (timestamp) => {
 };
 </script>
 <template>
-  <div class="text-xs">
+  <div v-if="fundingData" class="text-xs">
     <ButtonView :text="'Обновить информацию'" class="my-3" />
-    <div v-if="fundingData">
+    <div>
       <p class="mb-3">Результат запроса</p>
       <div class="flex justify-between">
         <p class="text-xs">Последнее обновление:</p>
