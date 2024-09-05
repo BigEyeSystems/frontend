@@ -1,5 +1,7 @@
 <template>
   <div class="table-container text-xs rounded-[calc(1.5rem-10px)] p-1 bg-[#17181C] py-4">
+    {{ props.detail }}
+    {{ tickerData }}
     <table>
       <thead>
         <tr class="text-xs">
