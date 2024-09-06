@@ -24,7 +24,7 @@ const responseSettings = ref(null);
 onMounted(async () => {
     try {
     const response = await axios.get(
-      "https://dsde1736.fornex.org/api/data/funding_data_history",
+      "https://dsde1736.fornex.org/api/user/get_notifications",
       {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
