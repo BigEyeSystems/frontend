@@ -11,7 +11,7 @@
       <tbody>
         <tr v-for="(item, index) in props.detail" :key="index">
           <td>
-            {{ item.active_name }}
+            {{ item.active_name }} <br/>
             <span :class="{ 'positive': item.percent > 0, 'negative': item.percent < 0 }">
               {{ item.percent?.toFixed(2) || 0 }}%
             </span>
