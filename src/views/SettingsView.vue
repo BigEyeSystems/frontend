@@ -4,7 +4,7 @@ import { Switch } from 'ant-design-vue';
 import LocalesView from './LocalesView.vue';
 import axios from 'axios';
 const checkedNotification = ref(true);
-const checkedImpulse = ref(true);
+const checkedImpulse = ref(responseSettings.value.notifications.last_impulse);
 const checkedActive = ref(true);
 const checkedFundFinance = ref(true);
 const checkedFunctionPremission = ref(false);
@@ -64,7 +64,7 @@ onMounted(async () => {
                 <Switch default-checked v-model:checked="checkedNotification" @change="onChange" />
             </div>
         </div>
-        {{ responseSettings }}
+        Impulse: {{ responseSettings.notifications.last_impulse }}
         <p class="text-sm font-semibold mb-4">Крипто рынок</p>
         <div class="bg-gradient-to-r from-[#ffffff1f] to-[#ffffff12] px-4 py-3 rounded-lg text-sm">
             <div class="flex justify-between py-4 setting-border">
