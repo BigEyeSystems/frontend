@@ -1,11 +1,13 @@
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, computed } from 'vue';
 import { Switch } from 'ant-design-vue';
 import LocalesView from './LocalesView.vue';
 import axios from 'axios';
+
+const responseSettings = ref(null);
 const checkedNotification = ref(true);
-const checkedImpulse = ref(responseSettings.value.notifications.last_impulse);
-const checkedActive = ref(true);
+const checkedImpulse = computed(() => responseSettings.value?.notifications.last_impulse ?? false);
+const checkedActive = computed(() => responseSettings.value?.notifications.tracking_ticker ?? false);
 const checkedFundFinance = ref(true);
 const checkedFunctionPremission = ref(false);
 const checkedImbalances = ref(false);
@@ -19,7 +21,6 @@ const openLocales = ref(false);
 const toggleTeleport = () => {
     openLocales.value = !openLocales.value;
 };
-const responseSettings = ref(null);
 
 onMounted(async () => {
     try {

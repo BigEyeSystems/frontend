@@ -228,29 +228,21 @@ const showDate = (timestamp) => {
       <div class="flex justify-between">
         <p class="text-xs">Последнее обновление:</p>
         <div class="flex text-xs gap-1">
-          <PhClock :size="16" /> 12:03 <PhCalendarDots :size="16" /> 9.01.2024
+          <PhClock :size="16" /> 12:03
+          <PhCalendarDots :size="16" /> 9.01.2024
         </div>
       </div>
       <div class="flex gap-2 mt-4">
-        <button
-          class="bg-[#17181C] p-2 w-full text-xs text-[#B8B8B8] rounded"
-          :class="[dayData ? 'bg-[#92FBDB] text-black font-semibold' : '']"
-          @click="showDailyData"
-        >
+        <button class="bg-[#17181C] p-2 w-full text-xs text-[#B8B8B8] rounded"
+          :class="[dayData ? 'bg-[#92FBDB] text-black font-semibold' : '']" @click="showDailyData">
           За день
         </button>
-        <button
-          class="bg-[#17181C] p-2 w-full text-xs text-[#B8B8B8] rounded"
-          :class="[weekData ? 'bg-[#92FBDB] text-black font-semibold' : '']"
-          @click="showWeeklyData"
-        >
+        <button class="bg-[#17181C] p-2 w-full text-xs text-[#B8B8B8] rounded"
+          :class="[weekData ? 'bg-[#92FBDB] text-black font-semibold' : '']" @click="showWeeklyData">
           За неделю
         </button>
-        <button
-          class="bg-[#17181C] p-2 w-full text-xs text-[#B8B8B8] rounded"
-          :class="[monthData ? 'bg-[#92FBDB] text-black font-semibold' : '']"
-          @click="showMonthlyData"
-        >
+        <button class="bg-[#17181C] p-2 w-full text-xs text-[#B8B8B8] rounded"
+          :class="[monthData ? 'bg-[#92FBDB] text-black font-semibold' : '']" @click="showMonthlyData">
           За месяц
         </button>
       </div>
@@ -259,25 +251,19 @@ const showDate = (timestamp) => {
       </div>
       <div class="flex flex-col gap-2">
         <div class="flex gap-2 items-center">
-          <div
-            class="px-3 bg-[#33A721] text-sm font-semibold h-4 flex items-center"
-          >
+          <div class="px-3 bg-[#33A721] text-sm font-semibold h-4 flex items-center">
             {{ fundingData?.positive_quantity }}
           </div>
           <p class="text-xs text-[#B8B8B8]">Кол-во положительных фандингов</p>
         </div>
         <div class="flex gap-2 items-center">
-          <p
-            class="px-3 bg-[#CA3140] text-sm font-semibold h-4 flex items-center"
-          >
+          <p class="px-3 bg-[#CA3140] text-sm font-semibold h-4 flex items-center">
             {{ fundingData?.negative_quantity }}
           </p>
           <p class="text-xs text-[#B8B8B8]">Кол-во отрицательных фандингов</p>
         </div>
         <div class="flex gap-2 items-center">
-          <p
-            class="px-3 bg-white text-sm font-semibold h-4 flex items-center text-black"
-          >
+          <p class="px-3 bg-white text-sm font-semibold h-4 flex items-center text-black">
             {{ fundingData?.neutral_quantity }}
           </p>
           <p class="text-xs text-[#B8B8B8]">Кол-во нейтральных фандингов</p>
@@ -307,8 +293,13 @@ const showDate = (timestamp) => {
     </div>
   </div>
   <data v-else>
-    Loading...
-  </data> 
+    <div class="flex w-52 flex-col gap-4">
+      <div class="skeleton h-32 w-full"></div>
+      <div class="skeleton h-4 w-28"></div>
+      <div class="skeleton h-4 w-full"></div>
+      <div class="skeleton h-4 w-full"></div>
+    </div>
+  </data>
 </template>
 
 <style scoped>
