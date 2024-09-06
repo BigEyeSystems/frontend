@@ -135,7 +135,7 @@ onBeforeUnmount(() => {
         </div>
       </div>
       <div class="my-4 mb-20">
-        <tickerFunding :detail="data" />
+        <tickerFunding v-if="data" :detail="data" />
       </div>
       <Teleport to="body">
         <transition name="modal">
