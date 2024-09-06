@@ -64,7 +64,6 @@ onMounted(async () => {
                 <Switch default-checked v-model:checked="checkedNotification" @change="onChange" />
             </div>
         </div>
-        Impulse: {{ responseSettings.notifications.last_impulse }}
         <p class="text-sm font-semibold mb-4">Крипто рынок</p>
         <div class="bg-gradient-to-r from-[#ffffff1f] to-[#ffffff12] px-4 py-3 rounded-lg text-sm">
             <div class="flex justify-between py-4 setting-border">
