@@ -7,6 +7,7 @@ import App from './App.vue'
 import  {VueTelegramPlugin} from 'vue-tg'
 import { createRouter, createWebHistory } from 'vue-router'
 import '@fontsource/inter';
+import { createI18n } from 'vue-i18n'
 const router = createRouter({
   history: createWebHistory(),
   routes: [
@@ -45,8 +46,12 @@ const router = createRouter({
       component:() => import('./views/WalletView.vue'),
       name: '/profile/wallet'
     },
-
 ]
+});
+
+const i18n = createI18n({
+  legacy: false,
+  fallbackLocale: 'en',
 })
 
 createApp(App).use(router).use(createPinia()).use(PhosphorIcons).use(VueTelegramPlugin).mount('#app')

@@ -70,7 +70,7 @@ const showImpulseData = async () => {
   <div class="text-xs">
     <div v-if="!showImpulse">
       <div class="mb-3">
-        <p>Выберете временной интервал (мин)</p>
+        <p>Выберите временной интервал:</p>
         <div class="flex gap-2 mt-3">
           <button
             v-for="(interval, index) in [1, 5, 15, 60]"
@@ -83,7 +83,7 @@ const showImpulseData = async () => {
             @click="selectInterval(index, interval)"
             class="w-full py-2 rounded"
           >
-            {{ interval }}
+            {{ interval }} мин
           </button>
         </div>
       </div>

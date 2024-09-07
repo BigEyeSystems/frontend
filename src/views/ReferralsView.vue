@@ -36,9 +36,15 @@ const copyReferral = async () => {
     const isIphone = /iPhone|iPad|iPod/i.test(navigator.userAgent);
 
     if (!isIphone && navigator.clipboard && typeof navigator.clipboard.writeText === "function") {
-      await navigator.clipboard.writeText(link.value);
-      isNotification.value = true;
-      console.log("Referral link copied to clipboard!");
+      try {
+        await navigator.clipboard.writeText(link.value);
+        isNotification.value = true;
+        console.log("Referral link copied to clipboard!");
+      } catch (err) {
+        console.error("Clipboard API not allowed or failed:", err);
+        // Fallback to manual copy
+        prompt("Copy this link:", link.value);
+      }
     } else {
       const textArea = document.createElement("textarea");
       textArea.value = link.value;
@@ -63,9 +69,9 @@ const copyReferral = async () => {
   } catch (error) {
     console.error("Failed to copy referral link:", error);
     isNotification.value = true;
-    console.log("Failed to copy referral link");
   }
 };
+
 
 
 </script>

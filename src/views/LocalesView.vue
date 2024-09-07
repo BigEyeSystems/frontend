@@ -1,5 +1,16 @@
 <script setup>
 import ButtonView from "../components/button.vue";
+import { ref } from "vue";
+const isSelectedRus = ref(false);
+const isSelectedEng = ref(false);
+const selectRussian = () => {
+    isSelectedRus.value = !isSelectedRus.value;
+    isSelectedEng.value = false;
+};
+const selectEnglish = () => {
+    isSelectedRus.value = false;
+    isSelectedEng.value = !isSelectedEng.value;
+};
 </script>
 <template>
     <div>
@@ -11,11 +22,27 @@ import ButtonView from "../components/button.vue";
                     <p class="text-sm font-semibold">Русский</p>
                     <p class="text-xs text-[#b8b8b8]">Русский</p>
                 </div>
+                <div class="flex items-center">
+                    <button v-if="isSelectedRus">
+                        <PhCheckCircle :size="20" color="#92FBDB" weight="fill" @click="selectRussian" />
+                    </button>
+                    <button v-if="!isSelectedRus" @click="selectRussian">
+                        <PhCircle :size="20" color="#36373a" />
+                    </button>
+                </div>
             </div>
             <div class="flex justify-between py-4">
                 <div class="flex flex-col gap-1">
                     <p class="text-sm font-semibold">Английский</p>
                     <p class="text-xs text-[#b8b8b8]">English</p>
+                </div>
+                <div class="flex items-center">
+                    <button v-if="isSelectedEng">
+                        <PhCheckCircle :size="20" color="#92FBDB" weight="fill" @click="selectEnglish" />
+                    </button>
+                    <button v-if="!isSelectedEng" @click="selectEnglish">
+                        <PhCircle :size="20" color="#36373a" />
+                    </button>
                 </div>
             </div>
         </div>

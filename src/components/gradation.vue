@@ -67,7 +67,7 @@ const downloadGradationGrowthFile = async (id) => {
     <div v-if="!showGradation">
       <div class="mb-3">
         <p>
-          выберите временной интервал за какое время вы хотите получить
+          Выберите временной интервал за какое время вы хотите получить
           информацию
         </p>
         <div class="flex gap-2 mt-3">
