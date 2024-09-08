@@ -7,7 +7,9 @@ import App from './App.vue'
 import  {VueTelegramPlugin} from 'vue-tg'
 import { createRouter, createWebHistory } from 'vue-router'
 import '@fontsource/inter';
-import { createI18n } from 'vue-i18n'
+import { languages } from './i18n';
+import { defaultLocale } from './i18n';
+import { createI18n, useI18n } from 'vue-i18n'
 const router = createRouter({
   history: createWebHistory(),
   routes: [
@@ -49,9 +51,17 @@ const router = createRouter({
 ]
 });
 
+const messages = Object.assign(languages);
 const i18n = createI18n({
   legacy: false,
+  locale: defaultLocale,
   fallbackLocale: 'en',
+  messages
 })
 
-createApp(App).use(router).use(createPinia()).use(PhosphorIcons).use(VueTelegramPlugin).mount('#app')
+createApp(App, { 
+  setup() {
+    const {t} = useI18n()
+    return {t}
+  }
+}).use(router).use(i18n).use(createPinia()).use(PhosphorIcons).use(VueTelegramPlugin).mount('#app')

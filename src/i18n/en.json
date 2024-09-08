@@ -1,3 +1,13 @@
 {
-    "impulse": "Price impulses"
+    "homePage":{
+        "impulsePrise": "Price impulses",
+        "notificationSettings": "Notification settings",
+        "fundingRate": "Funding rate",
+        "volumeGradation": "Volume gradation",
+        "growthGradation": "Gradation of price growth",
+        "tickerTracking": "Ticker tracking",
+        "top24": "TOP for 24 hours",
+        "lastUpdate": "Last update"
+
+    }
 }

@@ -14,6 +14,10 @@ import trackingTickerView from "./trackingTickerView.vue";
 import FundingDataView from "./FundingDataView.vue";
 import NotificationView from "./NotificationView.vue";
 import crown from "../components/icons/crown.vue";
+
+import { useI18n } from "vue-i18n";
+const { t } = useI18n( {useScope: 'global'} ); 
+
 const openLocales = ref(false);
 const toggleTeleportLocale = () => {
   openLocales.value = !openLocales.value;
@@ -90,34 +94,34 @@ onBeforeUnmount(() => {
     <Header :UserName="user?.username" :lang="'RU'" @changeLocale="toggleTeleportLocale" />
     <div class="flex-grow z-1 py-4">
       <div class="flex gap-4 my-4">
-        <menuItems title="Импульсы цены" @click="toggleTeleport">
+        <menuItems :title="$t('homePage.impulsePrise')" @click="toggleTeleport">
           <template #icon>
             <PhPulse :size="21" />
           </template>
         </menuItems>
-        <menuItems title="Настройка уведомлений" @click="toggleNotification">
+        <menuItems :title="$t('homePage.notificationSettings')" @click="toggleNotification">
           <template #icon>
             <PhBell :size="21" />
           </template>
         </menuItems>
-        <menuItems title="Ставки финан- сирования" @click="toggleFundingData">
+        <menuItems :title="$t('homePage.fundingRate')" @click="toggleFundingData">
           <template #icon>
             <PhPercent :size="21" />
           </template>
         </menuItems>
       </div>
       <div class="flex gap-4">
-        <menuItems title="Градация объёмов" @click="toggleTeleportGradation">
+        <menuItems :title="$t('homePage.volumeGradation')" @click="toggleTeleportGradation">
           <template #icon>
             <PhChartBar :size="21" />
           </template>
         </menuItems>
-        <menuItems title="Рост активов" @click="toggleTeleportGradationGrowth">
+        <menuItems :title="$t('homePage.growthGradation')" @click="toggleTeleportGradationGrowth">
           <template #icon>
             <PhChartLine :size="21" />
           </template>
         </menuItems>
-        <menuItems title="Отслеживание актива" @click="toggleTrackingTicker">
+        <menuItems :title="$t('homePage.tickerTracking')" @click="toggleTrackingTicker">
           <template #icon>
             <PhMagnifyingGlass :size="21" />
           </template>
@@ -126,9 +130,9 @@ onBeforeUnmount(() => {
       <div class="my-4">
         <addPremium />
       </div>
-      <p class="text-sm font-semibold">TOP 5 тикеры</p>
+      <p class="text-sm font-semibold">{{ $t('homePage.top24')}}</p>
       <div class="flex justify-between">
-        <p class="text-xs">Последнее обновление:</p>
+        <p class="text-xs">{{ $t('homePage.lastUpdate')}}:</p>
         <div class="flex text-xs gap-1">
           <PhClock :size="12" /> 12:03
           <PhCalendarDots :size="16" /> 9.01.2024

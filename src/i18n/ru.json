@@ -1,0 +1,13 @@
+{
+    "homePage":{
+        "impulsePrise": "Импульсы цены",
+        "notificationSettings": "Настройка уведомлений",
+        "fundingRate": "Ставки фин- ансирования",
+        "volumeGradation": "Градация  объёмов",
+        "growthGradation": "Градация роста цен",
+        "tickerTracking": "Ослеживание актива",
+        "top24": "TOП за 24 часа",
+        "lastUpdate": "Последнее обновление"
+        
+    }
+}

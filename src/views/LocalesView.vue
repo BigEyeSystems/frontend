@@ -1,15 +1,21 @@
 <script setup>
 import ButtonView from "../components/button.vue";
 import { ref } from "vue";
+
+import { useI18n } from "vue-i18n";
+const { t, locale } = useI18n( {useScope: 'global'} ); 
+
 const isSelectedRus = ref(false);
 const isSelectedEng = ref(false);
 const selectRussian = () => {
     isSelectedRus.value = !isSelectedRus.value;
     isSelectedEng.value = false;
+    locale.value === 'en'? locale.value = 'ru' : locale.value = '';
 };
 const selectEnglish = () => {
     isSelectedRus.value = false;
     isSelectedEng.value = !isSelectedEng.value;
+    locale.value === 'ru'? locale.value = 'en' : locale.value = 'ru';
 };
 </script>
 <template>

@@ -1,3 +1,49 @@
+<script setup>
+import { ref, computed } from 'vue';
+import { Skeleton } from 'ant-design-vue';
+
+const props = defineProps({
+  detail: {
+    type: String,
+    required: true
+  }
+});
+
+const fundingData = computed(() => {
+  try {
+    return JSON.parse(props.detail);
+  } catch (e) {
+    console.error("Failed to parse funding data:", e);
+    return null;
+  }
+});
+
+const showFundingByVolume = ref(true);
+const showFundingFirstFive = ref(false);
+const showFundingLastFive = ref(false);
+
+const sortByVolume = () => {
+  showFundingByVolume.value = true;
+  showFundingFirstFive.value = false;
+  showFundingLastFive.value = false;
+};
+
+const sortByFundingAsc = () => {
+  showFundingFirstFive.value = true;
+  showFundingByVolume.value = false;
+  showFundingLastFive.value = false;
+  console.log(fundingData.value);
+};
+
+const sortByFundingDesc = () => {
+  showFundingLastFive.value = true;
+  showFundingByVolume.value = false;
+  showFundingFirstFive.value = false;
+};
+</script>
+
+
+
 <template>
   <div class="rounded-[calc(1.5rem-10px)] p-1 bg-[#17181C] p-3">
     <div class="flex text-xs justify-between border rounded border-[#2F2F2F99] mb-2" style="padding: 1px;">
@@ -50,7 +96,7 @@
     </div>
     <div v-else-if="showFundingFirstFive">
       <div v-if="fundingData && fundingData.top_tickers && fundingData.top_tickers.first_5">
-        <div v-for="(item, index) in fundingData.top_tickers.first_5" :key="index" class="text-xs mb-2">
+        <div v-for="(item, index) in fundingData.top_tickers.first_5.reverse()" :key="index" class="text-xs mb-2">
           <div class="flex justify-between">
             <p>{{ item.symbol }}</p>
             <p>{{ parseFloat(item.lastFundingRate).toFixed(4) }}%</p>
@@ -66,53 +112,10 @@
         </div>
       </div>
       <div v-else>
-          Loading...
+        <Skeleton avatar :paragraph="{ rows: 4 }" />
       </div>
     </div>
   </div>
 </template>
-
-<script setup>
-import { ref, computed } from 'vue';
-
-const props = defineProps({
-  detail: {
-    type: String,
-    required: true
-  }
-});
-
-const fundingData = computed(() => {
-  try {
-    return JSON.parse(props.detail);
-  } catch (e) {
-    console.error("Failed to parse funding data:", e);
-    return null;
-  }
-});
-
-const showFundingByVolume = ref(true);
-const showFundingFirstFive = ref(false);
-const showFundingLastFive = ref(false);
-
-const sortByVolume = () => {
-  showFundingByVolume.value = true;
-  showFundingFirstFive.value = false;
-  showFundingLastFive.value = false;
-};
-
-const sortByFundingAsc = () => {
-  showFundingFirstFive.value = true;
-  showFundingByVolume.value = false;
-  showFundingLastFive.value = false;
-  console.log(fundingData.value);
-};
-
-const sortByFundingDesc = () => {
-  showFundingLastFive.value = true;
-  showFundingByVolume.value = false;
-  showFundingFirstFive.value = false;
-};
-</script>
 
 
