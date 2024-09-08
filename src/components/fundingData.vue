@@ -294,11 +294,11 @@ const showDate = (timestamp) => {
       </div>
     </div>
   </div>
-  <data v-else>
+  <div v-else>
     <div class="w-full flex justify-center">
-      <Skeleton avatar :paragraph="{ rows: 4 }" />
+      <div class="skeleton h-32 w-32"></div>
     </div>
-  </data>
+  </div>
 </template>
 
 <style scoped>
