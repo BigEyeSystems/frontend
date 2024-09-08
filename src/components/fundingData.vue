@@ -13,6 +13,8 @@ import {
 } from "echarts/components";
 import VChart, { THEME_KEY } from "vue-echarts";
 import { ref, provide, onMounted } from "vue";
+import { Skeleton } from 'ant-design-vue';
+
 
 use([
   GridComponent,
@@ -294,7 +296,7 @@ const showDate = (timestamp) => {
   </div>
   <data v-else>
     <div class="w-full flex justify-center">
-      <p class="font-semibold">Loading...</p>
+      <Skeleton avatar :paragraph="{ rows: 4 }" />
     </div>
   </data>
 </template>
