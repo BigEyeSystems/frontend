@@ -296,7 +296,7 @@ const showDate = (timestamp) => {
   </div>
   <div v-else>
     <div class="w-full flex justify-center">
-      <div class="skeleton h-32 w-32"></div>
+      Loading...
     </div>
   </div>
 </template>
