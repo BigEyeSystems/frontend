@@ -61,34 +61,24 @@ const downloadGradationGrowthFile = async (id) => {
 };
 </script>
 <template>
-  <div class="text-xs">
+  <div v-if="gradationActiveData" class="text-xs">
     <div v-if="!showGradationGrowth">
       <div class="mb-3">
         <p>Выберите интервал</p>
         <div class="flex gap-2 mt-3">
-          <button
-            v-for="(interval, index) in [5, 30, 60, 4]"
-            :key="index"
-            :class="{
-              'bg-[#92FBDB] text-black font-semibold':
-                selectedInterval === index,
-              'bg-[#17181C]': selectedInterval !== index,
-            }"
-            @click="selectInterval(index, interval)"
-            class="w-full py-2 rounded"
-          >
+          <button v-for="(interval, index) in [5, 30, 60, 4]" :key="index" :class="{
+            'bg-[#92FBDB] text-black font-semibold':
+              selectedInterval === index,
+            'bg-[#17181C]': selectedInterval !== index,
+          }" @click="selectInterval(index, interval)" class="w-full py-2 rounded">
             <p v-if="interval !== 4">{{ interval }} мин</p>
             <p v-else>{{ interval }} часа</p>
           </button>
         </div>
       </div>
     </div>
-    <ButtonView
-      v-if="!showGradationGrowth"
-      :text="'Получить информацию'"
-      :on-click="toggleGradationGrowth"
-      class="my-3"
-    />
+    <ButtonView v-if="!showGradationGrowth" :text="'Получить информацию'" :on-click="toggleGradationGrowth"
+      class="my-3" />
     <ButtonView v-else :text="'Обновить информацию'" class="my-3" />
 
     <div v-if="showGradationGrowth">
@@ -96,13 +86,12 @@ const downloadGradationGrowthFile = async (id) => {
       <div class="flex justify-between">
         <p class="text-xs">Последнее обновление:</p>
         <div class="flex text-xs gap-1">
-          <PhClock :size="16" /> 12:03 <PhCalendarDots :size="16" /> 9.01.2024
+          <PhClock :size="16" /> 12:03
+          <PhCalendarDots :size="16" /> 9.01.2024
         </div>
       </div>
-      <div
-        class="bg-[#17181C] p-2 rounded-xl cursor-pointer my-4 flex justify-between items-center"
-        @click="downloadGradationGrowthFile(gradationActiveData?.file_id)"
-      >
+      <div class="bg-[#17181C] p-2 rounded-xl cursor-pointer my-4 flex justify-between items-center"
+        @click="downloadGradationGrowthFile(gradationActiveData?.file_id)">
         <div class="flex gap-3 items-center">
           <div class="p-1 bg-[#797979] rounded">
             <PhFile :size="24" color="#fff" />
@@ -125,10 +114,8 @@ const downloadGradationGrowthFile = async (id) => {
               <p>{{ file.date }}</p>
             </div>
           </div>
-          <div
-            class="bg-[#17181C] p-2 rounded-xl cursor-pointer my-4 flex justify-between items-center"
-            @click="downloadGradationGrowthFile(file.file_id)"
-          >
+          <div class="bg-[#17181C] p-2 rounded-xl cursor-pointer my-4 flex justify-between items-center"
+            @click="downloadGradationGrowthFile(file.file_id)">
             <div class="flex gap-3 items-center">
               <div class="p-1 bg-[#797979] rounded">
                 <PhFile :size="24" color="#fff" />
@@ -144,17 +131,11 @@ const downloadGradationGrowthFile = async (id) => {
       <div v-else>No data</div>
     </div>
     <Teleport to="body">
-      <div
-        v-if="isNotification"
-        class="modal fixed inset-0 flex items-center justify-center z-50 px-4"
-      >
+      <div v-if="isNotification" class="modal fixed inset-0 flex items-center justify-center z-50 px-4">
         <transition name="modal">
           <div class="bg-[#222222b3] py-4 px-5 rounded-lg w-full">
             <div class="flex justify-end">
-              <button
-                @click="isNotification = false"
-                class="bg-[#7474802e] p-2 rounded-full"
-              >
+              <button @click="isNotification = false" class="bg-[#7474802e] p-2 rounded-full">
                 <PhX :size="21" />
               </button>
             </div>
@@ -165,5 +146,50 @@ const downloadGradationGrowthFile = async (id) => {
         </transition>
       </div>
     </Teleport>
+  </div>
+  <div v-else>
+    <div class="w-full flex justify-center">
+      <div class="shadow rounded-md p-4 max-w-sm w-full mx-auto">
+        <div class="animate-pulse flex space-x-4">
+          <div class="flex-1 space-y-3 py-1">
+            <div class="h-3 bg-slate-700 rounded"></div>
+            <div class="grid grid-cols-4 gap-4">
+              <div class="h-8 bg-slate-700 rounded col-span-1"></div>
+              <div class="h-8 bg-slate-700 rounded col-span-1"></div>
+              <div class="h-8 bg-slate-700 rounded col-span-1"></div>
+              <div class="h-8 bg-slate-700 rounded col-span-1"></div>
+            </div>
+            <div class="h-8 bg-slate-700 rounded"></div>
+            <div class="grid grid-cols-4 gap-4">
+              <div class="h-4 bg-slate-700 rounded col-span-2"></div>
+            </div>
+            <div class="h-8 bg-slate-700 rounded"></div>
+            <div class="grid grid-cols-4 gap-4">
+              <div class="h-4 bg-slate-700 rounded col-span-2"></div>
+            </div>
+            <div class="grid grid-cols-3 gap-10">
+              <div class="h-3 bg-slate-700 rounded col-span-1"></div>
+              <div class="h-3 bg-slate-700 rounded col-span-2"></div>
+            </div>
+            <div class="h-8 bg-slate-700 rounded"></div>
+            <div class="grid grid-cols-3 gap-10">
+              <div class="h-3 bg-slate-700 rounded col-span-1"></div>
+              <div class="h-3 bg-slate-700 rounded col-span-2"></div>
+            </div>
+            <div class="h-8 bg-slate-700 rounded"></div>
+            <div class="grid grid-cols-3 gap-10">
+              <div class="h-3 bg-slate-700 rounded col-span-1"></div>
+              <div class="h-3 bg-slate-700 rounded col-span-2"></div>
+            </div>
+            <div class="h-8 bg-slate-700 rounded"></div>
+            <div class="grid grid-cols-3 gap-10">
+              <div class="h-3 bg-slate-700 rounded col-span-1"></div>
+              <div class="h-3 bg-slate-700 rounded col-span-2"></div>
+            </div>
+            <div class="h-8 bg-slate-700 rounded"></div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
