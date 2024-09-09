@@ -10,13 +10,13 @@ const isSelectedEng = ref(false);
 const selectRussian = () => {
     isSelectedRus.value = !isSelectedRus.value;
     isSelectedEng.value = false;
-    locale.value === 'en'? locale.value = 'ru' : locale.value = '';
+    locale.value === 'ru';
     localStorage.setItem('lang', locale.value)
 };
 const selectEnglish = () => {
     isSelectedRus.value = false;
     isSelectedEng.value = !isSelectedEng.value;
-    locale.value === 'ru'? locale.value = 'en' : locale.value = 'ru';
+    locale.value === 'en';
     localStorage.setItem('lang', locale.value)
 };
 </script>
