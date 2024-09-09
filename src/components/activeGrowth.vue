@@ -105,7 +105,7 @@ const downloadGradationGrowthFile = async (id) => {
         </div>
         <p class="mb-3 text-sm font-semibold">История</p>
         <div v-if="historyData">
-          <div v-for="(file, index) in historyData.data" key="index">
+          <div v-for="(file, index) in historyData.data.reverse()" key="index">
             <div class="flex justify-between">
               <p class="text-[#B8B8B8] text-xs">Дата создания</p>
               <div class="flex gap-1 text-xs items-center">
