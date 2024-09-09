@@ -1,6 +1,7 @@
 <script setup>
 import { ref, computed } from 'vue';
-import { Skeleton } from 'ant-design-vue';
+import { useI18n } from "vue-i18n";
+const { t } = useI18n( {useScope: 'global'} ); 
 
 const props = defineProps({
   detail: {
@@ -48,13 +49,13 @@ const sortByFundingDesc = () => {
   <div class="rounded-[calc(1.5rem-10px)] p-1 bg-[#17181C] p-3">
     <div class="flex text-xs justify-between border rounded border-[#2F2F2F99] mb-2" style="padding: 1px;">
       <button @click="sortByFundingAsc" class="focus:font-semibold focus:bg-gradient-to-r focus:from-[#ffffff1f] focus:to-[#ffffff12] py-1 px-2 focus:rounded" :class="[ showFundingFirstFive ? 'font-semibold bg-gradient-to-r from-[#ffffff1f] to-[#ffffff12] rounded' : '']">
-        По фандингу (+)
+        {{ $t('top24.byFunding')}} (+)
       </button>
       <button @click="sortByVolume" class="focus:font-semibold focus:bg-gradient-to-r focus:from-[#ffffff1f] focus:to-[#ffffff12] py-1 px-2 focus:rounded" :class="[ showFundingByVolume ? 'font-semibold bg-gradient-to-r from-[#ffffff1f] to-[#ffffff12] rounded' : '']">
-        По объему
+        {{ $t('top24.byVolume')}}
       </button>
       <button @click="sortByFundingDesc" class="focus:font-semibold focus:bg-gradient-to-r focus:from-[#ffffff1f] focus:to-[#ffffff12] py-1 px-2 focus:rounded" :class="[ showFundingLastFive ? 'font-semibold bg-gradient-to-r from-[#ffffff1f] to-[#ffffff12] rounded' : '']">
-        По фандингу (-)
+        {{ $t('top24.byFunding')}} (-)
       </button>
     </div>
     <div v-if="showFundingByVolume">
@@ -112,7 +113,7 @@ const sortByFundingDesc = () => {
         </div>
       </div>
       <div v-else>
-        <Skeleton avatar :paragraph="{ rows: 4 }" />
+        Loading...
       </div>
     </div>
   </div>

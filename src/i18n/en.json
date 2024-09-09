@@ -8,6 +8,21 @@
         "tickerTracking": "Ticker tracking",
         "top24": "TOP for 24 hours",
         "lastUpdate": "Last update"
-
-    }
+    },
+    "addPremium": {
+        "title": "Even more advantages with Premium",
+        "text": "Analytics and additional functions"
+    },
+    "top24": {
+        "byVolume": "By volume",
+        "byFunding": "By Funding"
+    },
+    "impulsePrise": {
+        "title": "Tracking price impulses",
+        "timeIntervalSelect": "Select Time Interval for Info:",
+        "enterPrice": "Enter price change percentage:",
+        "getInfo": "Get Info",
+        "min": "min"
+    },
+    "lang": "EN"
 }

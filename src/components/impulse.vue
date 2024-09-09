@@ -3,6 +3,9 @@ import axios from "axios";
 import ButtonView from "./button.vue";
 import ticker from "./ticker.vue";
 import { ref } from "vue";
+import { useI18n } from "vue-i18n";
+const { t } = useI18n( {useScope: 'global'} ); 
+
 const changeInterval = ref(null);
 const changePercent = ref(null);
 const selectedInterval = ref(null);
@@ -70,7 +73,7 @@ const showImpulseData = async () => {
   <div class="text-xs">
     <div v-if="!showImpulse">
       <div class="mb-3">
-        <p>Выберите временной интервал:</p>
+        <p>{{ $t('impulsePrise.timeIntervalSelect')}}</p>
         <div class="flex gap-2 mt-3">
           <button
             v-for="(interval, index) in [1, 5, 15, 60]"
@@ -83,12 +86,12 @@ const showImpulseData = async () => {
             @click="selectInterval(index, interval)"
             class="w-full py-2 rounded"
           >
-            {{ interval }} мин
+            {{ interval }} {{ $t('impulsePrise.min')}}
           </button>
         </div>
       </div>
       <div>
-        <p>Введите процент изменения цены:</p>
+        <p>{{ $t('impulsePrise.enterPrice')}}</p>
         <input
           v-model="changePercent"
           class="w-full my-3 p-3 rounded-lg border-transparent focus:outline-none bg-[#17181C] focus:bg-[#17181C]"
@@ -115,7 +118,7 @@ const showImpulseData = async () => {
 
     <ButtonView
       v-if="!showImpulse"
-      :text="'Получить информацию'"
+      :text="$t('impulsePrise.getInfo')"
       class="mt-4"
       @click="showImpulseData"
     />

@@ -1,6 +1,6 @@
 <script setup>
 import axios from "axios";
-import { onMounted, onBeforeUnmount, ref } from "vue";
+import { onMounted, onBeforeUnmount, ref, watch } from "vue";
 import LocalesView from './LocalesView.vue';
 import menuItems from "../components/menuItem.vue";
 import Header from "../components/Header.vue";
@@ -49,15 +49,18 @@ const toggleNotification = () => {
   openNotification.value = !openNotification.value;
 };
 
-
-const lang = ref('');
+const lang = ref(localStorage.getItem('lang') === 'ru' ? 'RU' : 'EN')
 const tg = window.Telegram.WebApp;
 const user = tg.initDataUnsafe.user;
 const tgHashData = tg.initData;
 console.log(tgHashData);
 const data = ref(null);
 let connection;
+
+// Set lang from localStorage on mount
 onMounted(() => {
+  lang.value = localStorage.getItem('lang') === 'ru' ? 'RU' : 'EN';
+
   axios
     .post("https://dsde1736.fornex.org/api/user/login_user", {
       data_check_string: tgHashData,
@@ -65,11 +68,12 @@ onMounted(() => {
     .then(function (response) {
       console.log(JSON.stringify(response.data) + " response");
       localStorage.setItem('token', response.data.token);
-      isToken.value = localStorage.getItem('token')
+      isToken.value = localStorage.getItem('token');
     })
     .catch(function (error) {
       console.error("There was an error!", error);
     });
+
   connection = new WebSocket(
     "wss://dsde1736.fornex.org/ws/top_5_fundings/12311233"
   );
@@ -80,11 +84,6 @@ onMounted(() => {
   connection.onmessage = function (e) {
     data.value = e.data;
   };
-  if(localStorage.getItem('lang')=== 'ru') {
-    lang.value = 'RU'
-  }else {
-    lang.value = 'EN'
-  }
 });
 onBeforeUnmount(() => {
   if (connection) {
@@ -96,7 +95,7 @@ onBeforeUnmount(() => {
 
 <template>
   <div class="flex flex-col min-h-screen">
-    <Header :UserName="user?.username" :lang="lang" @changeLocale="toggleTeleportLocale" />
+    <Header :UserName="user?.username" :lang="$t('lang')" @changeLocale="toggleTeleportLocale" />
     <div class="flex-grow z-1 py-4">
       <div class="flex gap-4 my-4">
         <menuItems :title="$t('homePage.impulsePrise')" @click="toggleTeleport">
@@ -152,7 +151,7 @@ onBeforeUnmount(() => {
             <div class="flex justify-between mb-3">
               <div class="flex gap-3 items-center">
                 <crown />
-                <p class="font-bold text-sm">Отслеживание импульсов цены</p>
+                <p class="font-bold text-sm">{{ $t('impulsePrise.title')}}</p>
               </div>
 
               <button @click="open = false">
