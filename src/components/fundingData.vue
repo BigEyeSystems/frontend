@@ -13,8 +13,7 @@ import {
 } from "echarts/components";
 import VChart, { THEME_KEY } from "vue-echarts";
 import { ref, provide, onMounted } from "vue";
-import { Skeleton } from 'ant-design-vue';
-
+import { Skeleton } from "ant-design-vue";
 
 use([
   GridComponent,
@@ -230,21 +229,29 @@ const showDate = (timestamp) => {
       <div class="flex justify-between">
         <p class="text-xs">Последнее обновление:</p>
         <div class="flex text-xs gap-1">
-          <PhClock :size="16" /> 12:03
-          <PhCalendarDots :size="16" /> 9.01.2024
+          <PhClock :size="16" /> 12:03 <PhCalendarDots :size="16" /> 9.01.2024
         </div>
       </div>
       <div class="flex gap-2 mt-4">
-        <button class="bg-[#17181C] p-2 w-full text-xs text-[#B8B8B8] rounded"
-          :class="[dayData ? 'bg-[#92FBDB] text-black font-semibold' : '']" @click="showDailyData">
+        <button
+          class="bg-[#17181C] p-2 w-full text-xs text-[#B8B8B8] rounded"
+          :class="[dayData ? 'bg-[#92FBDB] text-black font-semibold' : '']"
+          @click="showDailyData"
+        >
           За день
         </button>
-        <button class="bg-[#17181C] p-2 w-full text-xs text-[#B8B8B8] rounded"
-          :class="[weekData ? 'bg-[#92FBDB] text-black font-semibold' : '']" @click="showWeeklyData">
+        <button
+          class="bg-[#17181C] p-2 w-full text-xs text-[#B8B8B8] rounded"
+          :class="[weekData ? 'bg-[#92FBDB] text-black font-semibold' : '']"
+          @click="showWeeklyData"
+        >
           За неделю
         </button>
-        <button class="bg-[#17181C] p-2 w-full text-xs text-[#B8B8B8] rounded"
-          :class="[monthData ? 'bg-[#92FBDB] text-black font-semibold' : '']" @click="showMonthlyData">
+        <button
+          class="bg-[#17181C] p-2 w-full text-xs text-[#B8B8B8] rounded"
+          :class="[monthData ? 'bg-[#92FBDB] text-black font-semibold' : '']"
+          @click="showMonthlyData"
+        >
           За месяц
         </button>
       </div>
@@ -253,19 +260,25 @@ const showDate = (timestamp) => {
       </div>
       <div class="flex flex-col gap-2">
         <div class="flex gap-2 items-center">
-          <div class="px-3 bg-[#33A721] text-sm font-semibold h-4 flex items-center">
+          <div
+            class="px-3 bg-[#33A721] text-sm font-semibold h-4 flex items-center"
+          >
             {{ fundingData?.positive_quantity }}
           </div>
           <p class="text-xs text-[#B8B8B8]">Кол-во положительных фандингов</p>
         </div>
         <div class="flex gap-2 items-center">
-          <p class="px-3 bg-[#CA3140] text-sm font-semibold h-4 flex items-center">
+          <p
+            class="px-3 bg-[#CA3140] text-sm font-semibold h-4 flex items-center"
+          >
             {{ fundingData?.negative_quantity }}
           </p>
           <p class="text-xs text-[#B8B8B8]">Кол-во отрицательных фандингов</p>
         </div>
         <div class="flex gap-2 items-center">
-          <p class="px-3 bg-white text-sm font-semibold h-4 flex items-center text-black">
+          <p
+            class="px-3 bg-white text-sm font-semibold h-4 flex items-center text-black"
+          >
             {{ fundingData?.neutral_quantity }}
           </p>
           <p class="text-xs text-[#B8B8B8]">Кол-во нейтральных фандингов</p>
@@ -296,7 +309,19 @@ const showDate = (timestamp) => {
   </div>
   <div v-else>
     <div class="w-full flex justify-center">
-      Loading...
+      <div
+        class="shadow rounded-md p-4 max-w-sm w-full mx-auto"
+      >
+        <div class="animate-pulse flex space-x-4">
+          <div class="flex-1 space-y-6 py-1">
+            <div class="h-44 bg-slate-700 rounded"></div>
+            <div class="h-2 bg-slate-700 rounded"></div>
+            <div class="space-y-3">
+              <div class="h-2 bg-slate-700 rounded"></div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
