@@ -15,6 +15,7 @@ const showGradation = ref(false);
 const isNotification = ref(false);
 
 const toggleGradation = async () => {
+  showGradation.value = true;
   try {
     const response = await axios.get(
       `https://dsde1736.fornex.org/api/data/gradation_growth?interval=${fileInterval.value}&growth_type=Volume`,
@@ -25,7 +26,6 @@ const toggleGradation = async () => {
       }
     );
     gradationData.value = response.data;
-    showGradation.value = true;
   } catch (error) {
     console.log("Error fetching data: " + error);
   }
@@ -84,7 +84,6 @@ const downloadGradationGrowthFile = async (id) => {
     </div>
     <ButtonView v-if="!showGradation" :text="'Получить информацию'" :on-click="toggleGradation" class="my-3" />
     <ButtonView v-else :text="'Обновить информацию'" class="my-3" />
-
     <div v-if="showGradation">
       <div v-if="gradationData">
         <p class="mb-3 text-sm font-semibold">Результат запроса</p>

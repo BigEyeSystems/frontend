@@ -15,6 +15,7 @@ const showGradationGrowth = ref(false);
 const isNotification = ref(false);
 
 const toggleGradationGrowth = async () => {
+  showGradationGrowth.value = true;
   try {
     const response = await axios.get(
       `https://dsde1736.fornex.org/api/data/gradation_growth?interval=${fileInterval.value}&growth_type=Price`,
@@ -25,7 +26,6 @@ const toggleGradationGrowth = async () => {
       }
     );
     gradationActiveData.value = response.data;
-    showGradationGrowth.value = true;
   } catch (error) {
     console.log("Error fetching data: " + error);
   }
@@ -61,7 +61,7 @@ const downloadGradationGrowthFile = async (id) => {
 };
 </script>
 <template>
-  <div v-if="gradationActiveData" class="text-xs">
+  <div class="text-xs">
     <div v-if="!showGradationGrowth">
       <div class="mb-3">
         <p>Выберите интервал</p>
@@ -82,53 +82,99 @@ const downloadGradationGrowthFile = async (id) => {
     <ButtonView v-else :text="'Обновить информацию'" class="my-3" />
 
     <div v-if="showGradationGrowth">
-      <p class="mb-3">Результат запроса</p>
-      <div class="flex justify-between">
-        <p class="text-xs">Последнее обновление:</p>
-        <div class="flex text-xs gap-1">
-          <PhClock :size="16" /> 12:03
-          <PhCalendarDots :size="16" /> 9.01.2024
-        </div>
-      </div>
-      <div class="bg-[#17181C] p-2 rounded-xl cursor-pointer my-4 flex justify-between items-center"
-        @click="downloadGradationGrowthFile(gradationActiveData?.file_id)">
-        <div class="flex gap-3 items-center">
-          <div class="p-1 bg-[#797979] rounded">
-            <PhFile :size="24" color="#fff" />
+      <div v-if="gradationActiveData">
+        <p class="mb-3">Результат запроса</p>
+        <div class="flex justify-between">
+          <p class="text-xs">Последнее обновление:</p>
+          <div class="flex text-xs gap-1">
+            <PhClock :size="16" /> 12:03
+            <PhCalendarDots :size="16" /> 9.01.2024
           </div>
-          <p class="text-sm font-semibold">
-            {{ gradationActiveData?.file_name }}
-          </p>
         </div>
-        <PhDownloadSimple :size="24" />
-      </div>
-      <p class="mb-3 text-sm font-semibold">История</p>
-      <div v-if="historyData">
-        <div v-for="(file, index) in historyData.data" key="index">
-          <div class="flex justify-between">
-            <p class="text-[#B8B8B8] text-xs">Дата создания</p>
-            <div class="flex gap-1 text-xs items-center">
-              <PhClock :size="12" />
-              <p>{{ file.time }}</p>
-              <PhCalendarDots :size="16" />
-              <p>{{ file.date }}</p>
+        <div class="bg-[#17181C] p-2 rounded-xl cursor-pointer my-4 flex justify-between items-center"
+          @click="downloadGradationGrowthFile(gradationActiveData?.file_id)">
+          <div class="flex gap-3 items-center">
+            <div class="p-1 bg-[#797979] rounded">
+              <PhFile :size="24" color="#fff" />
             </div>
+            <p class="text-sm font-semibold">
+              {{ gradationActiveData?.file_name }}
+            </p>
           </div>
-          <div class="bg-[#17181C] p-2 rounded-xl cursor-pointer my-4 flex justify-between items-center"
-            @click="downloadGradationGrowthFile(file.file_id)">
-            <div class="flex gap-3 items-center">
-              <div class="p-1 bg-[#797979] rounded">
-                <PhFile :size="24" color="#fff" />
+          <PhDownloadSimple :size="24" />
+        </div>
+        <p class="mb-3 text-sm font-semibold">История</p>
+        <div v-if="historyData">
+          <div v-for="(file, index) in historyData.data" key="index">
+            <div class="flex justify-between">
+              <p class="text-[#B8B8B8] text-xs">Дата создания</p>
+              <div class="flex gap-1 text-xs items-center">
+                <PhClock :size="12" />
+                <p>{{ file.time }}</p>
+                <PhCalendarDots :size="16" />
+                <p>{{ file.date }}</p>
               </div>
-              <p class="text-sm font-semibold">
-                {{ file.file_name }}
-              </p>
             </div>
-            <PhDownloadSimple :size="24" />
+            <div class="bg-[#17181C] p-2 rounded-xl cursor-pointer my-4 flex justify-between items-center"
+              @click="downloadGradationGrowthFile(file.file_id)">
+              <div class="flex gap-3 items-center">
+                <div class="p-1 bg-[#797979] rounded">
+                  <PhFile :size="24" color="#fff" />
+                </div>
+                <p class="text-sm font-semibold">
+                  {{ file.file_name }}
+                </p>
+              </div>
+              <PhDownloadSimple :size="24" />
+            </div>
           </div>
         </div>
       </div>
-      <div v-else>No data</div>
+      <div v-else>
+        <div class="w-full flex justify-center">
+          <div class="shadow rounded-md p-4 max-w-sm w-full mx-auto">
+            <div class="animate-pulse flex space-x-4">
+              <div class="flex-1 space-y-3 py-1">
+                <div class="h-3 bg-slate-700 rounded"></div>
+                <div class="grid grid-cols-4 gap-4">
+                  <div class="h-8 bg-slate-700 rounded col-span-1"></div>
+                  <div class="h-8 bg-slate-700 rounded col-span-1"></div>
+                  <div class="h-8 bg-slate-700 rounded col-span-1"></div>
+                  <div class="h-8 bg-slate-700 rounded col-span-1"></div>
+                </div>
+                <div class="h-8 bg-slate-700 rounded"></div>
+                <div class="grid grid-cols-4 gap-4">
+                  <div class="h-4 bg-slate-700 rounded col-span-2"></div>
+                </div>
+                <div class="h-8 bg-slate-700 rounded"></div>
+                <div class="grid grid-cols-4 gap-4">
+                  <div class="h-4 bg-slate-700 rounded col-span-2"></div>
+                </div>
+                <div class="grid grid-cols-3 gap-10">
+                  <div class="h-3 bg-slate-700 rounded col-span-1"></div>
+                  <div class="h-3 bg-slate-700 rounded col-span-2"></div>
+                </div>
+                <div class="h-8 bg-slate-700 rounded"></div>
+                <div class="grid grid-cols-3 gap-10">
+                  <div class="h-3 bg-slate-700 rounded col-span-1"></div>
+                  <div class="h-3 bg-slate-700 rounded col-span-2"></div>
+                </div>
+                <div class="h-8 bg-slate-700 rounded"></div>
+                <div class="grid grid-cols-3 gap-10">
+                  <div class="h-3 bg-slate-700 rounded col-span-1"></div>
+                  <div class="h-3 bg-slate-700 rounded col-span-2"></div>
+                </div>
+                <div class="h-8 bg-slate-700 rounded"></div>
+                <div class="grid grid-cols-3 gap-10">
+                  <div class="h-3 bg-slate-700 rounded col-span-1"></div>
+                  <div class="h-3 bg-slate-700 rounded col-span-2"></div>
+                </div>
+                <div class="h-8 bg-slate-700 rounded"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
     <Teleport to="body">
       <div v-if="isNotification" class="modal fixed inset-0 flex items-center justify-center z-50 px-4">
@@ -147,49 +193,5 @@ const downloadGradationGrowthFile = async (id) => {
       </div>
     </Teleport>
   </div>
-  <div v-else>
-    <div class="w-full flex justify-center">
-      <div class="shadow rounded-md p-4 max-w-sm w-full mx-auto">
-        <div class="animate-pulse flex space-x-4">
-          <div class="flex-1 space-y-3 py-1">
-            <div class="h-3 bg-slate-700 rounded"></div>
-            <div class="grid grid-cols-4 gap-4">
-              <div class="h-8 bg-slate-700 rounded col-span-1"></div>
-              <div class="h-8 bg-slate-700 rounded col-span-1"></div>
-              <div class="h-8 bg-slate-700 rounded col-span-1"></div>
-              <div class="h-8 bg-slate-700 rounded col-span-1"></div>
-            </div>
-            <div class="h-8 bg-slate-700 rounded"></div>
-            <div class="grid grid-cols-4 gap-4">
-              <div class="h-4 bg-slate-700 rounded col-span-2"></div>
-            </div>
-            <div class="h-8 bg-slate-700 rounded"></div>
-            <div class="grid grid-cols-4 gap-4">
-              <div class="h-4 bg-slate-700 rounded col-span-2"></div>
-            </div>
-            <div class="grid grid-cols-3 gap-10">
-              <div class="h-3 bg-slate-700 rounded col-span-1"></div>
-              <div class="h-3 bg-slate-700 rounded col-span-2"></div>
-            </div>
-            <div class="h-8 bg-slate-700 rounded"></div>
-            <div class="grid grid-cols-3 gap-10">
-              <div class="h-3 bg-slate-700 rounded col-span-1"></div>
-              <div class="h-3 bg-slate-700 rounded col-span-2"></div>
-            </div>
-            <div class="h-8 bg-slate-700 rounded"></div>
-            <div class="grid grid-cols-3 gap-10">
-              <div class="h-3 bg-slate-700 rounded col-span-1"></div>
-              <div class="h-3 bg-slate-700 rounded col-span-2"></div>
-            </div>
-            <div class="h-8 bg-slate-700 rounded"></div>
-            <div class="grid grid-cols-3 gap-10">
-              <div class="h-3 bg-slate-700 rounded col-span-1"></div>
-              <div class="h-3 bg-slate-700 rounded col-span-2"></div>
-            </div>
-            <div class="h-8 bg-slate-700 rounded"></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+
 </template>
