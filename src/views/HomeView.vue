@@ -50,7 +50,7 @@ const toggleNotification = () => {
 };
 
 
-
+const lang = ref('');
 const tg = window.Telegram.WebApp;
 const user = tg.initDataUnsafe.user;
 const tgHashData = tg.initData;
@@ -80,6 +80,11 @@ onMounted(() => {
   connection.onmessage = function (e) {
     data.value = e.data;
   };
+  if(localStorage.getItem('lang')=== 'ru') {
+    lang.value = 'RU'
+  }else {
+    lang.value = 'EN'
+  }
 });
 onBeforeUnmount(() => {
   if (connection) {
@@ -91,7 +96,7 @@ onBeforeUnmount(() => {
 
 <template>
   <div class="flex flex-col min-h-screen">
-    <Header :UserName="user?.username" :lang="'RU'" @changeLocale="toggleTeleportLocale" />
+    <Header :UserName="user?.username" :lang="lang" @changeLocale="toggleTeleportLocale" />
     <div class="flex-grow z-1 py-4">
       <div class="flex gap-4 my-4">
         <menuItems :title="$t('homePage.impulsePrise')" @click="toggleTeleport">

@@ -54,7 +54,7 @@ const router = createRouter({
 const messages = Object.assign(languages);
 const i18n = createI18n({
   legacy: false,
-  locale: defaultLocale,
+  locale: localStorage.getItem('lang'),
   fallbackLocale: 'en',
   messages
 })

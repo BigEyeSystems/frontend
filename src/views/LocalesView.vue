@@ -11,11 +11,13 @@ const selectRussian = () => {
     isSelectedRus.value = !isSelectedRus.value;
     isSelectedEng.value = false;
     locale.value === 'en'? locale.value = 'ru' : locale.value = '';
+    localStorage.setItem('lang', locale.value)
 };
 const selectEnglish = () => {
     isSelectedRus.value = false;
     isSelectedEng.value = !isSelectedEng.value;
     locale.value === 'ru'? locale.value = 'en' : locale.value = 'ru';
+    localStorage.setItem('lang', locale.value)
 };
 </script>
 <template>
@@ -23,30 +25,30 @@ const selectEnglish = () => {
         <input class="w-full my-4 p-3 rounded-lg border-transparent focus:outline-none bg-[#17181C] focus:bg-[#17181C]"
             type="text" placeholder="Поиск">
         <div class="bg-gradient-to-r from-[#ffffff1f] to-[#ffffff12] px-4 py-3 rounded-lg text-sm">
-            <div class="flex justify-between py-4 setting-border">
+            <div class="flex justify-between py-4 setting-border"  @click="selectRussian" >
                 <div class="flex flex-col gap-1">
                     <p class="text-sm font-semibold">Русский</p>
                     <p class="text-xs text-[#b8b8b8]">Русский</p>
                 </div>
                 <div class="flex items-center">
                     <button v-if="isSelectedRus">
-                        <PhCheckCircle :size="20" color="#92FBDB" weight="fill" @click="selectRussian" />
+                        <PhCheckCircle :size="20" color="#92FBDB" weight="fill" />
                     </button>
-                    <button v-if="!isSelectedRus" @click="selectRussian">
+                    <button v-if="!isSelectedRus">
                         <PhCircle :size="20" color="#36373a" />
                     </button>
                 </div>
             </div>
-            <div class="flex justify-between py-4">
+            <div class="flex justify-between py-4"  @click="selectEnglish">
                 <div class="flex flex-col gap-1">
                     <p class="text-sm font-semibold">Английский</p>
                     <p class="text-xs text-[#b8b8b8]">English</p>
                 </div>
-                <div class="flex items-center">
+                <div class="flex items-center" >
                     <button v-if="isSelectedEng">
-                        <PhCheckCircle :size="20" color="#92FBDB" weight="fill" @click="selectEnglish" />
+                        <PhCheckCircle :size="20" color="#92FBDB" weight="fill" />
                     </button>
-                    <button v-if="!isSelectedEng" @click="selectEnglish">
+                    <button v-if="!isSelectedEng">
                         <PhCircle :size="20" color="#36373a" />
                     </button>
                 </div>
