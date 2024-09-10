@@ -102,5 +102,13 @@
         "inviteesubscription": "The invitee must purchase a subscription",
         "referralSystem": "Referral system",
         "connectTONWallet": "Connect the TON wallet, and withdraw money"
+    },
+    "localeModal": {
+        "title": "Change language",
+        "save": "Save"
+    },
+    "notifications":"Notifications",
+    "fundingPage": {
+        "title":"Funding rate"
     }
 }

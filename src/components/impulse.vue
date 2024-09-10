@@ -95,7 +95,8 @@ const showImpulseData = async () => {
         <input
           v-model="changePercent"
           class="w-full my-3 p-3 rounded-lg border-transparent focus:outline-none bg-[#17181C] focus:bg-[#17181C]"
-          type="text"
+          type="number"
+          min="5"
           placeholder="Search Here"
         />
         <div class="flex gap-2 my-3">

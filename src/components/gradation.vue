@@ -95,7 +95,7 @@ const downloadGradationGrowthFile = async (id) => {
             <PhCalendarDots :size="16" /> 9.01.2024
           </div>
         </div>
-        <div class="bg-[#17181C] p-2 rounded-xl cursor-pointer my-4 flex justify-between items-center"
+        <div class="bg-[#17181C] p-2 rounded-xl cursor-pointer my-4 flex justify-between items-center active:opacity-80" 
           @click="downloadGradationGrowthFile(gradationData?.file_id)">
           <div class="flex gap-3 items-center">
             <div class="p-1 bg-[#797979] rounded">
@@ -119,8 +119,8 @@ const downloadGradationGrowthFile = async (id) => {
                 <p>{{ file.date }}</p>
               </div>
             </div>
-            <div class="bg-[#17181C] p-2 rounded-xl cursor-pointer my-4 flex justify-between items-center"
-              @click="downloadGradationGrowthFile(file.file_id)">
+            <div class="bg-[#17181C] p-2 rounded-xl cursor-pointer my-4 flex justify-between items-center active:opacity-80"
+              @click="downloadGradationGrowthFile(file.file_id)" >
               <div class="flex gap-3 items-center">
                 <div class="p-1 bg-[#797979] rounded">
                   <PhFile :size="24" color="#fff" />

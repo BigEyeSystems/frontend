@@ -102,5 +102,13 @@
         "inviteesubscription": "Приглашенный должен приобрести подписку",
         "referralSystem": "Реферальная система",
         "connectTONWallet": "Подключите кошелек тон, и выведите деньги"
+    },
+    "localeModal": {
+        "title": "Смена языка",
+        "save": "Сохранить"
+    },
+    "notifications":"Уведомления",
+    "fundingPage": {
+        "title":"Ставки финансирования"
     }
 }

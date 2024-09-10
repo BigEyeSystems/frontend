@@ -219,7 +219,7 @@ onBeforeUnmount(() => {
             <div class="flex justify-between mb-3">
               <div class="flex gap-3 items-center">
                 <crown />
-                <p class="font-bold text-sm">Ставки финансирования</p>
+                <p class="font-bold text-sm">{{ $t('fundingPage.title')}}</p>
               </div>
               <button @click="toggleFundingData">
                 <PhX :size="21" />
@@ -236,7 +236,7 @@ onBeforeUnmount(() => {
             <div class="flex justify-between mb-3">
               <div class="flex gap-3 items-center">
                 <PhBell :size="32" />
-                <p class="font-bold text-sm">Уведомления</p>
+                <p class="font-bold text-sm">{{ $t('notifications')}}</p>
               </div>
               <button @click="toggleNotification">
                 <PhX :size="21" />
@@ -253,7 +253,7 @@ onBeforeUnmount(() => {
             <div class="flex justify-between mb-3">
               <div class="flex gap-3 items-center">
                 <PhList :size="32" />
-                <p class="text-lg font-bold">Смена языка</p>
+                <p class="text-lg font-bold">{{ $t('localeModal.title')}}</p>
               </div>
               <button @click="openLocales = false">
                 <PhX :size="21" />
