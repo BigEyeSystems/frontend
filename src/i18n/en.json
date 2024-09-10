@@ -24,5 +24,57 @@
         "getInfo": "Get Info",
         "min": "min"
     },
-    "lang": "EN"
+    "lang": "EN",
+    "gradationGrowth": {
+        "title": "Gradation of tickers by volume growth",
+        "timeIntervalSelect": "Select Time Interval for Info:",
+        "getInfo": "Get Info",
+        "hour" : "h"
+    },
+    "profile": {
+        "wallet": "Wallet",
+        "settings": "Settings",
+        "support ": "Support",
+        "faq": "FAQ"
+    },
+    "premiumPage": {
+        "month": "month",
+        "months": "months",
+        "perMonth": "per month",
+        "for": "for",
+        "connect": "Connect",
+        "name": "Name",
+        "impulses": "Impulses",
+        "assetTracking": "Asset tracking",
+        "fundingRate": "Funding rate",
+        "informationTicker": "Information about the ticker",
+        "correlation": "Correlation of two assets",
+        "tradingHistory": "History of trading volumes",
+        "accessNewFeatures": "Access to new features",
+        "imbalance": "Imbalance",
+        "liqudities": "Sweep of key Liqudities",
+        "gradationVolume": "Gradation of volume growth",
+        "topTickers": "Top tickers",
+        "fibonacci": "Notification by Fibonacci",
+        "tradingRecommendations": "Trading recommendations",
+        "RSI": "RSI (Divergences convergences)",
+        "touchingTrend": "Touching trend lines",
+        "asset": "asset",
+        "assets": "assets",
+        "requests": "requests",
+        "days": "days",
+        "view": "view",
+        "views": "views",
+        "timeFrame": "Time Frame",
+        "monthPer": "Per month"
+    },
+    "back": "Back",
+    "walletPage": {
+        "title": "Wallet",
+        "tonWallet": "TON Wallet",
+        "link": "Linked",
+        "notLinked": "Not linked",
+        "connectWallet": "Connect a wallet",
+        "untieWallet": "Отвязать кошелек"
+    }
 }

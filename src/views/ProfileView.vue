@@ -4,6 +4,8 @@ import crown from "@/components/icons/crown.vue";
 import footerMenu from "@/components/footer.vue";
 import profileButton from "@/components/profileButton.vue";
 import { useRouter } from "vue-router";
+import { useI18n } from "vue-i18n";
+const { t } = useI18n( {useScope: 'global'} ); 
 const router = useRouter();
 const openPremium = () => {
   router.push("/profile/premium");
@@ -36,22 +38,22 @@ const user = tg.initDataUnsafe.user;
           <PhCaretRight :size="24"/>
         </div>
       </button>
-      <profileButton :text="'Кошелек'" @click="router.push('/profile/wallet')">
+      <profileButton :text="$t('profile.wallet')" @click="router.push('/profile/wallet')">
         <template #icon>
           <PhWallet :size="24" />
         </template>
       </profileButton>
-      <profileButton :text="'Настройки'" @click="router.push('/profile/settings')">
+      <profileButton :text="$t('profile.settings')" @click="router.push('/profile/settings')">
         <template #icon>
           <PhGear :size="24" />
         </template>
       </profileButton>
-      <profileButton :text="'Cлужба поддержки'">
+      <profileButton :text="$t('profile.support')">
         <template #icon>
           <PhHeadset :size="24" />
         </template>
       </profileButton>
-      <profileButton :text="'Самые задаваемы вопросы'">
+      <profileButton :text="$t('profile.faq')">
         <template #icon>
           <PhInfo :size="24" />
         </template>

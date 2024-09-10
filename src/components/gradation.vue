@@ -2,6 +2,8 @@
 import ButtonView from "./button.vue";
 import { ref } from "vue";
 import axios from "axios";
+import { useI18n } from "vue-i18n";
+const { t } = useI18n( {useScope: 'global'} ); 
 const fileInterval = ref(30);
 const selectedInterval = ref(null);
 const selectInterval = (index, interval) => {
@@ -67,8 +69,7 @@ const downloadGradationGrowthFile = async (id) => {
     <div v-if="!showGradation">
       <div class="mb-3">
         <p>
-          Выберите временной интервал за какое время вы хотите получить
-          информацию
+          {{ $t('gradationGrowth.timeIntervalSelect')}}
         </p>
         <div class="flex gap-2 mt-3">
           <button v-for="(interval, index) in [5, 30, 60, 4]" :key="index" :class="{
@@ -76,8 +77,8 @@ const downloadGradationGrowthFile = async (id) => {
               selectedInterval === index,
             'bg-[#17181C]': selectedInterval !== index,
           }" @click="selectInterval(index, interval)" class="w-full py-2 rounded">
-            <p v-if="interval !== 4">{{ interval }} мин</p>
-            <p v-else>{{ interval }} часа</p>
+            <p v-if="interval !== 4">{{ interval }} {{ $t('impulsePrise.min')}}</p>
+            <p v-else>{{ interval }}  {{ $t('gradationGrowth.hour')}}</p>
           </button>
         </div>
       </div>

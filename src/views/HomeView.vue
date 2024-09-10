@@ -14,7 +14,7 @@ import trackingTickerView from "./trackingTickerView.vue";
 import FundingDataView from "./FundingDataView.vue";
 import NotificationView from "./NotificationView.vue";
 import crown from "../components/icons/crown.vue";
-
+import notification from "../components/icons/Notification.vue"
 import { useI18n } from "vue-i18n";
 const { t } = useI18n( {useScope: 'global'} ); 
 
@@ -57,7 +57,6 @@ console.log(tgHashData);
 const data = ref(null);
 let connection;
 
-// Set lang from localStorage on mount
 onMounted(() => {
   lang.value = localStorage.getItem('lang') === 'ru' ? 'RU' : 'EN';
 
@@ -100,34 +99,34 @@ onBeforeUnmount(() => {
       <div class="flex gap-4 my-4">
         <menuItems :title="$t('homePage.impulsePrise')" @click="toggleTeleport">
           <template #icon>
-            <PhPulse :size="21" />
+            <PhPulse :size="24" />
           </template>
         </menuItems>
         <menuItems :title="$t('homePage.notificationSettings')" @click="toggleNotification">
           <template #icon>
-            <PhBell :size="21" />
+            <notification />
           </template>
         </menuItems>
         <menuItems :title="$t('homePage.fundingRate')" @click="toggleFundingData">
           <template #icon>
-            <PhPercent :size="21" />
+            <PhPercent :size="24" />
           </template>
         </menuItems>
       </div>
       <div class="flex gap-4">
         <menuItems :title="$t('homePage.volumeGradation')" @click="toggleTeleportGradation">
           <template #icon>
-            <PhChartBar :size="21" />
+            <PhChartBar :size="24" />
           </template>
         </menuItems>
         <menuItems :title="$t('homePage.growthGradation')" @click="toggleTeleportGradationGrowth">
           <template #icon>
-            <PhChartLine :size="21" />
+            <PhChartLine :size="24" />
           </template>
         </menuItems>
         <menuItems :title="$t('homePage.tickerTracking')" @click="toggleTrackingTicker">
           <template #icon>
-            <PhMagnifyingGlass :size="21" />
+            <PhMagnifyingGlass :size="24" />
           </template>
         </menuItems>
       </div>
@@ -169,7 +168,7 @@ onBeforeUnmount(() => {
             <div class="flex justify-between mb-3">
               <div class="flex gap-3 items-center">
                 <crown />
-                <p class="font-bold text-sm">Градация активов по росту объёма</p>
+                <p class="font-bold text-sm">{{ $t('gradationGrowth.title')}}</p>
               </div>
               <button @click="toggleTeleportGradation">
                 <PhX :size="21" />
