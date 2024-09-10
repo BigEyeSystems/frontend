@@ -5,6 +5,8 @@ import footerMenu from "@/components/footer.vue";
 import { ref } from "vue";
 import referralsWorkProcess from "../components/referralsWorkProcess.vue";
 import axios from "axios";
+import { useI18n } from "vue-i18n";
+const { t } = useI18n( {useScope: 'global'} ); 
 
 const isrTansaction = ref(true);
 const isProcess = ref(false);
@@ -82,15 +84,15 @@ const copyReferral = async () => {
       <div>
         <crown />
       </div>
-      <p class="text-lg font-semibold">Referrals</p>
+      <p class="text-lg font-semibold">{{ $t('referralsPage.title')}}</p>
     </div>
     <div class="svg-background p-4 mt-4 rounded-xl">
       <div class="flex justify-between">
         <div>
-          <p class="text-lg font-semibold">Пригласите друзей!</p>
+          <p class="text-lg font-semibold">{{ $t('referralsPage.inviteFriends')}}</p>
           <p class="text-wrap text-xs">
-            Вы получите бонус который <br />
-            сможете вывести в TON кошелек
+            {{ $t('referralsPage.receiveBonus')}} <br />
+            {{ $t('referralsPage.withdrawWallet')}}
           </p>
         </div>
         <div>
@@ -98,7 +100,7 @@ const copyReferral = async () => {
         </div>
       </div>
       <ButtonView
-        :text="'Скопировать ссылку'"
+        :text="$t('referralsPage.copyLink')"
         class="mt-4"
         @click="copyReferral"
       >
@@ -112,13 +114,13 @@ const copyReferral = async () => {
       class="flex justify-between items-center px-4 py-3 bg-gradient-to-r from-[#ffffff1f] to-[#ffffff12] rounded-xl my-4"
     >
       <div class="flex gap-1">
-        <p class="text-sm font-semibold text-[#b8b8b8]">Ваш баланс:</p>
+        <p class="text-sm font-semibold text-[#b8b8b8]"> {{ $t('referralsPage.yourBalance')}}</p>
         <p class="text-sm font-semibold">0 TON</p>
       </div>
       <button
         class="text-sm font-semibold bg-[#92FBDB] text-black p-2 rounded-lg"
       >
-        Вывести
+      {{ $t('referralsPage.withdraw')}}
       </button>
     </div>
 
@@ -135,7 +137,7 @@ const copyReferral = async () => {
             : '',
         ]"
       >
-        Транзакции
+      {{ $t('referralsPage.transactions')}}
       </button>
       <button
         class="w-1/2 py-1 px-2 text-xs"
@@ -146,7 +148,7 @@ const copyReferral = async () => {
             : '',
         ]"
       >
-        Как это работает?
+      {{ $t('referralsPage.howItWork')}}
       </button>
     </div>
 
@@ -154,36 +156,36 @@ const copyReferral = async () => {
       v-if="isrTansaction"
       class="flex justify-center bg-[#17181C] py-7 rounded-2xl text-xs text-[#aeaeae] mb-24"
     >
-      <p>Вы еще не пригласили друзей</p>
+      <p>{{ $t('referralsPage.haveNotInvitedFriends')}}</p>
     </div>
     <div v-if="isProcess" class="flex flex-col gap-2 mb-24">
       <referralsWorkProcess
-        :title="'Скопировать ссылку'"
-        :text="'Нажмите кнопку в баннере'"
+        :title="$t('referralsPage.copyLink')"
+        :text="$t('referralsPage.clickButton')"
       >
         <template #icon>
           <PhCards :size="24" />
         </template>
       </referralsWorkProcess>
       <referralsWorkProcess
-        :title="'Поделиться ссылкой'"
-        :text="'Отправьте ссылку в удобном мессенджере'"
+        :title="$t('referralsPage.shareLink')"
+        :text="$t('referralsPage.sendLink')"
       >
         <template #icon>
           <PhWhatsappLogo :size="24" />
         </template>
       </referralsWorkProcess>
       <referralsWorkProcess
-        :title="'Покупка подписки'"
-        :text="'Приглашенный должен приобрести подписку'"
+        :title="$t('referralsPage.purchaseSubscription')"
+        :text="$t('referralsPage.inviteesubscription')"
       >
         <template #icon>
           <PhUserPlus :size="24" />
         </template>
       </referralsWorkProcess>
       <referralsWorkProcess
-        :title="'Реферальная система'"
-        :text="'Подключите кошелек тон, и выведите деньги'"
+        :title="$t('referralsPage.referralSystem')"
+        :text="$t('referralsPage.connectTONWallet')"
       >
         <template #icon>
           <PhConfetti :size="24" />
@@ -206,7 +208,7 @@ const copyReferral = async () => {
               </button>
             </div>
             <p class="text-lg py-2 font-semibold text-center">
-              Ссылка скопирована
+              {{ $t('referralsPage.linkCopy')}}
             </p>
           </div>
         </transition>

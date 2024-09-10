@@ -45,7 +45,7 @@
         "connect": "Подключить",
         "name": "Название",
         "impulses": "Импульсы",
-        "assetTracking": "Ослеживание актива",
+        "assetTracking": "Отслеживание актива",
         "fundingRate": "Ставки финансирования",
         "informationTicker": "Информация о тикере",
         "correlation": "Корреляция двух активов",
@@ -76,5 +76,31 @@
         "notLinked": "Не привязан",
         "connectWallet": "Подключить кошелек",
         "untieWallet": "Untie the wallet"
+    },
+    "settingsPage": {
+        "title": "Настройки",
+        "notificationsSmartAnalytics": "Уведомления от Smart Analytics",
+        "alerts": "Уведомления",
+        "lang": "Язык"
+    },
+    "referralsPage": {
+        "title": "Рефералы",
+        "inviteFriends": "Пригласите друзей!",
+        "receiveBonus": "Вы получите бонус который",
+        "withdrawWallet":"сможете вывести в TON кошелек",
+        "copyLink": "Скопировать ссылку",
+        "withdraw": "Вывести",
+        "yourBalance": "Ваш баланс:",
+        "transactions": "Транзакции",
+        "howItWork": "Как это работает?",
+        "haveNotInvitedFriends": "Вы еще не пригласили друзей",
+        "linkCopy":"Ссылка скопирована",
+        "clickButton": "Нажмите кнопку в баннере",
+        "shareLink": "Поделиться ссылкой",
+        "sendLink" : "Отправьте ссылку в удобном мессенджере",
+        "purchaseSubscription": "Покупка подписки",
+        "inviteesubscription": "Приглашенный должен приобрести подписку",
+        "referralSystem": "Реферальная система",
+        "connectTONWallet": "Подключите кошелек тон, и выведите деньги"
     }
 }

@@ -76,5 +76,31 @@
         "notLinked": "Not linked",
         "connectWallet": "Connect a wallet",
         "untieWallet": "Отвязать кошелек"
+    },
+    "settingsPage": {
+        "title": "Settings",
+        "notificationsSmartAnalytics": "Notifications from Smart Analytics",
+        "alerts": "Alerts",
+        "lang": "Language"
+    },
+    "referralsPage": {
+        "title": "Referrals",
+        "inviteFriends": "Invite your friends!",
+        "receiveBonus": "You will receive a bonus that you",
+        "withdrawWallet":"can withdraw to your TON wallet",
+        "copyLink": "Copy the link",
+        "withdraw": "Withdraw",
+        "yourBalance": "Your balance:",
+        "transactions": "Transactions",
+        "howItWork": "How does it work?",
+        "haveNotInvitedFriends": "You haven't invited your friends yet",
+        "linkCopy": "Link copied",
+        "clickButton": "Click the button in the banner",
+        "shareLink": "Share a link",
+        "sendLink" : "Send the link in a convenient messenger",
+        "purchaseSubscription": "Purchase a subscription",
+        "inviteesubscription": "The invitee must purchase a subscription",
+        "referralSystem": "Referral system",
+        "connectTONWallet": "Connect the TON wallet, and withdraw money"
     }
 }

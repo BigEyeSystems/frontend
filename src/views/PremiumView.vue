@@ -127,7 +127,6 @@ const { t } = useI18n( {useScope: 'global'} );
       <button class="bg-gradient-to-r from-[#2DBDE8] to-[#0070A5] shadow-sm shadow-[#92fbdb80] w-full p-3 rounded-xl font-semibold btn flex  justify-center items-center gap-2 mt-4">
         {{ $t('premiumPage.connect')}}
       </button>
-      
     </footer>
   </div>
 </template>

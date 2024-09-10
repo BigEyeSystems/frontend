@@ -12,14 +12,14 @@ const props = defineProps({
 </script>
 
 <template>
-    <button @click="props.onClick" class="bg-[#92FBDB] w-full p-3 rounded-xl font-semibold btn text-black flex  justify-center items-center gap-2">
+    <button @click="props.onClick" class="btn bg-[#92FBDB] w-full p-3 rounded-xl font-semibold btn text-black flex  justify-center items-center gap-2 active:bg-gradient-to-r active:from-[#2DBDE8] active:to-[#0070A5]">
         {{ text }}
         <slot name="icon"></slot>
     </button>
 </template>
 
 <style scoped>
-.btn{
-    box-shadow: 0px 2px 10px 0px rgba(146, 251, 219, 0.50);
+.btn {
+    transition: all 0.3s ease; 
 }
 </style>

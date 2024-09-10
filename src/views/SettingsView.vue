@@ -3,6 +3,8 @@ import { ref, onMounted, computed } from 'vue';
 import { Switch } from 'ant-design-vue';
 import LocalesView from './LocalesView.vue';
 import axios from 'axios';
+import { useI18n } from "vue-i18n";
+const { t } = useI18n( {useScope: 'global'} ); 
 
 const responseSettings = ref(null);
 const checkedNotification = ref(true);
@@ -42,10 +44,10 @@ onMounted(async () => {
     <div>
         <div class="flex mb-4 items-center justify-between w-1/2">
             <button class="flex text-sm text-[#B8B8B8] items-center" @click="$router.go(-1)">
-                <PhCaretLeft :size="22" color="#B8B8B8" />Назад
+                <PhCaretLeft :size="22" color="#B8B8B8" />{{ $t('back')}}
             </button>
             <div>
-                <p class="text-lg font-semibold translate-x-2/4">Настройки</p>
+                <p class="text-lg font-semibold translate-x-2/4">{{ $t('settingsPage.title')}}</p>
             </div>
         </div>
         <div>
@@ -53,62 +55,62 @@ onMounted(async () => {
                 @click="toggleTeleport">
                 <div class="flex flex-col gap-1">
                     <p class="text-sm font-semibold">Русский</p>
-                    <p class="text-xs text-[#b8b8b8]">Язык</p>
+                    <p class="text-xs text-[#b8b8b8]">{{ $t('settingsPage.lang')}}</p>
                 </div>
                 <PhCaretRight :size="24" color="#b2b2b2" />
             </div>
             <div
                 class="flex justify-between items-center px-4 py-3 bg-gradient-to-r from-[#ffffff1f] to-[#ffffff12] rounded-xl my-4">
                 <div class="flex gap-1">
-                    <p class="text-sm">Уведомления от Smart Analytics</p>
+                    <p class="text-sm">{{ $t('settingsPage.notificationsSmartAnalytics')}}</p>
                 </div>
                 <Switch default-checked v-model:checked="checkedNotification" @change="onChange" />
             </div>
         </div>
-        <p class="text-sm font-semibold mb-4">Крипто рынок</p>
+        <p class="text-sm font-semibold mb-4">{{ $t('settingsPage.alerts')}}</p>
         <div class="bg-gradient-to-r from-[#ffffff1f] to-[#ffffff12] px-4 py-3 rounded-lg text-sm">
             <div class="flex justify-between py-4 setting-border">
-                <p>Импульсы</p>
+                <p>{{ $t('premiumPage.impulses')}}</p>
                 <Switch default-checked v-model:checked="checkedImpulse" @change="onChange" />
             </div>
             <div class="flex justify-between py-4 setting-border">
-                <p>Ослеживание актива</p>
+                <p>{{ $t('premiumPage.assetTracking')}}</p>
                 <Switch default-checked v-model:checked="checkedActive" @change="onChange" />
             </div>
             <div class="flex justify-between py-4 setting-border">
-                <p>Ставки финансирования</p>
+                <p>{{ $t('premiumPage.fundingRate')}}</p>
                 <Switch default-checked v-model:checked="checkedFundFinance" @change="onChange" />
             </div>
             <div class="flex justify-between py-4 setting-border">
-                <p>Доступ к новым функциям</p>
+                <p>{{ $t('premiumPage.accessNewFeatures')}}</p>
                 <Switch default-checked v-model:checked="checkedFunctionPremission" @change="onChange" disabled/>
             </div>
             <div class="flex justify-between py-4 setting-border">
-                <p>Имбалансы (FVG)</p>
+                <p>{{ $t('premiumPage.imbalance')}}</p>
                 <Switch default-checked v-model:checked="checkedImbalances" @change="onChange" disabled/>
             </div>
             <div class="flex justify-between py-4 setting-border">
-                <p>Снятие ключевых ликвидностей </p>
+                <p>{{ $t('premiumPage.liqudities')}} </p>
                 <Switch default-checked v-model:checked="checkedCancelKeyLiquidity" @change="onChange" disabled/>
             </div>
             <div class="flex justify-between py-4 setting-border">
-                <p>Градация роста объемов</p>
+                <p>{{ $t('premiumPage.gradationVolume')}}</p>
                 <Switch default-checked v-model:checked="checkedGrowthGradation" @change="onChange" disabled/>
             </div>
             <div class="flex justify-between py-4 setting-border">
-                <p>Уведомления по Фибоначчи </p>
+                <p>{{ $t('premiumPage.fibonacci')}} </p>
                 <Switch default-checked v-model:checked="checkedFibonacciNotice" @change="onChange" disabled/>
             </div>
             <div class="flex justify-between py-4 setting-border">
-                <p>Торговые рекомендации</p>
+                <p>{{ $t('premiumPage.tradingRecommendations')}}</p>
                 <Switch default-checked v-model:checked="checkedTradeRecommendations" @change="onChange" disabled/>
             </div>
             <div class="flex justify-between py-4 setting-border">
-                <p>RSI (Дивергенции конвергенции)</p>
+                <p>{{ $t('premiumPage.RSI')}}</p>
                 <Switch default-checked v-model:checked="checkedRSI" @change="onChange" disabled/>
             </div>
             <div class="flex justify-between py-4">
-                <p>Касание трендовых </p>
+                <p>{{ $t('premiumPage.touchingTrend')}} </p>
                 <Switch default-checked v-model:checked="checkedTrendTouch" @change="onChange" disabled/>
             </div>
         </div>
