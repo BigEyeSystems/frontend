@@ -110,7 +110,7 @@ const downloadGradationGrowthFile = async (id) => {
         </div>
         <p class="mb-3 text-sm font-semibold">{{ $t('fundingPage.history')}}</p>
         <div v-if="historyData">
-          <div v-for="(file, index) in historyData.data.reverse()" key="index">
+          <div v-for="(file, index) in historyData.data" key="index">
             <div class="flex justify-between">
               <p class="text-[#B8B8B8] text-xs">{{ $t('fundingPage.dateCreated')}}</p>
               <div class="flex gap-1 text-xs items-center">
