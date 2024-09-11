@@ -77,9 +77,9 @@ const downloadGradationGrowthFile = async (id) => {
         </div>
       </div>
     </div>
-    <ButtonView v-if="!showGradationGrowth" :text="'Получить информацию'" :on-click="toggleGradationGrowth"
+    <ButtonView v-if="!showGradationGrowth" :text="$t('impulsePrise.getInfo')" :on-click="toggleGradationGrowth"
       class="my-3" />
-    <ButtonView v-else :text="'Обновить информацию'" class="my-3" />
+    <ButtonView v-else :text="$t('fundingPage.updateInfo')" class="my-3" />
 
     <div v-if="showGradationGrowth">
       <div v-if="gradationActiveData">

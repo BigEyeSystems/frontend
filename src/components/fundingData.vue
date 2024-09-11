@@ -14,6 +14,8 @@ import {
 import VChart, { THEME_KEY } from "vue-echarts";
 import { ref, provide, onMounted } from "vue";
 import { Skeleton } from "ant-design-vue";
+import { useI18n } from "vue-i18n";
+const { t } = useI18n( {useScope: 'global'} ); 
 
 use([
   GridComponent,
@@ -223,11 +225,11 @@ const showDate = (timestamp) => {
 </script>
 <template>
   <div v-if="fundingData" class="text-xs">
-    <ButtonView :text="'Обновить информацию'" class="my-3" />
+    <ButtonView :text="$t('fundingPage.updateInfo')" class="my-3" />
     <div>
-      <p class="mb-3">Результат запроса</p>
+      <p class="mb-3">{{ $t('fundingPage.searchResult')}}</p>
       <div class="flex justify-between">
-        <p class="text-xs">Последнее обновление:</p>
+        <p class="text-xs">{{ $t('homePage.lastUpdate')}}:</p>
         <div class="flex text-xs gap-1">
           <PhClock :size="16" /> 12:03 <PhCalendarDots :size="16" /> 9.01.2024
         </div>
@@ -238,21 +240,21 @@ const showDate = (timestamp) => {
           :class="[dayData ? 'bg-[#92FBDB] text-black font-semibold' : '']"
           @click="showDailyData"
         >
-          За день
+        {{ $t('fundingPage.day')}}
         </button>
         <button
           class="bg-[#17181C] p-2 w-full text-xs text-[#B8B8B8] rounded"
           :class="[weekData ? 'bg-[#92FBDB] text-black font-semibold' : '']"
           @click="showWeeklyData"
         >
-          За неделю
+        {{ $t('fundingPage.week')}}
         </button>
         <button
           class="bg-[#17181C] p-2 w-full text-xs text-[#B8B8B8] rounded"
           :class="[monthData ? 'bg-[#92FBDB] text-black font-semibold' : '']"
           @click="showMonthlyData"
         >
-          За месяц
+        {{ $t('fundingPage.month')}}
         </button>
       </div>
       <div class="flex justify-center">
@@ -265,7 +267,7 @@ const showDate = (timestamp) => {
           >
             {{ fundingData?.positive_quantity }}
           </div>
-          <p class="text-xs text-[#B8B8B8]">Кол-во положительных фандингов</p>
+          <p class="text-xs text-[#B8B8B8]">{{ $t('fundingPage.positiveAmount')}}</p>
         </div>
         <div class="flex gap-2 items-center">
           <p
@@ -273,7 +275,7 @@ const showDate = (timestamp) => {
           >
             {{ fundingData?.negative_quantity }}
           </p>
-          <p class="text-xs text-[#B8B8B8]">Кол-во отрицательных фандингов</p>
+          <p class="text-xs text-[#B8B8B8]">{{ $t('fundingPage.negativeAmount')}}</p>
         </div>
         <div class="flex gap-2 items-center">
           <p
@@ -281,26 +283,26 @@ const showDate = (timestamp) => {
           >
             {{ fundingData?.neutral_quantity }}
           </p>
-          <p class="text-xs text-[#B8B8B8]">Кол-во нейтральных фандингов</p>
+          <p class="text-xs text-[#B8B8B8]">{{ $t('fundingPage.neutralAmount')}}</p>
         </div>
       </div>
-      <p class="my-4 text-sm font-semibold">История</p>
+      <p class="my-4 text-sm font-semibold">{{ $t('fundingPage.history')}}</p>
       <div v-for="(data, index) in historyData.data" :key="index">
         <div class="flex flex-col gap-6 my-4 bg-[#17181C] px-3 py-4 rounded-lg">
           <div class="flex justify-between">
-            <p class="text-[#B8B8B8] text-xs">Дата создания</p>
+            <p class="text-[#B8B8B8] text-xs">{{ $t('fundingPage.dateCreated')}}</p>
             <p>{{ showDate(data.created) }}</p>
           </div>
           <div class="flex justify-between w-full">
-            <p>Кол-во положительных фандингов:</p>
+            <p>{{ $t('fundingPage.positiveAmount')}}</p>
             <p>{{ data.positive_count }}</p>
           </div>
           <div class="flex justify-between w-full">
-            <p>Кол-во отрицательных фандингов:</p>
+            <p>{{ $t('fundingPage.neutralAmount')}}</p>
             <p>{{ data.negative_count }}</p>
           </div>
           <div class="flex justify-between w-full">
-            <p>Кол-во нейтральных фандингов:</p>
+            <p>{{ $t('fundingPage.neutralAmount')}}</p>
             <p>{{ data.neutral_count }}</p>
           </div>
         </div>

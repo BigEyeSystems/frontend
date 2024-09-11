@@ -15,7 +15,8 @@
     },
     "top24": {
         "byVolume": "By volume",
-        "byFunding": "By Funding"
+        "byFunding": "By Funding",
+        "5min": "5 minutes ago: "
     },
     "impulsePrise": {
         "title": "Tracking price impulses",
@@ -75,7 +76,7 @@
         "link": "Linked",
         "notLinked": "Not linked",
         "connectWallet": "Connect a wallet",
-        "untieWallet": "Отвязать кошелек"
+        "untieWallet": "Untie the wallet"
     },
     "settingsPage": {
         "title": "Settings",
@@ -109,6 +110,19 @@
     },
     "notifications":"Notifications",
     "fundingPage": {
-        "title":"Funding rate"
+        "title":"Funding rate",
+        "searchResult": "Search result",
+        "day": "Day",
+        "week": "Week", 
+        "month": "Month",
+        "history": "History",
+        "dateCreated": "Date created",
+        "positiveAmount": "Amount of positive fundings:",
+        "negativeAmount": "Amount of negative funding:",
+        "neutralAmount": "Amount of neutral funding:",
+        "updateInfo": "Update Info"
+    },
+    "gradationPage":{
+        "fileSend": "File successfully sent"
     }
 }

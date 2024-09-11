@@ -83,13 +83,13 @@ const downloadGradationGrowthFile = async (id) => {
         </div>
       </div>
     </div>
-    <ButtonView v-if="!showGradation" :text="'Получить информацию'" :on-click="toggleGradation" class="my-3" />
-    <ButtonView v-else :text="'Обновить информацию'" class="my-3" />
+    <ButtonView v-if="!showGradation" :text="$t('impulsePrise.getInfo')" :on-click="toggleGradation" class="my-3" />
+    <ButtonView v-else :text="$t('fundingPage.updateInfo')" class="my-3" />
     <div v-if="showGradation">
       <div v-if="gradationData">
-        <p class="mb-3 text-sm font-semibold">Результат запроса</p>
+        <p class="mb-3 text-sm font-semibold">{{ $t('fundingPage.searchResult')}}</p>
         <div class="flex justify-between">
-          <p class="text-xs">Последнее обновление:</p>
+          <p class="text-xs">{{ $t('homePage.lastUpdate')}}:</p>
           <div class="flex text-xs gap-1">
             <PhClock :size="16" /> 12:03
             <PhCalendarDots :size="16" /> 9.01.2024
@@ -107,11 +107,11 @@ const downloadGradationGrowthFile = async (id) => {
           </div>
           <PhDownloadSimple :size="24" />
         </div>
-        <p class="mb-3 text-sm font-semibold">История</p>
+        <p class="mb-3 text-sm font-semibold">{{ $t('fundingPage.history')}}</p>
         <div v-if="historyData">
           <div v-for="(file, index) in historyData.data.reverse()" key="index">
             <div class="flex justify-between">
-              <p class="text-[#B8B8B8] text-xs">Дата создания</p>
+              <p class="text-[#B8B8B8] text-xs">{{ $t('fundingPage.dateCreated')}}</p>
               <div class="flex gap-1 text-xs items-center">
                 <PhClock :size="12" />
                 <p>{{ file.time }}</p>
@@ -190,7 +190,7 @@ const downloadGradationGrowthFile = async (id) => {
               </button>
             </div>
             <p class="text-lg py-2 font-semibold text-center">
-              Файл успешно отправлен
+              {{ $t('gradationPage.fileSend')}}
             </p>
           </div>
         </transition>

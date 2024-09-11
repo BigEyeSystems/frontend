@@ -37,8 +37,8 @@ const toggleAnalytics = () => {
                     {{ active }}
                 </button>
             </div>
-            <ButtonView v-if="!showAnalytics" :text="'Получить информацию'" :on-click="toggleAnalytics" class="mt-4" />
-            <ButtonView v-else :text="'Обновить информацию'" :on-click="toggleAnalytics" class="mt-5" />
+            <ButtonView v-if="!showAnalytics" :text="$t('impulsePrise.getInfo')" :on-click="toggleAnalytics" class="mt-4" />
+            <ButtonView v-else :text="$t('fundingPage.updateInfo')" :on-click="toggleAnalytics" class="mt-5" />
             <div v-if="showAnalytics">
                 <div class="flex justify-between mt-3">
                     <p class="text-xs">Последнее обновление:</p>
