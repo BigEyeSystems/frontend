@@ -185,7 +185,7 @@ onBeforeUnmount(() => {
             <div class="flex justify-between mb-3">
               <div class="flex gap-3 items-center">
                 <crown />
-                <p class="font-bold text-sm">Градация активов по росту цены</p>
+                <p class="font-bold text-sm">{{ $t('gradationActiveGrowth.title')}}</p>
               </div>
               <button @click="toggleTeleportGradationGrowth">
                 <PhX :size="21" />
@@ -202,9 +202,9 @@ onBeforeUnmount(() => {
             <div class="flex justify-between mb-3">
               <div class="flex gap-3 items-center">
                 <crown />
-                <p class="font-bold text-sm">Отслеживание актива</p>
+                <p class="font-bold text-sm">{{ $t('tickerTracking.title')}}</p>
               </div>
-              <button @click="toggleTrackingTicker">
+              <button @click="openTrackingTicker = false">
                 <PhX :size="21" />
               </button>
             </div>

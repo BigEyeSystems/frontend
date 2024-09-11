@@ -23,7 +23,8 @@
         "timeIntervalSelect": "Select Time Interval for Info:",
         "enterPrice": "Enter price change percentage:",
         "getInfo": "Get Info",
-        "min": "min"
+        "min": "min",
+        "addTracking": "Add Tracking(max. 3)"
     },
     "lang": "EN",
     "gradationGrowth": {
@@ -124,5 +125,20 @@
     },
     "gradationPage":{
         "fileSend": "File successfully sent"
+    },
+    "gradationActiveGrowth": {
+        "title": "Asset gradation by price increase",
+        "selectInterval": "Select Time Interval for Info:"
+    },
+    "tickerTracking": {
+        "title":"Asset tracking",
+        "assetName":"Enter Asset Name:",
+        "alertsTimer": "How often do you want alerts?",
+        "addTracker": "Add tracker"
+    },
+    "tickerTable": {
+        "name": "Name",
+        "daily": "Daily",
+        "date": "Date"
     }
 }

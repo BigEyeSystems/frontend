@@ -2,6 +2,8 @@
 import ButtonView from "./button.vue";
 import { ref } from "vue";
 import axios from "axios";
+import { useI18n } from "vue-i18n";
+const { t } = useI18n( {useScope: 'global'} ); 
 
 const fileInterval = ref(30);
 const selectedInterval = ref(null);
@@ -64,15 +66,15 @@ const downloadGradationGrowthFile = async (id) => {
   <div class="text-xs">
     <div v-if="!showGradationGrowth">
       <div class="mb-3">
-        <p>Выберите интервал</p>
+        <p>{{ $t('gradationActiveGrowth.selectInterval')}}</p>
         <div class="flex gap-2 mt-3">
           <button v-for="(interval, index) in [5, 30, 60, 4]" :key="index" :class="{
             'bg-[#92FBDB] text-black font-semibold':
               selectedInterval === index,
             'bg-[#17181C]': selectedInterval !== index,
           }" @click="selectInterval(index, interval)" class="w-full py-2 rounded">
-            <p v-if="interval !== 4">{{ interval }} мин</p>
-            <p v-else>{{ interval }} часа</p>
+            <p v-if="interval !== 4">{{ interval }} {{ $t('impulsePrise.min')}}</p>
+            <p v-else>{{ interval }} {{ $t('gradationGrowth.hour')}}</p>
           </button>
         </div>
       </div>
@@ -83,9 +85,9 @@ const downloadGradationGrowthFile = async (id) => {
 
     <div v-if="showGradationGrowth">
       <div v-if="gradationActiveData">
-        <p class="mb-3">Результат запроса</p>
+        <p class="mb-3">{{ $t('fundingPage.searchResult')}}</p>
         <div class="flex justify-between">
-          <p class="text-xs">Последнее обновление:</p>
+          <p class="text-xs">{{ $t('homePage.lastUpdate')}}:</p>
           <div class="flex text-xs gap-1">
             <PhClock :size="16" /> 12:03
             <PhCalendarDots :size="16" /> 9.01.2024
@@ -103,11 +105,11 @@ const downloadGradationGrowthFile = async (id) => {
           </div>
           <PhDownloadSimple :size="24" />
         </div>
-        <p class="mb-3 text-sm font-semibold">История</p>
+        <p class="mb-3 text-sm font-semibold">{{ $t('fundingPage.history')}}</p>
         <div v-if="historyData">
           <div v-for="(file, index) in historyData.data.reverse()" key="index">
             <div class="flex justify-between">
-              <p class="text-[#B8B8B8] text-xs">Дата создания</p>
+              <p class="text-[#B8B8B8] text-xs">{{ $t('fundingPage.dateCreated')}}</p>
               <div class="flex gap-1 text-xs items-center">
                 <PhClock :size="12" />
                 <p>{{ file.time }}</p>
@@ -186,7 +188,7 @@ const downloadGradationGrowthFile = async (id) => {
               </button>
             </div>
             <p class="text-lg py-2 font-semibold text-center">
-              Файл успешно отправлен
+              {{ $t('gradationPage.fileSend')}}
             </p>
           </div>
         </transition>

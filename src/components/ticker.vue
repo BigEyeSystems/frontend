@@ -1,31 +1,8 @@
-<template>
-  <div class="table-container text-xs rounded-[calc(1.5rem-10px)] p-1 bg-[#17181C] py-4">
-    <table>
-      <thead>
-        <tr class="text-xs">
-          <th>Название</th>
-          <th>суточный %</th>
-          <th>Дата</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="(item, index) in props.detail.reverse()" :key="index">
-          <td>
-            {{ item.active_name }} <br/>
-            <span :class="{ 'positive': item.percent > 0, 'negative': item.percent < 0 }">
-              {{ item.percent?.toFixed(2) || 0 }}%
-            </span>
-          </td>
-          <td>{{ item.day_percent?.toFixed(2) || 0 }}%</td>
-          <td>{{ showDate(item.date) }}</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-</template>
-
 <script setup>
 import { ref, computed } from 'vue';
+import { useI18n } from "vue-i18n";
+const { t } = useI18n( {useScope: 'global'} ); 
+
 const props = defineProps({
   detail: {
     type: Object,
@@ -49,6 +26,33 @@ const showDate = (timestamp) => {
   return `${datePart} ${timePart}`;
 };
 </script>
+<template>
+  <div class="table-container text-xs rounded-[calc(1.5rem-10px)] p-1 bg-[#17181C] py-4">
+    <table>
+      <thead>
+        <tr class="text-xs">
+          <th>{{ $t('tickerTable.name')}}</th>
+          <th>{{ $t('tickerTable.daily')}} %</th>
+          <th>{{ $t('tickerTable.date')}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="(item, index) in props.detail.reverse()" :key="index">
+          <td>
+            {{ item.active_name }} <br/>
+            <span :class="{ 'positive': item.percent > 0, 'negative': item.percent < 0 }">
+              {{ item.percent?.toFixed(2) || 0 }}%
+            </span>
+          </td>
+          <td>{{ item.day_percent?.toFixed(2) || 0 }}%</td>
+          <td>{{ showDate(item.date) }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</template>
+
+
 
 <style scoped>
 .table-container {

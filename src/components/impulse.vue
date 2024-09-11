@@ -12,6 +12,7 @@ const selectedInterval = ref(null);
 const selectedPercent = ref(null);
 const showImpulse = ref(false);
 const impulseData = ref(null);
+const selectedImpulse = ref(null);
 
 const selectInterval = (index, interval) => {
   selectedInterval.value = index;
@@ -52,9 +53,22 @@ const showImpulseData = async () => {
     .catch((error) => {
       console.error(error);
     });
+    try {
+    const response = await axios.get(
+      "https://dsde1736.fornex.org/api/notify/get_impulse",
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    );
+    selectedImpulse.value = response.data;
+  } catch (error) {
+    console.log("Error fetching data: " + error);
+  }
   try {
     const response = await axios.get(
-      "https://dsde1736.fornex.org/api/notify/get_impulse_history",
+      `https://dsde1736.fornex.org/api/notify/get_impulse_history?impulse_id=${selectedImpulse.value?.impulses[2]?.id}`,
       {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -124,12 +138,18 @@ const showImpulseData = async () => {
       @click="showImpulseData"
     />
     <div v-else>
-      <ButtonView :text="'Добавить отслеживание (макс. 3)'" class="my-3" />
+      <ButtonView :text="$t('impulsePrise.addTracking')" class="my-3" />
     </div>
-
     <div v-if="showImpulse">
-      <p class="my-4">Выберите импульс для сохранения в историю</p>
       <div class="mb-4">
+        <p class="mb-3 text-sm font-semibold">{{ $t('fundingPage.history')}}</p>
+        <div class="flex justify-between mb-4">
+          <p class="text-xs">{{ $t('homePage.lastUpdate')}}:</p>
+          <div class="flex text-xs gap-1">
+            <PhClock :size="16" /> 12:03
+            <PhCalendarDots :size="16" /> 9.01.2024
+          </div>
+        </div>
         <ticker :detail = impulseData?.impulses_history />
       </div>
     </div>
