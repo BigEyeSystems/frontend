@@ -58,6 +58,9 @@ const downloadGradationGrowthFile = async (id) => {
       }
     );
     isNotification.value = true;
+    setTimeout(() => {
+      isNotification.value = false;
+    }, 4000);
   } catch (error) {
     console.log("Error downloading data: " + error);
   }

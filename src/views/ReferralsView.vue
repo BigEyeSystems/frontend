@@ -6,7 +6,7 @@ import { ref } from "vue";
 import referralsWorkProcess from "../components/referralsWorkProcess.vue";
 import axios from "axios";
 import { useI18n } from "vue-i18n";
-const { t } = useI18n( {useScope: 'global'} ); 
+const { t } = useI18n({ useScope: 'global' });
 
 const isrTansaction = ref(true);
 const isProcess = ref(false);
@@ -42,9 +42,11 @@ const copyReferral = async () => {
         await navigator.clipboard.writeText(link.value);
         isNotification.value = true;
         console.log("Referral link copied to clipboard!");
+        setTimeout(() => {
+          isNotification.value = false;
+        }, 4000);
       } catch (err) {
         console.error("Clipboard API not allowed or failed:", err);
-        // Fallback to manual copy
         prompt("Copy this link:", link.value);
       }
     } else {
@@ -67,10 +69,16 @@ const copyReferral = async () => {
 
       document.body.removeChild(textArea);
       isNotification.value = true;
+      setTimeout(() => {
+        isNotification.value = false;
+      }, 4000);
     }
   } catch (error) {
     console.error("Failed to copy referral link:", error);
     isNotification.value = true;
+    setTimeout(() => {
+      isNotification.value = false;
+    }, 4000);
   }
 };
 
@@ -84,26 +92,22 @@ const copyReferral = async () => {
       <div>
         <crown />
       </div>
-      <p class="text-lg font-semibold">{{ $t('referralsPage.title')}}</p>
+      <p class="text-lg font-semibold">{{ $t('referralsPage.title') }}</p>
     </div>
     <div class="svg-background p-4 mt-4 rounded-xl">
       <div class="flex justify-between">
         <div>
-          <p class="text-lg font-semibold">{{ $t('referralsPage.inviteFriends')}}</p>
+          <p class="text-lg font-semibold">{{ $t('referralsPage.inviteFriends') }}</p>
           <p class="text-wrap text-xs">
-            {{ $t('referralsPage.receiveBonus')}} <br />
-            {{ $t('referralsPage.withdrawWallet')}}
+            {{ $t('referralsPage.receiveBonus') }} <br />
+            {{ $t('referralsPage.withdrawWallet') }}
           </p>
         </div>
         <div>
           <img src="../components/icons/ton_logo.png" alt="ton" class="w-20" />
         </div>
       </div>
-      <ButtonView
-        :text="$t('referralsPage.copyLink')"
-        class="mt-4"
-        @click="copyReferral"
-      >
+      <ButtonView :text="$t('referralsPage.copyLink')" class="mt-4" @click="copyReferral">
         <template #icon>
           <PhCards :size="21" />
         </template>
@@ -111,104 +115,70 @@ const copyReferral = async () => {
     </div>
 
     <div
-      class="flex justify-between items-center px-4 py-3 bg-gradient-to-r from-[#ffffff1f] to-[#ffffff12] rounded-xl my-4"
-    >
+      class="flex justify-between items-center px-4 py-3 bg-gradient-to-r from-[#ffffff1f] to-[#ffffff12] rounded-xl my-4">
       <div class="flex gap-1">
-        <p class="text-sm font-semibold text-[#b8b8b8]"> {{ $t('referralsPage.yourBalance')}}</p>
+        <p class="text-sm font-semibold text-[#b8b8b8]"> {{ $t('referralsPage.yourBalance') }}</p>
         <p class="text-sm font-semibold">0 TON</p>
       </div>
-      <button
-        class="text-sm font-semibold bg-[#92FBDB] text-black p-2 rounded-lg"
-      >
-      {{ $t('referralsPage.withdraw')}}
+      <button class="text-sm font-semibold bg-[#92FBDB] text-black p-2 rounded-lg">
+        {{ $t('referralsPage.withdraw') }}
       </button>
     </div>
 
-    <div
-      class="flex border border-solid border-[#2f2f2f99] rounded-lg mb-4"
-      style="padding: 1px"
-    >
-      <button
-        class="w-1/2 py-1 px-2 text-xs"
-        @click="showTransaction"
-        :class="[
-          isrTansaction
-            ? 'font-semibold bg-gradient-to-r from-[#ffffff1f] to-[#ffffff12] rounded'
-            : '',
-        ]"
-      >
-      {{ $t('referralsPage.transactions')}}
+    <div class="flex border border-solid border-[#2f2f2f99] rounded-lg mb-4" style="padding: 1px">
+      <button class="w-1/2 py-1 px-2 text-xs" @click="showTransaction" :class="[
+        isrTansaction
+          ? 'font-semibold bg-gradient-to-r from-[#ffffff1f] to-[#ffffff12] rounded'
+          : '',
+      ]">
+        {{ $t('referralsPage.transactions') }}
       </button>
-      <button
-        class="w-1/2 py-1 px-2 text-xs"
-        @click="showProcess"
-        :class="[
-          isProcess
-            ? 'font-semibold bg-gradient-to-r from-[#ffffff1f] to-[#ffffff12] rounded'
-            : '',
-        ]"
-      >
-      {{ $t('referralsPage.howItWork')}}
+      <button class="w-1/2 py-1 px-2 text-xs" @click="showProcess" :class="[
+        isProcess
+          ? 'font-semibold bg-gradient-to-r from-[#ffffff1f] to-[#ffffff12] rounded'
+          : '',
+      ]">
+        {{ $t('referralsPage.howItWork') }}
       </button>
     </div>
 
-    <div
-      v-if="isrTansaction"
-      class="flex justify-center bg-[#17181C] py-7 rounded-2xl text-xs text-[#aeaeae] mb-24"
-    >
-      <p>{{ $t('referralsPage.haveNotInvitedFriends')}}</p>
+    <div v-if="isrTansaction" class="flex justify-center bg-[#17181C] py-7 rounded-2xl text-xs text-[#aeaeae] mb-24">
+      <p>{{ $t('referralsPage.haveNotInvitedFriends') }}</p>
     </div>
     <div v-if="isProcess" class="flex flex-col gap-2 mb-24">
-      <referralsWorkProcess
-        :title="$t('referralsPage.copyLink')"
-        :text="$t('referralsPage.clickButton')"
-      >
+      <referralsWorkProcess :title="$t('referralsPage.copyLink')" :text="$t('referralsPage.clickButton')">
         <template #icon>
           <PhCards :size="24" />
         </template>
       </referralsWorkProcess>
-      <referralsWorkProcess
-        :title="$t('referralsPage.shareLink')"
-        :text="$t('referralsPage.sendLink')"
-      >
+      <referralsWorkProcess :title="$t('referralsPage.shareLink')" :text="$t('referralsPage.sendLink')">
         <template #icon>
           <PhWhatsappLogo :size="24" />
         </template>
       </referralsWorkProcess>
-      <referralsWorkProcess
-        :title="$t('referralsPage.purchaseSubscription')"
-        :text="$t('referralsPage.inviteesubscription')"
-      >
+      <referralsWorkProcess :title="$t('referralsPage.purchaseSubscription')"
+        :text="$t('referralsPage.inviteesubscription')">
         <template #icon>
           <PhUserPlus :size="24" />
         </template>
       </referralsWorkProcess>
-      <referralsWorkProcess
-        :title="$t('referralsPage.referralSystem')"
-        :text="$t('referralsPage.connectTONWallet')"
-      >
+      <referralsWorkProcess :title="$t('referralsPage.referralSystem')" :text="$t('referralsPage.connectTONWallet')">
         <template #icon>
           <PhConfetti :size="24" />
         </template>
       </referralsWorkProcess>
     </div>
     <Teleport to="body">
-      <div
-        v-if="isNotification"
-        class="modal fixed inset-0 flex items-center justify-center z-50 px-4"
-      >
+      <div v-if="isNotification" class="modal fixed inset-0 flex items-center justify-center z-50 px-4">
         <transition name="modal">
           <div class="bg-[#222222b3] py-4 px-5 rounded-lg w-full">
             <div class="flex justify-end">
-              <button
-                @click="isNotification = false"
-                class="bg-[#7474802e] p-2 rounded-full"
-              >
+              <button @click="isNotification = false" class="bg-[#7474802e] p-2 rounded-full">
                 <PhX :size="21" />
               </button>
             </div>
             <p class="text-lg py-2 font-semibold text-center">
-              {{ $t('referralsPage.linkCopy')}}
+              {{ $t('referralsPage.linkCopy') }}
             </p>
           </div>
         </transition>
@@ -226,6 +196,7 @@ const copyReferral = async () => {
   background-repeat: no-repeat;
   background-size: cover;
 }
+
 .modal-enter-active,
 .modal-leave-active {
   transition: transform 0.3s ease-in-out;
