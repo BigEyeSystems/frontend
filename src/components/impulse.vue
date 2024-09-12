@@ -140,6 +140,7 @@ const showImpulseData = async () => {
     <div v-else>
       <ButtonView :text="$t('impulsePrise.addTracking')" class="my-3" />
     </div>
+    {{selectedImpulse}}
     <div v-if="showImpulse">
       <div class="mb-4">
         <p class="mb-3 text-sm font-semibold">{{ $t('fundingPage.history')}}</p>

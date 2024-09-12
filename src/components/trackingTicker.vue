@@ -35,7 +35,7 @@ const toggleTrackingTicker = async () => {
     .post(
       "https://dsde1736.fornex.org/api/notify/set_ticker_tracking",
       {
-        ticker_name: tickerName,
+        ticker_name: tickerName.value,
         time_period: intervalValue,
       },
       {
@@ -101,6 +101,7 @@ const toggleTrackingTicker = async () => {
     </div>
 
     <ButtonView :text="$t('tickerTracking.addTracker')" :on-click="toggleTrackingTicker" class="my-4" />
+    {{tickerData}}
     <div v-if="showTrackingTicker">
       <!-- <div class="mb-4">
         <ticker />
