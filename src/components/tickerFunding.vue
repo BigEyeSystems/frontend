@@ -60,7 +60,7 @@ const sortByFundingDesc = () => {
     </div>
     <div v-if="showFundingByVolume">
       <div v-if="fundingData && fundingData.top_tickers_by_volume && fundingData.top_tickers_by_volume.first_5">
-        <div v-for="(item, index) in fundingData.top_tickers_by_volume.first_5" :key="index" class="text-xs mb-2">
+        <div v-for="(item, index) in fundingData.top_tickers_by_volume.first_5.reverse()" :key="index" class="text-xs mb-2">
           <div class="flex justify-between">
             <p>{{ item.symbol }}</p>
             <p>{{ item.quoteVolume }}$</p>

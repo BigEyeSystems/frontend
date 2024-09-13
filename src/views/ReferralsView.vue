@@ -44,7 +44,7 @@ const copyReferral = async () => {
         console.log("Referral link copied to clipboard!");
         setTimeout(() => {
           isNotification.value = false;
-        }, 4000);
+        }, 3000);
       } catch (err) {
         console.error("Clipboard API not allowed or failed:", err);
         prompt("Copy this link:", link.value);
@@ -71,14 +71,14 @@ const copyReferral = async () => {
       isNotification.value = true;
       setTimeout(() => {
         isNotification.value = false;
-      }, 4000);
+      }, 3000);
     }
   } catch (error) {
     console.error("Failed to copy referral link:", error);
     isNotification.value = true;
     setTimeout(() => {
       isNotification.value = false;
-    }, 4000);
+    }, 3000);
   }
 };
 
