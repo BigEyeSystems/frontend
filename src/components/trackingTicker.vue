@@ -73,7 +73,7 @@ const toggleTrackingTicker = async () => {
         <p>{{ $t('tickerTracking.assetName')}}</p>
         <input v-model="tickerName" class="w-full my-3 p-3 rounded-lg border-transparent focus:outline-none bg-[#17181C] focus:bg-[#17181C]" type="text" />
         <div class="flex gap-2 mt-3">
-          <button v-for="(active, index) in ['BNB', 'EDU', 'PEOPLE', 'ETHFI']" :key="index" :class="{
+          <button v-for="(active, index) in ['BTC', 'ETH', 'TON', 'SOL']" :key="index" :class="{
             'bg-[#92FBDB] text-black font-semibold': selectedActive === index,
             'bg-[#17181C]': selectedActive !== index
           }" @click="selectActive(index, active)" class="w-full py-2 rounded">

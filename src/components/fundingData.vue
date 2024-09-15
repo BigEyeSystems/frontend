@@ -15,7 +15,7 @@ import VChart, { THEME_KEY } from "vue-echarts";
 import { ref, provide, onMounted } from "vue";
 import { Skeleton } from "ant-design-vue";
 import { useI18n } from "vue-i18n";
-const { t } = useI18n( {useScope: 'global'} ); 
+const { t } = useI18n({ useScope: 'global' });
 
 use([
   GridComponent,
@@ -31,7 +31,7 @@ const dayData = ref(false);
 const weekData = ref(true);
 const monthData = ref(false);
 const intervalIndex = ref(7);
-
+const isLoading = ref(false);
 const showFundingData = ref(false);
 const historyData = ref(null);
 const fundingData = ref(null);
@@ -41,6 +41,7 @@ const showWeeklyData = async () => {
   monthData.value = false;
   intervalIndex.value = 7;
   try {
+    isLoading.value = true;
     const response = await axios.get(
       `https://dsde1736.fornex.org/api/data/funding_data?interval=${intervalIndex.value}`,
       {
@@ -76,6 +77,8 @@ const showWeeklyData = async () => {
     };
   } catch (error) {
     console.log("Funding data " + error);
+  } finally {
+    isLoading.value = false;
   }
 };
 const showMonthlyData = async () => {
@@ -84,6 +87,7 @@ const showMonthlyData = async () => {
   monthData.value = true;
   intervalIndex.value = 30;
   try {
+    isLoading.value = true;
     const response = await axios.get(
       `https://dsde1736.fornex.org/api/data/funding_data?interval=${intervalIndex.value}`,
       {
@@ -119,6 +123,8 @@ const showMonthlyData = async () => {
     };
   } catch (error) {
     console.log("Funding data " + error);
+  } finally {
+    isLoading.value = false;
   }
 };
 const showDailyData = async () => {
@@ -127,6 +133,7 @@ const showDailyData = async () => {
   monthData.value = false;
   intervalIndex.value = 1;
   try {
+    isLoading.value = true;
     const response = await axios.get(
       `https://dsde1736.fornex.org/api/data/funding_data?interval=${intervalIndex.value}`,
       {
@@ -162,6 +169,8 @@ const showDailyData = async () => {
     };
   } catch (error) {
     console.log("Funding data " + error);
+  } finally {
+    isLoading.value = false;
   }
 };
 onMounted(async () => {
@@ -227,82 +236,79 @@ const showDate = (timestamp) => {
   <div v-if="fundingData" class="text-xs">
     <ButtonView :text="$t('fundingPage.updateInfo')" class="my-3" />
     <div>
-      <p class="mb-3">{{ $t('fundingPage.searchResult')}}</p>
+      <p class="mb-3">{{ $t('fundingPage.searchResult') }}</p>
       <div class="flex justify-between">
-        <p class="text-xs">{{ $t('homePage.lastUpdate')}}:</p>
+        <p class="text-xs">{{ $t('homePage.lastUpdate') }}:</p>
         <div class="flex text-xs gap-1">
-          <PhClock :size="16" /> 12:03 <PhCalendarDots :size="16" /> 9.01.2024
+          <PhClock :size="16" /> 12:03
+          <PhCalendarDots :size="16" /> 9.01.2024
         </div>
       </div>
       <div class="flex gap-2 mt-4">
-        <button
-          class="bg-[#17181C] p-2 w-full text-xs text-[#B8B8B8] rounded"
-          :class="[dayData ? 'bg-[#92FBDB] text-black font-semibold' : '']"
-          @click="showDailyData"
-        >
-        {{ $t('fundingPage.day')}}
+        <button class="bg-[#17181C] p-2 w-full text-xs text-[#B8B8B8] rounded"
+          :class="[dayData ? 'bg-[#92FBDB] text-black font-semibold' : '']" @click="showDailyData">
+          {{ $t('fundingPage.day') }}
         </button>
-        <button
-          class="bg-[#17181C] p-2 w-full text-xs text-[#B8B8B8] rounded"
-          :class="[weekData ? 'bg-[#92FBDB] text-black font-semibold' : '']"
-          @click="showWeeklyData"
-        >
-        {{ $t('fundingPage.week')}}
+        <button class="bg-[#17181C] p-2 w-full text-xs text-[#B8B8B8] rounded"
+          :class="[weekData ? 'bg-[#92FBDB] text-black font-semibold' : '']" @click="showWeeklyData">
+          {{ $t('fundingPage.week') }}
         </button>
-        <button
-          class="bg-[#17181C] p-2 w-full text-xs text-[#B8B8B8] rounded"
-          :class="[monthData ? 'bg-[#92FBDB] text-black font-semibold' : '']"
-          @click="showMonthlyData"
-        >
-        {{ $t('fundingPage.month')}}
+        <button class="bg-[#17181C] p-2 w-full text-xs text-[#B8B8B8] rounded"
+          :class="[monthData ? 'bg-[#92FBDB] text-black font-semibold' : '']" @click="showMonthlyData">
+          {{ $t('fundingPage.month') }}
         </button>
       </div>
-      <div class="flex justify-center">
+      <div v-if="fundingData && !isLoading" class="flex justify-end">
         <v-chart class="chart" :option="option" />
+      </div>
+      <div v-if="isLoading">
+        <div class="w-full flex justify-center">
+          <div class="shadow rounded-md p-4 max-w-sm w-full mx-auto">
+            <div class="animate-pulse flex space-x-4">
+              <div class="flex-1 space-y-6 py-1">
+                <div class="h-48 bg-slate-700 rounded"></div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
       <div class="flex flex-col gap-2">
         <div class="flex gap-2 items-center">
-          <div
-            class="px-3 bg-[#33A721] text-sm font-semibold h-4 flex items-center"
-          >
+          <div class="px-3 bg-[#33A721] text-sm font-semibold h-4 flex items-center">
             {{ fundingData?.positive_quantity }}
           </div>
-          <p class="text-xs text-[#B8B8B8]">{{ $t('fundingPage.positiveAmount')}}</p>
+          <p class="text-xs text-[#B8B8B8]">{{ $t('fundingPage.positiveAmount') }}</p>
         </div>
         <div class="flex gap-2 items-center">
-          <p
-            class="px-3 bg-[#CA3140] text-sm font-semibold h-4 flex items-center"
-          >
+          <p class="px-3 bg-[#CA3140] text-sm font-semibold h-4 flex items-center">
             {{ fundingData?.negative_quantity }}
           </p>
-          <p class="text-xs text-[#B8B8B8]">{{ $t('fundingPage.negativeAmount')}}</p>
+          <p class="text-xs text-[#B8B8B8]">{{ $t('fundingPage.negativeAmount') }}</p>
         </div>
         <div class="flex gap-2 items-center">
-          <p
-            class="px-3 bg-white text-sm font-semibold h-4 flex items-center text-black"
-          >
+          <p class="px-3 bg-white text-sm font-semibold h-4 flex items-center text-black">
             {{ fundingData?.neutral_quantity }}
           </p>
-          <p class="text-xs text-[#B8B8B8]">{{ $t('fundingPage.neutralAmount')}}</p>
+          <p class="text-xs text-[#B8B8B8]">{{ $t('fundingPage.neutralAmount') }}</p>
         </div>
       </div>
-      <p class="my-4 text-sm font-semibold">{{ $t('fundingPage.history')}}</p>
+      <p class="my-4 text-sm font-semibold">{{ $t('fundingPage.history') }}</p>
       <div v-for="(data, index) in historyData.data" :key="index">
         <div class="flex flex-col gap-6 my-4 bg-[#17181C] px-3 py-4 rounded-lg">
           <div class="flex justify-between">
-            <p class="text-[#B8B8B8] text-xs">{{ $t('fundingPage.dateCreated')}}</p>
+            <p class="text-[#B8B8B8] text-xs">{{ $t('fundingPage.dateCreated') }}</p>
             <p>{{ showDate(data.created) }}</p>
           </div>
           <div class="flex justify-between w-full">
-            <p>{{ $t('fundingPage.positiveAmount')}}</p>
+            <p>{{ $t('fundingPage.positiveAmount') }}</p>
             <p>{{ data.positive_count }}</p>
           </div>
           <div class="flex justify-between w-full">
-            <p>{{ $t('fundingPage.neutralAmount')}}</p>
+            <p>{{ $t('fundingPage.neutralAmount') }}</p>
             <p>{{ data.negative_count }}</p>
           </div>
           <div class="flex justify-between w-full">
-            <p>{{ $t('fundingPage.neutralAmount')}}</p>
+            <p>{{ $t('fundingPage.neutralAmount') }}</p>
             <p>{{ data.neutral_count }}</p>
           </div>
         </div>
@@ -311,16 +317,39 @@ const showDate = (timestamp) => {
   </div>
   <div v-else>
     <div class="w-full flex justify-center">
-      <div
-        class="shadow rounded-md p-4 max-w-sm w-full mx-auto"
-      >
+      <div class="shadow rounded-md p-4 max-w-sm w-full mx-auto">
         <div class="animate-pulse flex space-x-4">
           <div class="flex-1 space-y-6 py-1">
             <div class="h-44 bg-slate-700 rounded"></div>
-            <div class="h-2 bg-slate-700 rounded"></div>
-            <div class="space-y-3">
-              <div class="h-2 bg-slate-700 rounded"></div>
+            <div class="grid grid-cols-4 gap-4">
+              <div class="h-8 bg-slate-700 rounded col-span-1"></div>
+              <div class="h-8 bg-slate-700 rounded col-span-1"></div>
+              <div class="h-8 bg-slate-700 rounded col-span-1"></div>
+              <div class="h-8 bg-slate-700 rounded col-span-1"></div>
             </div>
+            <div class="h-8 bg-slate-700 rounded"></div>
+            <div class="grid grid-cols-4 gap-4">
+              <div class="h-4 bg-slate-700 rounded col-span-2"></div>
+            </div>
+            <div class="h-8 bg-slate-700 rounded"></div>
+            <div class="grid grid-cols-4 gap-4">
+              <div class="h-4 bg-slate-700 rounded col-span-2"></div>
+            </div>
+            <div class="grid grid-cols-3 gap-10">
+              <div class="h-3 bg-slate-700 rounded col-span-1"></div>
+              <div class="h-3 bg-slate-700 rounded col-span-2"></div>
+            </div>
+            <div class="h-8 bg-slate-700 rounded"></div>
+            <div class="grid grid-cols-3 gap-10">
+              <div class="h-3 bg-slate-700 rounded col-span-1"></div>
+              <div class="h-3 bg-slate-700 rounded col-span-2"></div>
+            </div>
+            <div class="h-8 bg-slate-700 rounded"></div>
+            <div class="grid grid-cols-3 gap-10">
+              <div class="h-3 bg-slate-700 rounded col-span-1"></div>
+              <div class="h-3 bg-slate-700 rounded col-span-2"></div>
+            </div>
+            <div class="h-8 bg-slate-700 rounded"></div>
           </div>
         </div>
       </div>
@@ -330,7 +359,7 @@ const showDate = (timestamp) => {
 
 <style scoped>
 .chart {
-  height: 350px;
-  width: 350px;
+  height: 360px;
+  width: 380px;
 }
 </style>
