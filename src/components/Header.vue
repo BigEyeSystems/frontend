@@ -21,7 +21,7 @@ const props = defineProps({
         </p>
     </div>
     <div class="flex justify-center items-center gap-3">
-        <div class="text-xs font-semibold p-2 bg-[#7474802e] rounded-full" @click="$emit('changeLocale')">{{lang}}</div>
+        <div class="text-xs font-semibold p-2 bg-[#7474802e] rounded-full cursor-pointer" @click="$emit('changeLocale')">{{lang}}</div>
         <PhBell :size="24" />
     </div>
 </div>

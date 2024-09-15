@@ -5,6 +5,7 @@ import { ref } from "vue";
 import { useI18n } from "vue-i18n";
 const { t, locale } = useI18n( {useScope: 'global'} ); 
 
+const emit = defineEmits(['submit'])
 const isSelectedRus = ref(false);
 const isSelectedEng = ref(false);
 const selectRussian = () => {
@@ -55,7 +56,7 @@ const selectEnglish = () => {
             </div>
         </div>
         <footer class="fixed bottom-0 left-0 w-full mt-48 mb-4 px-4">
-            <ButtonView :text="$t('localeModal.save')" class="mt-4"/>
+            <ButtonView :text="$t('localeModal.save')" class="mt-4" @click="$emit('submit')"/>
         </footer>
     </div>
 </template>

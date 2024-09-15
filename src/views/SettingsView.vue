@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted, computed } from 'vue';
+import { ref, onMounted, watch } from 'vue';
 import { Switch } from 'ant-design-vue';
 import LocalesView from './LocalesView.vue';
 import axios from 'axios';
@@ -8,8 +8,8 @@ const { t } = useI18n( {useScope: 'global'} );
 
 const responseSettings = ref(null);
 const checkedNotification = ref(true);
-const checkedImpulse = computed(() => responseSettings.value?.notifications.last_impulse ?? false);
-const checkedActive = computed(() => responseSettings.value?.notifications.tracking_ticker ?? false);
+const checkedImpulse = ref(false); 
+const checkedActive = ref(false); 
 const checkedFundFinance = ref(true);
 const checkedFunctionPremission = ref(false);
 const checkedImbalances = ref(false);
@@ -20,28 +20,69 @@ const checkedTradeRecommendations = ref(false);
 const checkedFibonacciNotice = ref(false);
 const checkedGrowthGradation = ref(false);
 const openLocales = ref(false);
+
 const toggleTeleport = () => {
     openLocales.value = !openLocales.value;
 };
 
 onMounted(async () => {
     try {
-    const response = await axios.get(
-      "https://dsde1736.fornex.org/api/user/get_notifications",
-      {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      }
-    );
-    responseSettings.value = response.data;
-  } catch (error) {
-    console.log("Error fetching data: " + error);
-  }
+        const response = await axios.get(
+          "https://dsde1736.fornex.org/api/user/get_notifications",
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
+        );
+        responseSettings.value = response.data;
+
+        checkedImpulse.value = responseSettings.value?.notifications.last_impulse ?? false;
+        checkedActive.value = responseSettings.value?.notifications.tracking_ticker ?? false;
+    } catch (error) {
+        console.log("Error fetching data: " + error);
+    }
 });
+
+watch(responseSettings, (newValue) => {
+    checkedImpulse.value = newValue?.notifications.last_impulse ?? false;
+    checkedActive.value = newValue?.notifications.tracking_ticker ?? false;
+});
+
+const onChange = async (key, value) => {
+    switch (key) {
+        case 'impulse':
+            checkedImpulse.value = value;
+            responseSettings.value.notifications.last_impulse = value;
+            break;
+        case 'active':
+            checkedActive.value = value;
+            responseSettings.value.notifications.tracking_ticker = value;
+            break;
+    }
+
+    try {
+        await axios.post(
+            "https://dsde1736.fornex.org/api/user/update_notifications", 
+            {
+                last_impulse: checkedImpulse.value,
+                tracking_ticker: checkedActive.value,
+            }, 
+            {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem("token")}`,
+                }
+            }
+        );
+    } catch (error) {
+        console.log("Error updating notifications: " + error);
+    }
+};
 </script>
+
 <template>
     <div>
+        {{responseSettings?.notifications.last_impulse}}
         <div class="flex mb-4 items-center justify-between w-1/2">
             <button class="flex text-sm text-[#B8B8B8] items-center" @click="$router.go(-1)">
                 <PhCaretLeft :size="22" color="#B8B8B8" />{{ $t('back')}}
@@ -127,7 +168,7 @@ onMounted(async () => {
                             <PhX :size="21" />
                         </button>
                     </div>
-                    <LocalesView />
+                    <LocalesView @submit="toggleTeleport"/>
                 </div>
             </transition>
         </Teleport>

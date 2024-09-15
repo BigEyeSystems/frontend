@@ -16,7 +16,7 @@ const toggleAnalytics = () => {
 </script>
 <template>
     <div class="flex flex-col min-h-screen">
-        <div class="text-xs">
+        <!-- <div class="text-xs">
             <div class="flex gap-3">
                 <crown/>
                 <h1 class="text-lg font-semibold">Analytics</h1>
@@ -53,6 +53,49 @@ const toggleAnalytics = () => {
         </div>
         <footer class="fixed bottom-0 left-0 w-full mt-48 mb-4 px-4">
             <footerMenu />
-        </footer>
+        </footer> -->
+        <div class="w-full flex justify-center">
+          <div class="shadow rounded-md p-4 max-w-sm w-full mx-auto">
+            <div class="animate-pulse flex space-x-4">
+              <div class="flex-1 space-y-3 py-1">
+                <div class="h-3 bg-slate-700 rounded"></div>
+                <div class="grid grid-cols-4 gap-4">
+                  <div class="h-8 bg-slate-700 rounded col-span-1"></div>
+                  <div class="h-8 bg-slate-700 rounded col-span-1"></div>
+                  <div class="h-8 bg-slate-700 rounded col-span-1"></div>
+                  <div class="h-8 bg-slate-700 rounded col-span-1"></div>
+                </div>
+                <div class="h-8 bg-slate-700 rounded"></div>
+                <div class="grid grid-cols-4 gap-4">
+                  <div class="h-4 bg-slate-700 rounded col-span-2"></div>
+                </div>
+                <div class="h-8 bg-slate-700 rounded"></div>
+                <div class="grid grid-cols-4 gap-4">
+                  <div class="h-4 bg-slate-700 rounded col-span-2"></div>
+                </div>
+                <div class="grid grid-cols-3 gap-10">
+                  <div class="h-3 bg-slate-700 rounded col-span-1"></div>
+                  <div class="h-3 bg-slate-700 rounded col-span-2"></div>
+                </div>
+                <div class="h-8 bg-slate-700 rounded"></div>
+                <div class="grid grid-cols-3 gap-10">
+                  <div class="h-3 bg-slate-700 rounded col-span-1"></div>
+                  <div class="h-3 bg-slate-700 rounded col-span-2"></div>
+                </div>
+                <div class="h-8 bg-slate-700 rounded"></div>
+                <div class="grid grid-cols-3 gap-10">
+                  <div class="h-3 bg-slate-700 rounded col-span-1"></div>
+                  <div class="h-3 bg-slate-700 rounded col-span-2"></div>
+                </div>
+                <div class="h-8 bg-slate-700 rounded"></div>
+                <div class="grid grid-cols-3 gap-10">
+                  <div class="h-3 bg-slate-700 rounded col-span-1"></div>
+                  <div class="h-3 bg-slate-700 rounded col-span-2"></div>
+                </div>
+                <div class="h-8 bg-slate-700 rounded"></div>
+              </div>
+            </div>
+          </div>
+        </div>
     </div>
 </template>

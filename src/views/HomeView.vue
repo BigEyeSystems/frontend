@@ -259,7 +259,7 @@ onBeforeUnmount(() => {
                 <PhX :size="21" />
               </button>
             </div>
-            <LocalesView />
+            <LocalesView @submit="toggleTeleportLocale"/>
           </div>
         </transition>
       </Teleport>
