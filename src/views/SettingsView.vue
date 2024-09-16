@@ -168,7 +168,7 @@ const onChange = async (key, value) => {
                             <PhX :size="21" />
                         </button>
                     </div>
-                    <LocalesView @submit="toggleTeleport"/>
+                    // <LocalesView @submit="toggleTeleport"/>
                 </div>
             </transition>
         </Teleport>
