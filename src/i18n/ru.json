@@ -141,5 +141,12 @@
         "name": "Название",
         "daily": "Cуточный ",
         "date": "Дата"
+    },
+    "analytics":{
+        "title": "Аналитика",
+        "assetInfo": "Информация о тикере",
+        "correlation": "Коррелятор активов",
+        "dailyVolume": "Суточный объём актива",
+        "searchHere": "Search here"
     }
 }

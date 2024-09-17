@@ -19,6 +19,13 @@ const fundingData = computed(() => {
   }
 });
 
+const revesedByVolume = computed(() => {
+  return fundingData.value.top_tickers_by_volume.first_5.reverse();
+});
+const reversedFirstFive = computed(() => {
+  return fundingData.value.top_tickers.first_5.reverse();
+});
+
 const showFundingByVolume = ref(true);
 const showFundingFirstFive = ref(false);
 const showFundingLastFive = ref(false);
@@ -60,7 +67,7 @@ const sortByFundingDesc = () => {
     </div>
     <div v-if="showFundingByVolume">
       <div v-if="fundingData && fundingData.top_tickers_by_volume && fundingData.top_tickers_by_volume.first_5">
-        <div v-for="(item, index) in fundingData.top_tickers_by_volume.first_5.reverse()" :key="index" class="text-xs mb-2">
+        <div v-for="(item, index) in revesedByVolume" :key="index" class="text-xs mb-2">
           <div class="flex justify-between">
             <p>{{ item.symbol }}</p>
             <p>{{ item.quoteVolume }}$</p>
@@ -97,7 +104,7 @@ const sortByFundingDesc = () => {
     </div>
     <div v-else-if="showFundingFirstFive">
       <div v-if="fundingData && fundingData.top_tickers && fundingData.top_tickers.first_5">
-        <div v-for="(item, index) in fundingData.top_tickers.first_5.reverse()" :key="index" class="text-xs mb-2">
+        <div v-for="(item, index) in reversedFirstFive" :key="index" class="text-xs mb-2">
           <div class="flex justify-between">
             <p>{{ item.symbol }}</p>
             <p>{{ parseFloat(item.lastFundingRate).toFixed(4) }}%</p>

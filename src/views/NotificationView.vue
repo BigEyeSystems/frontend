@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted, computed } from 'vue';
+import { ref, onMounted, watch } from 'vue';
 import { Switch } from 'ant-design-vue';
 import LocalesView from './LocalesView.vue';
 import axios from 'axios';
@@ -8,8 +8,8 @@ const { t } = useI18n( {useScope: 'global'} );
 
 const responseSettings = ref(null);
 const checkedNotification = ref(true);
-const checkedImpulse = computed(() => responseSettings.value?.notifications.last_impulse ?? false);
-const checkedActive = computed(() => responseSettings.value?.notifications.tracking_ticker ?? false);
+const checkedImpulse = ref(false);
+const checkedActive = ref(false);
 const checkedFundFinance = ref(true);
 const checkedFunctionPremission = ref(false);
 const checkedImbalances = ref(false);
@@ -35,10 +35,45 @@ onMounted(async () => {
       }
     );
     responseSettings.value = response.data;
+    checkedImpulse.value = responseSettings.value?.notifications.last_impulse ?? false;
+    checkedActive.value = responseSettings.value?.notifications.tracking_ticker ?? false;
   } catch (error) {
     console.log("Error fetching data: " + error);
   }
 });
+watch(responseSettings, (newValue) => {
+    checkedImpulse.value = newValue?.notifications.last_impulse ?? false;
+    checkedActive.value = newValue?.notifications.tracking_ticker ?? false;
+});
+const onChange = async (key, value) => {
+    switch (key) {
+        case 'impulse':
+            checkedImpulse.value = value;
+            responseSettings.value.notifications.last_impulse = value;
+            break;
+        case 'active':
+            checkedActive.value = value;
+            responseSettings.value.notifications.tracking_ticker = value;
+            break;
+    }
+
+    try {
+        await axios.post(
+            "https://dsde1736.fornex.org/api/user/update_notifications", 
+            {
+                last_impulse: checkedImpulse.value,
+                tracking_ticker: checkedActive.value,
+            }, 
+            {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem("token")}`,
+                }
+            }
+        );
+    } catch (error) {
+        console.log("Error updating notifications: " + error);
+    }
+};
 </script>
 <template>
     <div>

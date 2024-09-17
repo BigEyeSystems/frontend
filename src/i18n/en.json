@@ -140,5 +140,12 @@
         "name": "Name",
         "daily": "Daily",
         "date": "Date"
+    },
+    "analytics":{
+        "title": "Analytics",
+        "assetInfo": "Asset Info",
+        "correlation": "Assets correlator",
+        "dailyVolume": "Daily asset volume",
+        "searchHere": "Search here"
     }
 }

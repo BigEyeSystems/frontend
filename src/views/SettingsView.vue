@@ -82,7 +82,6 @@ const onChange = async (key, value) => {
 
 <template>
     <div>
-        {{responseSettings?.notifications.last_impulse}}
         <div class="flex mb-4 items-center justify-between w-1/2">
             <button class="flex text-sm text-[#B8B8B8] items-center" @click="$router.go(-1)">
                 <PhCaretLeft :size="22" color="#B8B8B8" />{{ $t('back')}}

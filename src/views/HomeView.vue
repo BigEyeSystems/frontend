@@ -130,7 +130,7 @@ onBeforeUnmount(() => {
           </template>
         </menuItems>
       </div>
-      <div class="my-4">
+      <div class="my-4" @click="$router.push('/profile/premium')">
         <addPremium />
       </div>
       <p class="text-sm font-semibold">{{ $t('homePage.top24')}}</p>
