@@ -70,7 +70,7 @@ const sortByFundingDesc = () => {
         <div v-for="(item, index) in revesedByVolume" :key="index" class="text-xs mb-2">
           <div class="flex justify-between">
             <p>{{ item.symbol }}</p>
-            <p>{{ item.quoteVolume }}$</p>
+            <p>{{ item.quoteVolumeFormatted }}$</p>
           </div>
           <div class="flex justify-between pb-2">
             <p class="text-[#B8B8B8]">= {{ item.lastPrice }}$(<span :style="{ color: item.priceChangePercent > 0 ? 'green' : 'red' }">{{ parseFloat(item.priceChangePercent).toFixed(2) }}%</span>)</p>

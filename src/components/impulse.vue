@@ -4,7 +4,7 @@ import ButtonView from "./button.vue";
 import ticker from "./ticker.vue";
 import { ref } from "vue";
 import { useI18n } from "vue-i18n";
-const { t } = useI18n( {useScope: 'global'} ); 
+const { t } = useI18n({ useScope: "global" });
 
 const changeInterval = ref(null);
 const changePercent = ref(null);
@@ -53,7 +53,7 @@ const showImpulseData = async () => {
     .catch((error) => {
       console.error(error);
     });
-    try {
+  try {
     const response = await axios.get(
       "https://dsde1736.fornex.org/api/notify/get_impulse",
       {
@@ -85,73 +85,76 @@ const showImpulseData = async () => {
 
 <template>
   <div class="text-xs">
-    <div v-if="!showImpulse">
-      <div class="mb-3">
-        <p>{{ $t('impulsePrise.timeIntervalSelect')}}</p>
-        <div class="flex gap-2 mt-3">
-          <button
-            v-for="(interval, index) in [1, 5, 15, 60]"
-            :key="index"
-            :class="{
-              'bg-[#92FBDB] text-black font-semibold':
-                selectedInterval === index,
-              'bg-[#17181C]': selectedInterval !== index,
-            }"
-            @click="selectInterval(index, interval)"
-            class="w-full py-2 rounded"
-          >
-            {{ interval }} {{ $t('impulsePrise.min')}}
-          </button>
-        </div>
-      </div>
-      <div>
-        <p>{{ $t('impulsePrise.enterPrice')}}</p>
-        <input
-          v-model="changePercent"
-          class="w-full my-3 p-3 rounded-lg border-transparent focus:outline-none bg-[#17181C] focus:bg-[#17181C]"
-          type="number"
-          min="5"
-          placeholder="Search Here"
-        />
-        <div class="flex gap-2 my-3">
-          <button
-            v-for="(percent, index) in [5, 10, 15, 20]"
-            :key="index"
-            :class="{
-              'bg-[#92FBDB] text-black font-semibold':
-                selectedPercent === index,
-              'bg-[#17181C]': selectedPercent !== index,
-            }"
-            @click="selectPercent(index, percent)"
-            class="w-full py-2 rounded"
-          >
-            {{ percent }}%
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <ButtonView
-      v-if="!showImpulse"
-      :text="$t('impulsePrise.getInfo')"
-      class="mt-4"
-      @click="showImpulseData"
-    />
-    <div v-else>
-      <ButtonView :text="$t('impulsePrise.addTracking')" class="my-3" />
-    </div>
-    {{selectedImpulse}}
-    <div v-if="showImpulse">
-      <div class="mb-4">
-        <p class="mb-3 text-sm font-semibold">{{ $t('fundingPage.history')}}</p>
-        <div class="flex justify-between mb-4">
-          <p class="text-xs">{{ $t('homePage.lastUpdate')}}:</p>
-          <div class="flex text-xs gap-1">
-            <PhClock :size="16" /> 12:03
-            <PhCalendarDots :size="16" /> 9.01.2024
+    <form @submit.prevent="showImpulseData">
+      <div v-if="!showImpulse">
+        <div class="mb-3">
+          <p>{{ $t("impulsePrise.timeIntervalSelect") }}</p>
+          <div class="flex gap-2 mt-3">
+            <button
+              v-for="(interval, index) in [1, 5, 15, 60]"
+              :key="index"
+              :class="{
+                'bg-[#92FBDB] text-black font-semibold':
+                  selectedInterval === index,
+                'bg-[#17181C]': selectedInterval !== index,
+              }"
+              @click="selectInterval(index, interval)"
+              class="w-full py-2 rounded"
+            >
+              {{ interval }} {{ $t("impulsePrise.min") }}
+            </button>
           </div>
         </div>
-        <ticker :detail = impulseData?.impulses_history />
+        <div>
+          <p>{{ $t("impulsePrise.enterPrice") }}</p>
+          <input
+            v-model="changePercent"
+            class="w-full my-3 p-3 rounded-lg border-transparent focus:outline-none bg-[#17181C] focus:bg-[#17181C]"
+            type="number"
+            min="5"
+            placeholder="Search Here"
+          />
+          <div class="flex gap-2 my-3">
+            <button
+              v-for="(percent, index) in [5, 10, 15, 20]"
+              :key="index"
+              :class="{
+                'bg-[#92FBDB] text-black font-semibold':
+                  selectedPercent === index,
+                'bg-[#17181C]': selectedPercent !== index,
+              }"
+              @click="selectPercent(index, percent)"
+              class="w-full py-2 rounded"
+            >
+              {{ percent }}%
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <ButtonView
+        v-if="!showImpulse"
+        :text="$t('impulsePrise.getInfo')"
+        class="mt-4"
+        @click="showImpulseData"
+      />
+      <div v-else>
+        <ButtonView :text="$t('impulsePrise.addTracking')" class="my-3" />
+      </div>
+    </form>
+    {{ selectedImpulse }}
+    <div v-if="showImpulse">
+      <div class="mb-4">
+        <p class="mb-3 text-sm font-semibold">
+          {{ $t("fundingPage.history") }}
+        </p>
+        <div class="flex justify-between mb-4">
+          <p class="text-xs">{{ $t("homePage.lastUpdate") }}:</p>
+          <div class="flex text-xs gap-1">
+            <PhClock :size="16" /> 12:03 <PhCalendarDots :size="16" /> 9.01.2024
+          </div>
+        </div>
+        <ticker :detail="impulseData?.impulses_history" />
       </div>
     </div>
   </div>
