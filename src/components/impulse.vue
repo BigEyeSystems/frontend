@@ -17,6 +17,7 @@ const showError = ref(false);
 const openAddImpulse = ref(false);
 const dataInterval = ref(null);
 const dataPercent = ref(null);
+const selected_id = ref(null);
 
 const selectInterval = (index, interval) => {
   selectedInterval.value = index;
@@ -102,6 +103,7 @@ const updateImpulse = async (id, time, percent) => {
     impulseData.value = response.data;
     dataInterval.value = time;
     dataPercent.value = percent;
+    selected_id.value = id;
   } catch (error) {
     console.log("Error fetching data: " + error);
   }
@@ -110,9 +112,6 @@ const deleteImpulse = async (id) => {
   try {
     const response = await axios.delete(
       `https://dsde1736.fornex.org/api/notify/delete_impulse?impulse_id=${id}`,
-      {
-        impulse_id: id,
-      },
       {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -123,6 +122,19 @@ const deleteImpulse = async (id) => {
   } catch (error) {
     console.log("Error fetching data: " + error);
   }
+  try {
+      const response = await axios.get(
+        "https://dsde1736.fornex.org/api/notify/get_impulse",
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      selectedImpulse.value = response.data;
+    } catch (error) {
+      console.log("Error fetching data: " + error);
+    }
 };
 </script>
 
@@ -168,16 +180,17 @@ const deleteImpulse = async (id) => {
         {{ condition.time }} {{ $t("impulsePrise.min") }} /{{ condition.percent }} %
       </button>
     </div>
-    <div class="flex justify-between items-center my-4">
+    <div v-if="selectedImpulse" class="flex justify-between items-center my-4">
       <p class="text-lg font-semibold">
         {{ dataInterval }} {{ $t("impulsePrise.min") }}/{{ dataPercent }}%
       </p>
       <div class="flex gap-3">
         <PhNotePencil :size="24" />
-        <PhTrash :size="24" color="#ca3140"/>
+        <button @click="deleteImpulse(selected_id)">
+          <PhTrash :size="24" color="#ca3140"/>
+        </button>
       </div>
     </div>
-    {{ impulseData }}
 
     <div v-if="showImpulse">
       <div class="mb-4">
