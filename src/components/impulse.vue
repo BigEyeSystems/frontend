@@ -15,6 +15,8 @@ const impulseData = ref(null);
 const selectedImpulse = ref(null);
 const showError = ref(false);
 const openAddImpulse = ref(false);
+const dataInterval = ref(null);
+const dataPercent = ref(null);
 
 const selectInterval = (index, interval) => {
   selectedInterval.value = index;
@@ -35,7 +37,7 @@ const showImpulseData = async () => {
     console.error("Invalid interval or percentage value.");
     return;
   }
-  if (selectedInterval.value && changePercent.value) {
+  if (changeInterval.value && changePercent.value) {
     axios
       .post(
         "https://dsde1736.fornex.org/api/notify/set_impulse",
@@ -85,7 +87,42 @@ const showImpulseData = async () => {
   } else {
     showError.value = true;
   }
+};
 
+const updateImpulse = async (id, time, percent) => {
+  try {
+    const response = await axios.get(
+      `https://dsde1736.fornex.org/api/notify/get_impulse_history?impulse_id=${id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    );
+    impulseData.value = response.data;
+    dataInterval.value = time;
+    dataPercent.value = percent;
+  } catch (error) {
+    console.log("Error fetching data: " + error);
+  }
+};
+const deleteImpulse = async (id) => {
+  try {
+    const response = await axios.delete(
+      `https://dsde1736.fornex.org/api/notify/delete_impulse?impulse_id=${id}`,
+      {
+        impulse_id: id,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    );
+    console.log(response.data);
+  } catch (error) {
+    console.log("Error fetching data: " + error);
+  }
 };
 </script>
 
@@ -126,11 +163,21 @@ const showImpulseData = async () => {
     <div v-else>
       <ButtonView :text="$t('impulsePrise.addTracking')" class="my-3" @click="openAddImpulse = true" />
     </div>
-    <div v-if="selectedImpulse" class="flex justify-between">
-      <div v-for="(condition, index) in selectedImpulse.conditions">
-        <button>{{ condition.time }}/{{ condition.percent }}</button>
+    <div v-if="selectedImpulse" class="flex text-xs border rounded border-[#2F2F2F99] mb-2">
+      <button v-for="(condition, index) in selectedImpulse.conditions" class="w-full focus:font-semibold focus:bg-gradient-to-r focus:from-[#ffffff1f] focus:to-[#ffffff12] py-1 px-2 focus:rounded" @click="updateImpulse(condition.id, condition.time, condition.percent)">
+        {{ condition.time }} {{ $t("impulsePrise.min") }} /{{ condition.percent }} %
+      </button>
+    </div>
+    <div class="flex justify-between items-center my-4">
+      <p class="text-lg font-semibold">
+        {{ dataInterval }} {{ $t("impulsePrise.min") }}/{{ dataPercent }}%
+      </p>
+      <div class="flex gap-3">
+        <PhNotePencil :size="24" />
+        <PhTrash :size="24" color="#ca3140"/>
       </div>
     </div>
+    {{ impulseData }}
 
     <div v-if="showImpulse">
       <div class="mb-4">
