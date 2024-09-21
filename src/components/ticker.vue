@@ -37,7 +37,7 @@ const showDate = (timestamp) => {
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(item, index) in props.detail.reverse()" :key="index">
+        <tr v-for="(item, index) in props.detail" :key="index">
           <td>
             {{ item.active_name }} <br/>
             <span :class="{ 'positive': item.percent > 0, 'negative': item.percent < 0 }">

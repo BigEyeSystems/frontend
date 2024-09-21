@@ -2,9 +2,16 @@
 import axios from "axios";
 import ButtonView from "./button.vue";
 import ticker from "./ticker.vue";
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import { useI18n } from "vue-i18n";
+import { useImpulse } from "../store/impulse.js";
+import { storeToRefs } from "pinia";
+
 const { t } = useI18n({ useScope: "global" });
+
+const impulseStore = useImpulse();
+const { selectedImpulse } = storeToRefs(impulseStore);
+const { fetchImpulse, deleteSelectedImpulse } = impulseStore; 
 
 const changeInterval = ref(null);
 const changePercent = ref(null);
@@ -12,12 +19,36 @@ const selectedInterval = ref(null);
 const selectedPercent = ref(null);
 const showImpulse = ref(false);
 const impulseData = ref(null);
-const selectedImpulse = ref(null);
 const showError = ref(false);
 const openAddImpulse = ref(false);
 const dataInterval = ref(null);
 const dataPercent = ref(null);
 const selected_id = ref(null);
+const showHistory = ref(false);
+
+onMounted( async () => {
+  await fetchImpulse();
+  if(selectedImpulse.value?.conditions?.length === 3){
+    showImpulse.value = true;
+    try {
+      const response = await axios.get(
+        `https://dsde1736.fornex.org/api/notify/get_impulse_history?impulse_id=${selectedImpulse.value?.impulses[0]?.id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      impulseData.value = response.data;
+      showImpulse.value = true;
+    } catch (error) {
+      console.log("Error fetching data: " + error);
+    }
+  }else{
+    showImpulse = false;
+  }
+});
+
 
 const selectInterval = (index, interval) => {
   selectedInterval.value = index;
@@ -58,22 +89,12 @@ const showImpulseData = async () => {
       .catch((error) => {
         console.error(error);
       });
+    await fetchImpulse();
+    selectedInterval.value = null;
+    selectedPercent.value = null;
     try {
       const response = await axios.get(
-        "https://dsde1736.fornex.org/api/notify/get_impulse",
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
-      selectedImpulse.value = response.data;
-    } catch (error) {
-      console.log("Error fetching data: " + error);
-    }
-    try {
-      const response = await axios.get(
-        `https://dsde1736.fornex.org/api/notify/get_impulse_history?impulse_id=${selectedImpulse.value?.impulses[2]?.id}`,
+        `https://dsde1736.fornex.org/api/notify/get_impulse_history?impulse_id=${selectedImpulse.value?.impulses[0]?.id}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -104,37 +125,14 @@ const updateImpulse = async (id, time, percent) => {
     dataInterval.value = time;
     dataPercent.value = percent;
     selected_id.value = id;
+    showHistory.value = true;
   } catch (error) {
     console.log("Error fetching data: " + error);
   }
 };
 const deleteImpulse = async (id) => {
-  try {
-    const response = await axios.delete(
-      `https://dsde1736.fornex.org/api/notify/delete_impulse?impulse_id=${id}`,
-      {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      }
-    );
-    console.log(response.data);
-  } catch (error) {
-    console.log("Error fetching data: " + error);
-  }
-  try {
-      const response = await axios.get(
-        "https://dsde1736.fornex.org/api/notify/get_impulse",
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
-      selectedImpulse.value = response.data;
-    } catch (error) {
-      console.log("Error fetching data: " + error);
-    }
+  await deleteSelectedImpulse(id);
+  await fetchImpulse();
 };
 </script>
 
@@ -176,7 +174,7 @@ const deleteImpulse = async (id) => {
       <ButtonView :text="$t('impulsePrise.addTracking')" class="my-3" @click="openAddImpulse = true" />
     </div>
     <div v-if="selectedImpulse" class="flex text-xs border rounded border-[#2F2F2F99] mb-2">
-      <button v-for="(condition, index) in selectedImpulse.conditions" class="w-full focus:font-semibold focus:bg-gradient-to-r focus:from-[#ffffff1f] focus:to-[#ffffff12] py-1 px-2 focus:rounded" @click="updateImpulse(condition.id, condition.time, condition.percent)">
+      <button v-for="(condition, index) in selectedImpulse.conditions" :key="index" class="w-full focus:font-semibold focus:bg-gradient-to-r focus:from-[#ffffff1f] focus:to-[#ffffff12] py-1 px-2 focus:rounded" @click="updateImpulse(condition.id, condition.time, condition.percent)">
         {{ condition.time }} {{ $t("impulsePrise.min") }} /{{ condition.percent }} %
       </button>
     </div>
@@ -192,7 +190,7 @@ const deleteImpulse = async (id) => {
       </div>
     </div>
 
-    <div v-if="showImpulse">
+    <div v-if="showHistory">
       <div class="mb-4">
         <p class="mb-3 text-sm font-semibold">
           {{ $t("fundingPage.history") }}
