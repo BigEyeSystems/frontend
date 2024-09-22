@@ -8,6 +8,7 @@ const { t } = useI18n( {useScope: 'global'} );
 
 const tickerName = ref('');
 const changeInterval = ref(null);
+const settingStatus = ref(null);
 
 const tickerData = ref(null);
 const selectedInterval = ref(null);
@@ -30,7 +31,9 @@ const toggleTrackingTicker = async () => {
     console.error("Invalid interval or percentage value.");
     return;
   }
-
+  if(!tickerName.value.includes('USDT')){
+    tickerName.value += 'USDT';
+  };
   axios
     .post(
       "https://dsde1736.fornex.org/api/notify/set_ticker_tracking",
@@ -46,6 +49,7 @@ const toggleTrackingTicker = async () => {
     )
     .then((response) => {
       console.log(response.data);
+      settingStatus.value = response.data;
     })
     .catch((error) => {
       console.error(error);
@@ -101,7 +105,7 @@ const toggleTrackingTicker = async () => {
     </div>
 
     <ButtonView :text="$t('tickerTracking.addTracker')" :on-click="toggleTrackingTicker" class="my-4" />
-    {{tickerData}}
+    
     <div v-if="showTrackingTicker">
       <!-- <div class="mb-4">
         <ticker />
