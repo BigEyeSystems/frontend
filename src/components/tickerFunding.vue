@@ -75,7 +75,7 @@ const sortByFundingDesc = () => {
           <div class="flex justify-between pb-2">
             <p class="text-[#B8B8B8]">= {{ item.lastPrice }}$(<span :style="{ color: item.priceChangePercent > 0 ? 'green' : 'red' }">{{ parseFloat(item.priceChangePercent).toFixed(2) }}%</span>)</p>
             <p class="text-[#B8B8B8]">
-              {{ $t('top24.5min')}} {{ item['5_min_value'] }}$
+              {{ $t('top24.5min')}} {{ item['60_min_value'] }}$
             </p>
           </div>
         </div>
@@ -92,8 +92,8 @@ const sortByFundingDesc = () => {
             <p class="text-[#B8B8B8]">= {{ item.markPrice }}$</p>
             <p class="text-[#B8B8B8]">
               {{ $t('top24.5min')}}
-              <span :style="{ color: item['5_min_value'] > 0 ? 'green' : 'red' }">
-                {{ parseFloat(item['5_min_value']).toFixed(4) }}%</span>
+              <span :style="{ color: item['60_min_value'] > 0 ? 'green' : 'red' }">
+                {{ parseFloat(item['60_min_value']).toFixed(4) }}%</span>
             </p>
           </div>
         </div>
@@ -113,8 +113,8 @@ const sortByFundingDesc = () => {
             <p class="text-[#B8B8B8]">= {{ item.markPrice }}$</p>
             <p class="text-[#B8B8B8]">
               {{ $t('top24.5min')}}
-              <span :style="{ color: item['5_min_value'] > 0 ? 'green' : 'red' }">
-                {{ parseFloat(item['5_min_value']).toFixed(4) }}%</span>
+              <span :style="{ color: item['60_min_value'] > 0 ? 'green' : 'red' }">
+                {{ parseFloat(item['60_min_value']).toFixed(4) }}%</span>
             </p>
           </div>
         </div>

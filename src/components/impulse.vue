@@ -45,7 +45,7 @@ onMounted( async () => {
       console.log("Error fetching data: " + error);
     }
   }else{
-    showImpulse = false;
+    showImpulse.value = false;
   }
 });
 
