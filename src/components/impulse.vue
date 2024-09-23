@@ -11,7 +11,7 @@ const { t } = useI18n({ useScope: "global" });
 
 const impulseStore = useImpulse();
 const { selectedImpulse } = storeToRefs(impulseStore);
-const { fetchImpulse, deleteSelectedImpulse } = impulseStore; 
+const { fetchImpulse, deleteSelectedImpulse } = impulseStore;
 
 const changeInterval = ref(null);
 const changePercent = ref(null);
@@ -26,9 +26,9 @@ const dataPercent = ref(null);
 const selected_id = ref(null);
 const showHistory = ref(false);
 
-onMounted( async () => {
+onMounted(async () => {
   await fetchImpulse();
-  if(selectedImpulse.value?.conditions?.length === 3){
+  if (selectedImpulse.value?.conditions?.length > 0) {
     showImpulse.value = true;
     try {
       const response = await axios.get(
@@ -41,6 +41,13 @@ onMounted( async () => {
       );
       impulseData.value = response.data;
       showImpulse.value = true;
+      if (selectedImpulse.value.conditions.length > 0) {
+        const firstCondition = selectedImpulse.value.conditions[0];
+        selected_id.value = firstCondition.id;
+        dataInterval.value = firstCondition.time;
+        dataPercent.value = firstCondition.percent;
+        showHistory.value = true;
+      }
     } catch (error) {
       console.log("Error fetching data: " + error);
     }
@@ -48,7 +55,6 @@ onMounted( async () => {
     showImpulse.value = false;
   }
 });
-
 
 const selectInterval = (index, interval) => {
   selectedInterval.value = index;
@@ -103,6 +109,14 @@ const showImpulseData = async () => {
       );
       impulseData.value = response.data;
       showImpulse.value = true;
+      
+      if (selectedImpulse.value.conditions.length > 0) {
+        const firstCondition = selectedImpulse.value.conditions[0];
+        selected_id.value = firstCondition.id;
+        dataInterval.value = firstCondition.time;
+        dataPercent.value = firstCondition.percent;
+        showHistory.value = true;
+      }
     } catch (error) {
       console.log("Error fetching data: " + error);
     }
@@ -142,11 +156,17 @@ const deleteImpulse = async (id) => {
       <div class="mb-3">
         <p>{{ $t("impulsePrise.timeIntervalSelect") }}</p>
         <div class="flex gap-2 mt-3">
-          <button v-for="(interval, index) in [1, 5, 15, 60]" :key="index" :class="{
-            'bg-[#92FBDB] text-black font-semibold':
-              selectedInterval === index,
-            'bg-[#17181C]': selectedInterval !== index,
-          }" @click="selectInterval(index, interval)" class="w-full py-2 rounded">
+          <button
+            v-for="(interval, index) in [1, 5, 15, 60]"
+            :key="index"
+            :class="{
+              'bg-[#92FBDB] text-black font-semibold':
+                selectedInterval === index,
+              'bg-[#17181C]': selectedInterval !== index,
+            }"
+            @click="selectInterval(index, interval)"
+            class="w-full py-2 rounded"
+          >
             {{ interval }} {{ $t("impulsePrise.min") }}
           </button>
         </div>
@@ -154,38 +174,71 @@ const deleteImpulse = async (id) => {
       </div>
       <div>
         <p>{{ $t("impulsePrise.enterPrice") }}</p>
-        <input v-model="changePercent"
+        <input
+          v-model="changePercent"
           class="w-full my-3 p-3 rounded-lg border-transparent focus:outline-none bg-[#17181C] focus:bg-[#17181C]"
-          type="number" min="5" placeholder="Search Here" />
-        <p v-if="changePercent && changePercent < 5">bigger than 5 </p>
+          type="number"
+          min="5"
+          placeholder="Search Here"
+        />
+        <p v-if="changePercent && changePercent < 5">bigger than 5</p>
         <div class="flex gap-2 my-3">
-          <button v-for="(percent, index) in [5, 10, 15, 20]" :key="index" :class="{
-            'bg-[#92FBDB] text-black font-semibold':
-              selectedPercent === index,
-            'bg-[#17181C]': selectedPercent !== index,
-          }" @click="selectPercent(index, percent)" class="w-full py-2 rounded">
+          <button
+            v-for="(percent, index) in [5, 10, 15, 20]"
+            :key="index"
+            :class="{
+              'bg-[#92FBDB] text-black font-semibold':
+                selectedPercent === index,
+              'bg-[#17181C]': selectedPercent !== index,
+            }"
+            @click="selectPercent(index, percent)"
+            class="w-full py-2 rounded"
+          >
             {{ percent }}%
           </button>
         </div>
       </div>
     </div>
-    <ButtonView v-if="!showImpulse" :text="$t('impulsePrise.getInfo')" class="mt-4" @click="showImpulseData" />
+    <ButtonView
+      v-if="!showImpulse"
+      :text="$t('impulsePrise.getInfo')"
+      class="mt-4"
+      @click="showImpulseData"
+    />
     <div v-else>
-      <ButtonView :text="$t('impulsePrise.addTracking')" class="my-3" @click="openAddImpulse = true" />
+      <ButtonView
+        :text="$t('impulsePrise.addTracking')"
+        class="my-3"
+        @click="openAddImpulse = true"
+      />
     </div>
-    <div v-if="selectedImpulse" class="flex text-xs border rounded border-[#2F2F2F99] mb-2">
-      <button v-for="(condition, index) in selectedImpulse.conditions" :key="index" class="w-full focus:font-semibold focus:bg-gradient-to-r focus:from-[#ffffff1f] focus:to-[#ffffff12] py-1 px-2 focus:rounded" @click="updateImpulse(condition.id, condition.time, condition.percent)">
-        {{ condition.time }} {{ $t("impulsePrise.min") }} /{{ condition.percent }} %
+    <div
+      v-if="showImpulse"
+      class="flex text-xs border rounded border-[#2F2F2F99] mb-2"
+    >
+      <button
+        v-for="(condition, index) in selectedImpulse.conditions"
+        :key="index"
+        :class="{
+          'from-[#ffffff1f] to-[#ffffff12] bg-gradient-to-r rounded':
+            selected_id === condition.id,
+          'bg-transparent': selected_id !== condition.id,
+        }"
+        class="w-full focus:font-semibold focus:bg-gradient-to-r focus:from-[#ffffff1f] focus:to-[#ffffff12] py-1 px-2 focus:rounded"
+        @click="updateImpulse(condition.id, condition.time, condition.percent)"
+      >
+        {{ condition.time }} {{ $t("impulsePrise.min") }} /
+        {{ condition.percent }} %
       </button>
     </div>
-    <div v-if="selectedImpulse" class="flex justify-between items-center my-4">
+    <div v-if="showImpulse" class="flex justify-between items-center my-4">
       <p class="text-lg font-semibold">
         {{ dataInterval }} {{ $t("impulsePrise.min") }}/{{ dataPercent }}%
       </p>
       <div class="flex gap-3">
         <PhNotePencil :size="24" />
         <button @click="deleteImpulse(selected_id)">
-          <PhTrash :size="24" color="#ca3140"/>
+          <PhTrash :size="24" color="#ca3140" />
         </button>
       </div>
     </div>
@@ -198,8 +251,7 @@ const deleteImpulse = async (id) => {
         <div class="flex justify-between mb-4">
           <p class="text-xs">{{ $t("homePage.lastUpdate") }}:</p>
           <div class="flex text-xs gap-1">
-            <PhClock :size="16" /> 12:03
-            <PhCalendarDots :size="16" /> 9.01.2024
+            <PhClock :size="16" /> 12:03 <PhCalendarDots :size="16" /> 9.01.2024
           </div>
         </div>
         <ticker :detail="impulseData?.impulses_history" />
@@ -207,8 +259,10 @@ const deleteImpulse = async (id) => {
     </div>
     <Teleport to="body">
       <transition name="modal">
-        <div v-if="openAddImpulse"
-          class="modal h-[60vh] rounded-t-3xl bg-black fixed bottom-0 w-full py-5 px-4 overflow-auto border-t border-white">
+        <div
+          v-if="openAddImpulse"
+          class="modal h-[60vh] rounded-t-3xl bg-black fixed bottom-0 w-full py-5 px-4 overflow-auto border-t border-white"
+        >
           <div class="flex justify-between mb-3">
             <div class="flex gap-3 items-center">
               <PhList :size="32" />
@@ -221,11 +275,17 @@ const deleteImpulse = async (id) => {
           <div class="mb-3">
             <p>{{ $t("impulsePrise.timeIntervalSelect") }}</p>
             <div class="flex gap-2 mt-3">
-              <button v-for="(interval, index) in [1, 5, 15, 60]" :key="index" :class="{
-                'bg-[#92FBDB] text-black font-semibold':
-                  selectedInterval === index,
-                'bg-[#17181C]': selectedInterval !== index,
-              }" @click="selectInterval(index, interval)" class="w-full py-2 rounded">
+              <button
+                v-for="(interval, index) in [1, 5, 15, 60]"
+                :key="index"
+                :class="{
+                  'bg-[#92FBDB] text-black font-semibold':
+                    selectedInterval === index,
+                  'bg-[#17181C]': selectedInterval !== index,
+                }"
+                @click="selectInterval(index, interval)"
+                class="w-full py-2 rounded"
+              >
                 {{ interval }} {{ $t("impulsePrise.min") }}
               </button>
             </div>
@@ -233,21 +293,35 @@ const deleteImpulse = async (id) => {
           </div>
           <div>
             <p>{{ $t("impulsePrise.enterPrice") }}</p>
-            <input v-model="changePercent"
+            <input
+              v-model="changePercent"
               class="w-full my-3 p-3 rounded-lg border-transparent focus:outline-none bg-[#17181C] focus:bg-[#17181C]"
-              type="number" min="5" placeholder="Search Here" />
-            <p v-if="changePercent && changePercent < 5">bigger than 5 </p>
+              type="number"
+              min="5"
+              placeholder="Search Here"
+            />
+            <p v-if="changePercent && changePercent < 5">bigger than 5</p>
             <div class="flex gap-2 my-3">
-              <button v-for="(percent, index) in [5, 10, 15, 20]" :key="index" :class="{
-                'bg-[#92FBDB] text-black font-semibold':
-                  selectedPercent === index,
-                'bg-[#17181C]': selectedPercent !== index,
-              }" @click="selectPercent(index, percent)" class="w-full py-2 rounded">
+              <button
+                v-for="(percent, index) in [5, 10, 15, 20]"
+                :key="index"
+                :class="{
+                  'bg-[#92FBDB] text-black font-semibold':
+                    selectedPercent === index,
+                  'bg-[#17181C]': selectedPercent !== index,
+                }"
+                @click="selectPercent(index, percent)"
+                class="w-full py-2 rounded"
+              >
                 {{ percent }}%
               </button>
             </div>
           </div>
-          <ButtonView :text="$t('impulsePrise.getInfo')" class="mt-4" @click="showImpulseData" />
+          <ButtonView
+            :text="$t('impulsePrise.getInfo')"
+            class="mt-4"
+            @click="showImpulseData"
+          />
         </div>
       </transition>
     </Teleport>
@@ -255,7 +329,7 @@ const deleteImpulse = async (id) => {
 </template>
 <style scoped>
 .setting-border {
-  border-bottom: 0.5px solid #4B4B4B;
+  border-bottom: 0.5px solid #4b4b4b;
 }
 
 .modal-enter-active,

@@ -1,6 +1,6 @@
 <script setup>
 import axios from "axios";
-import { onMounted, onBeforeUnmount, ref, watch } from "vue";
+import { onMounted, onBeforeUnmount, ref, watch, computed } from "vue";
 import LocalesView from './LocalesView.vue';
 import menuItems from "../components/menuItem.vue";
 import Header from "../components/Header.vue";
@@ -30,6 +30,7 @@ const openTrackingTicker = ref(false);
 const openFundingData = ref(false);
 const openNotification = ref(false);
 
+
 const toggleTeleport = () => {
   open.value = !open.value;
 };
@@ -56,6 +57,17 @@ const tgHashData = tg.initData;
 console.log(tgHashData);
 const data = ref(null);
 let connection;
+
+
+
+const fundingData = computed(() => {
+  try {
+    return JSON.parse(data.value);
+  } catch (e) {
+    console.error("Failed to parse funding data:", e);
+    return null;
+  }
+});
 
 onMounted(() => {
   lang.value = localStorage.getItem('lang') === 'ru' ? 'RU' : 'EN';
@@ -137,7 +149,7 @@ onBeforeUnmount(() => {
       <div class="flex justify-between">
         <p class="text-xs">{{ $t('homePage.lastUpdate')}}:</p>
         <div class="flex text-xs gap-1">
-          <PhClock :size="12" /> 12:03
+          <PhClock :size="16" /> 12:03
           <PhCalendarDots :size="16" /> 9.01.2024
         </div>
       </div>
