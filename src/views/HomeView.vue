@@ -69,6 +69,29 @@ const fundingData = computed(() => {
   }
 });
 
+
+const lastUpdate = computed(() => {
+  const lastUpdateTime = new Date(fundingData.value?.top_tickers?.last_update_time);
+  
+  if (isNaN(lastUpdateTime)) return { time: null, date: null };
+
+  const hours = lastUpdateTime.getHours() % 12 || 12; 
+  const minutes = lastUpdateTime.getMinutes().toString().padStart(2, '0'); 
+  const formattedTime = `${hours}:${minutes}`;
+
+  const day = lastUpdateTime.getDate().toString().padStart(2, '0');
+  const month = (lastUpdateTime.getMonth() + 1).toString().padStart(2, '0'); 
+  const year = lastUpdateTime.getFullYear();
+  const formattedDate = `${day}.${month}.${year}`;
+
+  return {
+    time: formattedTime,
+    date: formattedDate
+  };
+});
+
+
+
 onMounted(() => {
   lang.value = localStorage.getItem('lang') === 'ru' ? 'RU' : 'EN';
 
@@ -146,11 +169,11 @@ onBeforeUnmount(() => {
         <addPremium />
       </div>
       <p class="text-sm font-semibold">{{ $t('homePage.top24')}}</p>
-      <div class="flex justify-between">
+      <div v-if="fundingData" class="flex justify-between">
         <p class="text-xs">{{ $t('homePage.lastUpdate')}}:</p>
         <div class="flex text-xs gap-1">
-          <PhClock :size="16" /> 12:03
-          <PhCalendarDots :size="16" /> 9.01.2024
+          <PhClock :size="16" /> {{lastUpdate.time}}
+          <PhCalendarDots :size="16" /> {{lastUpdate.date}}
         </div>
       </div>
       <div class="my-4 mb-20">
