@@ -6,11 +6,10 @@ import axios from "axios";
 import { useI18n } from "vue-i18n";
 const { t } = useI18n({ useScope: "global" });
 
-import { useImpulse } from "../store/assetTracking.js";
+import { useAssetTracking } from "../store/assetTracking.js";
 import { storeToRefs } from "pinia";
 
-const tickerStore = useImpulse();
-const { selectedImpulse } = storeToRefs(tickerStore);
+const tickerStore = useAssetTracking();
 const { deleteSelectedAsset } = tickerStore;
 
 const tickerName = ref("");
