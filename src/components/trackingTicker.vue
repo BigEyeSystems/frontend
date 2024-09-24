@@ -85,9 +85,7 @@ const toggleTrackingTicker = async () => {
 
     settingStatus.value = setTickerResponse.data;
 
-    // Check if setting was successful
     if (settingStatus.value?.Success === 200) {
-      // Fetch ticker data
       const tickerDataResponse = await axios.get(
         "https://dsde1736.fornex.org/api/notify/get_ticker_tracking",
         {
@@ -110,7 +108,6 @@ const toggleTrackingTicker = async () => {
       const firstCondition = tickerData.value.conditions[0];
       selected_id.value = firstCondition.id;
       dataInterval.value = firstCondition.time;
-      // Show tracking ticker
       showTrackingTicker.value = true;
     } else {
       console.error("Failed to set ticker tracking.");
