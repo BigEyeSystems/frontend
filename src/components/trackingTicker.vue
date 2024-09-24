@@ -144,7 +144,7 @@ const deleteTicker = async (id) => {
         <p>{{ $t("tickerTracking.assetName") }}</p>
         <input
           v-model="tickerName"
-          class="w-full my-3 p-3 rounded-lg border-transparent focus:outline-none bg-[#17181C] focus:bg-[#17181C]"
+          class="w-full my-3 p-3 rounded-lg border-transparent focus:outline-none bg-[#17181C] focus:bg-[#17181C] uppercase"
           type="text"
         />
         <div class="flex gap-2 mt-3">

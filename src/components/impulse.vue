@@ -25,6 +25,7 @@ const dataInterval = ref(null);
 const dataPercent = ref(null);
 const selected_id = ref(null);
 const showHistory = ref(false);
+const openEditImpulse = ref(false);
 
 onMounted(async () => {
   await fetchImpulse();
@@ -51,7 +52,7 @@ onMounted(async () => {
     } catch (error) {
       console.log("Error fetching data: " + error);
     }
-  }else{
+  } else {
     showImpulse.value = false;
   }
 });
@@ -109,7 +110,7 @@ const showImpulseData = async () => {
       );
       impulseData.value = response.data;
       showImpulse.value = true;
-      
+
       if (selectedImpulse.value.conditions.length > 0) {
         const firstCondition = selectedImpulse.value.conditions[0];
         selected_id.value = firstCondition.id;
@@ -146,6 +147,28 @@ const updateImpulse = async (id, time, percent) => {
 };
 const deleteImpulse = async (id) => {
   await deleteSelectedImpulse(id);
+  await fetchImpulse();
+};
+const showEditImpulse = async () => {
+  openEditImpulse.value = true;
+};
+const editImpulse = async (id, interval, percent) => {
+  try {
+    const response = await axios.patch(
+      `https://dsde1736.fornex.org/api/notify/update_impulse?impulse_id=${id}`,
+      {
+        interval: interval,
+        percentage: percent,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    );
+  } catch (error) {
+    console.log("Error fetching data: " + error);
+  }
   await fetchImpulse();
 };
 </script>
@@ -236,7 +259,9 @@ const deleteImpulse = async (id) => {
         {{ dataInterval }} {{ $t("impulsePrise.min") }}/{{ dataPercent }}%
       </p>
       <div class="flex gap-3">
-        <PhNotePencil :size="24" />
+        <button @click="showEditImpulse">
+          <PhNotePencil :size="24" />
+        </button>
         <button @click="deleteImpulse(selected_id)">
           <PhTrash :size="24" color="#ca3140" />
         </button>
@@ -321,6 +346,74 @@ const deleteImpulse = async (id) => {
             :text="$t('impulsePrise.getInfo')"
             class="mt-4"
             @click="showImpulseData"
+          />
+        </div>
+      </transition>
+    </Teleport>
+    <Teleport to="body">
+      <transition name="modal">
+        <div
+          v-if="openEditImpulse"
+          class="modal h-[60vh] rounded-t-3xl bg-black fixed bottom-0 w-full py-5 px-4 overflow-auto border-t border-white"
+        >
+          <div class="flex justify-between mb-3">
+            <div class="flex gap-3 items-center">
+              <PhList :size="32" />
+              <p class="text-lg font-bold">Редактировать информацию</p>
+            </div>
+            <button @click="openEditImpulse = false">
+              <PhX :size="21" />
+            </button>
+          </div>
+          <div class="mb-3">
+            <p>{{ $t("impulsePrise.timeIntervalSelect") }}</p>
+            <div class="flex gap-2 mt-3">
+              <button
+                v-for="(interval, index) in [1, 5, 15, 60]"
+                :key="index"
+                :class="{
+                  'bg-[#92FBDB] text-black font-semibold':
+                    selectedInterval === index,
+                  'bg-[#17181C]': selectedInterval !== index,
+                }"
+                @click="selectInterval(index, interval)"
+                class="w-full py-2 rounded"
+              >
+                {{ interval }} {{ $t("impulsePrise.min") }}
+              </button>
+            </div>
+            <p v-if="showError">Fill all fields</p>
+          </div>
+          <div>
+            <p>{{ $t("impulsePrise.enterPrice") }}</p>
+            <input
+              v-model="changePercent"
+              class="w-full my-3 p-3 rounded-lg border-transparent focus:outline-none bg-[#17181C] focus:bg-[#17181C]"
+              type="number"
+              min="5"
+              placeholder="Search Here"
+            />
+            <p v-if="changePercent && changePercent < 5">bigger than 5</p>
+            <div class="flex gap-2 my-3">
+              <button
+                v-for="(percent, index) in [5, 10, 15, 20]"
+                :key="index"
+                :class="{
+                  'bg-[#92FBDB] text-black font-semibold':
+                    selectedPercent === index,
+                  'bg-[#17181C]': selectedPercent !== index,
+                }"
+                @click="selectPercent(index, percent)"
+                class="w-full py-2 rounded"
+              >
+                {{ percent }}%
+              </button>
+            </div>
+          </div>
+          <ButtonView
+            :text="$t('impulsePrise.getInfo')"
+            class="mt-4"
+            @click="editImpulse(selected_id, changeInterval, changePercent)"
           />
         </div>
       </transition>
