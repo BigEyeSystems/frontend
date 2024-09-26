@@ -15,7 +15,8 @@ const { deleteSelectedAsset } = tickerStore;
 const tickerName = ref("");
 const changeInterval = ref(null);
 const settingStatus = ref(null);
-const openAddTracker = ref(null);
+const openAddTracker = ref(false);
+const openEditTicker = ref(false)
 const tickerInfo = ref(false);
 const tickerData = ref(null);
 const selected_id = ref(null);
@@ -50,7 +51,28 @@ onMounted(async () => {
     console.log("Error fetching data: " + error);
   }
   if (tickerData.value?.conditions?.length > 0) {
-    showTrackingTicker.value = true;
+    try {
+      const response = await axios.get(
+        `https://dsde1736.fornex.org/api/notify/get_ticker_tracking_history?tt_id=${tickerData.value?.conditions[0]?.id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      tickerHistory.value = response.data;
+      showTrackingTicker.value = true;
+      if (tickerData.value.conditions.length > 0) {
+        const firstCondition = tickerData.value.conditions[0];
+        selected_id.value = firstCondition.id;
+        dataInterval.value = firstCondition.time;
+        selectedTicker.value = firstCondition.ticker;
+      }
+    } catch (error) {
+      console.log("Error fetching data: " + error);
+    }
+  }else{
+    showTrackingTicker.value = false;
   }
 });
 const toggleTrackingTicker = async () => {
@@ -105,10 +127,13 @@ const toggleTrackingTicker = async () => {
         }
       );
       tickerHistory.value = tickerHistoryResponse.data;
-      const firstCondition = tickerData.value.conditions[0];
-      selected_id.value = firstCondition.id;
-      dataInterval.value = firstCondition.time;
       showTrackingTicker.value = true;
+      if (tickerData.value.conditions.length > 0) {
+        const firstCondition = tickerData.value.conditions[0];
+        selected_id.value = firstCondition.id;
+        dataInterval.value = firstCondition.time;
+        selectedTicker.value = firstCondition.ticker;
+      }
     } else {
       console.error("Failed to set ticker tracking.");
     }
@@ -156,6 +181,9 @@ const showAddTracker = () => {
 }
 const editTracker = () => {
   openEditTicker.value = true;
+}
+const saveChanges = () => {
+  
 }
 
 </script>
@@ -270,9 +298,9 @@ const editTracker = () => {
           <div class="flex justify-between mb-3">
             <div class="flex gap-3 items-center">
               <PhList :size="32" />
-              <p class="text-lg font-bold">Редактировать информацию</p>
+              <p class="text-sm font-bold">Редактировать информацию - {{ selectedTicker }}</p>
             </div>
-            <button @click="openEditImpulse = false">
+            <button @click="openEditTicker = false">
               <PhX :size="21" />
             </button>
           </div>
@@ -308,3 +336,23 @@ const editTracker = () => {
     </Teleport>
   </div>
 </template>
+<style scoped>
+.setting-border {
+  border-bottom: 0.5px solid #4b4b4b;
+}
+
+.modal-enter-active,
+.modal-leave-active {
+  transition: transform 0.3s ease-in-out;
+}
+
+.modal-enter-from,
+.modal-leave-to {
+  transform: translateY(100%);
+}
+
+.modal-enter-to,
+.modal-leave-from {
+  transform: translateY(0);
+}
+</style>
