@@ -35,6 +35,7 @@ const isLoading = ref(false);
 const showFundingData = ref(false);
 const historyData = ref(null);
 const fundingData = ref(null);
+const reversedData = ref(null);
 const showWeeklyData = async () => {
   dayData.value = false;
   weekData.value = true;
@@ -221,6 +222,7 @@ onMounted(async () => {
       }
     );
     historyData.value = responseHistory.data;
+    reversedData.value = historyData.value.data.reverse();
   } catch (error) {
     console.log("Error fetching data: " + error);
   }
@@ -228,9 +230,15 @@ onMounted(async () => {
 const showDate = (timestamp) => {
   let dateObject = new Date(timestamp);
   let datePart = dateObject.toISOString().split("T")[0];
-  let timePart = dateObject.toTimeString().split(" ")[0];
-  return `${datePart} ${timePart}`;
+  let formattedDatePart = datePart.split("-").reverse().join(".");
+  let timePart = dateObject.toTimeString().split(" ")[0].slice(0, 5);
+
+  return {
+    time: timePart,
+    date: formattedDatePart
+  };
 };
+
 </script>
 <template>
   <div v-if="fundingData" class="text-xs">
@@ -258,7 +266,7 @@ const showDate = (timestamp) => {
           {{ $t('fundingPage.month') }}
         </button>
       </div>
-      <div v-if="fundingData && !isLoading" class="flex justify-end">
+      <div v-if="fundingData && !isLoading" class="flex justify-center">
         <v-chart class="chart" :option="option" />
       </div>
       <div v-if="isLoading">
@@ -294,11 +302,17 @@ const showDate = (timestamp) => {
       </div>
       <p class="my-4 text-sm font-semibold">{{ $t('fundingPage.history') }}</p>
       <div v-for="(data, index) in historyData.data" :key="index">
-        <div class="flex flex-col gap-6 my-4 bg-[#17181C] px-3 py-4 rounded-lg">
-          <div class="flex justify-between">
-            <p class="text-[#B8B8B8] text-xs">{{ $t('fundingPage.dateCreated') }}</p>
-            <p>{{ showDate(data.created) }}</p>
+
+        <div class="flex justify-between">
+          <p class="text-[#B8B8B8] text-xs">{{ $t('fundingPage.dateCreated') }}</p>
+          <div class="flex items-center gap-1">
+            <PhClock :size="16" />
+            <p>{{ showDate(data.created).time }}</p>
+            <PhCalendarDots :size="16" />
+            <p>{{ showDate(data.created).date }}</p>
           </div>
+        </div>
+        <div class="flex flex-col gap-6 my-4 bg-[#17181C] px-3 py-4 rounded-lg">
           <div class="flex justify-between w-full">
             <p>{{ $t('fundingPage.positiveAmount') }}</p>
             <p>{{ data.positive_count }}</p>
