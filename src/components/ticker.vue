@@ -21,10 +21,38 @@ const tickerData = computed(() => {
 
 const showDate = (timestamp) => {
   let dateObject = new Date(timestamp);
+  let today = new Date();
+
+  let yesterday = new Date();
+  yesterday.setDate(today.getDate() - 1);
   let datePart = dateObject.toISOString().split("T")[0];
-  let timePart = dateObject.toTimeString().split(" ")[0];
-  return `${datePart} ${timePart}`;
+
+  let formattedDatePart = datePart.split("-").slice(1).reverse().join(".");
+
+  let timePart = dateObject.toTimeString().split(" ")[0].slice(0, 5); 
+
+  if (
+    dateObject.getFullYear() === today.getFullYear() &&
+    dateObject.getMonth() === today.getMonth() &&
+    dateObject.getDate() === today.getDate()
+  ) {
+    return `${t('tickerTable.today')}<br>${timePart}(UTC +0)`;
+  }
+
+  if (
+    dateObject.getFullYear() === yesterday.getFullYear() &&
+    dateObject.getMonth() === yesterday.getMonth() &&
+    dateObject.getDate() === yesterday.getDate()
+  ) {
+    return `${t('tickerTable.yesterday')}<br>${timePart}(UTC +0)`;
+  }
+
+  return `${formattedDatePart}<br>${timePart}(UTC +0)`;
 };
+
+
+
+
 </script>
 <template>
   <div class="table-container text-xs rounded-[calc(1.5rem-10px)] p-1 bg-[#17181C] py-4">
@@ -32,7 +60,7 @@ const showDate = (timestamp) => {
       <thead>
         <tr class="text-xs">
           <th>{{ $t('tickerTable.name')}}</th>
-          <th>{{ $t('tickerTable.daily')}} %</th>
+          <th>{{ $t('tickerTable.daily')}}</th>
           <th>{{ $t('tickerTable.date')}}</th>
         </tr>
       </thead>
@@ -45,7 +73,7 @@ const showDate = (timestamp) => {
             </span>
           </td>
           <td>{{ item.day_percent?.toFixed(2) || 0 }}%</td>
-          <td>{{ showDate(item.date) }}</td>
+          <td v-html="showDate(item.date)"></td>
         </tr>
       </tbody>
     </table>

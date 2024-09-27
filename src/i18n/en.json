@@ -138,8 +138,10 @@
     },
     "tickerTable": {
         "name": "Name",
-        "daily": "Daily",
-        "date": "Date"
+        "daily": "Impulse Percent",
+        "date": "Date",
+        "today": "Today",
+        "yesterday": "Yesterday"
     },
     "analytics":{
         "title": "Analytics",

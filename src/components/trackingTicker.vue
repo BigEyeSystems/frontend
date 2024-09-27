@@ -182,8 +182,23 @@ const showAddTracker = () => {
 const editTracker = () => {
   openEditTicker.value = true;
 }
-const saveChanges = () => {
-  
+const saveChanges = async (id, ticker, time) => {
+  try {
+    const response = await axios.patch(
+      `https://dsde1736.fornex.org/api/notify/update_ticker_tracking?tt_id=${id}`,
+      {
+        ticker_name: ticker,
+        time_period: time,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    );
+  } catch (error) {
+    console.log("Error fetching data: " + error);
+  }
 }
 
 </script>
@@ -330,7 +345,7 @@ const saveChanges = () => {
               </button>
             </div>
           </div>
-          <ButtonView :text="$t('tickerTracking.addTracker')" :on-click="toggleTrackingTicker" class="my-4" />
+          <ButtonView :text="$t('tickerTracking.addTracker')" :on-click="saveChanges" class="my-4" />
         </div>
       </transition>
     </Teleport>

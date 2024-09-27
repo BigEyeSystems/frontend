@@ -139,8 +139,10 @@
     },
     "tickerTable": {
         "name": "Название",
-        "daily": "Cуточный ",
-        "date": "Дата"
+        "daily": "Процент Импульса",
+        "date": "Дата",
+        "today": "Сегодня",
+        "yesterday": "Вчера"
     },
     "analytics":{
         "title": "Аналитика",
