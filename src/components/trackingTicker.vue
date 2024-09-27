@@ -345,7 +345,7 @@ const saveChanges = async (id, ticker, time) => {
               </button>
             </div>
           </div>
-          <ButtonView :text="$t('tickerTracking.addTracker')" :on-click="saveChanges" class="my-4" />
+          <ButtonView :text="$t('tickerTracking.addTracker')" :on-click="saveChanges(selected_id, tickerName, intervalValue)" class="my-4" />
         </div>
       </transition>
     </Teleport>
