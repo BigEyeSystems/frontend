@@ -65,6 +65,16 @@ const downloadGradationGrowthFile = async (id) => {
     console.log("Error downloading data: " + error);
   }
 };
+const formatTime = (time) => {
+  return time.substring(0, 5);
+}
+const formattedDate = (date) => {
+  return new Date(date).toLocaleDateString('de-DE', {
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric'
+  });
+};
 </script>
 
 <template>
@@ -130,9 +140,9 @@ const downloadGradationGrowthFile = async (id) => {
               <p class="text-[#B8B8B8] text-xs">{{ $t('fundingPage.dateCreated') }}</p>
               <div class="flex gap-1 text-xs items-center">
                 <PhClock :size="12" />
-                <p>{{ file.time }}</p>
+                <p>{{ formatTime(file.time) }}</p>
                 <PhCalendarDots :size="16" />
-                <p>{{ file.date }}</p>
+                <p>{{ formattedDate(file.date) }}</p>
               </div>
             </div>
             <div

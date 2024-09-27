@@ -156,6 +156,8 @@ const updateTicker = async (id, time, ticker) => {
     dataInterval.value = time;
     selected_id.value = id;
     selectedTicker.value = ticker;
+    changeInterval.value = null;
+    tickerName.value = "";
   } catch (error) {
     console.log("Error fetching data: " + error);
   }
@@ -172,6 +174,12 @@ const deleteTicker = async (id) => {
       }
     );
     tickerData.value = response.data;
+    if (tickerData.value.conditions.length > 0) {
+        const firstCondition = tickerData.value.conditions[0];
+        selected_id.value = firstCondition.id;
+        dataInterval.value = firstCondition.time;
+        selectedTicker.value = firstCondition.ticker;
+      }
   } catch (error) {
     console.log("Error fetching data: " + error);
   }
@@ -184,6 +192,10 @@ const editTracker = () => {
 }
 const saveChanges = async (id, ticker, time) => {
   try {
+    if (!ticker.includes("USDT")) {
+      ticker += "USDT";
+    }
+
     const response = await axios.patch(
       `https://dsde1736.fornex.org/api/notify/update_ticker_tracking?tt_id=${id}`,
       {
@@ -196,6 +208,21 @@ const saveChanges = async (id, ticker, time) => {
         },
       }
     );
+    changeInterval.value = null;
+    tickerName.value = "";
+  } catch (error) {
+    console.log("Error fetching data: " + error);
+  }
+  try {
+    const response = await axios.get(
+      "https://dsde1736.fornex.org/api/notify/get_ticker_tracking",
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    );
+    tickerData.value = response.data;
   } catch (error) {
     console.log("Error fetching data: " + error);
   }
@@ -345,7 +372,7 @@ const saveChanges = async (id, ticker, time) => {
               </button>
             </div>
           </div>
-          <ButtonView :text="$t('tickerTracking.addTracker')" :on-click="saveChanges(selected_id, tickerName, intervalValue)" class="my-4" />
+          <ButtonView :text="$t('tickerTracking.addTracker')" @click="saveChanges(selected_id, tickerName, changeInterval)" class="my-4" />
         </div>
       </transition>
     </Teleport>
