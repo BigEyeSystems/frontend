@@ -79,18 +79,15 @@ const toggleTrackingTicker = async () => {
     const intervalValue =
       changeInterval.value !== null ? Number(changeInterval.value) : 0;
 
-    // Validate the interval value
     if (isNaN(intervalValue) || intervalValue <= 0) {
       console.error("Invalid interval value.");
       return;
     }
 
-    // Ensure the ticker name includes "USDT"
     if (!tickerName.value.includes("USDT")) {
       tickerName.value += "USDT";
     }
 
-    // Set ticker tracking
     const setTickerResponse = await axios.post(
       "https://dsde1736.fornex.org/api/notify/set_ticker_tracking",
       {
