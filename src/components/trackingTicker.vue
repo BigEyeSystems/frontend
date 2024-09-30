@@ -178,7 +178,10 @@ const deleteTicker = async (id) => {
         selected_id.value = firstCondition.id;
         dataInterval.value = firstCondition.time;
         selectedTicker.value = firstCondition.ticker;
-      }
+    }
+    else if(tickerData.value.conditions.length === 0){
+      showTrackingTicker.value = false;
+    }
   } catch (error) {
     console.log("Error fetching data: " + error);
   }
