@@ -1,6 +1,5 @@
 <script setup>
 import ButtonView from "./button.vue";
-import ticker from "./ticker.vue";
 import { ref, onMounted } from "vue";
 import axios from "axios";
 import { useI18n } from "vue-i18n";
@@ -295,7 +294,7 @@ const saveChanges = async (id, ticker, time) => {
           <div class="flex justify-between mb-3">
             <div class="flex gap-3 items-center">
               <PhList :size="32" />
-              <p class="text-lg font-bold">Добавить трэккер</p>
+              <p class="text-lg font-bold">{{ $t('tickerTracking.addTracker') }}</p>
             </div>
             <button @click="openAddTracker = false">
               <PhX :size="21" />
@@ -340,7 +339,7 @@ const saveChanges = async (id, ticker, time) => {
           <div class="flex justify-between mb-3">
             <div class="flex gap-3 items-center">
               <PhList :size="32" />
-              <p class="text-sm font-bold">Редактировать информацию - {{ selectedTicker }}</p>
+              <p class="text-sm font-bold">{{ $t("impulsePrise.editInfo") }} - {{ selectedTicker }}</p>
             </div>
             <button @click="openEditTicker = false">
               <PhX :size="21" />

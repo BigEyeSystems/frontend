@@ -24,7 +24,9 @@
         "enterPrice": "Enter price change percentage:",
         "getInfo": "Get Info",
         "min": "min",
-        "addTracking": "Add Tracking(max. 3)"
+        "addTracking": "Add Tracking(max. 3)",
+        "addInfo":"Add Info",
+        "editInfo": "Edit Info"
     },
     "lang": "EN",
     "gradationGrowth": {

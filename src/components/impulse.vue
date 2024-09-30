@@ -291,7 +291,7 @@ const editImpulse = async (id, interval, percent) => {
           <div class="flex justify-between mb-3">
             <div class="flex gap-3 items-center">
               <PhList :size="32" />
-              <p class="text-lg font-bold">Добавить информацию</p>
+              <p class="text-lg font-bold">{{ $t("impulsePrise.addInfo") }}</p>
             </div>
             <button @click="openAddImpulse = false">
               <PhX :size="21" />
@@ -359,7 +359,7 @@ const editImpulse = async (id, interval, percent) => {
           <div class="flex justify-between mb-3">
             <div class="flex gap-3 items-center">
               <PhList :size="32" />
-              <p class="text-lg font-bold">Редактировать информацию</p>
+              <p class="text-lg font-bold">{{ $t("impulsePrise.editInfo") }}</p>
             </div>
             <button @click="openEditImpulse = false">
               <PhX :size="21" />
