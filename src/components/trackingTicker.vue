@@ -312,7 +312,7 @@ const saveChanges = async (id, ticker, time) => {
       <transition name="modal">
         <div
           v-if="openAddTracker"
-          class="modal h-[60vh] rounded-t-3xl bg-black fixed bottom-0 w-full py-5 px-4 overflow-auto border-t border-white"
+          class="modal h-[90vh] text-xs rounded-t-3xl bg-black fixed bottom-0 w-full py-5 px-4 overflow-auto border-t border-white"
         >
           <div class="flex justify-between mb-3">
             <div class="flex gap-3 items-center">
