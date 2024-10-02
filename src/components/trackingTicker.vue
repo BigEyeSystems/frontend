@@ -241,9 +241,8 @@ const saveChanges = async (id, ticker, time) => {
         </div>
 
         <div class="mb-3">
-          <label>{{ $t("tickerTracking.activeAssets") }}</label>
           <div class="flex gap-2 mt-3">
-            <button
+            <p
               v-for="(active, index) in ['BTC', 'ETH', 'TON', 'SOL']"
               :key="index"
               :class="{
@@ -251,19 +250,18 @@ const saveChanges = async (id, ticker, time) => {
                   selectedActive === index,
                 'bg-[#17181C]': selectedActive !== index,
               }"
-              @click.prevent="selectActive(index, active)"
-              type="button"
-              class="w-full py-2 rounded"
+              @click="selectActive(index, active)"
+              class="w-full py-2 rounded cursor-pointer text-center"
             >
               {{ active }}
-            </button>
+            </p>
           </div>
         </div>
 
         <div>
           <label>{{ $t("tickerTracking.alertsTimer") }}</label>
           <div class="flex gap-2 my-3">
-            <button
+            <p
               v-for="(interval, index) in [5, 15, 30, 60]"
               :key="index"
               :class="{
@@ -271,12 +269,11 @@ const saveChanges = async (id, ticker, time) => {
                   selectedInterval === index,
                 'bg-[#17181C]': selectedInterval !== index,
               }"
-              @click.prevent="selectInterval(index, interval)"
-              type="button"
-              class="w-full py-2 rounded"
+              @click="selectInterval(index, interval)"
+              class="w-full py-2 rounded text-center cursor-pointer"
             >
               {{ interval }} {{ $t("impulsePrise.min") }}
-            </button>
+            </p>
           </div>
         </div>
 
