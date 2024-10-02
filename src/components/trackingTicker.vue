@@ -257,11 +257,11 @@ const saveChanges = async (id, ticker, time) => {
           </button>
         </div>
       </div>
-      <ButtonView :text="$t('tickerTracking.addTracker')" :on-click="toggleTrackingTicker" class="my-4" />
+      <ButtonView :text="$t('tickerTracking.addTracker')" :on-click="toggleTrackingTicker" class="my-4" @keyup.enter="toggleTrackingTicker"/>
     </div>
 
     <div v-if="showTrackingTicker">
-      <ButtonView :text="$t('tickerTracking.addTracker')" :on-click="showAddTracker" class="my-4" />
+      <ButtonView :text="$t('tickerTracking.addTracker')" :on-click="showAddTracker" class="my-4" @keyup.enter="showAddTracker"/>
       <div class="flex text-xs border rounded border-[#2F2F2F99] mb-2">
         <button v-for="(condition, index) in tickerData.conditions" :key="index" :class="{
           'from-[#ffffff1f] to-[#ffffff12] bg-gradient-to-r rounded':
@@ -326,7 +326,7 @@ const saveChanges = async (id, ticker, time) => {
               </button>
             </div>
           </div>
-          <ButtonView :text="$t('tickerTracking.addTracker')" :on-click="toggleTrackingTicker" class="my-4" />
+          <ButtonView :text="$t('tickerTracking.addTracker')" :on-click="toggleTrackingTicker" class="my-4" @keyup.enter="toggleTrackingTicker"/>
         </div>
       </transition>
     </Teleport>
@@ -371,7 +371,7 @@ const saveChanges = async (id, ticker, time) => {
               </button>
             </div>
           </div>
-          <ButtonView :text="$t('tickerTracking.addTracker')" @click="saveChanges(selected_id, tickerName, changeInterval)" class="my-4" />
+          <ButtonView :text="$t('tickerTracking.addTracker')" @click="saveChanges(selected_id, tickerName, changeInterval)" class="my-4" @keyup.enter="saveChanges(selected_id, tickerName, changeInterval)"/>
         </div>
       </transition>
     </Teleport>
