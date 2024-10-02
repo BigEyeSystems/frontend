@@ -15,7 +15,7 @@ const tickerName = ref("");
 const changeInterval = ref(null);
 const settingStatus = ref(null);
 const openAddTracker = ref(false);
-const openEditTicker = ref(false)
+const openEditTicker = ref(false);
 const tickerInfo = ref(false);
 const tickerData = ref(null);
 const selected_id = ref(null);
@@ -70,7 +70,7 @@ onMounted(async () => {
     } catch (error) {
       console.log("Error fetching data: " + error);
     }
-  }else{
+  } else {
     showTrackingTicker.value = false;
   }
 });
@@ -171,12 +171,11 @@ const deleteTicker = async (id) => {
     );
     tickerData.value = response.data;
     if (tickerData.value.conditions.length > 0) {
-        const firstCondition = tickerData.value.conditions[0];
-        selected_id.value = firstCondition.id;
-        dataInterval.value = firstCondition.time;
-        selectedTicker.value = firstCondition.ticker;
-    }
-    else if(tickerData.value.conditions.length === 0){
+      const firstCondition = tickerData.value.conditions[0];
+      selected_id.value = firstCondition.id;
+      dataInterval.value = firstCondition.time;
+      selectedTicker.value = firstCondition.ticker;
+    } else if (tickerData.value.conditions.length === 0) {
       showTrackingTicker.value = false;
     }
   } catch (error) {
@@ -185,10 +184,10 @@ const deleteTicker = async (id) => {
 };
 const showAddTracker = () => {
   openAddTracker.value = true;
-}
+};
 const editTracker = () => {
   openEditTicker.value = true;
-}
+};
 const saveChanges = async (id, ticker, time) => {
   try {
     if (!ticker.includes("USDT")) {
@@ -225,55 +224,90 @@ const saveChanges = async (id, ticker, time) => {
   } catch (error) {
     console.log("Error fetching data: " + error);
   }
-}
-
+};
 </script>
 <template>
   <div class="text-xs">
     <div v-if="!showTrackingTicker">
-      <div class="mb-3">
-        <p>{{ $t("tickerTracking.assetName") }}</p>
-        <input v-model="tickerName"
-          class="w-full my-3 p-3 rounded-lg border-transparent focus:outline-none bg-[#17181C] focus:bg-[#17181C] uppercase"
-          type="text" />
-        <div class="flex gap-2 mt-3">
-          <button v-for="(active, index) in ['BTC', 'ETH', 'TON', 'SOL']" :key="index" :class="{
-            'bg-[#92FBDB] text-black font-semibold': selectedActive === index,
-            'bg-[#17181C]': selectedActive !== index,
-          }" @click="selectActive(index, active)" class="w-full py-2 rounded">
-            {{ active }}
-          </button>
+      <form @submit.prevent="toggleTrackingTicker">
+        <div class="mb-3">
+          <label for="tickerName">{{ $t("tickerTracking.assetName") }}</label>
+          <input
+            id="tickerName"
+            v-model="tickerName"
+            class="w-full my-3 p-3 rounded-lg border-transparent focus:outline-none bg-[#17181C] focus:bg-[#17181C] uppercase"
+            type="text"
+          />
         </div>
-      </div>
-      <div>
-        <p>{{ $t("tickerTracking.alertsTimer") }}</p>
-        <div class="flex gap-2 my-3">
-          <button v-for="(interval, index) in [5, 15, 30, 60]" :key="index" :class="{
-            'bg-[#92FBDB] text-black font-semibold':
-              selectedInterval === index,
-            'bg-[#17181C]': selectedInterval !== index,
-          }" @click="selectInterval(index, interval)" class="w-full py-2 rounded">
-            {{ interval }} {{ $t("impulsePrise.min") }}
-          </button>
+
+        <div class="mb-3">
+          <label>{{ $t("tickerTracking.activeAssets") }}</label>
+          <div class="flex gap-2 mt-3">
+            <button
+              v-for="(active, index) in ['BTC', 'ETH', 'TON', 'SOL']"
+              :key="index"
+              :class="{
+                'bg-[#92FBDB] text-black font-semibold':
+                  selectedActive === index,
+                'bg-[#17181C]': selectedActive !== index,
+              }"
+              @click.prevent="selectActive(index, active)"
+              type="button"
+              class="w-full py-2 rounded"
+            >
+              {{ active }}
+            </button>
+          </div>
         </div>
-      </div>
-      <ButtonView :text="$t('tickerTracking.addTracker')" :on-click="toggleTrackingTicker" class="my-4" @keyup.enter="toggleTrackingTicker"/>
+
+        <div>
+          <label>{{ $t("tickerTracking.alertsTimer") }}</label>
+          <div class="flex gap-2 my-3">
+            <button
+              v-for="(interval, index) in [5, 15, 30, 60]"
+              :key="index"
+              :class="{
+                'bg-[#92FBDB] text-black font-semibold':
+                  selectedInterval === index,
+                'bg-[#17181C]': selectedInterval !== index,
+              }"
+              @click.prevent="selectInterval(index, interval)"
+              type="button"
+              class="w-full py-2 rounded"
+            >
+              {{ interval }} {{ $t("impulsePrise.min") }}
+            </button>
+          </div>
+        </div>
+
+        <div class="my-4">
+          <ButtonView :text="$t('tickerTracking.addTracker')" type="submit" />
+        </div>
+      </form>
     </div>
 
     <div v-if="showTrackingTicker">
-      <ButtonView :text="$t('tickerTracking.addTracker')" :on-click="showAddTracker" class="my-4" @keyup.enter="showAddTracker"/>
+      <ButtonView
+        :text="$t('tickerTracking.addTracker')"
+        :on-click="showAddTracker"
+        class="my-4"
+      />
       <div class="flex text-xs border rounded border-[#2F2F2F99] mb-2">
-        <button v-for="(condition, index) in tickerData.conditions" :key="index" :class="{
-          'from-[#ffffff1f] to-[#ffffff12] bg-gradient-to-r rounded':
-            selected_id === condition.id,
-          'bg-transparent': selected_id !== condition.id,
-        }"
+        <button
+          v-for="(condition, index) in tickerData.conditions"
+          :key="index"
+          :class="{
+            'from-[#ffffff1f] to-[#ffffff12] bg-gradient-to-r rounded':
+              selected_id === condition.id,
+            'bg-transparent': selected_id !== condition.id,
+          }"
           class="w-full focus:font-semibold focus:bg-gradient-to-r focus:from-[#ffffff1f] focus:to-[#ffffff12] py-1 px-2 focus:rounded"
-          @click="updateTicker(condition.id, condition.time, condition.ticker)">
+          @click="updateTicker(condition.id, condition.time, condition.ticker)"
+        >
           {{ condition.ticker }}
         </button>
       </div>
-      <div  class="flex justify-between items-center my-4">
+      <div class="flex justify-between items-center my-4">
         <p class="text-lg font-semibold">
           {{ selectedTicker }}
         </p>
@@ -289,12 +323,16 @@ const saveChanges = async (id, ticker, time) => {
     </div>
     <Teleport to="body">
       <transition name="modal">
-        <div v-if="openAddTracker"
-          class="modal h-[60vh] rounded-t-3xl bg-black fixed bottom-0 w-full py-5 px-4 overflow-auto border-t border-white">
+        <div
+          v-if="openAddTracker"
+          class="modal h-[60vh] rounded-t-3xl bg-black fixed bottom-0 w-full py-5 px-4 overflow-auto border-t border-white"
+        >
           <div class="flex justify-between mb-3">
             <div class="flex gap-3 items-center">
               <PhList :size="32" />
-              <p class="text-lg font-bold">{{ $t('tickerTracking.addTracker') }}</p>
+              <p class="text-lg font-bold">
+                {{ $t("tickerTracking.addTracker") }}
+              </p>
             </div>
             <button @click="openAddTracker = false">
               <PhX :size="21" />
@@ -302,14 +340,23 @@ const saveChanges = async (id, ticker, time) => {
           </div>
           <div class="mb-3">
             <p>{{ $t("tickerTracking.assetName") }}</p>
-            <input v-model="tickerName"
+            <input
+              v-model="tickerName"
               class="w-full my-3 p-3 rounded-lg border-transparent focus:outline-none bg-[#17181C] focus:bg-[#17181C] uppercase"
-              type="text" />
+              type="text"
+            />
             <div class="flex gap-2 mt-3">
-              <button v-for="(active, index) in ['BTC', 'ETH', 'TON', 'SOL']" :key="index" :class="{
-                'bg-[#92FBDB] text-black font-semibold': selectedActive === index,
-                'bg-[#17181C]': selectedActive !== index,
-              }" @click="selectActive(index, active)" class="w-full py-2 rounded">
+              <button
+                v-for="(active, index) in ['BTC', 'ETH', 'TON', 'SOL']"
+                :key="index"
+                :class="{
+                  'bg-[#92FBDB] text-black font-semibold':
+                    selectedActive === index,
+                  'bg-[#17181C]': selectedActive !== index,
+                }"
+                @click="selectActive(index, active)"
+                class="w-full py-2 rounded"
+              >
                 {{ active }}
               </button>
             </div>
@@ -317,16 +364,26 @@ const saveChanges = async (id, ticker, time) => {
           <div>
             <p>{{ $t("tickerTracking.alertsTimer") }}</p>
             <div class="flex gap-2 my-3">
-              <button v-for="(interval, index) in [5, 15, 30, 60]" :key="index" :class="{
-                'bg-[#92FBDB] text-black font-semibold':
-                  selectedInterval === index,
-                'bg-[#17181C]': selectedInterval !== index,
-              }" @click="selectInterval(index, interval)" class="w-full py-2 rounded">
+              <button
+                v-for="(interval, index) in [5, 15, 30, 60]"
+                :key="index"
+                :class="{
+                  'bg-[#92FBDB] text-black font-semibold':
+                    selectedInterval === index,
+                  'bg-[#17181C]': selectedInterval !== index,
+                }"
+                @click="selectInterval(index, interval)"
+                class="w-full py-2 rounded"
+              >
                 {{ interval }} {{ $t("impulsePrise.min") }}
               </button>
             </div>
           </div>
-          <ButtonView :text="$t('tickerTracking.addTracker')" :on-click="toggleTrackingTicker" class="my-4" @keyup.enter="toggleTrackingTicker"/>
+          <ButtonView
+            :text="$t('tickerTracking.addTracker')"
+            :on-click="toggleTrackingTicker"
+            class="my-4"
+          />
         </div>
       </transition>
     </Teleport>
@@ -339,7 +396,9 @@ const saveChanges = async (id, ticker, time) => {
           <div class="flex justify-between mb-3">
             <div class="flex gap-3 items-center">
               <PhList :size="32" />
-              <p class="text-sm font-bold">{{ $t("impulsePrise.editInfo") }} - {{ selectedTicker }}</p>
+              <p class="text-sm font-bold">
+                {{ $t("impulsePrise.editInfo") }} - {{ selectedTicker }}
+              </p>
             </div>
             <button @click="openEditTicker = false">
               <PhX :size="21" />
@@ -347,14 +406,23 @@ const saveChanges = async (id, ticker, time) => {
           </div>
           <div class="mb-3">
             <p>{{ $t("tickerTracking.assetName") }}</p>
-            <input v-model="tickerName"
+            <input
+              v-model="tickerName"
               class="w-full my-3 p-3 rounded-lg border-transparent focus:outline-none bg-[#17181C] focus:bg-[#17181C] uppercase"
-              type="text" />
+              type="text"
+            />
             <div class="flex gap-2 mt-3">
-              <button v-for="(active, index) in ['BTC', 'ETH', 'TON', 'SOL']" :key="index" :class="{
-                'bg-[#92FBDB] text-black font-semibold': selectedActive === index,
-                'bg-[#17181C]': selectedActive !== index,
-              }" @click="selectActive(index, active)" class="w-full py-2 rounded">
+              <button
+                v-for="(active, index) in ['BTC', 'ETH', 'TON', 'SOL']"
+                :key="index"
+                :class="{
+                  'bg-[#92FBDB] text-black font-semibold':
+                    selectedActive === index,
+                  'bg-[#17181C]': selectedActive !== index,
+                }"
+                @click="selectActive(index, active)"
+                class="w-full py-2 rounded"
+              >
                 {{ active }}
               </button>
             </div>
@@ -362,16 +430,26 @@ const saveChanges = async (id, ticker, time) => {
           <div>
             <p>{{ $t("tickerTracking.alertsTimer") }}</p>
             <div class="flex gap-2 my-3">
-              <button v-for="(interval, index) in [5, 15, 30, 60]" :key="index" :class="{
-                'bg-[#92FBDB] text-black font-semibold':
-                  selectedInterval === index,
-                'bg-[#17181C]': selectedInterval !== index,
-              }" @click="selectInterval(index, interval)" class="w-full py-2 rounded">
+              <button
+                v-for="(interval, index) in [5, 15, 30, 60]"
+                :key="index"
+                :class="{
+                  'bg-[#92FBDB] text-black font-semibold':
+                    selectedInterval === index,
+                  'bg-[#17181C]': selectedInterval !== index,
+                }"
+                @click="selectInterval(index, interval)"
+                class="w-full py-2 rounded"
+              >
                 {{ interval }} {{ $t("impulsePrise.min") }}
               </button>
             </div>
           </div>
-          <ButtonView :text="$t('tickerTracking.addTracker')" @click="saveChanges(selected_id, tickerName, changeInterval)" class="my-4" @keyup.enter="saveChanges(selected_id, tickerName, changeInterval)"/>
+          <ButtonView
+            :text="$t('tickerTracking.addTracker')"
+            @click="saveChanges(selected_id, tickerName, changeInterval)"
+            class="my-4"
+          />
         </div>
       </transition>
     </Teleport>
