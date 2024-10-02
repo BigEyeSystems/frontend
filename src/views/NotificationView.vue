@@ -58,7 +58,6 @@ const onChange = async (key, value) => {
     }
 
     try {
-        console.log('token', localStorage.getItem("token"));
         await axios.post(
             "https://dsde1736.fornex.org/api/user/set_notifications", 
             {
