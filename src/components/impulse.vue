@@ -90,13 +90,14 @@ const showImpulseData = async () => {
           },
         }
       )
-      .then((response) => {
+      .then( async (response) => {
         console.log(response.data);
+        await fetchImpulse();
+
       })
       .catch((error) => {
         console.error(error);
       });
-    await fetchImpulse();
     selectedInterval.value = null;
     selectedPercent.value = null;
     try {

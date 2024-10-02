@@ -1,6 +1,7 @@
 <script setup>
 import ButtonView from "./button.vue";
-import { ref, onMounted } from "vue";
+import ticker from "./ticker.vue";
+import { ref, onMounted, onBeforeMount } from "vue";
 import axios from "axios";
 import { useI18n } from "vue-i18n";
 const { t } = useI18n({ useScope: "global" });
@@ -15,8 +16,8 @@ const tickerName = ref("");
 const changeInterval = ref(null);
 const settingStatus = ref(null);
 const openAddTracker = ref(false);
-const openEditTicker = ref(false);
-const tickerInfo = ref(false);
+const openEditTicker = ref(false)
+const loading = ref(true);
 const tickerData = ref(null);
 const selected_id = ref(null);
 const dataInterval = ref(null);
@@ -35,8 +36,9 @@ const selectActive = (index, active) => {
 };
 const showTrackingTicker = ref(false);
 
-onMounted(async () => {
+onBeforeMount(async () => {
   try {
+    loading.value = true; // Set loading to true when starting data fetch
     const response = await axios.get(
       "https://dsde1736.fornex.org/api/notify/get_ticker_tracking",
       {
@@ -46,34 +48,22 @@ onMounted(async () => {
       }
     );
     tickerData.value = response.data;
+    if (tickerData.value?.conditions?.length > 0) {
+      const firstCondition = tickerData.value.conditions[0];
+      selected_id.value = firstCondition.id;
+      dataInterval.value = firstCondition.time;
+      selectedTicker.value = firstCondition.ticker;
+      showTrackingTicker.value = true;
+    } else {
+      showTrackingTicker.value = false;
+    }
   } catch (error) {
     console.log("Error fetching data: " + error);
-  }
-  if (tickerData.value?.conditions?.length > 0) {
-    try {
-      const response = await axios.get(
-        `https://dsde1736.fornex.org/api/notify/get_ticker_tracking_history?tt_id=${tickerData.value?.conditions[0]?.id}`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
-      tickerHistory.value = response.data;
-      showTrackingTicker.value = true;
-      if (tickerData.value.conditions.length > 0) {
-        const firstCondition = tickerData.value.conditions[0];
-        selected_id.value = firstCondition.id;
-        dataInterval.value = firstCondition.time;
-        selectedTicker.value = firstCondition.ticker;
-      }
-    } catch (error) {
-      console.log("Error fetching data: " + error);
-    }
-  } else {
-    showTrackingTicker.value = false;
+  } finally {
+    loading.value = false;
   }
 });
+
 const toggleTrackingTicker = async () => {
   try {
     const intervalValue =
@@ -386,10 +376,8 @@ const saveChanges = async (id, ticker, time) => {
     </Teleport>
     <Teleport to="body">
       <transition name="modal">
-        <div
-          v-if="openEditTicker"
-          class="modal h-[60vh] rounded-t-3xl bg-black fixed bottom-0 w-full py-5 px-4 overflow-auto border-t border-white"
-        >
+        <div v-if="openEditTicker"
+          class="modal h-[60vh] rounded-t-3xl bg-black fixed bottom-0 w-full py-5 px-4 overflow-auto border-t border-white">
           <div class="flex justify-between mb-3">
             <div class="flex gap-3 items-center">
               <PhList :size="32" />
@@ -442,11 +430,8 @@ const saveChanges = async (id, ticker, time) => {
               </button>
             </div>
           </div>
-          <ButtonView
-            :text="$t('tickerTracking.addTracker')"
-            @click="saveChanges(selected_id, tickerName, changeInterval)"
-            class="my-4"
-          />
+          <ButtonView :text="$t('tickerTracking.addTracker')"
+            @click="saveChanges(selected_id, tickerName, changeInterval)" class="my-4" />
         </div>
       </transition>
     </Teleport>
