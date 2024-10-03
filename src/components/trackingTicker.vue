@@ -216,6 +216,8 @@ const saveChanges = async (id, ticker, time) => {
     console.log("Error fetching data: " + error);
   }
 };
+
+const emit = defineEmits(['close'])
 </script>
 <template>
   <div class="text-xs">
@@ -310,7 +312,7 @@ const saveChanges = async (id, ticker, time) => {
       </div>
     </div>
     <Teleport to="body">
-      <transition name="modal">
+      <!-- <transition name="modal"> -->
         <div
           v-if="openAddTracker"
           class="modal h-[90vh] text-xs rounded-t-3xl bg-black fixed bottom-0 w-full py-5 px-4 overflow-auto border-t border-white"
@@ -322,7 +324,7 @@ const saveChanges = async (id, ticker, time) => {
                 {{ $t("tickerTracking.addTracker") }}
               </p>
             </div>
-            <button @click="openAddTracker = false">
+            <button @click="$emit('close')">
               <PhX :size="21" />
             </button>
           </div>
@@ -373,7 +375,7 @@ const saveChanges = async (id, ticker, time) => {
             class="my-4"
           />
         </div>
-      </transition>
+      <!-- </transition> -->
     </Teleport>
     <Teleport to="body">
       <transition name="modal">
