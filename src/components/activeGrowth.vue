@@ -1,5 +1,6 @@
 <script setup>
 import ButtonView from "./button.vue";
+import timeAndDate from "./UI/timeAndDate.vue";
 import { ref } from "vue";
 import axios from "axios";
 import { useI18n } from "vue-i18n";
@@ -113,10 +114,7 @@ const formattedDate = (date) => {
         <p class="mb-3">{{ $t('fundingPage.searchResult') }}</p>
         <div class="flex justify-between">
           <p class="text-xs">{{ $t('homePage.lastUpdate') }}:</p>
-          <div class="flex text-xs gap-1">
-            <PhClock :size="16" /> 12:03
-            <PhCalendarDots :size="16" /> 9.01.2024
-          </div>
+          <time-and-date />
         </div>
         <div class="bg-[#17181C] p-2 rounded-xl cursor-pointer my-4 flex justify-between items-center active:opacity-80"
           @click="downloadGradationGrowthFile(gradationActiveData?.file_id)">
@@ -132,7 +130,7 @@ const formattedDate = (date) => {
         </div>
         <p class="mb-3 text-sm font-semibold">{{ $t('fundingPage.history') }}</p>
         <div v-if="historyData">
-          <div v-for="(file, index) in historyData.data" key="index">
+          <div v-for="(file, index) in historyData.data" :key="index">
             <div class="flex justify-between">
               <p class="text-[#B8B8B8] text-xs">{{ $t('fundingPage.dateCreated') }}</p>
               <div class="flex gap-1 text-xs items-center">

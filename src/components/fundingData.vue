@@ -1,5 +1,6 @@
 <script setup>
 import ButtonView from "./button.vue";
+import timeAndDate from "./UI/timeAndDate.vue";
 import axios from "axios";
 import { use } from "echarts/core";
 import { CanvasRenderer } from "echarts/renderers";
@@ -247,10 +248,7 @@ const showDate = (timestamp) => {
       <p class="mb-3">{{ $t('fundingPage.searchResult') }}</p>
       <div class="flex justify-between">
         <p class="text-xs">{{ $t('homePage.lastUpdate') }}:</p>
-        <div class="flex text-xs gap-1">
-          <PhClock :size="16" /> 12:03
-          <PhCalendarDots :size="16" /> 9.01.2024
-        </div>
+        <time-and-date />
       </div>
       <div class="flex gap-2 mt-4">
         <button class="bg-[#17181C] p-2 w-full text-xs text-[#B8B8B8] rounded"
