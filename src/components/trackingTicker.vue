@@ -65,6 +65,7 @@ onBeforeMount(async () => {
 });
 
 const toggleTrackingTicker = async () => {
+  if(tickerName.value.trim().length < 1) return
   try {
     const intervalValue =
       changeInterval.value !== null ? Number(changeInterval.value) : 0;
@@ -237,8 +238,8 @@ const saveChanges = async (id, ticker, time) => {
               :key="index"
               :class="{
                 'bg-[#92FBDB] text-black font-semibold':
-                  selectedActive === index,
-                'bg-[#17181C]': selectedActive !== index,
+                  tickerName.trim().toUpperCase() === active,
+                'bg-[#17181C]': tickerName.toUpperCase() !== active,
               }"
               @click="selectActive(index, active)"
               class="w-full py-2 rounded cursor-pointer text-center"
@@ -338,8 +339,8 @@ const saveChanges = async (id, ticker, time) => {
                 :key="index"
                 :class="{
                   'bg-[#92FBDB] text-black font-semibold':
-                    selectedActive === index,
-                  'bg-[#17181C]': selectedActive !== index,
+                    tickerName.trim().toUpperCase() === active,
+                  'bg-[#17181C]': tickerName.toUpperCase() !== active,
                 }"
                 @click="selectActive(index, active)"
                 class="w-full py-2 rounded"
