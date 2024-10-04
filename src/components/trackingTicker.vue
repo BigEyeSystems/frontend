@@ -16,7 +16,7 @@ const tickerName = ref("");
 const changeInterval = ref(null);
 const settingStatus = ref(null);
 const openAddTracker = ref(false);
-const openEditTicker = ref(false)
+const openEditTicker = ref(false);
 const loading = ref(true);
 const tickerData = ref(null);
 const selected_id = ref(null);
@@ -312,72 +312,84 @@ const saveChanges = async (id, ticker, time) => {
       <transition name="modal">
         <div
           v-if="openAddTracker"
-          class="modal h-[90vh] text-xs rounded-t-3xl bg-black fixed bottom-0 w-full py-5 px-4 overflow-auto border-t border-white"
+          class="modal h-[60vh] text-xs rounded-t-3xl bg-black fixed bottom-0 w-full py-5 px-4 overflow-auto border-t border-white"
         >
-          <div class="flex justify-between mb-3">
-            <div class="flex gap-3 items-center">
-              <PhList :size="32" />
-              <p class="text-lg font-bold">
-                {{ $t("tickerTracking.addTracker") }}
-              </p>
+          <form @submit.prevent="toggleTrackingTicker">
+            <div class="flex justify-between mb-3">
+              <div class="flex gap-3 items-center">
+                <PhList :size="32" />
+                <p class="text-lg font-bold">
+                  {{ $t("tickerTracking.addTracker") }}
+                </p>
+              </div>
+              <button type="button" @click="openAddTracker = false">
+                <PhX :size="21" />
+              </button>
             </div>
-            <button @click="openAddTracker = false">
-              <PhX :size="21" />
-            </button>
-          </div>
-          <div class="mb-3">
-            <p>{{ $t("tickerTracking.assetName") }}</p>
-            <input
-              v-model="tickerName"
-              class="w-full my-3 p-3 rounded-lg border-transparent focus:outline-none bg-[#17181C] focus:bg-[#17181C] uppercase"
-              type="text"
+
+            <div class="mb-3">
+              <p>{{ $t("tickerTracking.assetName") }}</p>
+              <input
+                v-model="tickerName"
+                class="w-full my-3 p-3 rounded-lg border-transparent focus:outline-none bg-[#17181C] focus:bg-[#17181C] uppercase"
+                type="text"
+                @keyup.enter="toggleTrackingTicker"
+              />
+
+              <div class="flex gap-2 mt-3">
+                <button
+                  v-for="(active, index) in ['BTC', 'ETH', 'TON', 'SOL']"
+                  :key="index"
+                  :class="{
+                    'bg-[#92FBDB] text-black font-semibold':
+                      selectedActive === index,
+                    'bg-[#17181C]': selectedActive !== index,
+                  }"
+                  @click="selectActive(index, active)"
+                  type="button"
+                  class="w-full py-2 rounded"
+                >
+                  {{ active }}
+                </button>
+              </div>
+            </div>
+
+            <div>
+              <p>{{ $t("tickerTracking.alertsTimer") }}</p>
+              <div class="flex gap-2 my-3">
+                <button
+                  v-for="(interval, index) in [5, 15, 30, 60]"
+                  :key="index"
+                  :class="{
+                    'bg-[#92FBDB] text-black font-semibold':
+                      selectedInterval === index,
+                    'bg-[#17181C]': selectedInterval !== index,
+                  }"
+                  @click="selectInterval(index, interval)"
+                  type="button"
+                  class="w-full py-2 rounded"
+                >
+                  {{ interval }} {{ $t("impulsePrise.min") }}
+                </button>
+              </div>
+            </div>
+
+            <ButtonView
+              :text="$t('tickerTracking.addTracker')"
+              class="my-4"
+              type="submit"
             />
-            <div class="flex gap-2 mt-3">
-              <button
-                v-for="(active, index) in ['BTC', 'ETH', 'TON', 'SOL']"
-                :key="index"
-                :class="{
-                  'bg-[#92FBDB] text-black font-semibold':
-                    selectedActive === index,
-                  'bg-[#17181C]': selectedActive !== index,
-                }"
-                @click="selectActive(index, active)"
-                class="w-full py-2 rounded"
-              >
-                {{ active }}
-              </button>
-            </div>
-          </div>
-          <div>
-            <p>{{ $t("tickerTracking.alertsTimer") }}</p>
-            <div class="flex gap-2 my-3">
-              <button
-                v-for="(interval, index) in [5, 15, 30, 60]"
-                :key="index"
-                :class="{
-                  'bg-[#92FBDB] text-black font-semibold':
-                    selectedInterval === index,
-                  'bg-[#17181C]': selectedInterval !== index,
-                }"
-                @click="selectInterval(index, interval)"
-                class="w-full py-2 rounded"
-              >
-                {{ interval }} {{ $t("impulsePrise.min") }}
-              </button>
-            </div>
-          </div>
-          <ButtonView
-            :text="$t('tickerTracking.addTracker')"
-            :on-click="toggleTrackingTicker"
-            class="my-4"
-          />
+          </form>
         </div>
       </transition>
     </Teleport>
+
     <Teleport to="body">
       <transition name="modal">
-        <div v-if="openEditTicker"
-          class="modal h-[60vh] rounded-t-3xl bg-black fixed bottom-0 w-full py-5 px-4 overflow-auto border-t border-white">
+        <div
+          v-if="openEditTicker"
+          class="modal h-[60vh] rounded-t-3xl bg-black fixed bottom-0 w-full py-5 px-4 overflow-auto border-t border-white"
+        >
           <div class="flex justify-between mb-3">
             <div class="flex gap-3 items-center">
               <PhList :size="32" />
@@ -430,8 +442,11 @@ const saveChanges = async (id, ticker, time) => {
               </button>
             </div>
           </div>
-          <ButtonView :text="$t('tickerTracking.addTracker')"
-            @click="saveChanges(selected_id, tickerName, changeInterval)" class="my-4" />
+          <ButtonView
+            :text="$t('tickerTracking.addTracker')"
+            @click="saveChanges(selected_id, tickerName, changeInterval)"
+            class="my-4"
+          />
         </div>
       </transition>
     </Teleport>
