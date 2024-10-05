@@ -16,7 +16,7 @@ const tickerName = ref("");
 const changeInterval = ref(null);
 const settingStatus = ref(null);
 const openAddTracker = ref(false);
-const openEditTicker = ref(false)
+const openEditTicker = ref(false);
 const loading = ref(true);
 const tickerData = ref(null);
 const selected_id = ref(null);
@@ -54,6 +54,10 @@ onBeforeMount(async () => {
       dataInterval.value = firstCondition.time;
       selectedTicker.value = firstCondition.ticker;
       showTrackingTicker.value = true;
+      openAddTracker.value = false;
+      tickerName.value = "";
+      changeInterval.value = null
+      selectedInterval.value = null
     } else {
       showTrackingTicker.value = false;
     }
@@ -65,7 +69,7 @@ onBeforeMount(async () => {
 });
 
 const toggleTrackingTicker = async () => {
-  if(tickerName.value.trim().length < 1) return
+  if (tickerName.value.trim().length < 1) return;
   try {
     const intervalValue =
       changeInterval.value !== null ? Number(changeInterval.value) : 0;
@@ -82,7 +86,7 @@ const toggleTrackingTicker = async () => {
     const setTickerResponse = await axios.post(
       "https://dsde1736.fornex.org/api/notify/set_ticker_tracking",
       {
-        ticker_name: tickerName.value,
+        ticker_name: tickerName.value.toUpperCase(),
         time_period: intervalValue,
       },
       {
@@ -217,10 +221,62 @@ const saveChanges = async (id, ticker, time) => {
   }
 };
 
-const emit = defineEmits(['close'])
+const emit = defineEmits(["close"]);
 </script>
 <template>
   <div class="text-xs">
+    <div v-if="openAddTracker">
+      <div class="mb-3">
+        <p>{{ $t("tickerTracking.assetName") }}</p>
+        <input
+          v-model="tickerName"
+          class="w-full my-3 p-3 rounded-lg border-transparent focus:outline-none bg-[#17181C] focus:bg-[#17181C] uppercase"
+          type="text"
+        />
+        <div class="flex gap-2 mt-3">
+          <button
+            v-for="(active, index) in ['BTC', 'ETH', 'TON', 'SOL']"
+            :key="index"
+            :class="{
+              'bg-[#92FBDB] text-black font-semibold':
+                tickerName.trim().toUpperCase() === active,
+              'bg-[#17181C]': tickerName.toUpperCase() !== active,
+            }"
+            @click="selectActive(index, active)"
+            class="w-full py-2 rounded"
+          >
+            {{ active }}
+          </button>
+        </div>
+      </div>
+      <div>
+        <p>{{ $t("tickerTracking.alertsTimer") }}</p>
+        <div class="flex gap-2 my-3">
+          <button
+            v-for="(interval, index) in [5, 15, 30, 60]"
+            :key="index"
+            :class="{
+              'bg-[#92FBDB] text-black font-semibold':
+                selectedInterval === index,
+              'bg-[#17181C]': selectedInterval !== index,
+            }"
+            @click="selectInterval(index, interval)"
+            class="w-full py-2 rounded"
+          >
+            {{ interval }} {{ $t("impulsePrise.min") }}
+          </button>
+        </div>
+      </div>
+      <div class="my-4">
+        <ButtonView
+          @click="toggleTrackingTicker"
+          :text="$t('tickerTracking.addTracker')"
+          type="submit"
+          class="p-4"
+        />
+      </div>
+    </div>
+
     <div v-if="!showTrackingTicker">
       <form @submit.prevent="toggleTrackingTicker">
         <div class="mb-3">
@@ -271,16 +327,31 @@ const emit = defineEmits(['close'])
         </div>
 
         <div class="my-4">
-          <ButtonView :text="$t('tickerTracking.addTracker')" type="submit" />
+          <ButtonView
+            :text="
+              openAddTracker
+                ? $t('tickerTracking.addTracker')
+                : $t('tickerTracking.closeModalTracker')
+            "
+            type="submit"
+          />
         </div>
       </form>
     </div>
 
     <div v-if="showTrackingTicker">
       <ButtonView
-        :text="$t('tickerTracking.addTracker')"
-        :on-click="showAddTracker"
+        @click="openAddTracker = !openAddTracker"
+        :text="
+          openAddTracker
+            ? $t('tickerTracking.closeModalTracker')
+            : $t('tickerTracking.addTracker')
+        "
         class="my-4"
+        :class="
+          openAddTracker ? 'bg-black text-white border border-[#92FBDB]' : ''
+        "
+        type="submit"
       />
       <div class="flex text-xs border rounded border-[#2F2F2F99] mb-2">
         <button
@@ -311,8 +382,8 @@ const emit = defineEmits(['close'])
         </div>
       </div>
     </div>
-    <Teleport to="body">
-      <!-- <transition name="modal"> -->
+    <!-- <Teleport to="body">
+      <transition name="modal">
         <div
           v-if="openAddTracker"
           class="modal h-[90vh] text-xs rounded-t-3xl bg-black fixed bottom-0 w-full py-5 px-4 overflow-auto border-t border-white"
@@ -375,12 +446,14 @@ const emit = defineEmits(['close'])
             class="my-4"
           />
         </div>
-      <!-- </transition> -->
-    </Teleport>
+      </transition>
+    </Teleport> -->
     <Teleport to="body">
       <transition name="modal">
-        <div v-if="openEditTicker"
-          class="modal h-[60vh] rounded-t-3xl bg-black fixed bottom-0 w-full py-5 px-4 overflow-auto border-t border-white">
+        <div
+          v-if="openEditTicker"
+          class="modal h-[90vh] text-xs rounded-t-3xl bg-black fixed bottom-0 w-full py-5 px-4 overflow-auto border-t border-white"
+        >
           <div class="flex justify-between mb-3">
             <div class="flex gap-3 items-center">
               <PhList :size="32" />
@@ -433,8 +506,11 @@ const emit = defineEmits(['close'])
               </button>
             </div>
           </div>
-          <ButtonView :text="$t('tickerTracking.addTracker')"
-            @click="saveChanges(selected_id, tickerName, changeInterval)" class="my-4" />
+          <ButtonView
+            :text="$t('tickerTracking.addTracker')"
+            @click="saveChanges(selected_id, tickerName, changeInterval)"
+            class="my-4"
+          />
         </div>
       </transition>
     </Teleport>

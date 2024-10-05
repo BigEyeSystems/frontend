@@ -136,7 +136,8 @@
         "title":"Asset tracking",
         "assetName":"Enter Asset Name:",
         "alertsTimer": "How often do you want alerts?",
-        "addTracker": "Add tracker"
+        "addTracker": "Add tracker",
+        "closeModalTracker": "Close"
     },
     "tickerTable": {
         "name": "Name",
