@@ -245,14 +245,14 @@ const editImpulse = async (id, interval, percent) => {
               {{ interval }} {{ $t("impulsePrise.min") }}
             </button>
           </div>
-          <p v-if="showError">Fill all fields</p>
+          <p v-if="showError">{{ $t("impulsePrise.fillAllFields") }}</p>
         </div>
         <div>
           <p>{{ $t("impulsePrise.enterPrice") }}</p>
           <input v-model="changePercent"
             class="w-full my-3 p-3 rounded-lg border-transparent focus:outline-none bg-[#17181C] focus:bg-[#17181C]"
             type="number" min="5" placeholder="Search Here" />
-          <p v-if="changePercent && changePercent < 5" class="text-sm">Percent must be bigger than 5</p>
+          <p v-if="changePercent && changePercent < 5" class="text-sm">{{ $t("impulsePrise.minimalPercent") }}</p>
           <div class="flex gap-2 my-3">
             <button v-for="(percent, index) in [5, 10, 15, 20]" :key="index" :class="{
               'bg-[#92FBDB] text-black font-semibold':
@@ -338,14 +338,14 @@ const editImpulse = async (id, interval, percent) => {
                   {{ interval }} {{ $t("impulsePrise.min") }}
                 </button>
               </div>
-              <p v-if="showError">Fill all fields</p>
+              <p v-if="showError">{{ $t("impulsePrise.fillAllFields") }}</p>
             </div>
             <div>
               <p>{{ $t("impulsePrise.enterPrice") }}</p>
               <input v-model="changePercent"
                 class="w-full my-3 p-3 rounded-lg border-transparent focus:outline-none bg-[#17181C] focus:bg-[#17181C]"
                 type="number" min="5" placeholder="Search Here" />
-              <p v-if="changePercent && changePercent < 5" class="text-sm">Percent must be bigger than 5</p>
+              <p v-if="changePercent && changePercent < 5" class="text-sm">{{ $t("impulsePrise.minimalPercent") }}</p>
               <div class="flex gap-2 my-3">
                 <button v-for="(percent, index) in [5, 10, 15, 20]" :key="index" :class="{
                   'bg-[#92FBDB] text-black font-semibold':
@@ -386,14 +386,14 @@ const editImpulse = async (id, interval, percent) => {
                   {{ interval }} {{ $t("impulsePrise.min") }}
                 </button>
               </div>
-              <p v-if="showError">Fill all fields</p>
+              <p v-if="showError">{{ $t("impulsePrise.fillAllFields") }}</p>
             </div>
             <div>
               <p>{{ $t("impulsePrise.enterPrice") }}</p>
               <input v-model="changePercent"
                 class="w-full my-3 p-3 rounded-lg border-transparent focus:outline-none bg-[#17181C] focus:bg-[#17181C]"
                 type="number" min="5" placeholder="Search Here" />
-              <p v-if="changePercent && changePercent < 5" class="text-sm">Percent must be bigger than 5</p>
+              <p v-if="changePercent && changePercent < 5" class="text-sm">{{ $t("impulsePrise.minimalPercent") }}</p>
               <div class="flex gap-2 my-3">
                 <button v-for="(percent, index) in [5, 10, 15, 20]" :key="index" :class="{
                   'bg-[#92FBDB] text-black font-semibold':

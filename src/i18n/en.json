@@ -26,7 +26,9 @@
         "min": "min",
         "addTracking": "Add Tracking(max. 3)",
         "addInfo":"Add Info",
-        "editInfo": "Edit Info"
+        "editInfo": "Edit Info",
+        "minimalPercent": "Percent must be bigger than 5",
+        "fillAllFields": "Fill all fields"
     },
     "lang": "EN",
     "gradationGrowth": {
