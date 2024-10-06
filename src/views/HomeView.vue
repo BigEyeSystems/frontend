@@ -269,15 +269,18 @@ onBeforeUnmount(() => {
           <div v-if="openNotification"
             class="modal h-[90vh] rounded-t-3xl bg-black fixed bottom-0 w-full py-5 px-4 overflow-auto border-t border-white">
             <div class="flex justify-between mb-3">
-              <div class="flex gap-3 items-center">
+
+              <!-- Открытие компонента перенесёно в header на колокольчик -->
+
+              <!-- <div class="flex gap-3 items-center">
                 <PhBell :size="32" />
                 <p class="font-bold text-sm">{{ $t('notifications')}}</p>
-              </div>
+              </div> -->
               <button @click="toggleNotification">
                 <PhX :size="21" />
               </button>
             </div>
-            <NotificationView />
+            <!-- <NotificationView /> -->
           </div>
         </transition>
       </Teleport>
