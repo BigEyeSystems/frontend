@@ -156,5 +156,11 @@
     "correlation": "Assets correlator",
     "dailyVolume": "Daily asset volume",
     "searchHere": "Search here"
+  },
+  "footer": {
+    "home": "Home",
+    "analytics": "Analytics",
+    "referrals": "Referrals",
+    "profile": "Profile"
   }
 }
