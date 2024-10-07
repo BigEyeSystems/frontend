@@ -54,12 +54,15 @@ const selectActive = (index, active) => {
   tickerName.value = active;
 };
 const toggleDailyAssetVolume = async () => {
+  if (!tickerName.value.includes("USDT")) {
+    tickerName.value += "USDT";
+  }
   try {
-    const response = await axios.post(
-      "https://dsde1736.fornex.org/api/user/add_ticker",
+    const response = await axios.get(
+      "https://dsde1736.fornex.org/api/data/analytics/volume_24hr?action=generate",
       {
-        active_name: tickerName,
-        time_value: selectedInterval,
+        active_name: tickerName.value,
+        time_value: changeInterval.value,
       },
       {
         headers: {
@@ -69,7 +72,7 @@ const toggleDailyAssetVolume = async () => {
     );
     console.log(response);
   } catch (error) {
-    console.log("Error fetching data: " + error);
+    console.log("Error fetching data: ", error.response ? error.response.data : error.message);
   }
 };
 </script>

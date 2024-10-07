@@ -140,7 +140,7 @@ onBeforeUnmount(() => {
         </menuItem>
         <menuItem :title="$t('homePage.notificationSettings')" @click="toggleNotification">
           <template #icon>
-            <notification />
+            <PhChartBarHorizontal :size="24" />
           </template>
         </menuItem>
         <menuItem :title="$t('homePage.fundingRate')" @click="toggleFundingData">
