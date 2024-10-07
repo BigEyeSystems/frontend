@@ -157,5 +157,11 @@
     "correlation": "Коррелятор активов",
     "dailyVolume": "Суточный объём актива",
     "searchHere": "Search here"
+  },
+  "footer": {
+    "home": "Главная",
+    "analytics": "Аналитика",
+    "referrals": "Рефералы",
+    "profile": "Профиль"
   }
 }

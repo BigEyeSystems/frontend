@@ -54,14 +54,14 @@ const sortByFundingDesc = () => {
 
 <template>
   <div class="rounded-[calc(1.5rem-10px)] p-1 bg-[#17181C] p-3">
-    <div class="flex text-xs justify-between border rounded border-[#2F2F2F99] mb-2" style="padding: 1px;">
-      <button @click="sortByFundingAsc" class="focus:font-semibold focus:bg-gradient-to-r focus:from-[#ffffff1f] focus:to-[#ffffff12] py-1 px-2 focus:rounded" :class="[ showFundingFirstFive ? 'font-semibold bg-gradient-to-r from-[#ffffff1f] to-[#ffffff12] rounded' : '']">
+    <div class="flex text-[10px] justify-between border rounded border-[#2F2F2F99] mb-2" style="padding: 1px;">
+      <button @click="sortByFundingAsc" class="w-1/3 focus:font-semibold focus:bg-gradient-to-r focus:from-[#ffffff1f] focus:to-[#ffffff12] py-1 px-2 focus:rounded" :class="[ showFundingFirstFive ? 'font-semibold bg-gradient-to-r from-[#ffffff1f] to-[#ffffff12] rounded' : '']">
         {{ $t('top24.byFunding')}} (+)
       </button>
-      <button @click="sortByVolume" class="focus:font-semibold focus:bg-gradient-to-r focus:from-[#ffffff1f] focus:to-[#ffffff12] py-1 px-2 focus:rounded" :class="[ showFundingByVolume ? 'font-semibold bg-gradient-to-r from-[#ffffff1f] to-[#ffffff12] rounded' : '']">
+      <button @click="sortByVolume" class="w-1/3 focus:font-semibold focus:bg-gradient-to-r focus:from-[#ffffff1f] focus:to-[#ffffff12] py-1 px-2 focus:rounded" :class="[ showFundingByVolume ? 'font-semibold bg-gradient-to-r from-[#ffffff1f] to-[#ffffff12] rounded' : '']">
         {{ $t('top24.byVolume')}}
       </button>
-      <button @click="sortByFundingDesc" class="focus:font-semibold focus:bg-gradient-to-r focus:from-[#ffffff1f] focus:to-[#ffffff12] py-1 px-2 focus:rounded" :class="[ showFundingLastFive ? 'font-semibold bg-gradient-to-r from-[#ffffff1f] to-[#ffffff12] rounded' : '']">
+      <button @click="sortByFundingDesc" class="w-1/3 focus:font-semibold focus:bg-gradient-to-r focus:from-[#ffffff1f] focus:to-[#ffffff12] py-1 px-2 focus:rounded" :class="[ showFundingLastFive ? 'font-semibold bg-gradient-to-r from-[#ffffff1f] to-[#ffffff12] rounded' : '']">
         {{ $t('top24.byFunding')}} (-)
       </button>
     </div>
