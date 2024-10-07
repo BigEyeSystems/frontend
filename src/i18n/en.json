@@ -1,157 +1,160 @@
 {
-    "homePage":{
-        "impulsePrise": "Price impulses",
-        "notificationSettings": "Notification settings",
-        "fundingRate": "Funding rate",
-        "volumeGradation": "Volume gradation",
-        "growthGradation": "Gradation of price growth",
-        "tickerTracking": "Ticker tracking",
-        "top24": "TOP for 24 hours",
-        "lastUpdate": "Last update"
-    },
-    "addPremium": {
-        "title": "Even more advantages with Premium",
-        "text": "Analytics and additional functions"
-    },
-    "top24": {
-        "byVolume": "By volume",
-        "byFunding": "By Funding",
-        "5min": "1 hour ago: "
-    },
-    "impulsePrise": {
-        "title": "Tracking price impulses",
-        "timeIntervalSelect": "Select Time Interval for Info:",
-        "enterPrice": "Enter price change percentage:",
-        "getInfo": "Get Info",
-        "min": "min",
-        "addTracking": "Add Tracking(max. 3)",
-        "addInfo":"Add Info",
-        "editInfo": "Edit Info",
-        "minimalPercent": "Percent must be bigger than 5",
-        "fillAllFields": "Fill all fields"
-    },
-    "lang": "EN",
-    "gradationGrowth": {
-        "title": "Gradation of tickers by volume growth",
-        "timeIntervalSelect": "Select Time Interval for Info:",
-        "getInfo": "Get Info",
-        "hour" : "h"
-    },
-    "profile": {
-        "wallet": "Wallet",
-        "settings": "Settings",
-        "support": "Support",
-        "faq": "FAQ"
-    },
-    "premiumPage": {
-        "month": "month",
-        "months": "months",
-        "perMonth": "per month",
-        "for": "for",
-        "connect": "Connect",
-        "name": "Name",
-        "impulses": "Impulses",
-        "assetTracking": "Asset tracking",
-        "fundingRate": "Funding rate",
-        "informationTicker": "Information about the ticker",
-        "correlation": "Correlation of two assets",
-        "tradingHistory": "History of trading volumes",
-        "accessNewFeatures": "Access to new features",
-        "imbalance": "Imbalance",
-        "liqudities": "Sweep of key Liqudities",
-        "gradationVolume": "Gradation of volume growth",
-        "topTickers": "Top tickers",
-        "fibonacci": "Notification by Fibonacci",
-        "tradingRecommendations": "Trading recommendations",
-        "RSI": "RSI (Divergences convergences)",
-        "touchingTrend": "Touching trend lines",
-        "asset": "asset",
-        "assets": "assets",
-        "requests": "requests",
-        "days": "days",
-        "view": "view",
-        "views": "views",
-        "timeFrame": "Time Frame",
-        "monthPer": "Per month"
-    },
-    "back": "Back",
-    "walletPage": {
-        "title": "Wallet",
-        "tonWallet": "TON Wallet",
-        "link": "Linked",
-        "notLinked": "Not linked",
-        "connectWallet": "Connect a wallet",
-        "untieWallet": "Untie the wallet"
-    },
-    "settingsPage": {
-        "title": "Settings",
-        "notificationsSmartAnalytics": "Notifications from Smart Analytics",
-        "alerts": "Alerts",
-        "lang": "Language"
-    },
-    "referralsPage": {
-        "title": "Referrals",
-        "inviteFriends": "Invite your friends!",
-        "receiveBonus": "You will receive a bonus that you",
-        "withdrawWallet":"can withdraw to your TON wallet",
-        "copyLink": "Copy the link",
-        "withdraw": "Withdraw",
-        "yourBalance": "Your balance:",
-        "transactions": "Transactions",
-        "howItWork": "How does it work?",
-        "haveNotInvitedFriends": "You haven't invited your friends yet",
-        "linkCopy": "Link copied",
-        "clickButton": "Click the button in the banner",
-        "shareLink": "Share a link",
-        "sendLink" : "Send the link in a convenient messenger",
-        "purchaseSubscription": "Purchase a subscription",
-        "inviteesubscription": "The invitee must purchase a subscription",
-        "referralSystem": "Referral system",
-        "connectTONWallet": "Connect the TON wallet, and withdraw money"
-    },
-    "localeModal": {
-        "title": "Change language",
-        "save": "Save"
-    },
-    "notifications":"Notifications",
-    "fundingPage": {
-        "title":"Funding rate",
-        "searchResult": "Search result",
-        "day": "Day",
-        "week": "Week", 
-        "month": "Month",
-        "history": "History",
-        "dateCreated": "Date created",
-        "positiveAmount": "Amount of positive fundings:",
-        "negativeAmount": "Amount of negative funding:",
-        "neutralAmount": "Amount of neutral funding:",
-        "updateInfo": "Update Info"
-    },
-    "gradationPage":{
-        "fileSend": "File successfully sent"
-    },
-    "gradationActiveGrowth": {
-        "title": "Asset gradation by price increase",
-        "selectInterval": "Select Time Interval for Info:"
-    },
-    "tickerTracking": {
-        "title":"Asset tracking",
-        "assetName":"Enter Asset Name:",
-        "alertsTimer": "How often do you want alerts?",
-        "addTracker": "Add tracker"
-    },
-    "tickerTable": {
-        "name": "Name",
-        "daily": "Impulse Percent",
-        "date": "Date",
-        "today": "Today",
-        "yesterday": "Yesterday"
-    },
-    "analytics":{
-        "title": "Analytics",
-        "assetInfo": "Asset Info",
-        "correlation": "Assets correlator",
-        "dailyVolume": "Daily asset volume",
-        "searchHere": "Search here"
-    }
+  "homePage": {
+    "impulsePrise": "Price impulses",
+    "notificationSettings": "Notification settings",
+    "fundingRate": "Funding rate",
+    "volumeGradation": "Volume gradation",
+    "growthGradation": "Gradation of price growth",
+    "tickerTracking": "Ticker tracking",
+    "top24": "TOP for 24 hours",
+    "lastUpdate": "Last update"
+  },
+  "addPremium": {
+    "title": "Even more advantages with Premium",
+    "text": "Analytics and additional functions"
+  },
+  "top24": {
+    "byVolume": "By volume",
+    "byFunding": "By Funding",
+    "5min": "1 hour ago: "
+  },
+  "impulsePrise": {
+    "title": "Tracking price impulses",
+    "timeIntervalSelect": "Select Time Interval for Info:",
+    "enterPrice": "Enter price change percentage:",
+    "getInfo": "Get Info",
+    "min": "min",
+    "addTracking": "Add Tracking(max. 3)",
+    "addInfo": "Add Info",
+    "editInfo": "Edit Info",
+    "minimalPercent": "Percent must be bigger than 5",
+    "fillAllFields": "Fill all fields"
+  },
+  "lang": "EN",
+  "gradationGrowth": {
+    "title": "Gradation of tickers by volume growth",
+    "timeIntervalSelect": "Select Time Interval for Info:",
+    "getInfo": "Get Info",
+    "hour": "h"
+  },
+  "profile": {
+    "wallet": "Wallet",
+    "settings": "Settings",
+    "support": "Support",
+    "faq": "FAQ"
+  },
+  "premiumPage": {
+    "month": "month",
+    "months": "months",
+    "perMonth": "per month",
+    "for": "for",
+    "connect": "Connect",
+    "name": "Name",
+    "impulses": "Impulses",
+    "assetTracking": "Asset tracking",
+    "fundingRate": "Funding rate",
+    "informationTicker": "Information about the ticker",
+    "correlation": "Correlation of two assets",
+    "tradingHistory": "History of trading volumes",
+    "accessNewFeatures": "Access to new features",
+    "imbalance": "Imbalance",
+    "liqudities": "Sweep of key Liqudities",
+    "gradationVolume": "Gradation of volume growth",
+    "topTickers": "Top tickers",
+    "fibonacci": "Notification by Fibonacci",
+    "tradingRecommendations": "Trading recommendations",
+    "RSI": "RSI (Divergences convergences)",
+    "touchingTrend": "Touching trend lines",
+    "asset": "asset",
+    "assets": "assets",
+    "requests": "requests",
+    "days": "days",
+    "view": "view",
+    "views": "views",
+    "timeFrame": "Time Frame",
+    "monthPer": "Per month"
+  },
+  "back": "Back",
+  "walletPage": {
+    "title": "Wallet",
+    "tonWallet": "TON Wallet",
+    "link": "Linked",
+    "notLinked": "Not linked",
+    "connectWallet": "Connect a wallet",
+    "untieWallet": "Untie the wallet"
+  },
+  "settingsPage": {
+    "title": "Settings",
+    "notificationsSmartAnalytics": "Notifications from Smart Analytics",
+    "alerts": "Alerts",
+    "lang": "Language"
+  },
+  "referralsPage": {
+    "title": "Referrals",
+    "inviteFriends": "Invite your friends!",
+    "receiveBonus": "You will receive a bonus that you",
+    "withdrawWallet": "can withdraw to your TON wallet",
+    "copyLink": "Copy the link",
+    "withdraw": "Withdraw",
+    "yourBalance": "Your balance:",
+    "transactions": "Transactions",
+    "howItWork": "How does it work?",
+    "haveNotInvitedFriends": "You haven't invited your friends yet",
+    "linkCopy": "Link copied",
+    "clickButton": "Click the button in the banner",
+    "shareLink": "Share a link",
+    "sendLink": "Send the link in a convenient messenger",
+    "purchaseSubscription": "Purchase a subscription",
+    "inviteesubscription": "The invitee must purchase a subscription",
+    "referralSystem": "Referral system",
+    "connectTONWallet": "Connect the TON wallet, and withdraw money"
+  },
+  "localeModal": {
+    "title": "Change language",
+    "save": "Save"
+  },
+  "dailyVolume": {
+    "dailyAssetVolume": "Daily asset volume",
+    "forEntireTimeVolumeChanged":"Over the entire time, the volume has changed to"
+  },
+  "fundingPage": {
+    "title": "Funding rate",
+    "searchResult": "Search result",
+    "day": "Day",
+    "week": "Week",
+    "month": "Month",
+    "history": "History",
+    "dateCreated": "Date created",
+    "positiveAmount": "Amount of positive fundings:",
+    "negativeAmount": "Amount of negative funding:",
+    "neutralAmount": "Amount of neutral funding:",
+    "updateInfo": "Update Info"
+  },
+  "gradationPage": {
+    "fileSend": "File successfully sent"
+  },
+  "gradationActiveGrowth": {
+    "title": "Asset gradation by price increase",
+    "selectInterval": "Select Time Interval for Info:"
+  },
+  "tickerTracking": {
+    "title": "Asset tracking",
+    "assetName": "Enter Asset Name:",
+    "alertsTimer": "How often do you want alerts?",
+    "addTracker": "Add tracker"
+  },
+  "tickerTable": {
+    "name": "Name",
+    "daily": "Impulse Percent",
+    "date": "Date",
+    "today": "Today",
+    "yesterday": "Yesterday"
+  },
+  "analytics": {
+    "title": "Analytics",
+    "assetInfo": "Asset Info",
+    "correlation": "Assets correlator",
+    "dailyVolume": "Daily asset volume",
+    "searchHere": "Search here"
+  }
 }

@@ -1,6 +1,5 @@
 <script setup>
 import ButtonView from "./button.vue";
-import ticker from "./ticker.vue";
 import { ref, onMounted, onBeforeMount } from "vue";
 import axios from "axios";
 import { useI18n } from "vue-i18n";

@@ -1,157 +1,161 @@
 {
-    "homePage":{
-        "impulsePrise": "Импульсы цены",
-        "notificationSettings": "Настройка уведомлений",
-        "fundingRate": "Ставки фин- ансирования",
-        "volumeGradation": "Градация  объёмов",
-        "growthGradation": "Градация роста цен",
-        "tickerTracking": "Отслеживание актива",
-        "top24": "TOП за 24 часа",
-        "lastUpdate": "Последнее обновление"
-    },
-    "addPremium": {
-        "title": "Еще больше плюсов с Premium",
-        "text": "Аналитика и дополнительные фунции"
-    },
-    "top24": {
-        "byVolume": "По объему",
-        "byFunding": "По фандингу",
-        "5min": "1 час назад: "
-    },
-    "impulsePrise": {
-        "title": "Отслеживание импульсов цены",
-        "timeIntervalSelect": "Выберите временной интервал:",
-        "enterPrice": "Введите процент изменения цены:",
-        "getInfo": "Получить информацию",
-        "min": "мин",
-        "addTracking": "Добавить отслеживание (макс. 3)",
-        "addInfo":"Добавить информацию",
-        "editInfo": "Редактировать информацию",
-        "minimalPercent": "Процент должен быть больше 5",
-        "fillAllFields": "Заполните все поля"
-    },
-    "lang": "RU",
-    "gradationGrowth": {
-        "title": "Градация активов по росту объема",
-        "timeIntervalSelect": "Выберите временной интервал:",
-        "getInfo": "Получить информацию",
-        "hour" : "часа"
-    },
-    "profile": {
-        "wallet": "Кошелек",
-        "settings": "Настройки",
-        "support": "Cлужба поддержки",
-        "faq": "Самые задаваемы вопросы"
-    },
-    "premiumPage": {
-        "month": "месяц",
-        "months": "месяца",
-        "perMonth": "в месяц",
-        "for": "за",
-        "connect": "Подключить",
-        "name": "Название",
-        "impulses": "Импульсы",
-        "assetTracking": "Отслеживание актива",
-        "fundingRate": "Ставки финансирования",
-        "informationTicker": "Информация о тикере",
-        "correlation": "Корреляция двух активов",
-        "tradingHistory": "История торговых объемов",
-        "accessNewFeatures": "Доступ к новым функциям",
-        "imbalance": "Имбалансы (FVG)",
-        "liqudities": "Снятие ключевых ликвидностей ",
-        "gradationVolume": "Градация роста объемов",
-        "topTickers": "ТОП тикеры",
-        "fibonacci": "Уведомления по Фибоначчи ",
-        "tradingRecommendations": "Торговые рекомендации",
-        "RSI": "RSI (Дивергенции конвергенции)",
-        "touchingTrend": "Касание трендовых" ,
-        "asset": "актив",
-        "assets": "активa",
-        "requests": "запросов",
-        "days": "дней",
-        "view": "вид",
-        "views": "вида",
-        "timeFrame": "таймфрейма",
-        "monthPer": "в месяц"
-    },
-    "back": "Назад",
-    "walletPage": {
-        "title": "Кошелек",
-        "tonWallet": "Кошелек TON",
-        "link": "Привязан",
-        "notLinked": "Не привязан",
-        "connectWallet": "Подключить кошелек",
-        "untieWallet": "Untie the wallet"
-    },
-    "settingsPage": {
-        "title": "Настройки",
-        "notificationsSmartAnalytics": "Уведомления от Smart Analytics",
-        "alerts": "Уведомления",
-        "lang": "Язык"
-    },
-    "referralsPage": {
-        "title": "Рефералы",
-        "inviteFriends": "Пригласите друзей!",
-        "receiveBonus": "Вы получите бонус который",
-        "withdrawWallet":"сможете вывести в TON кошелек",
-        "copyLink": "Скопировать ссылку",
-        "withdraw": "Вывести",
-        "yourBalance": "Ваш баланс:",
-        "transactions": "Транзакции",
-        "howItWork": "Как это работает?",
-        "haveNotInvitedFriends": "Вы еще не пригласили друзей",
-        "linkCopy":"Ссылка скопирована",
-        "clickButton": "Нажмите кнопку в баннере",
-        "shareLink": "Поделиться ссылкой",
-        "sendLink" : "Отправьте ссылку в удобном мессенджере",
-        "purchaseSubscription": "Покупка подписки",
-        "inviteesubscription": "Приглашенный должен приобрести подписку",
-        "referralSystem": "Реферальная система",
-        "connectTONWallet": "Подключите кошелек тон, и выведите деньги"
-    },
-    "localeModal": {
-        "title": "Смена языка",
-        "save": "Сохранить"
-    },
-    "notifications":"Уведомления",
-    "fundingPage": {
-        "title":"Ставки финансирования",
-        "searchResult": "Результат запроса",
-        "day": "За день",
-        "week": "За неделю", 
-        "month": "За месяц",
-        "history": "История",
-        "dateCreated": "Дата создания",
-        "positiveAmount": "Кол-во положительных фандингов:",
-        "negativeAmount": "Кол-во отрицательных фандингов:",
-        "neutralAmount": "Кол-во нейтральных фандингов:",
-        "updateInfo": "Обновить информацию"
-    },
-    "gradationPage":{
-        "fileSend": "Файл успешно отправлен"
-    },
-    "gradationActiveGrowth": {
-        "title": "Градация активов по росту цены",
-        "selectInterval": "Выберите временной интервал для получения информации:"
-    },
-    "tickerTracking": {
-        "title": "Отслеживание актива",
-        "assetName":"Введите название актива (тикер):",
-        "alertsTimer": "Как часто вы хотите получать уведомления?",
-        "addTracker": "Добавить трекер"
-    },
-    "tickerTable": {
-        "name": "Название",
-        "daily": "Процент Импульса",
-        "date": "Дата",
-        "today": "Сегодня",
-        "yesterday": "Вчера"
-    },
-    "analytics":{
-        "title": "Аналитика",
-        "assetInfo": "Информация о тикере",
-        "correlation": "Коррелятор активов",
-        "dailyVolume": "Суточный объём актива",
-        "searchHere": "Search here"
-    }
+  "homePage": {
+    "impulsePrise": "Импульсы цены",
+    "notificationSettings": "Настройка уведомлений",
+    "fundingRate": "Ставки фин- ансирования",
+    "volumeGradation": "Градация  объёмов",
+    "growthGradation": "Градация роста цен",
+    "tickerTracking": "Отслеживание актива",
+    "top24": "TOП за 24 часа",
+    "lastUpdate": "Последнее обновление"
+  },
+  "addPremium": {
+    "title": "Еще больше плюсов с Premium",
+    "text": "Аналитика и дополнительные фунции"
+  },
+  "top24": {
+    "byVolume": "По объему",
+    "byFunding": "По фандингу",
+    "5min": "1 час назад: "
+  },
+  "impulsePrise": {
+    "title": "Отслеживание импульсов цены",
+    "timeIntervalSelect": "Выберите временной интервал:",
+    "enterPrice": "Введите процент изменения цены:",
+    "getInfo": "Получить информацию",
+    "min": "мин",
+    "addTracking": "Добавить отслеживание (макс. 3)",
+    "addInfo": "Добавить информацию",
+    "editInfo": "Редактировать информацию",
+    "minimalPercent": "Процент должен быть больше 5",
+    "fillAllFields": "Заполните все поля"
+  },
+  "lang": "RU",
+  "gradationGrowth": {
+    "title": "Градация активов по росту объема",
+    "timeIntervalSelect": "Выберите временной интервал:",
+    "getInfo": "Получить информацию",
+    "hour": "часа"
+  },
+  "profile": {
+    "wallet": "Кошелек",
+    "settings": "Настройки",
+    "support": "Cлужба поддержки",
+    "faq": "Самые задаваемы вопросы"
+  },
+  "premiumPage": {
+    "month": "месяц",
+    "months": "месяца",
+    "perMonth": "в месяц",
+    "for": "за",
+    "connect": "Подключить",
+    "name": "Название",
+    "impulses": "Импульсы",
+    "assetTracking": "Отслеживание актива",
+    "fundingRate": "Ставки финансирования",
+    "informationTicker": "Информация о тикере",
+    "correlation": "Корреляция двух активов",
+    "tradingHistory": "История торговых объемов",
+    "accessNewFeatures": "Доступ к новым функциям",
+    "imbalance": "Имбалансы (FVG)",
+    "liqudities": "Снятие ключевых ликвидностей ",
+    "gradationVolume": "Градация роста объемов",
+    "topTickers": "ТОП тикеры",
+    "fibonacci": "Уведомления по Фибоначчи ",
+    "tradingRecommendations": "Торговые рекомендации",
+    "RSI": "RSI (Дивергенции конвергенции)",
+    "touchingTrend": "Касание трендовых",
+    "asset": "актив",
+    "assets": "активa",
+    "requests": "запросов",
+    "days": "дней",
+    "view": "вид",
+    "views": "вида",
+    "timeFrame": "таймфрейма",
+    "monthPer": "в месяц"
+  },
+  "back": "Назад",
+  "walletPage": {
+    "title": "Кошелек",
+    "tonWallet": "Кошелек TON",
+    "link": "Привязан",
+    "notLinked": "Не привязан",
+    "connectWallet": "Подключить кошелек",
+    "untieWallet": "Untie the wallet"
+  },
+  "settingsPage": {
+    "title": "Настройки",
+    "notificationsSmartAnalytics": "Уведомления от Smart Analytics",
+    "alerts": "Уведомления",
+    "lang": "Язык"
+  },
+  "referralsPage": {
+    "title": "Рефералы",
+    "inviteFriends": "Пригласите друзей!",
+    "receiveBonus": "Вы получите бонус который",
+    "withdrawWallet": "сможете вывести в TON кошелек",
+    "copyLink": "Скопировать ссылку",
+    "withdraw": "Вывести",
+    "yourBalance": "Ваш баланс:",
+    "transactions": "Транзакции",
+    "howItWork": "Как это работает?",
+    "haveNotInvitedFriends": "Вы еще не пригласили друзей",
+    "linkCopy": "Ссылка скопирована",
+    "clickButton": "Нажмите кнопку в баннере",
+    "shareLink": "Поделиться ссылкой",
+    "sendLink": "Отправьте ссылку в удобном мессенджере",
+    "purchaseSubscription": "Покупка подписки",
+    "inviteesubscription": "Приглашенный должен приобрести подписку",
+    "referralSystem": "Реферальная система",
+    "connectTONWallet": "Подключите кошелек тон, и выведите деньги"
+  },
+  "localeModal": {
+    "title": "Смена языка",
+    "save": "Сохранить"
+  },
+  "dailyVolume": {
+    "dailyAssetVolume": "Daily asset volume",
+    "forEntireTimeVolumeChanged":"За всё время объём изменился на"
+
+  },
+  "fundingPage": {
+    "title": "Ставки финансирования",
+    "searchResult": "Результат запроса",
+    "day": "За день",
+    "week": "За неделю",
+    "month": "За месяц",
+    "history": "История",
+    "dateCreated": "Дата создания",
+    "positiveAmount": "Кол-во положительных фандингов:",
+    "negativeAmount": "Кол-во отрицательных фандингов:",
+    "neutralAmount": "Кол-во нейтральных фандингов:",
+    "updateInfo": "Обновить информацию"
+  },
+  "gradationPage": {
+    "fileSend": "Файл успешно отправлен"
+  },
+  "gradationActiveGrowth": {
+    "title": "Градация активов по росту цены",
+    "selectInterval": "Выберите временной интервал для получения информации:"
+  },
+  "tickerTracking": {
+    "title": "Отслеживание актива",
+    "assetName": "Введите название актива (тикер):",
+    "alertsTimer": "Как часто вы хотите получать уведомления?",
+    "addTracker": "Добавить трекер"
+  },
+  "tickerTable": {
+    "name": "Название",
+    "daily": "Процент Импульса",
+    "date": "Дата",
+    "today": "Сегодня",
+    "yesterday": "Вчера"
+  },
+  "analytics": {
+    "title": "Аналитика",
+    "assetInfo": "Информация о тикере",
+    "correlation": "Коррелятор активов",
+    "dailyVolume": "Суточный объём актива",
+    "searchHere": "Search here"
+  }
 }

@@ -13,6 +13,7 @@ import ActiveGrowthView from "./ActiveGrowthView.vue";
 import trackingTickerView from "./trackingTickerView.vue";
 import FundingDataView from "./FundingDataView.vue";
 import NotificationView from "./NotificationView.vue";
+import DailyVolumeView from "./DailyVolumeView.vue";
 import crown from "../components/icons/crown.vue";
 import notification from "../components/icons/Notification.vue"
 import { useI18n } from "vue-i18n";
@@ -272,15 +273,15 @@ onBeforeUnmount(() => {
 
               <!-- Открытие компонента перенесёно в header на колокольчик -->
 
-              <!-- <div class="flex gap-3 items-center">
-                <PhBell :size="32" />
-                <p class="font-bold text-sm">{{ $t('notifications')}}</p>
-              </div> -->
+              <div class="flex gap-3 items-center">
+                <PhChartBarHorizontal :size="32" />
+                <p class="font-bold text-sm">{{ $t('dailyVolume.dailyAssetVolume')}}</p>
+              </div>
               <button @click="toggleNotification">
                 <PhX :size="21" />
               </button>
             </div>
-            <!-- <NotificationView /> -->
+            <DailyVolumeView />
           </div>
         </transition>
       </Teleport>
