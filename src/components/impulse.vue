@@ -7,6 +7,7 @@ import { ref, onMounted } from "vue";
 import { useI18n } from "vue-i18n";
 import { useImpulse } from "../store/impulse.js";
 import { storeToRefs } from "pinia";
+import chipButton from "./UI/chipButton.vue";
 
 const { t } = useI18n({ useScope: "global" });
 
@@ -60,6 +61,7 @@ onMounted(async () => {
 });
 
 const selectInterval = (index, interval) => {
+  console.log('clicked', index, interval)
   selectedInterval.value = index;
   changeInterval.value = interval;
 };
@@ -237,14 +239,12 @@ const editImpulse = async (id, interval, percent) => {
       <div v-if="!showImpulse">
         <div class="mb-3">
           <p>{{ $t("impulsePrise.timeIntervalSelect") }}</p>
-          <div class="flex gap-2 mt-3">
-            <button v-for="(interval, index) in [1, 5, 15, 60]" :key="index" :class="{
-              'bg-[#92FBDB] text-black font-semibold':
-                selectedInterval === index,
-              'bg-[#17181C]': selectedInterval !== index,
-            }" @click="selectInterval(index, interval)" class="w-full py-2 rounded">
+          <div class="flex gap-2 mt-3 px-1">
+
+            <chip-button v-for="(interval, index) in [1, 5, 15, 60]" :key="index" @click="selectInterval(index, interval)" :is-active="selectedInterval === index">
               {{ interval }} {{ $t("impulsePrise.min") }}
-            </button>
+            </chip-button>
+
           </div>
           <p v-if="showError">{{ $t("impulsePrise.fillAllFields") }}</p>
         </div>
@@ -255,33 +255,25 @@ const editImpulse = async (id, interval, percent) => {
             type="number" min="5" placeholder="Search Here" />
           <p v-if="changePercent && changePercent < 5" class="text-sm">{{ $t("impulsePrise.minimalPercent") }}</p>
           <div class="flex gap-2 my-3">
-            <button v-for="(percent, index) in [5, 10, 15, 20]" :key="index" :class="{
-              'bg-[#92FBDB] text-black font-semibold':
-                selectedPercent === index,
-              'bg-[#17181C]': selectedPercent !== index,
-            }" @click="selectPercent(index, percent)" class="w-full py-2 rounded">
+            
+            <chip-button v-for="(percent, index) in [5, 10, 15, 20]" :key="index" @click="selectPercent(index, percent)" :is-active="selectedPercent === index">
               {{ percent }}%
-            </button>
+            </chip-button>
+
           </div>
         </div>
         <ButtonView :text="$t('impulsePrise.getInfo')" class="mt-4" @click="showImpulseData" />
       </div>
 
-      <div v-if="showImpulse" class="text-xs border rounded border-[#2F2F2F99] mb-2">
+      <div v-if="showImpulse" class="text-xs rounded mb-2">
         <ButtonView :text="$t('impulsePrise.addTracking')" class="my-3" @click="openAddImpulse = true" />
-        <div class="flex text-xs border rounded border-[#2F2F2F99] mb-2">
-          <button v-for="(condition, index) in selectedImpulse.conditions" :key="index" :class="{
-            'from-[#ffffff1f] to-[#ffffff12] bg-gradient-to-r rounded':
-              selected_id === condition.id,
-            'bg-transparent': selected_id !== condition.id,
-          }"
-            class="w-full focus:font-semibold focus:bg-gradient-to-r focus:from-[#ffffff1f] focus:to-[#ffffff12] py-1 px-2 focus:rounded"
-            @click="
-              updateImpulse(condition.id, condition.time, condition.percent)
-              ">
+        <div class="flex text-xs border rounded border-[#2F2F2F99] m-1.5">
+          
+          <chip-button v-for="(condition, index) in selectedImpulse.conditions" :key="index" @click="updateImpulse(condition.id, condition.time, condition.percent)" :is-active="selected_id === condition.id">
             {{ condition.time }} {{ $t("impulsePrise.min") }} /
             {{ condition.percent }} %
-          </button>
+          </chip-button>
+
         </div>
       </div>
       <div v-if="showImpulse" class="flex justify-between items-center my-4">
@@ -326,13 +318,11 @@ const editImpulse = async (id, interval, percent) => {
             <div class="mb-3">
               <p>{{ $t("impulsePrise.timeIntervalSelect") }}</p>
               <div class="flex gap-2 mt-3">
-                <button v-for="(interval, index) in [1, 5, 15, 60]" :key="index" :class="{
-                  'bg-[#92FBDB] text-black font-semibold':
-                    selectedInterval === index,
-                  'bg-[#17181C]': selectedInterval !== index,
-                }" @click="selectInterval(index, interval)" class="w-full py-2 rounded">
+
+                <chip-button v-for="(interval, index) in [1, 5, 15, 60]" :key="index" @click="selectInterval(index, interval)" :is-active="selectedInterval === index">
                   {{ interval }} {{ $t("impulsePrise.min") }}
-                </button>
+                </chip-button>
+
               </div>
               <p v-if="showError">{{ $t("impulsePrise.fillAllFields") }}</p>
             </div>
@@ -343,13 +333,11 @@ const editImpulse = async (id, interval, percent) => {
                 type="number" min="5" placeholder="Search Here" />
               <p v-if="changePercent && changePercent < 5" class="text-sm">{{ $t("impulsePrise.minimalPercent") }}</p>
               <div class="flex gap-2 my-3">
-                <button v-for="(percent, index) in [5, 10, 15, 20]" :key="index" :class="{
-                  'bg-[#92FBDB] text-black font-semibold':
-                    selectedPercent === index,
-                  'bg-[#17181C]': selectedPercent !== index,
-                }" @click="selectPercent(index, percent)" class="w-full py-2 rounded">
+
+                <chip-button v-for="(percent, index) in [5, 10, 15, 20]" :key="index" @click="selectPercent(index, percent)" :is-active="selectedPercent === index">
                   {{ percent }}%
-                </button>
+                </chip-button>
+
               </div>
             </div>
             <ButtonView :text="$t('impulsePrise.getInfo')" class="mt-4" @click="showImpulseData" />
@@ -374,13 +362,9 @@ const editImpulse = async (id, interval, percent) => {
             <div class="mb-3">
               <p>{{ $t("impulsePrise.timeIntervalSelect") }}</p>
               <div class="flex gap-2 mt-3">
-                <button v-for="(interval, index) in [1, 5, 15, 60]" :key="index" :class="{
-                  'bg-[#92FBDB] text-black font-semibold':
-                    selectedInterval === index,
-                  'bg-[#17181C]': selectedInterval !== index,
-                }" @click="selectInterval(index, interval)" class="w-full py-2 rounded">
+                <chip-button v-for="(interval, index) in [1, 5, 15, 60]" :key="index" :is-active="selectedInterval === index" @click="selectInterval(index, interval)">
                   {{ interval }} {{ $t("impulsePrise.min") }}
-                </button>
+                </chip-button>
               </div>
               <p v-if="showError">{{ $t("impulsePrise.fillAllFields") }}</p>
             </div>
@@ -391,13 +375,11 @@ const editImpulse = async (id, interval, percent) => {
                 type="number" min="5" placeholder="Search Here" />
               <p v-if="changePercent && changePercent < 5" class="text-sm">{{ $t("impulsePrise.minimalPercent") }}</p>
               <div class="flex gap-2 my-3">
-                <button v-for="(percent, index) in [5, 10, 15, 20]" :key="index" :class="{
-                  'bg-[#92FBDB] text-black font-semibold':
-                    selectedPercent === index,
-                  'bg-[#17181C]': selectedPercent !== index,
-                }" @click="selectPercent(index, percent)" class="w-full py-2 rounded">
+
+                <chip-button v-for="(percent, index) in [5, 10, 15, 20]" @click="selectPercent(index, percent)" :key="index" :is-active="selectedPercent === index">
                   {{ percent }}%
-                </button>
+                </chip-button>
+
               </div>
             </div>
             <ButtonView :text="$t('impulsePrise.getInfo')" class="mt-4"
@@ -427,4 +409,5 @@ const editImpulse = async (id, interval, percent) => {
 .modal-leave-from {
   transform: translateY(0);
 }
+
 </style>
