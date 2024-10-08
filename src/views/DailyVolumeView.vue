@@ -1,6 +1,7 @@
 <script setup>
 import ButtonView from "../components/button.vue";
 import timeAndDate from "@/components/UI/timeAndDate.vue";
+import chipButton from "@/components/UI/chipButton.vue";
 import { useI18n } from "vue-i18n";
 import { ref, onMounted, onBeforeMount } from "vue";
 const { t } = useI18n({ useScope: "global" });
@@ -50,10 +51,6 @@ const selectInterval = (index, interval) => {
   changeInterval.value = interval;
 };
 
-const selectActive = (index, active) => {
-  selectedActive.value = index;
-  tickerName.value = active;
-};
 const toggleDailyAssetVolume = async () => {
   if (!tickerName.value.includes("USDT")) {
     tickerName.value += "USDT";
@@ -93,38 +90,22 @@ const toggleDailyAssetVolume = async () => {
 
         <div class="mb-3">
           <div class="flex gap-2 mt-3">
-            <p
-              v-for="(active, index) in ['BTC', 'ETH', 'TON', 'SOL']"
-              :key="index"
-              :class="{
-                'bg-[#92FBDB] text-black font-semibold':
-                  selectedActive === index,
-                'bg-[#17181C]': selectedActive !== index,
-              }"
-              @click="selectActive(index, active)"
-              class="w-full py-2 rounded cursor-pointer text-center"
+            <chip-button v-for="(active, index) in ['BTC', 'ETH', 'TON', 'SOL']" :key="index"
+            :is-active="tickerName.trim().toUpperCase() === active"
+            @click.prevent="tickerName = active"
+            class="w-full py-2 rounded cursor-pointer text-center"
             >
               {{ active }}
-            </p>
+            </chip-button>
           </div>
         </div>
 
         <div>
           <label>{{ $t("tickerTracking.alertsTimer") }}</label>
           <div class="flex gap-2 my-3">
-            <p
-              v-for="(interval, index) in [5, 10, 20, 30]"
-              :key="index"
-              :class="{
-                'bg-[#92FBDB] text-black font-semibold':
-                  selectedInterval === index,
-                'bg-[#17181C]': selectedInterval !== index,
-              }"
-              @click="selectInterval(index, interval)"
-              class="w-full py-2 rounded text-center cursor-pointer"
-            >
-              {{ interval }} д
-            </p>
+            <chip-button v-for="(interval, index) in [5, 10, 20, 30]" :key="index" :is-active="selectedInterval === index" @click.prevent="selectInterval(index, interval)">
+              {{ interval }} {{ $t("tickerTracking.days") }}
+            </chip-button>
           </div>
         </div>
 
