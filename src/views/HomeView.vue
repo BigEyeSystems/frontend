@@ -244,7 +244,7 @@ onBeforeUnmount(() => {
                 <PhX :size="21" />
               </button>
             </div>
-            <trackingTickerView />
+            <trackingTickerView @close="toggleTrackingTicker" />
           </div>
         </transition>
       </Teleport>

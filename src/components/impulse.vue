@@ -2,6 +2,7 @@
 import axios from "axios";
 import ButtonView from "./button.vue";
 import ticker from "./ticker.vue";
+import timeAndDate from "./UI/timeAndDate.vue";
 import { ref, onMounted } from "vue";
 import { useI18n } from "vue-i18n";
 import { useImpulse } from "../store/impulse.js";
@@ -297,19 +298,14 @@ const editImpulse = async (id, interval, percent) => {
         </div>
       </div>
 
-      <div v-if="showHistory">
-        <div class="mb-4">
-          <p class="mb-3 text-sm font-semibold">
-            {{ $t("fundingPage.history") }}
-          </p>
-          <div class="flex justify-between mb-4">
-            <p class="text-xs">{{ $t("homePage.lastUpdate") }}:</p>
-            <div class="flex text-xs gap-1">
-              <PhClock :size="16" /> 12:03
-              <PhCalendarDots :size="16" /> 9.01.2024
-            </div>
-          </div>
-          <ticker :detail="impulseData?.impulses_history" />
+    <div v-if="showHistory">
+      <div class="mb-4">
+        <p class="mb-3 text-sm font-semibold">
+          {{ $t("fundingPage.history") }}
+        </p>
+        <div class="flex justify-between mb-4">
+          <p class="text-xs">{{ $t("homePage.lastUpdate") }}:</p>
+          <time-and-date />
         </div>
       </div>
       <Teleport to="body">
