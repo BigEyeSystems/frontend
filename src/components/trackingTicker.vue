@@ -327,11 +327,7 @@ const emit = defineEmits(["close"]);
 
         <div class="my-4">
           <ButtonView
-            :text="
-              openAddTracker
-                ? $t('tickerTracking.addTracker')
-                : $t('tickerTracking.closeModalTracker')
-            "
+            :text="$t('tickerTracking.addTracker')"
             type="submit"
           />
         </div>
