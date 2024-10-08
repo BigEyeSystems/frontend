@@ -43,9 +43,6 @@ const toggleAnalytics = () => {
         <button class="bg-[#17181C] w-full py-2 rounded-xl px-4">
           {{ $t("analytics.correlation") }}
         </button>
-        <button class="bg-[#17181C] w-full py-2 rounded-xl px-4">
-          {{ $t("analytics.dailyVolume") }}
-        </button>
       </div>
       <p>{{ $t("tickerTracking.assetName") }}</p>
       <input
@@ -55,10 +52,10 @@ const toggleAnalytics = () => {
       />
       <div class="flex gap-2">
         <button
-          v-for="(active, index) in ['BNB', 'EDU', 'PEOPLE', 'ETHFI']"
+          v-for="(active, index) in ['BTC', 'ETH', 'TON', 'SOL']"
           :key="index"
           :class="{
-            'bg-[#7064F3]': selectedActive === index,
+            'bg-[#92FBDB] text-black font-semibold': selectedActive === index,
             'bg-[#17181C]': selectedActive !== index,
           }"
           @click="selectActive(index, active)"
