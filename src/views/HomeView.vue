@@ -2,7 +2,7 @@
 import axios from "axios";
 import { onMounted, onBeforeUnmount, ref, watch, computed } from "vue";
 import LocalesView from './LocalesView.vue';
-import menuItems from "../components/menuItem.vue";
+import menuItem from "../components/menuItem.vue";
 import Header from "../components/Header.vue";
 import tickerFunding from "@/components/tickerFunding.vue";
 import footerMenu from "@/components/footer.vue";
@@ -13,6 +13,7 @@ import ActiveGrowthView from "./ActiveGrowthView.vue";
 import trackingTickerView from "./trackingTickerView.vue";
 import FundingDataView from "./FundingDataView.vue";
 import NotificationView from "./NotificationView.vue";
+import DailyVolumeView from "./DailyVolumeView.vue";
 import crown from "../components/icons/crown.vue";
 import notification from "../components/icons/Notification.vue"
 import { useI18n } from "vue-i18n";
@@ -132,38 +133,38 @@ onBeforeUnmount(() => {
     <Header :UserName="user?.username" :lang="$t('lang')" @changeLocale="toggleTeleportLocale" />
     <div class="flex-grow z-1 py-4">
       <div class="flex gap-4 my-4">
-        <menuItems :title="$t('homePage.impulsePrise')" @click="toggleTeleport">
+        <menuItem :title="$t('homePage.impulsePrise')" @click="toggleTeleport">
           <template #icon>
             <PhPulse :size="24" />
           </template>
-        </menuItems>
-        <menuItems :title="$t('homePage.notificationSettings')" @click="toggleNotification">
+        </menuItem>
+        <menuItem :title="$t('homePage.notificationSettings')" @click="toggleNotification">
           <template #icon>
-            <notification />
+            <PhChartBarHorizontal :size="24" />
           </template>
-        </menuItems>
-        <menuItems :title="$t('homePage.fundingRate')" @click="toggleFundingData">
+        </menuItem>
+        <menuItem :title="$t('homePage.fundingRate')" @click="toggleFundingData">
           <template #icon>
             <PhPercent :size="24" />
           </template>
-        </menuItems>
+        </menuItem>
       </div>
       <div class="flex gap-4">
-        <menuItems :title="$t('homePage.volumeGradation')" @click="toggleTeleportGradation">
+        <menuItem :title="$t('homePage.volumeGradation')" @click="toggleTeleportGradation">
           <template #icon>
             <PhChartBar :size="24" />
           </template>
-        </menuItems>
-        <menuItems :title="$t('homePage.growthGradation')" @click="toggleTeleportGradationGrowth">
+        </menuItem>
+        <menuItem :title="$t('homePage.growthGradation')" @click="toggleTeleportGradationGrowth">
           <template #icon>
             <PhChartLine :size="24" />
           </template>
-        </menuItems>
-        <menuItems :title="$t('homePage.tickerTracking')" @click="toggleTrackingTicker">
+        </menuItem>
+        <menuItem :title="$t('homePage.tickerTracking')" @click="toggleTrackingTicker">
           <template #icon>
             <PhMagnifyingGlass :size="24" />
           </template>
-        </menuItems>
+        </menuItem>
       </div>
       <div class="my-4" @click="$router.push('/profile/premium')">
         <addPremium />
@@ -269,15 +270,18 @@ onBeforeUnmount(() => {
           <div v-if="openNotification"
             class="modal h-[90vh] rounded-t-3xl bg-black fixed bottom-0 w-full py-5 px-4 overflow-auto border-t border-white">
             <div class="flex justify-between mb-3">
+
+              <!-- Открытие компонента перенесёно в header на колокольчик -->
+
               <div class="flex gap-3 items-center">
-                <PhBell :size="32" />
-                <p class="font-bold text-sm">{{ $t('notifications')}}</p>
+                <PhChartBarHorizontal :size="32" />
+                <p class="font-bold text-sm">{{ $t('dailyVolume.dailyAssetVolume')}}</p>
               </div>
               <button @click="toggleNotification">
                 <PhX :size="21" />
               </button>
             </div>
-            <NotificationView />
+            <DailyVolumeView />
           </div>
         </transition>
       </Teleport>

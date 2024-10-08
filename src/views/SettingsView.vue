@@ -63,7 +63,7 @@ const onChange = async (key, value) => {
 
     try {
         await axios.post(
-            "https://dsde1736.fornex.org/api/user/update_notifications", 
+            "https://dsde1736.fornex.org/api/user/set_notifications", 
             {
                 last_impulse: checkedImpulse.value,
                 tracking_ticker: checkedActive.value,
