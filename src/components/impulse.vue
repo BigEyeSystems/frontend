@@ -389,6 +389,7 @@ const editImpulse = async (id, interval, percent) => {
       </Teleport>
     </div>
   </div>
+  </div>
 </template>
 <style scoped>
 .setting-border {

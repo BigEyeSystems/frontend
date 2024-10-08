@@ -1,5 +1,6 @@
 <script setup>
 import ButtonView from "../components/button.vue";
+import timeAndDate from "@/components/UI/timeAndDate.vue";
 import { useI18n } from "vue-i18n";
 import { ref, onMounted, onBeforeMount } from "vue";
 const { t } = useI18n({ useScope: "global" });
@@ -134,9 +135,7 @@ const toggleDailyAssetVolume = async () => {
     </div>
     <div class="flex justify-between mb-4">
       <p class="text-xs">{{ $t("homePage.lastUpdate") }}:</p>
-      <div class="flex text-xs gap-1">
-        <PhClock :size="16" /> 12:03 <PhCalendarDots :size="16" /> 9.01.2024
-      </div>
+      <time-and-date />
     </div>
     <p class="mb-3">{{ $t("fundingPage.searchResult") }}</p>
     <div
