@@ -144,7 +144,12 @@
     "alertsTimer": "Как часто вы хотите получать уведомления?",
     "addTracker": "Добавить трекер",
     "closeModalTracker": "Закрыть",
-    "days": "д"
+    "days": "д",
+    "minutes": "мин",
+    "currentPrice": "Текущая цена",
+    "currentVolume": "Текущий объём торгов",
+    "topBy": "Актив в ТОП по",
+    "financingRate": "Ставка финансирования"
   },
   "tickerTable": {
     "name": "Название",

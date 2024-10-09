@@ -143,7 +143,12 @@
     "alertsTimer": "How often do you want alerts?",
     "addTracker": "Add tracker",
     "closeModalTracker": "Close",
-    "days": "d"
+    "days": "d",
+    "minutes": "min",
+    "currentPrice": "Current price",
+    "currentVolume": "Current trading volume",
+    "topBy": "Active TOP by",
+    "financingRate": "Financing rate"
   },
   "tickerTable": {
     "name": "Name",
