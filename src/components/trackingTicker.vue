@@ -1,5 +1,6 @@
 <script setup>
 import ButtonView from "./button.vue";
+import chipButton from "./UI/chipButton.vue";
 import { ref, onMounted, onBeforeMount } from "vue";
 import axios from "axios";
 import { useI18n } from "vue-i18n";
@@ -232,38 +233,18 @@ const emit = defineEmits(["close"]);
           class="w-full my-3 p-3 rounded-lg border-transparent focus:outline-none bg-[#17181C] focus:bg-[#17181C] uppercase"
           type="text"
         />
-        <div class="flex gap-2 mt-3">
-          <button
-            v-for="(active, index) in ['BTC', 'ETH', 'TON', 'SOL']"
-            :key="index"
-            :class="{
-              'bg-[#92FBDB] text-black font-semibold':
-                tickerName.trim().toUpperCase() === active,
-              'bg-[#17181C]': tickerName.toUpperCase() !== active,
-            }"
-            @click="selectActive(index, active)"
-            class="w-full py-2 rounded"
-          >
+        <div class="flex gap-2 mt-3 mx-1.5">
+          <chip-button v-for="(active, index) in ['BTC', 'ETH', 'TON', 'SOL']" :key="index" :is-active="tickerName.trim().toUpperCase() === active" @click="selectActive(index, active)">
             {{ active }}
-          </button>
+          </chip-button>
         </div>
       </div>
       <div>
         <p>{{ $t("tickerTracking.alertsTimer") }}</p>
-        <div class="flex gap-2 my-3">
-          <button
-            v-for="(interval, index) in [5, 15, 30, 60]"
-            :key="index"
-            :class="{
-              'bg-[#92FBDB] text-black font-semibold':
-                selectedInterval === index,
-              'bg-[#17181C]': selectedInterval !== index,
-            }"
-            @click="selectInterval(index, interval)"
-            class="w-full py-2 rounded"
-          >
+        <div class="flex gap-2 my-3 mx-1.5">
+          <chip-button v-for="(interval, index) in [5, 15, 30, 60]" :key="index" @click="selectInterval(index, interval)" :is-active="selectedInterval === index">
             {{ interval }} {{ $t("impulsePrise.min") }}
-          </button>
+          </chip-button>
         </div>
       </div>
       <div class="my-4">
@@ -289,39 +270,19 @@ const emit = defineEmits(["close"]);
         </div>
 
         <div class="mb-3">
-          <div class="flex gap-2 mt-3">
-            <p
-              v-for="(active, index) in ['BTC', 'ETH', 'TON', 'SOL']"
-              :key="index"
-              :class="{
-                'bg-[#92FBDB] text-black font-semibold':
-                  tickerName.trim().toUpperCase() === active,
-                'bg-[#17181C]': tickerName.toUpperCase() !== active,
-              }"
-              @click="selectActive(index, active)"
-              class="w-full py-2 rounded cursor-pointer text-center"
-            >
+          <div class="flex gap-2 mt-3 mx-1.5">
+            <chip-button v-for="(active, index) in ['BTC', 'ETH', 'TON', 'SOL']" :key="index" :is-active="tickerName.trim().toUpperCase() === active" @click="selectActive(index, active)">
               {{ active }}
-            </p>
+            </chip-button>
           </div>
         </div>
 
         <div>
           <label>{{ $t("tickerTracking.alertsTimer") }}</label>
-          <div class="flex gap-2 my-3">
-            <p
-              v-for="(interval, index) in [5, 15, 30, 60]"
-              :key="index"
-              :class="{
-                'bg-[#92FBDB] text-black font-semibold':
-                  selectedInterval === index,
-                'bg-[#17181C]': selectedInterval !== index,
-              }"
-              @click="selectInterval(index, interval)"
-              class="w-full py-2 rounded text-center cursor-pointer"
-            >
+          <div class="flex gap-2 my-3 mx-1.5">
+            <chip-button v-for="(interval, index) in [5, 15, 30, 60]" :key="index" :is-active="selectedInterval === index" @click="selectInterval(index, interval)">
               {{ interval }} {{ $t("impulsePrise.min") }}
-            </p>
+            </chip-button>
           </div>
         </div>
 
@@ -348,20 +309,10 @@ const emit = defineEmits(["close"]);
         "
         type="submit"
       />
-      <div class="flex text-xs border rounded border-[#2F2F2F99] mb-2">
-        <button
-          v-for="(condition, index) in tickerData.conditions"
-          :key="index"
-          :class="{
-            'from-[#ffffff1f] to-[#ffffff12] bg-gradient-to-r rounded':
-              selected_id === condition.id,
-            'bg-transparent': selected_id !== condition.id,
-          }"
-          class="w-full focus:font-semibold focus:bg-gradient-to-r focus:from-[#ffffff1f] focus:to-[#ffffff12] py-1 px-2 focus:rounded"
-          @click="updateTicker(condition.id, condition.time, condition.ticker)"
-        >
+      <div class="flex text-xs border rounded border-[#2F2F2F99] mb-2 mx-2">
+        <chip-button v-for="(condition, index) in tickerData.conditions" @click="updateTicker(condition.id, condition.time, condition.ticker)" :key="index" :is-active="selected_id === condition.id">
           {{ condition.ticker }}
-        </button>
+        </chip-button>
       </div>
       <div class="flex justify-between items-center my-4">
         <p class="text-lg font-semibold">
@@ -497,38 +448,18 @@ const emit = defineEmits(["close"]);
               class="w-full my-3 p-3 rounded-lg border-transparent focus:outline-none bg-[#17181C] focus:bg-[#17181C] uppercase"
               type="text"
             />
-            <div class="flex gap-2 mt-3">
-              <button
-                v-for="(active, index) in ['BTC', 'ETH', 'TON', 'SOL']"
-                :key="index"
-                :class="{
-                  'bg-[#92FBDB] text-black font-semibold':
-                    selectedActive === index,
-                  'bg-[#17181C]': selectedActive !== index,
-                }"
-                @click="selectActive(index, active)"
-                class="w-full py-2 rounded"
-              >
+            <div class="flex gap-2 mt-3 mx-1.5">
+              <chip-button @click="selectActive(index, active)" v-for="(active, index) in ['BTC', 'ETH', 'TON', 'SOL']" :key="index" :is-active="selectedActive === index">
                 {{ active }}
-              </button>
+              </chip-button>
             </div>
           </div>
           <div>
             <p>{{ $t("tickerTracking.alertsTimer") }}</p>
-            <div class="flex gap-2 my-3">
-              <button
-                v-for="(interval, index) in [5, 15, 30, 60]"
-                :key="index"
-                :class="{
-                  'bg-[#92FBDB] text-black font-semibold':
-                    selectedInterval === index,
-                  'bg-[#17181C]': selectedInterval !== index,
-                }"
-                @click="selectInterval(index, interval)"
-                class="w-full py-2 rounded"
-              >
+            <div class="flex gap-2 my-3 mx-1.5">
+              <chip-button v-for="(interval, index) in [5, 15, 30, 60]" :key="index" @click="selectInterval(index, interval)" :is-active="selectedInterval === index">
                 {{ interval }} {{ $t("impulsePrise.min") }}
-              </button>
+              </chip-button>
             </div>
           </div>
           <ButtonView

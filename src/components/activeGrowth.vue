@@ -1,6 +1,7 @@
 <script setup>
 import ButtonView from "./button.vue";
 import timeAndDate from "./UI/timeAndDate.vue";
+import chipButton from "./UI/chipButton.vue";
 import { ref } from "vue";
 import axios from "axios";
 import { useI18n } from "vue-i18n";
@@ -81,30 +82,22 @@ const formattedDate = (date) => {
     <div v-if="!showGradationGrowth">
       <div class="mb-3">
         <p>{{ $t('gradationActiveGrowth.selectInterval') }}</p>
-        <div class="flex gap-2 mt-3">
-          <button v-for="(interval, index) in [5, 30, 60, 4]" :key="index" :class="{
-            'bg-[#92FBDB] text-black font-semibold':
-              selectedInterval === index,
-            'bg-[#17181C]': selectedInterval !== index,
-          }" @click="selectInterval(index, interval)" class="w-full py-2 rounded">
+        <div class="flex gap-2 mt-3 mx-1.5">
+          <chip-button v-for="(interval, index) in [5, 30, 60, 4]" :key="index" :is-active="selectedInterval === index" @click="selectInterval(index, interval)">
             <p v-if="interval !== 4">{{ interval }} {{ $t('impulsePrise.min') }}</p>
             <p v-else>{{ interval }} {{ $t('gradationGrowth.hour') }}</p>
-          </button>
+          </chip-button>
         </div>
       </div>
     </div>
     <ButtonView v-if="!showGradationGrowth" :text="$t('impulsePrise.getInfo')" :on-click="toggleGradationGrowth"
       class="my-3" />
     <div v-else>
-      <div class="flex gap-2 mt-3">
-        <button v-for="(interval, index) in [5, 30, 60, 4]" :key="index" :class="{
-          'bg-[#92FBDB] text-black font-semibold':
-            selectedInterval === index,
-          'bg-[#17181C]': selectedInterval !== index,
-        }" @click="selectInterval(index, interval)" class="w-full py-2 rounded">
+      <div class="flex gap-2 mt-3 mx-1.5">
+        <chip-button v-for="(interval, index) in [5, 30, 60, 4]" :key="index" :is-active="selectedInterval === index" @click="selectInterval(index, interval)">
           <p v-if="interval !== 4">{{ interval }} {{ $t('impulsePrise.min') }}</p>
           <p v-else>{{ interval }} {{ $t('gradationGrowth.hour') }}</p>
-        </button>
+        </chip-button>
       </div>
       <ButtonView :text="$t('fundingPage.updateInfo')" class="my-3" />
     </div>
