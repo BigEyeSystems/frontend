@@ -1,6 +1,5 @@
 <script setup>
 import ButtonView from "../components/button.vue";
-import timeAndDate from "@/components/UI/timeAndDate.vue";
 import chipButton from "@/components/UI/chipButton.vue";
 import { useI18n } from "vue-i18n";
 import { ref, onMounted, onBeforeMount, computed } from "vue";
@@ -11,9 +10,6 @@ import { CanvasRenderer } from "echarts/renderers";
 import { LineChart } from "echarts/charts";
 import { UniversalTransition } from "echarts/features";
 import {
-  TitleComponent,
-  TooltipComponent,
-  LegendComponent,
   GridComponent,
 } from "echarts/components";
 import VChart, { THEME_KEY } from "vue-echarts";
@@ -21,9 +17,6 @@ use([
   GridComponent,
   CanvasRenderer,
   LineChart,
-  TitleComponent,
-  TooltipComponent,
-  LegendComponent,
   UniversalTransition,
 ]);
 const tickerName = ref("");
@@ -32,37 +25,29 @@ const selectedInterval = ref(null);
 const changeInterval = ref(null);
 const option = ref(null);
 const dailyVolumeData = ref(null);
+const dailyVolumeDate = ref(null);
+const dateName = ref("");
 
 
-option.value = {
-  xAxis: {
-    type: "category",
-    data: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
-  },
-  yAxis: {
-    type: "value",
-  },
-  series: [
-    {
-      data: [820, 932, 901, 934, 1290, 1330, 1320],
-      type: "line",
-    },
-  ],
-};
 const selectInterval = (index, interval) => {
   selectedInterval.value = index;
   changeInterval.value = interval;
 };
 
+const extractDate = (datetimeStr) => {
+  return datetimeStr.split('T')[0];
+}
+
 const toggleDailyAssetVolume = async () => {
-  if (!tickerName.value.includes("USDT")) {
-    tickerName.value += "USDT";
+  dateName.value = tickerName.value;
+  if (!dateName.value.includes("USDT")) {
+    dateName.value += "USDT";
   }
   try {
     const response = await axios.post(
       "https://dsde1736.fornex.org/api/data/analytics/volume_24hr?action=generate",
       {
-        active_name: tickerName.value,
+        active_name: dateName.value,
         time_value: changeInterval.value,
       },
       {
@@ -71,20 +56,41 @@ const toggleDailyAssetVolume = async () => {
         },
       }
     );
-    dailyVolumeData.value = response.data;
 
+    dailyVolumeData.value = response.data.data;
+    dailyVolumeDate.value = response.data;
+    dailyVolumeData.value.time_interval = dailyVolumeData.value.time_interval.map(datetime => extractDate(datetime));
+    option.value = {
+      xAxis: {
+        type: "category",
+        data: dailyVolumeData.value.time_interval,
+      },
+      yAxis: {
+        type: "value",
+        axisLabel: {
+          color: '#FFFFFF',
+          fontSize: 6
+        }
+      },
+      series: [
+        {
+          data: dailyVolumeData.value.volume_data,
+          type: "line",
+        },
+      ],
+    };
   } catch (error) {
     console.log("Error fetching data: ", error.response ? error.response.data : error.message);
   }
 };
+
 const formattedDate = computed(() => {
-  if (!dailyVolumeData.value || !dailyVolumeData.value.last_update) {
+  if (!dailyVolumeDate.value || !dailyVolumeDate.value.last_update) {
     return "";
   }
+  const lastUpdateDate = new Date(dailyVolumeDate.value.last_update);
 
-  const lastUpdateDate = new Date(dailyVolumeData.value.last_update);
-
-  return `${lastUpdateDate.getHours()}:${lastUpdateDate.getMinutes().toString().padStart(2, '0')} ${lastUpdateDate.getDate()}.${(lastUpdateDate.getMonth() + 1)}.${lastUpdateDate.getFullYear()}`;
+  return `${lastUpdateDate.getDate()}.${(lastUpdateDate.getMonth() + 1)}.${lastUpdateDate.getFullYear()}`;
 });
 const downloadFile = async () => {
   try {
@@ -107,32 +113,28 @@ const downloadFile = async () => {
       <form @submit.prevent="toggleDailyAssetVolume">
         <div class="mb-3">
           <label for="tickerName">{{ $t("tickerTracking.assetName") }}</label>
-          <input
-            id="tickerName"
-            v-model="tickerName"
+          <input id="tickerName" v-model="tickerName"
             class="w-full my-3 p-3 rounded-lg border-transparent focus:outline-none bg-[#17181C] focus:bg-[#17181C] uppercase"
-            type="text"
-          />
+            type="text" />
         </div>
 
         <div class="mb-3">
           <div class="flex gap-2 mt-3">
-            <chip-button v-for="(active, index) in ['BTC', 'ETH', 'TON', 'SOL']" :key="index"
-            :is-active="tickerName.trim().toUpperCase() === active"
-            @click.prevent="tickerName = active"
-            class="w-full py-2 rounded cursor-pointer text-center"
-            >
+            <chipButton v-for="(active, index) in ['BTC', 'ETH', 'TON', 'SOL']" :key="index"
+              :is-active="tickerName.trim().toUpperCase() === active" @click.prevent="tickerName = active"
+              class="w-full py-2 rounded cursor-pointer text-center">
               {{ active }}
-            </chip-button>
+            </chipButton>
           </div>
         </div>
 
         <div>
           <label>{{ $t("tickerTracking.alertsTimer") }}</label>
           <div class="flex gap-2 my-3">
-            <chip-button v-for="(interval, index) in [5, 10, 20, 30]" :key="index" :is-active="selectedInterval === index" @click.prevent="selectInterval(index, interval)">
+            <chipButton v-for="(interval, index) in [5, 10, 20, 30]" :key="index"
+              :is-active="selectedInterval === index" @click.prevent="selectInterval(index, interval)">
               {{ interval }} {{ $t("tickerTracking.days") }}
-            </chip-button>
+            </chipButton>
           </div>
         </div>
 
@@ -141,38 +143,53 @@ const downloadFile = async () => {
         </div>
       </form>
     </div>
-    <div class="flex justify-between mb-4">
-      <p class="text-xs">{{ $t("homePage.lastUpdate") }}:</p>
-      <div class="flex text-xs gap-1">
-        <PhClock :size="16" /> 09:03 <PhCalendarDots :size="16" /> {{formattedDate}}
-      </div>
-    </div>
-    <p class="mb-3">{{ $t("fundingPage.searchResult") }}</p>
-    <div
-      class="bg-[#17181C] p-2 rounded-xl cursor-pointer my-4 flex justify-between items-center active:opacity-80" @click="downloadFile"
-    >
-      <div class="flex gap-3 items-center">
-        <div class="p-1 bg-[#797979] rounded">
-          <PhFile :size="24" color="#fff" />
+    <div v-if="dailyVolumeData">
+      <div class="flex justify-between mb-4">
+        <p class="text-xs">{{ $t("homePage.lastUpdate") }}:</p>
+        <div class="flex text-xs gap-1">
+          <PhClock :size="16" /> 09:03
+          <PhCalendarDots :size="16" /> {{ formattedDate }}
         </div>
-        <p class="text-sm font-semibold">
-          <!-- {{ gradationActiveData?.file_name }} -->
-          {{changeInterval}}d_volume.csv
-        </p>
       </div>
-      <PhDownloadSimple :size="24" />
-    </div>
-    <div>
-      <p>{{ $t("dailyVolume.forEntireTimeVolumeChanged") }}</p>
-      <div class="flex justify-center">
-        <v-chart class="chart" :option="option" />
+      <p class="mb-3">{{ $t("fundingPage.searchResult") }}</p>
+      <div class="bg-[#17181C] p-2 rounded-xl cursor-pointer my-4 flex justify-between items-center active:opacity-80"
+        @click="downloadFile">
+        <div class="flex gap-3 items-center">
+          <div class="p-1 bg-[#797979] rounded">
+            <PhFile :size="24" color="#fff" />
+          </div>
+          <p class="text-sm font-semibold">
+            {{ changeInterval }}d_volume.csv
+          </p>
+        </div>
+        <PhDownloadSimple :size="24" />
+      </div>
+      <div>
+        <p>{{ $t("dailyVolume.forEntireTimeVolumeChanged") }}</p>
+        <div v-if="dailyVolumeDate" class="flex my-2">
+          <div :class="[dailyVolumeDate.difference_percent > 0 ? 'bg-[#33A721]' : 'bg-[#CA3140]']"
+            class="flex p-1 rounded text-sm font-medium gap-1">
+            <p> <span v-if="dailyVolumeDate.difference_percent > 0">+</span> <span v-else>-</span>{{
+              Math.floor(dailyVolumeDate.difference_percent) }}%</p>
+            <span v-if="dailyVolumeDate.difference_percent > 0" class="flex align-items-center">
+              <PhCaretUp :size="16" weight="fill" />
+            </span>
+            <span v-else class="flex align-items-center" >
+              <PhCaretDown :size="16" weight="fill" />
+            </span>
+          </div>
+        </div>
+        <div class="flex justify-center">
+          <v-chart class="chart" :option="option" />
+        </div>
       </div>
     </div>
+
   </div>
 </template>
 <style scoped>
 .chart {
   height: 360px;
-  width: 380px;
+  width: 100%;
 }
 </style>
