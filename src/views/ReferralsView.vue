@@ -1,6 +1,7 @@
 <script setup>
 import crown from "../components/icons/crown.vue";
 import ButtonView from "../components/button.vue";
+import chipButton from "@/components/UI/chipButton.vue";
 import footerMenu from "@/components/footer.vue";
 import { ref } from "vue";
 import referralsWorkProcess from "../components/referralsWorkProcess.vue";
@@ -125,21 +126,20 @@ const copyReferral = async () => {
       </button>
     </div>
 
-    <div class="flex border border-solid border-[#2f2f2f99] rounded-lg mb-4" style="padding: 1px">
-      <button class="w-1/2 py-1 px-2 text-xs" @click="showTransaction" :class="[
-        isrTansaction
-          ? 'font-semibold bg-gradient-to-r from-[#ffffff1f] to-[#ffffff12] rounded'
-          : '',
-      ]">
+    <div class="flex border border-solid border-[#2f2f2f99] rounded-lg mb-4 mx-1.5" style="padding: 1px">
+      <chip-button :is-active="isrTansaction" @click="showTransaction" class="py-1 text-xs">
         {{ $t('referralsPage.transactions') }}
-      </button>
-      <button class="w-1/2 py-1 px-2 text-xs" @click="showProcess" :class="[
+      </chip-button>
+      <chip-button :is-active="isProcess" @click="showProcess" class="py-1 text-xs">
+        {{ $t('referralsPage.howItWork') }}
+
+      </chip-button>
+      <!-- <button class="w-1/2 py-1 px-2 text-xs" @click="showProcess" :class="[
         isProcess
           ? 'font-semibold bg-gradient-to-r from-[#ffffff1f] to-[#ffffff12] rounded'
           : '',
       ]">
-        {{ $t('referralsPage.howItWork') }}
-      </button>
+      </button> -->
     </div>
 
     <div v-if="isrTansaction" class="flex justify-center bg-[#17181C] py-7 rounded-2xl text-xs text-[#aeaeae] mb-24">

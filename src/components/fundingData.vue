@@ -1,6 +1,7 @@
 <script setup>
 import ButtonView from "./button.vue";
 import timeAndDate from "./UI/timeAndDate.vue";
+import chipButton from "./UI/chipButton.vue";
 import axios from "axios";
 import { use } from "echarts/core";
 import { CanvasRenderer } from "echarts/renderers";
@@ -250,19 +251,16 @@ const showDate = (timestamp) => {
         <p class="text-xs">{{ $t('homePage.lastUpdate') }}:</p>
         <time-and-date />
       </div>
-      <div class="flex gap-2 mt-4">
-        <button class="bg-[#17181C] p-2 w-full text-xs text-[#B8B8B8] rounded"
-          :class="[dayData ? 'bg-[#92FBDB] text-black font-semibold' : '']" @click="showDailyData">
+      <div class="flex gap-2 mt-4 mx-1.5">
+        <chip-button :is-active="dayData" @click="showDailyData">
           {{ $t('fundingPage.day') }}
-        </button>
-        <button class="bg-[#17181C] p-2 w-full text-xs text-[#B8B8B8] rounded"
-          :class="[weekData ? 'bg-[#92FBDB] text-black font-semibold' : '']" @click="showWeeklyData">
+        </chip-button>
+        <chip-button :is-active="weekData" @click="showWeeklyData">
           {{ $t('fundingPage.week') }}
-        </button>
-        <button class="bg-[#17181C] p-2 w-full text-xs text-[#B8B8B8] rounded"
-          :class="[monthData ? 'bg-[#92FBDB] text-black font-semibold' : '']" @click="showMonthlyData">
+        </chip-button>
+        <chip-button :is-active="monthData" @click="showMonthlyData">
           {{ $t('fundingPage.month') }}
-        </button>
+        </chip-button>
       </div>
       <div v-if="fundingData && !isLoading" class="flex justify-center">
         <v-chart class="chart" :option="option" />
