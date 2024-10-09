@@ -3,7 +3,7 @@ import ButtonView from "../components/button.vue";
 import timeAndDate from "@/components/UI/timeAndDate.vue";
 import chipButton from "@/components/UI/chipButton.vue";
 import { useI18n } from "vue-i18n";
-import { ref, onMounted, onBeforeMount } from "vue";
+import { ref, onMounted, onBeforeMount, computed } from "vue";
 const { t } = useI18n({ useScope: "global" });
 import axios from "axios";
 import { use } from "echarts/core";
@@ -31,6 +31,9 @@ const selectedActive = ref(null);
 const selectedInterval = ref(null);
 const changeInterval = ref(null);
 const option = ref(null);
+const dailyVolumeData = ref(null);
+
+
 option.value = {
   xAxis: {
     type: "category",
@@ -56,7 +59,7 @@ const toggleDailyAssetVolume = async () => {
     tickerName.value += "USDT";
   }
   try {
-    const response = await axios.get(
+    const response = await axios.post(
       "https://dsde1736.fornex.org/api/data/analytics/volume_24hr?action=generate",
       {
         active_name: tickerName.value,
@@ -68,7 +71,31 @@ const toggleDailyAssetVolume = async () => {
         },
       }
     );
-    console.log(response);
+    dailyVolumeData.value = response.data;
+
+  } catch (error) {
+    console.log("Error fetching data: ", error.response ? error.response.data : error.message);
+  }
+};
+const formattedDate = computed(() => {
+  if (!dailyVolumeData.value || !dailyVolumeData.value.last_update) {
+    return "";
+  }
+
+  const lastUpdateDate = new Date(dailyVolumeData.value.last_update);
+
+  return `${lastUpdateDate.getHours()}:${lastUpdateDate.getMinutes().toString().padStart(2, '0')} ${lastUpdateDate.getDate()}.${(lastUpdateDate.getMonth() + 1)}.${lastUpdateDate.getFullYear()}`;
+});
+const downloadFile = async () => {
+  try {
+    const response = await axios.post(
+      "https://dsde1736.fornex.org/api/data/analytics/volume_24hr?action=send",
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    );
   } catch (error) {
     console.log("Error fetching data: ", error.response ? error.response.data : error.message);
   }
@@ -116,11 +143,13 @@ const toggleDailyAssetVolume = async () => {
     </div>
     <div class="flex justify-between mb-4">
       <p class="text-xs">{{ $t("homePage.lastUpdate") }}:</p>
-      <time-and-date />
+      <div class="flex text-xs gap-1">
+        <PhClock :size="16" /> 09:03 <PhCalendarDots :size="16" /> {{formattedDate}}
+      </div>
     </div>
     <p class="mb-3">{{ $t("fundingPage.searchResult") }}</p>
     <div
-      class="bg-[#17181C] p-2 rounded-xl cursor-pointer my-4 flex justify-between items-center active:opacity-80"
+      class="bg-[#17181C] p-2 rounded-xl cursor-pointer my-4 flex justify-between items-center active:opacity-80" @click="downloadFile"
     >
       <div class="flex gap-3 items-center">
         <div class="p-1 bg-[#797979] rounded">
@@ -128,7 +157,7 @@ const toggleDailyAssetVolume = async () => {
         </div>
         <p class="text-sm font-semibold">
           <!-- {{ gradationActiveData?.file_name }} -->
-          30d_volume.csv
+          {{changeInterval}}d_volume.csv
         </p>
       </div>
       <PhDownloadSimple :size="24" />
