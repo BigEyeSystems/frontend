@@ -149,6 +149,7 @@
     "currentPrice": "Текущая цена",
     "currentVolume": "Текущий объём торгов",
     "topBy": "Актив в ТОП по",
+    "place": "место",
     "financingRate": "Ставка финансирования"
   },
   "tickerTable": {

@@ -148,6 +148,7 @@
     "currentPrice": "Current price",
     "currentVolume": "Current trading volume",
     "topBy": "Active TOP by",
+    "place": "place",
     "financingRate": "Financing rate"
   },
   "tickerTable": {

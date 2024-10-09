@@ -4,7 +4,7 @@ import arrowDown from "./icons/arrow-down.vue";
 import timeAndDate from "./UI/timeAndDate.vue";
 import ButtonView from "./button.vue";
 import chipButton from "./UI/chipButton.vue";
-import { ref, onMounted, onBeforeMount, shallowRef } from "vue";
+import { ref, onMounted, onBeforeMount, shallowRef, watch } from "vue";
 import axios from "axios";
 import { useI18n } from "vue-i18n";
 const { t } = useI18n({ useScope: "global" });
@@ -133,7 +133,7 @@ const toggleTrackingTicker = async () => {
     }
   } catch (error) {
     console.error("Error occurred: ", error);
-  }
+  } finally {openAddTracker.value = false}
 };
 
 const updateTicker = async (id, time, ticker) => {
@@ -225,20 +225,32 @@ const saveChanges = async (id, ticker, time) => {
 };
 
 const emit = defineEmits(["close"]);
-function getTickerTrackingHistory(){
+
+const tickerHistoryData = ref(null)
+
+const localDateWithOffset = (date) => {
+  const utcDate = new Date(date);
+  utcDate.setHours(utcDate.getHours() + 5);
+  return utcDate;
+};
+
+async function getTickerTrackingHistory(){
   try {
-    axios.get('https://dsde1736.fornex.org/api/notify/get_ticker_tracking_history?tt_id=356', {
+    const { data } = await axios.get(`https://dsde1736.fornex.org/api/notify/get_ticker_tracking_history?tt_id=${selected_id.value}`, {
       headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
     })
-  .then(res => console.log('axi resss ->>>', res))
+    console.log(data.ticker_tracking_history);
+    tickerHistoryData.value = data.ticker_tracking_history
   } catch (error) {
-    console.log('err');
+    console.error('err in axi:', error);
   }
 }
-// getTickerTrackingHistory()
 
+watch(selected_id, () => {
+  getTickerTrackingHistory()
+})
 </script>
 <template>
   <div class="text-xs">
@@ -345,29 +357,33 @@ function getTickerTrackingHistory(){
         </div>
       </div>
 
-      <div>
+      <div v-for="(history, index) in tickerHistoryData" :key="index" class="mt-5">
         <div class="flex justify-between">
           <p class="text-xs">{{ $t('homePage.lastUpdate') }}:</p>
-          <time-and-date />
+          <time-and-date :date="localDateWithOffset(history.date)" />
         </div>
-        <!-- Доделать i18n -->
+        <!-- Доделать i18n, разобраться с интервалом времени -->
         <div class="w-full h-auto flex flex-col items-center mt-4 p-2 bg-[#17181C] rounded-xl">
           <div class="flex w-full justify-between items-center">
             <h3 class="text-base font-semibold">{{ selectedTicker }}</h3>
             <div class="flex text-[#B8B8B8] text-xs gap-1">
               <PhClock :size="16" />
-              <span>15 {{ $t('tickerTracking.minutes') }}</span>
+              <!-- <span>15 {{ $t('tickerTracking.minutes') }}</span> -->
             </div>
           </div>
           <div class="flex w-full justify-between items-baseline text-xs mt-2 pb-4 border-b border-[#4B4B4B]">
             <span class="text-[#B8B8B8]">{{ $t("tickerTracking.currentPrice") }}:</span>
             <div class="flex flex-col items-end gap-1 text-sm">
-              <span class="my-1.5">500$</span>
+              <span class="my-1.5">{{ history.params.current_price }}$</span>
               <div class="flex items-center w-auto gap-2">
-                <span>за 15 мин</span>
-                <div class="flex items-center text-sm p-0.5 bg-[#33A721] rounded-xl">
-                  <span>+2.59%</span>
+                <!-- <span>за 15 мин</span> -->
+                <div v-if="history.params.price_change >= 0" class="flex items-center text-sm p-1 bg-[#33A721] rounded-xl">
+                  <span>+ {{ history.params.price_change }}%</span>
                   <arrowUp />
+                </div>
+                <div v-else class="flex items-center text-sm p-1 bg-[#CA3140] rounded-xl">
+                  <span>{{ history.params.price_change }}%</span>
+                  <arrowDown />
                 </div>
               </div>
             </div>
@@ -375,25 +391,29 @@ function getTickerTrackingHistory(){
           <div class="flex w-full justify-between items-baseline text-xs py-4 border-b border-[#4B4B4B]">
             <span class="text-[#B8B8B8]">{{ $t("tickerTracking.currentVolume") }}:</span>
             <div class="flex flex-col items-end gap-1 text-sm">
-              <span class="my-1.5">500$</span>
+              <span class="my-1.5">{{ history.params.current_volume }}$</span>
               <div class="flex items-center w-auto gap-2">
-                <span>за 15 мин</span>
-                <div class="flex items-center text-sm p-0.5 bg-[#33A721] rounded-xl">
-                  <span>+2.59%</span>
+                <!-- <span>за 15 мин</span> -->
+                <div v-if="history.params.volume_change >= 0" class="flex items-center text-sm p-1 bg-[#33A721] rounded-xl">
+                  <span>+ {{ history.params.volume_change }}%</span>
                   <arrowUp />
+                </div>
+                <div v-else class="flex items-center text-sm p-1 bg-[#CA3140] rounded-xl">
+                  <span>{{ history.params.volume_change }}%</span>
+                  <arrowDown />
                 </div>
               </div>
             </div>
           </div>
           <div class="flex w-full justify-between items-baseline text-xs py-4 border-b border-[#4B4B4B]">
             <span class="text-[#B8B8B8]">{{ $t("tickerTracking.topBy") }} %:</span>
-            <span class="my-1.5">12 место</span>
+            <span class="my-1.5">{{ history.params.top_place }} {{ $t("tickerTracking.place") }}</span>
           </div>
           <div class="flex w-full justify-between items-baseline text-xs pt-4">
             <span class="text-[#B8B8B8]">{{ $t("tickerTracking.financingRate") }}:</span>
             <div class="flex flex-col items-end gap-1 text-sm">
-              <span>-0.1%</span>
-              <span>-0.1%</span>
+              <span>{{ history.params.current_funding_rate }}%</span>
+              <span>{{ history.params.funding_rate_change }}%</span>
             </div>
           </div>
         </div>
