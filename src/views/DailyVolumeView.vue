@@ -83,17 +83,6 @@ const toggleDailyAssetVolume = async () => {
   } catch (error) {
     console.log("Error fetching data: ", error.response ? error.response.data : error.message);
   }
-};
-
-const formattedDate = computed(() => {
-  if (!dailyVolumeDate.value || !dailyVolumeDate.value.last_update) {
-    return "";
-  }
-  const lastUpdateDate = new Date(dailyVolumeDate.value.last_update);
-
-  return `${lastUpdateDate.getDate()}.${(lastUpdateDate.getMonth() + 1)}.${lastUpdateDate.getFullYear()}`;
-});
-const downloadFile = async () => {
   try {
     const response = await axios.post(
       "https://dsde1736.fornex.org/api/data/analytics/volume_24hr?action=send",
@@ -114,6 +103,18 @@ const downloadFile = async () => {
   } catch (error) {
     console.log("Error fetching data: ", error.response ? error.response.data : error.message);
   }
+};
+
+const formattedDate = computed(() => {
+  if (!dailyVolumeDate.value || !dailyVolumeDate.value.last_update) {
+    return "";
+  }
+  const lastUpdateDate = new Date(dailyVolumeDate.value.last_update);
+
+  return `${lastUpdateDate.getDate()}.${(lastUpdateDate.getMonth() + 1)}.${lastUpdateDate.getFullYear()}`;
+});
+const downloadFile = async () => {
+
 
   try {
     const response = await axios.get(
