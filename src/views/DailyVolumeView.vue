@@ -27,6 +27,7 @@ const option = ref(null);
 const dailyVolumeData = ref(null);
 const dailyVolumeDate = ref(null);
 const dateName = ref("");
+const fileId = ref(null);
 
 
 const selectInterval = (index, interval) => {
@@ -97,14 +98,37 @@ const downloadFile = async () => {
     const response = await axios.post(
       "https://dsde1736.fornex.org/api/data/analytics/volume_24hr?action=send",
       {
+        active_name: dateName.value,
+        time_value: changeInterval.value,
+      },
+      {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       }
     );
+    fileId.value = response.data.file_id[0].file_id;
+    fileId.value = String(fileId.value);
+    console.log(typeof fileId.value);
+
   } catch (error) {
     console.log("Error fetching data: ", error.response ? error.response.data : error.message);
   }
+
+  try {
+    const response = await axios.get(
+      `https://dsde1736.fornex.org/api/webhook/send_volume_24hr?file_id=${fileId.value}`,
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    );
+    
+  } catch (error) {
+    console.log("Error fetching data: ", error.response ? error.response.data : error.message);
+  }
+
 };
 </script>
 <template>
@@ -166,7 +190,7 @@ const downloadFile = async () => {
       </div>
       <div>
         <p>{{ $t("dailyVolume.forEntireTimeVolumeChanged") }}</p>
-        <div v-if="dailyVolumeDate" class="flex my-2">
+        <div v-if="dailyVolumeDate" class="flex mt-2">
           <div :class="[dailyVolumeDate.difference_percent > 0 ? 'bg-[#33A721]' : 'bg-[#CA3140]']"
             class="flex p-1 rounded text-sm font-medium gap-1">
             <p> <span v-if="dailyVolumeDate.difference_percent > 0">+</span> <span v-else>-</span>{{
