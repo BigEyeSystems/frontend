@@ -13,11 +13,12 @@ const footerItems = ref([
 </script>
 
 <template>
-    <div class="flex justify-between text-xs rounded-2xl bg-[#212225]/55">
+    <div class="rounded-[calc(1.5rem-10px)] p-1 bg-[#212225] flex justify-between text-xs">
+        
         <RouterLink v-for="(menuItem, index) in footerItems" :key="index" :to="menuItem.link" class="w-full">
-            <div class="flex flex-col px-3 rounded-xl w-full h-[71px] justify-center items-center gap-1 text-white" :class="$route.path === menuItem.link ? 'border-2 border-[#6db8a2]' : 'text-white'">
+            <div class="flex flex-col px-3 rounded-xl w-full h-[71px] justify-center items-center gap-1 text-white" :class="$route.path === menuItem.link ? 'text-white' : 'text-[#797979]'">
                 <div class="flex justify-center">
-                    <component :is="menuItem.iconComponent" size="24" color="white" />
+                    <component :is="menuItem.iconComponent" size="24" :color="$route.path === menuItem.link ? 'white' : '#797979' " />
                 </div>
                 <p>
                     {{ $t(`footer.${menuItem.text}`) }}
