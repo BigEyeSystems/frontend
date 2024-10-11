@@ -1,7 +1,7 @@
 {
   "homePage": {
     "impulsePrise": "Price impulses",
-    "notificationSettings": "Notification settings",
+    "notificationSettings": "Daily asset volume",
     "fundingRate": "Funding rate",
     "volumeGradation": "Volume gradation",
     "growthGradation": "Gradation of price growth",

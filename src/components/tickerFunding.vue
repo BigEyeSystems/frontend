@@ -2,6 +2,7 @@
 import { ref, computed } from 'vue';
 import { useI18n } from "vue-i18n";
 const { t } = useI18n( {useScope: 'global'} ); 
+import chipButton from './UI/chipButton.vue';
 
 const props = defineProps({
   detail: {
@@ -53,17 +54,17 @@ const sortByFundingDesc = () => {
 
 
 <template>
-  <div class="rounded-[calc(1.5rem-10px)] p-1 bg-[#17181C] p-3">
+  <div class="rounded-[14px] bg-[#17181C]/55 p-3">
     <div class="flex text-[10px] justify-between border rounded border-[#2F2F2F99] mb-2" style="padding: 1px;">
-      <button @click="sortByFundingAsc" class="w-1/3 focus:font-semibold focus:bg-gradient-to-r focus:from-[#ffffff1f] focus:to-[#ffffff12] py-1 px-2 focus:rounded" :class="[ showFundingFirstFive ? 'font-semibold bg-gradient-to-r from-[#ffffff1f] to-[#ffffff12] rounded' : '']">
+      <chip-button @click="sortByFundingAsc" :is-active="showFundingFirstFive">
         {{ $t('top24.byFunding')}} (+)
-      </button>
-      <button @click="sortByVolume" class="w-1/3 focus:font-semibold focus:bg-gradient-to-r focus:from-[#ffffff1f] focus:to-[#ffffff12] py-1 px-2 focus:rounded" :class="[ showFundingByVolume ? 'font-semibold bg-gradient-to-r from-[#ffffff1f] to-[#ffffff12] rounded' : '']">
+      </chip-button>
+      <chip-button @click="sortByVolume" :is-active="showFundingByVolume">
         {{ $t('top24.byVolume')}}
-      </button>
-      <button @click="sortByFundingDesc" class="w-1/3 focus:font-semibold focus:bg-gradient-to-r focus:from-[#ffffff1f] focus:to-[#ffffff12] py-1 px-2 focus:rounded" :class="[ showFundingLastFive ? 'font-semibold bg-gradient-to-r from-[#ffffff1f] to-[#ffffff12] rounded' : '']">
+      </chip-button>
+      <chip-button @click="sortByFundingDesc" :is-active="showFundingLastFive">
         {{ $t('top24.byFunding')}} (-)
-      </button>
+      </chip-button>
     </div>
     <div v-if="showFundingByVolume">
       <div v-if="fundingData && fundingData.top_tickers_by_volume && fundingData.top_tickers_by_volume.first_5">

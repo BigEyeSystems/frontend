@@ -3,7 +3,7 @@
     class="w-full py-2 rounded font-medium"
     :class="
       isActive
-        ? 'bg-[#92FBDB] text-black font-semibold shadow-sm scale-110 animate-pulse shadow-[#d2fefa] transition-all duration-300 ease-in-out relative overflow-hidden'
+        ? 'border border-[#92FBDB] text-white font-semibold shadow-sm scale-110 animate-pulse shadow-[#d2fefa] transition-all duration-300 ease-in-out relative overflow-hidden'
         : 'bg-[#17181C]'
     "
   >
@@ -30,7 +30,7 @@ const props = defineProps({
     opacity: 0.85;
   }
   50% {
-    background-color: #a7f6de;
+    background-color: #0d1513;
     opacity: 1;
   }
   100% {
