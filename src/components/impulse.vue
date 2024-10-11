@@ -299,6 +299,7 @@ const editImpulse = async (id, interval, percent) => {
           <p class="text-xs">{{ $t("homePage.lastUpdate") }}:</p>
           <time-and-date />
         </div>
+        <ticker :detail="impulseData?.impulses_history" />
       </div>
       <Teleport to="body">
         <transition name="modal">
