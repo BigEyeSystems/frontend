@@ -115,7 +115,9 @@
   },
   "dailyVolume": {
     "dailyAssetVolume": "Daily asset volume",
-    "forEntireTimeVolumeChanged":"Over the entire time, the volume has changed to"
+    "forEntireTimeVolumeChanged":"Over the entire time, the volume has changed to",
+    "date": "Date",
+    "volume": "Volume"
   },
   "fundingPage": {
     "title": "Funding rate",
