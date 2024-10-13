@@ -115,8 +115,9 @@
   },
   "dailyVolume": {
     "dailyAssetVolume": "Daily asset volume",
-    "forEntireTimeVolumeChanged":"За всё время объём изменился на"
-
+    "forEntireTimeVolumeChanged":"За всё время объём изменился на",
+    "date": "Дата",
+    "volume": "Объём"
   },
   "fundingPage": {
     "title": "Ставки финансирования",
