@@ -239,12 +239,10 @@ const editImpulse = async (id, interval, percent) => {
       <div v-if="!showImpulse">
         <div class="mb-3">
           <p>{{ $t("impulsePrise.timeIntervalSelect") }}</p>
-          <div class="flex gap-2 mt-3 px-1">
-
+          <div class="flex gap-2 mt-3 px-1 mx-1.5">
             <chip-button v-for="(interval, index) in [1, 5, 15, 60]" :key="index" @click="selectInterval(index, interval)" :is-active="selectedInterval === index">
               {{ interval }} {{ $t("impulsePrise.min") }}
             </chip-button>
-
           </div>
           <p v-if="showError">{{ $t("impulsePrise.fillAllFields") }}</p>
         </div>
@@ -254,12 +252,10 @@ const editImpulse = async (id, interval, percent) => {
             class="w-full my-3 p-3 rounded-lg border-transparent focus:outline-none bg-[#17181C] focus:bg-[#17181C]"
             type="number" min="5" placeholder="Search Here" />
           <p v-if="changePercent && changePercent < 5" class="text-sm">{{ $t("impulsePrise.minimalPercent") }}</p>
-          <div class="flex gap-2 my-3">
-            
+          <div class="flex gap-2 my-3 mx-1.5">
             <chip-button v-for="(percent, index) in [5, 10, 15, 20]" :key="index" @click="selectPercent(index, percent)" :is-active="selectedPercent === index">
               {{ percent }}%
             </chip-button>
-
           </div>
         </div>
         <ButtonView :text="$t('impulsePrise.getInfo')" class="mt-4" @click="showImpulseData" />
@@ -267,13 +263,11 @@ const editImpulse = async (id, interval, percent) => {
 
       <div v-if="showImpulse" class="text-xs rounded mb-2">
         <ButtonView :text="$t('impulsePrise.addTracking')" class="my-3" @click="openAddImpulse = true" />
-        <div class="flex text-xs border rounded border-[#2F2F2F99] m-1.5">
-          
+        <div class="flex text-xs border rounded border-[#2F2F2F99] m-1.5 mx-2.5">
           <chip-button v-for="(condition, index) in selectedImpulse.conditions" :key="index" @click="updateImpulse(condition.id, condition.time, condition.percent)" :is-active="selected_id === condition.id">
             {{ condition.time }} {{ $t("impulsePrise.min") }} /
             {{ condition.percent }} %
           </chip-button>
-
         </div>
       </div>
       <div v-if="showImpulse" class="flex justify-between items-center my-4">
@@ -318,7 +312,7 @@ const editImpulse = async (id, interval, percent) => {
             </div>
             <div class="mb-3">
               <p>{{ $t("impulsePrise.timeIntervalSelect") }}</p>
-              <div class="flex gap-2 mt-3">
+              <div class="flex gap-2 mt-3 mx-1.5">
 
                 <chip-button v-for="(interval, index) in [1, 5, 15, 60]" :key="index" @click="selectInterval(index, interval)" :is-active="selectedInterval === index">
                   {{ interval }} {{ $t("impulsePrise.min") }}
@@ -333,7 +327,7 @@ const editImpulse = async (id, interval, percent) => {
                 class="w-full my-3 p-3 rounded-lg border-transparent focus:outline-none bg-[#17181C] focus:bg-[#17181C]"
                 type="number" min="5" placeholder="Search Here" />
               <p v-if="changePercent && changePercent < 5" class="text-sm">{{ $t("impulsePrise.minimalPercent") }}</p>
-              <div class="flex gap-2 my-3">
+              <div class="flex gap-2 my-3 mx-1.5">
 
                 <chip-button v-for="(percent, index) in [5, 10, 15, 20]" :key="index" @click="selectPercent(index, percent)" :is-active="selectedPercent === index">
                   {{ percent }}%
@@ -362,7 +356,7 @@ const editImpulse = async (id, interval, percent) => {
             </div>
             <div class="mb-3">
               <p>{{ $t("impulsePrise.timeIntervalSelect") }}</p>
-              <div class="flex gap-2 mt-3">
+              <div class="flex gap-2 mt-3 mx-1.5">
                 <chip-button v-for="(interval, index) in [1, 5, 15, 60]" :key="index" :is-active="selectedInterval === index" @click="selectInterval(index, interval)">
                   {{ interval }} {{ $t("impulsePrise.min") }}
                 </chip-button>
