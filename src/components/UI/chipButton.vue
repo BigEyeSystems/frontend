@@ -1,6 +1,6 @@
 <template>
   <button
-    class="w-full py-2 rounded font-medium"
+    class="w-full py-2 rounded font-medium text-xs"
     :class="
       isActive
         ? 'border border-[#92FBDB] text-white font-semibold shadow-sm scale-110 animate-pulse shadow-[#d2fefa] transition-all duration-300 ease-in-out relative overflow-hidden'

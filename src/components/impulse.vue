@@ -370,11 +370,9 @@ const editImpulse = async (id, interval, percent) => {
                 type="number" min="5" placeholder="Search Here" />
               <p v-if="changePercent && changePercent < 5" class="text-sm">{{ $t("impulsePrise.minimalPercent") }}</p>
               <div class="flex gap-2 my-3">
-
                 <chip-button v-for="(percent, index) in [5, 10, 15, 20]" @click="selectPercent(index, percent)" :key="index" :is-active="selectedPercent === index">
                   {{ percent }}%
                 </chip-button>
-
               </div>
             </div>
             <ButtonView :text="$t('impulsePrise.getInfo')" class="mt-4"
