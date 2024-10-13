@@ -1,13 +1,13 @@
 {
   "homePage": {
-    "impulsePrise": "Импульсы цены",
-    "notificationSettings": "Объёмы актива",
-    "fundingRate": "Ставки фин- ансирования",
-    "volumeGradation": "Градация  объёмов",
-    "growthGradation": "Градация роста цен",
-    "tickerTracking": "Отслеживание актива",
-    "top24": "TOП за 24 часа",
-    "lastUpdate": "Последнее обновление"
+    "impulsePrise": "Импульсы Цены",
+    "notificationSettings": "Объёмы Актива",
+    "fundingRate": "Ставки Фин- ансирования",
+    "volumeGradation": "Градация Объёмов",
+    "growthGradation": "Градация Роста Цен",
+    "tickerTracking": "Отслеживание Актива",
+    "top24": "TOП за 24 Часа",
+    "lastUpdate": "Последнее Обновление"
   },
   "addPremium": {
     "title": "Еще больше плюсов с Premium",

@@ -1,13 +1,13 @@
 {
   "homePage": {
-    "impulsePrise": "Price impulses",
-    "notificationSettings": "Daily asset volume",
-    "fundingRate": "Funding rate",
-    "volumeGradation": "Volume gradation",
-    "growthGradation": "Gradation of price growth",
-    "tickerTracking": "Ticker tracking",
-    "top24": "TOP for 24 hours",
-    "lastUpdate": "Last update"
+    "impulsePrise": "Price Impulses",
+    "notificationSettings": "Daily Asset Volume",
+    "fundingRate": "Funding Rate",
+    "volumeGradation": "Volume Gradation",
+    "growthGradation": "Gradation of Price Growth",
+    "tickerTracking": "Ticker Tracking",
+    "top24": "TOP for 24 Hours",
+    "lastUpdate": "Last Update"
   },
   "addPremium": {
     "title": "Even more advantages with Premium",
