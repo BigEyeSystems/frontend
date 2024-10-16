@@ -17,11 +17,11 @@ const props = defineProps({
 const showNotificationsComponent = ref(false)
 </script>
 <template>
-<div class="flex justify-between">
+<div class="flex justify-between text-[#CAE8DF]">
     <div>
-        <p class="text-xs">Hello</p>
+        <p class="text-xs">Hello,</p>
         <p class="text-lg font-semibold">
-            {{ UserName }}
+            {{ UserName || 'guest' }}
         </p>
     </div>
     <div class="flex justify-center items-center gap-3">

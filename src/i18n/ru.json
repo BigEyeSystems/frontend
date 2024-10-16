@@ -1,15 +1,20 @@
 {
   "homePage": {
     "impulsePrice": "Импульсы Цены",
-    "notificationSettings": "Объёмы Актива",
+    "dailyVolume": "Объёмы Актива",
     "fundingRate": "Ставки Финансирования",
     "volumeGradation": "Градация Объёмов",
     "growthGradation": "Градация Роста Цен",
     "tickerTracking": "Отслеживание Актива",
     "fibonacci": "Фибоначчи",
-    "divergence": "DSI Дивергенциия",
+    "divergence": "RSI Дивергенциия",
+    "imbalance": "Имбалансы (FVG)",
+    "correlation": "Корреляция 2-х активов",
+    "liquid": "Снятие ликвидностей",
     "top24": "TOП за 24 Часа",
-    "lastUpdate": "Последнее Обновление"
+    "lastUpdate": "Последнее Обновление",
+    "lastImpulses": "Последние Импульсы",
+    "reload": "Обновить"
   },
   "addPremium": {
     "title": "Еще больше плюсов с Premium",

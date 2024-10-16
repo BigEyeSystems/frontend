@@ -13,7 +13,7 @@ const footerItems = ref([
 </script>
 
 <template>
-    <div class="rounded-[calc(1.5rem-10px)] p-1 bg-[#212225] flex justify-between text-xs">
+    <div class="rounded-[calc(1.5rem-10px)] p-1 bg-[#303339] flex justify-between text-xs">
         
         <RouterLink v-for="(menuItem, index) in footerItems" :key="index" :to="menuItem.link" class="w-full">
             <div class="flex flex-col px-2 rounded-xl w-full h-[71px] justify-center items-center gap-1" :class="$route.path === menuItem.link ? 'text-white' : 'text-[#797979]'">
