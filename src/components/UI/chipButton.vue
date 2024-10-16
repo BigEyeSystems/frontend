@@ -27,14 +27,15 @@ const props = defineProps({
 
 @keyframes pulse {
   0% {
-    opacity: 0.85;
+    background-color: #0d1513;
   }
   50% {
-    background-color: #0d1513;
+    background-color: black;
+    font-weight: 700;
     opacity: 1;
   }
   100% {
-    opacity: 0.85;
+    background-color: #0d1513;
   }
 }
 </style>
