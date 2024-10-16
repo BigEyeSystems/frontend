@@ -22,10 +22,9 @@ import GradationView from "./GradationView.vue";
 import ActiveGrowthView from "./ActiveGrowthView.vue";
 import trackingTickerView from "./trackingTickerView.vue";
 import FundingDataView from "./FundingDataView.vue";
-import NotificationView from "./NotificationView.vue";
 import DailyVolumeView from "./DailyVolumeView.vue";
 import crown from "../components/icons/crown.vue";
-import notification from "../components/icons/Notification.vue";
+import chipButton from "@/components/UI/chipButton.vue"; 
 import { useI18n } from "vue-i18n";
 const { t } = useI18n({ useScope: "global" });
 
@@ -207,16 +206,31 @@ const menuItems = computed(() => [
         />
       </div>
       <div class="rounded-t-xl bg-[#222428] p-2">
-        <p class="text-sm font-semibold">{{ $t("homePage.top24") }}</p>
-        <div v-if="fundingData" class="flex justify-between">
-          <p class="text-xs">{{ $t("homePage.lastUpdate") }}:</p>
+        <div class="flex w-full bg-[#303339] rounded-full mt-1">
+          <chip-button :is-active="true">
+            {{ $t("homePage.top24") }}
+          </chip-button>
+          <chip-button :is-active="false">
+            {{ $t("homePage.lastImpulses") }}
+          </chip-button>
+        </div>
+        <p class="text-sm font-semibold"></p>
+        <div v-if="fundingData" class="my-3 flex justify-between items-center">
+          <p class="text-xs text-[#B8B8B8]">{{ $t("homePage.lastUpdate") }}:</p>
           <div class="flex text-xs gap-1">
-            <PhClock :size="16" /> {{ lastUpdate.time }}
-            <PhCalendarDots :size="16" /> {{ lastUpdate.date }}
+            <div class="flex items-center border border-[#303339] p-1.5 rounded-full gap-1">
+              <PhClock :size="16" />
+              <span>{{ lastUpdate.time }}</span>
+            </div>
+            <div class="flex items-center border border-[#303339] p-1.5 rounded-full gap-1">
+              <PhCalendarDots :size="16" />
+              <span>{{ lastUpdate.date }}</span>
+            </div>
           </div>
         </div>
-        <div class="my-4 mb-20">
+        <div class="mb-16">
           <tickerFunding v-if="data" :detail="data" />
+          <button class="bg-[#303339] w-full p-3 rounded-2xl">{{ $t('homePage.reload') }}</button>
         </div>
       </div>
       <Teleport to="body">

@@ -1,9 +1,9 @@
 <template>
   <button
-    class="w-full py-2 text-xs rounded-full"
+    class="w-full py-3 text-xs rounded-full"
     :class="
       isActive
-        ? ' bg-[#92FBDB] font-semibold text-black animate-pulse transition-all duration-300 ease-in-out relative overflow-hidden'
+        ? 'bg-[#92FBDB] font-semibold text-black animate-pulse transition-all duration-300 ease-in-out relative overflow-hidden'
         : 'font-normal text-gray-400'
     "
   >

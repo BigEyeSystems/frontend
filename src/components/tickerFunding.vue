@@ -54,8 +54,7 @@ const sortByFundingDesc = () => {
 
 
 <template>
-  <div class="rounded-[14px] bg-[#17181C]/55 p-3">
-    <div class="flex text-[10px] justify-between rounded-full bg-[#303339] mb-2" style="padding: 1px;">
+    <div class="flex text-[10px] justify-between rounded-full bg-[#303339] mb-2">
       <chip-button @click="sortByFundingAsc" :is-active="showFundingFirstFive">
         {{ $t('top24.byFunding')}} (+)
       </chip-button>
@@ -68,34 +67,26 @@ const sortByFundingDesc = () => {
     </div>
     <div v-if="showFundingByVolume">
       <div v-if="fundingData && fundingData.top_tickers_by_volume && fundingData.top_tickers_by_volume.first_5">
-        <div v-for="(item, index) in revesedByVolume" :key="index" class="text-xs mb-2">
-          <div class="flex justify-between">
+        <div v-for="(item, index) in revesedByVolume" :key="index" class="flex justify-between items-center py-1 text-xs mb-2">
+          <div class="flex flex-col justify-between">
             <p>{{ item.symbol }}</p>
-            <p>{{ item.quoteVolumeFormatted }}$</p>
+            <p class="text-xs text-[#757575]">= {{ item.lastPrice }} $(<span>{{ parseFloat(item.priceChangePercent).toFixed(2) }}%</span>)</p>
           </div>
           <div class="flex justify-between pb-2">
-            <p class="text-[#B8B8B8]">= {{ item.lastPrice }}$(<span :style="{ color: item.priceChangePercent > 0 ? 'green' : 'red' }">{{ parseFloat(item.priceChangePercent).toFixed(2) }}%</span>)</p>
-            <p class="text-[#B8B8B8]">
-              {{ $t('top24.5min')}} {{ item['60_min_value'] }}$
-            </p>
+            <p>{{ item.quoteVolumeFormatted }}$</p>
           </div>
         </div>
       </div>
     </div>
     <div v-else-if="showFundingLastFive">
       <div v-if="fundingData && fundingData.top_tickers && fundingData.top_tickers.last_5">
-        <div v-for="(item, index) in fundingData.top_tickers.last_5" :key="index" class="text-xs mb-2">
-          <div class="flex justify-between">
+        <div v-for="(item, index) in fundingData.top_tickers.last_5" :key="index" class="flex justify-between items-center py-1 text-xs mb-2">
+          <div class="flex flex-col justify-between">
             <p>{{ item.symbol }}</p>
-            <p>{{ parseFloat(item.lastFundingRate).toFixed(4) }}%</p>
+            <p class="text-[#757575]">= {{ item.markPrice }}$</p>
           </div>
           <div class="flex justify-between pb-2">
-            <p class="text-[#B8B8B8]">= {{ item.markPrice }}$</p>
-            <p class="text-[#B8B8B8]">
-              {{ $t('top24.5min')}}
-              <span :style="{ color: item['60_min_value'] > 0 ? 'green' : 'red' }">
-                {{ parseFloat(item['60_min_value']).toFixed(4) }}%</span>
-            </p>
+            <p>{{ parseFloat(item.lastFundingRate).toFixed(4) }}%</p>
           </div>
         </div>
       </div>
@@ -105,18 +96,16 @@ const sortByFundingDesc = () => {
     </div>
     <div v-else-if="showFundingFirstFive">
       <div v-if="fundingData && fundingData.top_tickers && fundingData.top_tickers.first_5">
-        <div v-for="(item, index) in reversedFirstFive" :key="index" class="text-xs mb-2">
-          <div class="flex justify-between">
+        <div v-for="(item, index) in reversedFirstFive" :key="index" class="flex justify-between items-center py-1 text-xs mb-2">
+          <div class="flex flex-col justify-between">
             <p>{{ item.symbol }}</p>
-            <p>{{ parseFloat(item.lastFundingRate).toFixed(4) }}%</p>
+            <p class="text-[#757575]">= {{ item.markPrice }}$
+              <span>
+                ({{ parseFloat(item['60_min_value']).toFixed(4) }}%)</span>
+            </p>
           </div>
           <div class="flex justify-between pb-2">
-            <p class="text-[#B8B8B8]">= {{ item.markPrice }}$</p>
-            <p class="text-[#B8B8B8]">
-              {{ $t('top24.5min')}}
-              <span :style="{ color: item['60_min_value'] > 0 ? 'green' : 'red' }">
-                {{ parseFloat(item['60_min_value']).toFixed(4) }}%</span>
-            </p>
+            <p>{{ parseFloat(item.lastFundingRate).toFixed(4) }}%</p>
           </div>
         </div>
       </div>
@@ -124,7 +113,6 @@ const sortByFundingDesc = () => {
         Loading...
       </div>
     </div>
-  </div>
 </template>
 
 

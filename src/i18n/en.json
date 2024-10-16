@@ -12,7 +12,9 @@
     "correlation": "Correlation of two assets",
     "liquid": "Liquidity Withdrawal",
     "top24": "TOP for 24 Hours",
-    "lastUpdate": "Last Update"
+    "lastUpdate": "Last Update",
+    "lastImpulses": "Last Impulses",
+    "reload": "Reload"
   },
   "addPremium": {
     "title": "Even more advantages with Premium",
