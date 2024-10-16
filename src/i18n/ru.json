@@ -1,11 +1,13 @@
 {
   "homePage": {
-    "impulsePrise": "Импульсы Цены",
+    "impulsePrice": "Импульсы Цены",
     "notificationSettings": "Объёмы Актива",
     "fundingRate": "Ставки Финансирования",
     "volumeGradation": "Градация Объёмов",
     "growthGradation": "Градация Роста Цен",
     "tickerTracking": "Отслеживание Актива",
+    "fibonacci": "Фибоначчи",
+    "divergence": "DSI Дивергенциия",
     "top24": "TOП за 24 Часа",
     "lastUpdate": "Последнее Обновление"
   },
