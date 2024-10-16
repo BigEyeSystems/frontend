@@ -48,6 +48,25 @@ console.log(tgHashData);
 const data = ref(null);
 let connection;
 
+const toggleTeleport = () => {
+  open.value = !open.value;
+};
+const toggleTeleportGradation = () => {
+  openGradation.value = !openGradation.value;
+};
+const toggleTeleportGradationGrowth = () => {
+  openGradationGrowth.value = !openGradationGrowth.value;
+};
+const toggleTrackingTicker = () => {
+  openTrackingTicker.value = !openTrackingTicker.value;
+};
+const toggleFundingData = () => {
+  openFundingData.value = !openFundingData.value;
+};
+const toggleNotification = () => {
+  openNotification.value = !openNotification.value;
+};
+
 const fundingData = computed(() => {
   try {
     return JSON.parse(data.value);
@@ -118,34 +137,34 @@ const menuItems = computed(() => [
   [
     {
       title: t("homePage.impulsePrice"),
-      openFunc: () => (open.value = !open.value),
+      openFunc: toggleTeleport,
       icon: ImpulsePrice,
     },
     {
       title: t("homePage.dailyVolume"),
-      openFunc: () => (openNotification.value = !openNotification.value),
+      openFunc: toggleNotification,
       icon: Divergence,
     },
     {
       title: t("homePage.fundingRate"),
-      openFunc: () => (openFundingData.value = !openFundingData.value),
+      openFunc: toggleFundingData,
       icon: FundingRate,
     },
     {
       title: t("homePage.volumeGradation"),
-      openFunc: () => (openGradation.value = !openGradation.value),
+      openFunc: toggleTeleportGradation,
       icon: VolumeGradation,
     }
   ],
   [
     {
       title: t("homePage.growthGradation"),
-      openFunc: () => (openGradationGrowth.value = !openGradationGrowth.value),
+      openFunc: toggleTeleportGradationGrowth,
       icon: GrowthGradation,
     },
     {
       title: t("homePage.tickerTracking"),
-      openFunc: () => (openTrackingTicker.value = !openTrackingTicker.value),
+      openFunc: toggleTrackingTicker,
       icon: Tracking,
     },
     {
