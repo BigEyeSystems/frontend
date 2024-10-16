@@ -1,7 +1,17 @@
 <script setup>
 import axios from "axios";
 import { onMounted, onBeforeUnmount, ref, watch, computed } from "vue";
-import LocalesView from './LocalesView.vue';
+import {
+  ImpulsePrice,
+  NotificationSettings,
+  FundingRate,
+  VolumeGradation,
+  GrowthGradation,
+  Tracking,
+  Fibonacci,
+  Divergence
+} from "@/components/icons/home-page";
+import LocalesView from "./LocalesView.vue";
 import menuItem from "../components/menuItem.vue";
 import Header from "../components/Header.vue";
 import tickerFunding from "@/components/tickerFunding.vue";
@@ -15,15 +25,15 @@ import FundingDataView from "./FundingDataView.vue";
 import NotificationView from "./NotificationView.vue";
 import DailyVolumeView from "./DailyVolumeView.vue";
 import crown from "../components/icons/crown.vue";
-import notification from "../components/icons/Notification.vue"
+import notification from "../components/icons/Notification.vue";
 import { useI18n } from "vue-i18n";
-const { t } = useI18n( {useScope: 'global'} ); 
+const { t } = useI18n({ useScope: "global" });
 
 const openLocales = ref(false);
 const toggleTeleportLocale = () => {
   openLocales.value = !openLocales.value;
 };
-const isToken = ref('');
+const isToken = ref("");
 const open = ref(false);
 const openGradation = ref(false);
 const openGradationGrowth = ref(false);
@@ -31,35 +41,13 @@ const openTrackingTicker = ref(false);
 const openFundingData = ref(false);
 const openNotification = ref(false);
 
-
-const toggleTeleport = () => {
-  open.value = !open.value;
-};
-const toggleTeleportGradation = () => {
-  openGradation.value = !openGradation.value;
-};
-const toggleTeleportGradationGrowth = () => {
-  openGradationGrowth.value = !openGradationGrowth.value;
-};
-const toggleTrackingTicker = () => {
-  openTrackingTicker.value = !openTrackingTicker.value;
-};
-const toggleFundingData = () => {
-  openFundingData.value = !openFundingData.value;
-};
-const toggleNotification = () => {
-  openNotification.value = !openNotification.value;
-};
-
-const lang = ref(localStorage.getItem('lang') === 'ru' ? 'RU' : 'EN')
+const lang = ref(localStorage.getItem("lang") === "ru" ? "RU" : "EN");
 const tg = window.Telegram.WebApp;
 const user = tg.initDataUnsafe.user;
 const tgHashData = tg.initData;
 console.log(tgHashData);
 const data = ref(null);
 let connection;
-
-
 
 const fundingData = computed(() => {
   try {
@@ -70,31 +58,30 @@ const fundingData = computed(() => {
   }
 });
 
-
 const lastUpdate = computed(() => {
-  const lastUpdateTime = new Date(fundingData.value?.top_tickers?.last_update_time);
-  
+  const lastUpdateTime = new Date(
+    fundingData.value?.top_tickers?.last_update_time
+  );
+
   if (isNaN(lastUpdateTime)) return { time: null, date: null };
 
-  const hours = lastUpdateTime.getHours() % 12 || 12; 
-  const minutes = lastUpdateTime.getMinutes().toString().padStart(2, '0'); 
+  const hours = lastUpdateTime.getHours() % 12 || 12;
+  const minutes = lastUpdateTime.getMinutes().toString().padStart(2, "0");
   const formattedTime = `${hours}:${minutes}`;
 
-  const day = lastUpdateTime.getDate().toString().padStart(2, '0');
-  const month = (lastUpdateTime.getMonth() + 1).toString().padStart(2, '0'); 
+  const day = lastUpdateTime.getDate().toString().padStart(2, "0");
+  const month = (lastUpdateTime.getMonth() + 1).toString().padStart(2, "0");
   const year = lastUpdateTime.getFullYear();
   const formattedDate = `${day}.${month}.${year}`;
 
   return {
     time: formattedTime,
-    date: formattedDate
+    date: formattedDate,
   };
 });
 
-
-
 onMounted(() => {
-  lang.value = localStorage.getItem('lang') === 'ru' ? 'RU' : 'EN';
+  lang.value = localStorage.getItem("lang") === "ru" ? "RU" : "EN";
 
   axios
     .post("https://dsde1736.fornex.org/api/user/login_user", {
@@ -102,8 +89,8 @@ onMounted(() => {
     })
     .then(function (response) {
       console.log(JSON.stringify(response.data) + " response");
-      localStorage.setItem('token', response.data.token);
-      isToken.value = localStorage.getItem('token');
+      localStorage.setItem("token", response.data.token);
+      isToken.value = localStorage.getItem("token");
     })
     .catch(function (error) {
       console.error("There was an error!", error);
@@ -126,67 +113,122 @@ onBeforeUnmount(() => {
     console.log("WebSocket connection closed");
   }
 });
+
+// Все равно нужно будет оптимизировать логику открытия окон (такая куча переменных для каждой модалки - некрасиво)
+const menuItems = computed(() => [
+  [
+    {
+      title: t("homePage.impulsePrice"),
+      openFunc: () => (open.value = !open.value),
+      icon: ImpulsePrice,
+    },
+    {
+      title: t("homePage.dailyVolume"),
+      openFunc: () => (openNotification.value = !openNotification.value),
+      icon: Divergence,
+    },
+    {
+      title: t("homePage.fundingRate"),
+      openFunc: () => (openFundingData.value = !openFundingData.value),
+      icon: FundingRate,
+    },
+    {
+      title: t("homePage.volumeGradation"),
+      openFunc: () => (openGradation.value = !openGradation.value),
+      icon: VolumeGradation,
+    }
+  ],
+  [
+    {
+      title: t("homePage.growthGradation"),
+      openFunc: () => (openGradationGrowth.value = !openGradationGrowth.value),
+      icon: GrowthGradation,
+    },
+    {
+      title: t("homePage.tickerTracking"),
+      openFunc: () => (openTrackingTicker.value = !openTrackingTicker.value),
+      icon: Tracking,
+    },
+    {
+      title: t("homePage.fibonacci"),
+      openFunc: () => {},
+      icon: Fibonacci,
+      closed: true
+    },
+    {
+      title: t('homePage.divergence'),
+      openFunc: () => {},
+      icon: Divergence,
+      closed: true
+    }
+  ],
+  [
+    {
+      title: t('homePage.imbalance'),
+      openFunc: () => {},
+      icon: VolumeGradation,
+      closed: true
+    },
+    {
+      title: t('homePage.correlation'),
+      openFunc: () => {},
+      icon: GrowthGradation,
+      closed: true
+    },
+    {
+      title: t('homePage.liquid'),
+      openFunc: () => {},
+      icon: Tracking,
+      closed: true
+    },
+  ]
+]);
 </script>
 
 <template>
   <div class="flex flex-col min-h-screen">
-    <Header :UserName="user?.username" :lang="$t('lang')" @changeLocale="toggleTeleportLocale" />
+    <Header
+      :UserName="user?.username"
+      :lang="$t('lang')"
+      @changeLocale="toggleTeleportLocale"
+    />
     <div class="flex-grow z-1 py-4">
-      <div class="flex gap-4 my-4">
-        <menuItem :title="$t('homePage.impulsePrise')" @click="toggleTeleport">
-          <template #icon>
-            <PhPulse :size="24" />
-          </template>
-        </menuItem>
-        <menuItem :title="$t('homePage.notificationSettings')" @click="toggleNotification">
-          <template #icon>
-            <PhChartBarHorizontal :size="24" />
-          </template>
-        </menuItem>
-        <menuItem :title="$t('homePage.fundingRate')" @click="toggleFundingData">
-          <template #icon>
-            <PhPercent :size="24" />
-          </template>
-        </menuItem>
-      </div>
-      <div class="flex gap-4">
-        <menuItem :title="$t('homePage.volumeGradation')" @click="toggleTeleportGradation">
-          <template #icon>
-            <PhChartBar :size="24" />
-          </template>
-        </menuItem>
-        <menuItem :title="$t('homePage.growthGradation')" @click="toggleTeleportGradationGrowth">
-          <template #icon>
-            <PhChartLine :size="24" />
-          </template>
-        </menuItem>
-        <menuItem :title="$t('homePage.tickerTracking')" @click="toggleTrackingTicker">
-          <template #icon>
-            <PhMagnifyingGlass :size="24" />
-          </template>
-        </menuItem>
-      </div>
-      <div class="my-4" @click="$router.push('/profile/premium')">
+      <div class="mb-4" @click="$router.push('/profile/premium')">
         <addPremium />
       </div>
-      <p class="text-sm font-semibold">{{ $t('homePage.top24')}}</p>
-      <div v-if="fundingData" class="flex justify-between">
-        <p class="text-xs">{{ $t('homePage.lastUpdate')}}:</p>
-        <div class="flex text-xs gap-1">
-          <PhClock :size="16" /> {{lastUpdate.time}}
-          <PhCalendarDots :size="16" /> {{lastUpdate.date}}
-        </div>
+      <div v-for="(row, index) in menuItems" :key="index" class="grid gap-2 h-[90px] my-3 rounded-2xl" :class="[`grid-cols-${row.length}`, index === menuItems.length - 1 ? 'bg-none' : 'bg-[#222428]']">
+        <menuItem
+          v-for="(item, index) in row"
+          :key="index"
+          :title="item.title"
+          :icon-component="item.icon"
+          :is-closed="item.closed"
+          @click="item.openFunc"
+        />
       </div>
-      <div class="my-4 mb-20">
-        <tickerFunding v-if="data" :detail="data" />
+      <div class="rounded-t-xl bg-[#222428] p-2">
+        <p class="text-sm font-semibold">{{ $t("homePage.top24") }}</p>
+        <div v-if="fundingData" class="flex justify-between">
+          <p class="text-xs">{{ $t("homePage.lastUpdate") }}:</p>
+          <div class="flex text-xs gap-1">
+            <PhClock :size="16" /> {{ lastUpdate.time }}
+            <PhCalendarDots :size="16" /> {{ lastUpdate.date }}
+          </div>
+        </div>
+        <div class="my-4 mb-20">
+          <tickerFunding v-if="data" :detail="data" />
+        </div>
       </div>
       <Teleport to="body">
         <transition name="modal">
-          <div v-if="open" class="modal h-[90vh] rounded-t-3xl bg-black fixed bottom-0 w-full py-5 px-4 overflow-auto border-t border-white">
+          <div
+            v-if="open"
+            class="modal h-[90vh] rounded-t-3xl bg-black fixed bottom-0 w-full py-5 px-4 overflow-auto border-t border-white"
+          >
             <div class="flex justify-between mb-3">
               <div class="flex gap-3 items-center">
                 <crown />
-                <p class="font-bold text-sm">{{ $t('impulsePrise.title')}}</p>
+                <p class="font-bold text-sm">{{ $t("impulsePrise.title") }}</p>
               </div>
 
               <button @click="open = false">
@@ -199,12 +241,16 @@ onBeforeUnmount(() => {
       </Teleport>
       <Teleport to="body">
         <transition name="modal">
-          <div v-if="openGradation"
-            class="modal h-[90vh] rounded-t-3xl bg-black fixed bottom-0 w-full py-5 px-4 overflow-auto border-t border-white">
+          <div
+            v-if="openGradation"
+            class="modal h-[90vh] rounded-t-3xl bg-black fixed bottom-0 w-full py-5 px-4 overflow-auto border-t border-white"
+          >
             <div class="flex justify-between mb-3">
               <div class="flex gap-3 items-center">
                 <crown />
-                <p class="font-bold text-sm">{{ $t('gradationGrowth.title')}}</p>
+                <p class="font-bold text-sm">
+                  {{ $t("gradationGrowth.title") }}
+                </p>
               </div>
               <button @click="toggleTeleportGradation">
                 <PhX :size="21" />
@@ -216,12 +262,16 @@ onBeforeUnmount(() => {
       </Teleport>
       <Teleport to="body">
         <transition name="modal">
-          <div v-if="openGradationGrowth"
-            class="modal h-[90vh] rounded-t-3xl bg-black fixed bottom-0 w-full py-5 px-4 overflow-auto border-t border-white">
+          <div
+            v-if="openGradationGrowth"
+            class="modal h-[90vh] rounded-t-3xl bg-black fixed bottom-0 w-full py-5 px-4 overflow-auto border-t border-white"
+          >
             <div class="flex justify-between mb-3">
               <div class="flex gap-3 items-center">
                 <crown />
-                <p class="font-bold text-sm">{{ $t('gradationActiveGrowth.title')}}</p>
+                <p class="font-bold text-sm">
+                  {{ $t("gradationActiveGrowth.title") }}
+                </p>
               </div>
               <button @click="toggleTeleportGradationGrowth">
                 <PhX :size="21" />
@@ -233,12 +283,16 @@ onBeforeUnmount(() => {
       </Teleport>
       <Teleport to="body">
         <transition name="modal">
-          <div v-if="openTrackingTicker"
-            class="modal h-[90vh] rounded-t-3xl bg-black fixed bottom-0 w-full py-5 px-4 overflow-auto border-t border-white">
+          <div
+            v-if="openTrackingTicker"
+            class="modal h-[90vh] rounded-t-3xl bg-black fixed bottom-0 w-full py-5 px-4 overflow-auto border-t border-white"
+          >
             <div class="flex justify-between mb-3">
               <div class="flex gap-3 items-center">
                 <crown />
-                <p class="font-bold text-sm">{{ $t('tickerTracking.title')}}</p>
+                <p class="font-bold text-sm">
+                  {{ $t("tickerTracking.title") }}
+                </p>
               </div>
               <button @click="openTrackingTicker = false">
                 <PhX :size="21" />
@@ -250,12 +304,14 @@ onBeforeUnmount(() => {
       </Teleport>
       <Teleport to="body">
         <transition name="modal">
-          <div v-if="openFundingData"
-            class="modal h-[90vh] rounded-t-3xl bg-black fixed bottom-0 w-full py-5 px-4 overflow-auto border-t border-white">
+          <div
+            v-if="openFundingData"
+            class="modal h-[90vh] rounded-t-3xl bg-black fixed bottom-0 w-full py-5 px-4 overflow-auto border-t border-white"
+          >
             <div class="flex justify-between mb-3">
               <div class="flex gap-3 items-center">
                 <crown />
-                <p class="font-bold text-sm">{{ $t('fundingPage.title')}}</p>
+                <p class="font-bold text-sm">{{ $t("fundingPage.title") }}</p>
               </div>
               <button @click="toggleFundingData">
                 <PhX :size="21" />
@@ -267,15 +323,18 @@ onBeforeUnmount(() => {
       </Teleport>
       <Teleport to="body">
         <transition name="modal">
-          <div v-if="openNotification"
-            class="modal h-[90vh] rounded-t-3xl bg-black fixed bottom-0 w-full py-5 px-4 overflow-auto border-t border-white">
+          <div
+            v-if="openNotification"
+            class="modal h-[90vh] rounded-t-3xl bg-black fixed bottom-0 w-full py-5 px-4 overflow-auto border-t border-white"
+          >
             <div class="flex justify-between mb-3">
-
               <!-- Открытие компонента перенесёно в header на колокольчик -->
 
               <div class="flex gap-3 items-center">
                 <PhChartBarHorizontal :size="32" />
-                <p class="font-bold text-sm">{{ $t('dailyVolume.dailyAssetVolume')}}</p>
+                <p class="font-bold text-sm">
+                  {{ $t("dailyVolume.dailyAssetVolume") }}
+                </p>
               </div>
               <button @click="toggleNotification">
                 <PhX :size="21" />
@@ -287,18 +346,20 @@ onBeforeUnmount(() => {
       </Teleport>
       <Teleport to="body">
         <transition name="modal">
-          <div v-if="openLocales"
-            class="modal h-[60vh] rounded-t-3xl bg-black fixed bottom-0 w-full py-5 px-4 overflow-auto border-t border-white">
+          <div
+            v-if="openLocales"
+            class="modal h-[60vh] rounded-t-3xl bg-black fixed bottom-0 w-full py-5 px-4 overflow-auto border-t border-white"
+          >
             <div class="flex justify-between mb-3">
               <div class="flex gap-3 items-center">
                 <PhList :size="32" />
-                <p class="text-lg font-bold">{{ $t('localeModal.title')}}</p>
+                <p class="text-lg font-bold">{{ $t("localeModal.title") }}</p>
               </div>
               <button @click="openLocales = false">
                 <PhX :size="21" />
               </button>
             </div>
-            <LocalesView @submit="toggleTeleportLocale"/>
+            <LocalesView @submit="toggleTeleportLocale" />
           </div>
         </transition>
       </Teleport>

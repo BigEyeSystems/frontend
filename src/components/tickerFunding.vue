@@ -55,7 +55,7 @@ const sortByFundingDesc = () => {
 
 <template>
   <div class="rounded-[14px] bg-[#17181C]/55 p-3">
-    <div class="flex text-[10px] justify-between border rounded border-[#2F2F2F99] mb-2" style="padding: 1px;">
+    <div class="flex text-[10px] justify-between rounded-full bg-[#303339] mb-2" style="padding: 1px;">
       <chip-button @click="sortByFundingAsc" :is-active="showFundingFirstFive">
         {{ $t('top24.byFunding')}} (+)
       </chip-button>

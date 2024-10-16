@@ -1,10 +1,10 @@
 <template>
   <button
-    class="w-full py-2 rounded font-medium text-xs"
+    class="w-full py-2 text-xs rounded-full"
     :class="
       isActive
-        ? 'border border-[#92FBDB] text-white font-semibold shadow-sm scale-110 animate-pulse shadow-[#d2fefa] transition-all duration-300 ease-in-out relative overflow-hidden'
-        : 'bg-[#17181C]'
+        ? ' bg-[#92FBDB] font-semibold text-black animate-pulse transition-all duration-300 ease-in-out relative overflow-hidden'
+        : 'font-normal text-gray-400'
     "
   >
     <slot />
@@ -27,15 +27,14 @@ const props = defineProps({
 
 @keyframes pulse {
   0% {
-    background-color: #0d1513;
+    background-color: #92FBDB;
   }
   50% {
-    background-color: black;
-    font-weight: 700;
+    background-color: #82e4c7;
     opacity: 1;
   }
   100% {
-    background-color: #0d1513;
+    background-color: #92FBDB;
   }
 }
 </style>

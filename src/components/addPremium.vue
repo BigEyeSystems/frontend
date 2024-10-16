@@ -5,21 +5,19 @@ const { t } = useI18n({ useScope: "global" });
 </script>
 <template>
   <div
-    class="rounded-2xl p-px bg-gradient-to-r from-black from-0% via-black via-95% to-[#92FBDB] to-100%"
+    class="rounded-full p-1 py-4 flex justify-between items-center px-3 bg-gradient-to-tl from-[#FF77B2] via-[#5898FF] to-[#FF77B2]"
   >
-    <div
-      class="rounded-[calc(1.5rem-10px)] p-1 bg-[#17181C] py-4 flex justify-between px-3"
-    >
-      <div class="flex items-center">
-        <crown />
-      </div>
-      <div class="flex flex-col content-center text-xs">
+    <div class="flex items-center gap-2">
+      <crown />
+
+      <div class="flex flex-col content-center">
         <p class="text-sm font-semibold">{{ $t("addPremium.title") }}</p>
         <p class="text-xs">{{ $t("addPremium.text") }}</p>
       </div>
-      <div class="flex flex-col justify-center">
-        <PhCaretRight :size="24" />
-      </div>
+    </div>
+
+    <div class="flex flex-col justify-center">
+      <PhCaretRight :size="24" />
     </div>
   </div>
 </template>

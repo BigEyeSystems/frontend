@@ -1,13 +1,16 @@
 {
   "homePage": {
     "impulsePrice": "Price Impulses",
-    "notificationSettings": "Daily Asset Volume",
+    "dailyVolume": "Daily Asset Volume",
     "fundingRate": "Funding Rate",
     "volumeGradation": "Volume Gradation",
     "growthGradation": "Gradation of Price Growth",
     "tickerTracking": "Ticker Tracking",
     "fibonacci": "Fibonacci",
-    "divergence": "DSI Divergence",
+    "divergence": "RSI Divergence",
+    "imbalance": "Imbalance (FVG)",
+    "correlation": "Correlation of two assets",
+    "liquid": "Liquidity Withdrawal",
     "top24": "TOP for 24 Hours",
     "lastUpdate": "Last Update"
   },
