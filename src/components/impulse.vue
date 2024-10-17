@@ -71,7 +71,6 @@ const selectPercent = (index, percent) => {
   changePercent.value = percent;
 };
 const showImpulseData = async () => {
-  loading.value = true;
   const intervalValue =
     changeInterval.value !== null ? Number(changeInterval.value) : 0;
   const percentValue =
@@ -83,6 +82,7 @@ const showImpulseData = async () => {
   }
 
   if (changeInterval.value && changePercent.value) {
+    loading.value = true;
     try {
       await axios.post(
         "https://dsde1736.fornex.org/api/notify/set_impulse",
