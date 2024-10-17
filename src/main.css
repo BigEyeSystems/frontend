@@ -11,11 +11,6 @@
     color-scheme: light dark;
     color: rgba(255, 255, 255, 0.87);
     background: black;
-    /* background: linear-gradient(black 35%, #92fbdb1e); */
-    /* background: linear-gradient(135deg, black 49%, rgba(146, 251, 219, 0.05) 48%, rgba(146, 251, 219, 0.15) 50%, rgba(146, 251, 219, 0.05) 52%, black 53%); */
-    /* background-size: 200% 200%; */
-    /* animation: stripe-animation 15s linear infinite; */
-  
     font-synthesis: none;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
