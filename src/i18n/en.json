@@ -124,7 +124,8 @@
     "dailyAssetVolume": "Daily asset volume",
     "forEntireTimeVolumeChanged":"Over the entire time, the volume has changed to",
     "date": "Date",
-    "volume": "Volume"
+    "volume": "Volume",
+    "numberDays": "Enter the number of days (maximum 30)"
   },
   "fundingPage": {
     "title": "Funding rate",

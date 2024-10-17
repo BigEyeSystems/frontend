@@ -249,11 +249,12 @@ const editImpulse = async (id, interval, percent) => {
         <div>
           <p>{{ $t("impulsePrise.enterPrice") }}</p>
           <input v-model="changePercent"
+            :class="{'input-error': changePercent && changePercent < 5}"
             class="w-full my-3 p-3 rounded-lg border-transparent focus:outline-none bg-[#17181C] focus:bg-[#17181C]"
             type="number" min="5" placeholder="Search Here" />
-          <p v-if="changePercent && changePercent < 5" class="text-sm">{{ $t("impulsePrise.minimalPercent") }}</p>
+          <p v-if="changePercent && changePercent < 5" class="text-sm text-red-600">{{ $t("impulsePrise.minimalPercent") }}</p>
           <div class="flex gap-2 my-3 mx-1.5">
-            <chip-button v-for="(percent, index) in [5, 10, 15, 20]" :key="index" @click="selectPercent(index, percent)" :is-active="selectedPercent === index">
+            <chip-button v-for="(percent, index) in [5, 10, 15, 20]" :key="index" @click="selectPercent(index, percent)" :is-active="selectedPercent === index && changePercent === percent">
               {{ percent }}%
             </chip-button>
           </div>
@@ -317,22 +318,20 @@ const editImpulse = async (id, interval, percent) => {
                 <chip-button v-for="(interval, index) in [1, 5, 15, 60]" :key="index" @click="selectInterval(index, interval)" :is-active="selectedInterval === index">
                   {{ interval }} {{ $t("impulsePrise.min") }}
                 </chip-button>
-
               </div>
-              <p v-if="showError">{{ $t("impulsePrise.fillAllFields") }}</p>
+              <p v-if="showError" class="text-sm text-red-600">{{ $t("impulsePrise.fillAllFields") }}</p>
             </div>
             <div>
               <p>{{ $t("impulsePrise.enterPrice") }}</p>
               <input v-model="changePercent"
+                :class="{'input-error': changePercent && changePercent < 5}"
                 class="w-full my-3 p-3 rounded-lg border-transparent focus:outline-none bg-[#17181C] focus:bg-[#17181C]"
                 type="number" min="5" placeholder="Search Here" />
-              <p v-if="changePercent && changePercent < 5" class="text-sm">{{ $t("impulsePrise.minimalPercent") }}</p>
+              <p v-if="changePercent && changePercent < 5" class="text-sm text-red-600">{{ $t("impulsePrise.minimalPercent") }}</p>
               <div class="flex gap-2 my-3 mx-1.5">
-
                 <chip-button v-for="(percent, index) in [5, 10, 15, 20]" :key="index" @click="selectPercent(index, percent)" :is-active="selectedPercent === index">
                   {{ percent }}%
                 </chip-button>
-
               </div>
             </div>
             <ButtonView :text="$t('impulsePrise.getInfo')" class="mt-4" @click="showImpulseData" />
@@ -366,9 +365,10 @@ const editImpulse = async (id, interval, percent) => {
             <div>
               <p>{{ $t("impulsePrise.enterPrice") }}</p>
               <input v-model="changePercent"
+                :class="{'input-error': changePercent && changePercent < 5}"
                 class="w-full my-3 p-3 rounded-lg border-transparent focus:outline-none bg-[#17181C] focus:bg-[#17181C]"
                 type="number" min="5" placeholder="Search Here" />
-              <p v-if="changePercent && changePercent < 5" class="text-sm">{{ $t("impulsePrise.minimalPercent") }}</p>
+              <p v-if="changePercent && changePercent < 5" class="text-sm text-red-600">{{ $t("impulsePrise.minimalPercent") }}</p>
               <div class="flex gap-2 my-3">
                 <chip-button v-for="(percent, index) in [5, 10, 15, 20]" @click="selectPercent(index, percent)" :key="index" :is-active="selectedPercent === index">
                   {{ percent }}%
@@ -402,6 +402,9 @@ const editImpulse = async (id, interval, percent) => {
 .modal-enter-to,
 .modal-leave-from {
   transform: translateY(0);
+}
+.input-error {
+  border: 2px solid #da2828;
 }
 
 </style>
