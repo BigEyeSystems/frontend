@@ -60,9 +60,9 @@ const downloadGradationGrowthFile = async (id) => {
       }
     );
     isNotification.value = true;
-    setTimeout(() => {
-      isNotification.value = false;
-    }, 3000);
+    // setTimeout(() => {
+    //   isNotification.value = false;
+    // }, 3000);
   } catch (error) {
     console.log("Error downloading data: " + error);
   }
@@ -201,7 +201,7 @@ const formattedDate = (date) => {
     <Teleport to="body">
       <div v-if="isNotification" class="modal fixed inset-0 flex items-center justify-center z-50 px-4">
         <transition name="modal">
-          <div class="bg-[#222222b3] py-4 px-5 rounded-lg w-full">
+          <div class="bg-[#222222f2] pt-4 pb-6 px-5 rounded-lg w-full border-[#92FBDB] border-2">
             <div class="flex justify-end">
               <button @click="isNotification = false" class="bg-[#7474802e] p-2 rounded-full">
                 <PhX :size="21" />
