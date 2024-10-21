@@ -27,6 +27,7 @@ const dataInterval = ref(null);
 const tickerHistory = ref(null);
 const selectedInterval = ref(null);
 const selectedTicker = ref(null);
+const isToggling = ref(false);
 const selectInterval = (index, interval) => {
   selectedInterval.value = index;
   changeInterval.value = interval;
@@ -41,7 +42,7 @@ const showTrackingTicker = ref(false);
 
 onBeforeMount(async () => {
   try {
-    loading.value = true; // Set loading to true when starting data fetch
+    loading.value = true;
     const response = await axios.get(
       "https://dsde1736.fornex.org/api/notify/get_ticker_tracking",
       {
@@ -72,13 +73,19 @@ onBeforeMount(async () => {
 });
 
 const toggleTrackingTicker = async () => {
-  if (tickerName.value.trim().length < 1) return;
-  try {
-    const intervalValue =
-      changeInterval.value !== null ? Number(changeInterval.value) : 0;
+  if (isToggling.value) return;
+  isToggling.value = true;
 
+  if (tickerName.value.trim().length < 1) {
+    isToggling.value = false;
+    return;
+  }
+
+  try {
+    const intervalValue = changeInterval.value !== null ? Number(changeInterval.value) : 0;
     if (isNaN(intervalValue) || intervalValue <= 0) {
       console.error("Invalid interval value.");
+      isToggling.value = false;
       return;
     }
 
@@ -111,16 +118,6 @@ const toggleTrackingTicker = async () => {
         }
       );
       tickerData.value = tickerDataResponse.data;
-
-      const tickerHistoryResponse = await axios.get(
-        `https://dsde1736.fornex.org/api/notify/get_ticker_tracking_history?tt_id=${tickerData.value?.conditions[0]?.id}`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
-      tickerHistory.value = tickerHistoryResponse.data;
       showTrackingTicker.value = true;
       if (tickerData.value.conditions.length > 0) {
         const firstCondition = tickerData.value.conditions[0];
@@ -133,9 +130,11 @@ const toggleTrackingTicker = async () => {
     }
   } catch (error) {
     console.error("Error occurred: ", error);
-  } finally {openAddTracker.value = false}
+  } finally {
+    isToggling.value = false;
+    openAddTracker.value = false;
+  }
 };
-
 const updateTicker = async (id, time, ticker) => {
   try {
     const response = await axios.get(

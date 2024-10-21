@@ -8,6 +8,7 @@ import { useI18n } from "vue-i18n";
 import { useImpulse } from "../store/impulse.js";
 import { storeToRefs } from "pinia";
 import chipButton from "./UI/chipButton.vue";
+import modalWindow from "./UI/modalWindow.vue";
 
 const { t } = useI18n({ useScope: "global" });
 
@@ -298,9 +299,9 @@ const editImpulse = async (id, interval, percent) => {
       </div>
       <Teleport to="body">
         <transition name="modal">
-          <div v-if="openAddImpulse"
-            class="modal h-[60vh] rounded-t-3xl bg-black fixed bottom-0 w-full py-5 px-4 overflow-auto border-t border-white">
-            <div class="flex justify-between mb-3">
+          <div v-if="openAddImpulse">
+            <modalWindow/>
+            <!-- <div class="flex justify-between mb-3">
               <div class="flex gap-3 items-center">
                 <PhList :size="32" />
                 <p class="text-lg font-bold">
@@ -334,7 +335,7 @@ const editImpulse = async (id, interval, percent) => {
                 </chip-button>
               </div>
             </div>
-            <ButtonView :text="$t('impulsePrise.getInfo')" class="mt-4" @click="showImpulseData" />
+            <ButtonView :text="$t('impulsePrise.getInfo')" class="mt-4" @click="showImpulseData" /> -->
           </div>
         </transition>
       </Teleport>
