@@ -10,7 +10,7 @@
     "divergence": "RSI Divergence",
     "imbalance": "Imbalance (FVG)",
     "correlation": "Correlation of two assets",
-    "liquid": "Liquidity Withdrawal",
+    "liquid": "Session Liquidity Sweep",
     "top24": "TOP for 24 Hours",
     "lastUpdate": "Last Update",
     "lastImpulses": "Last Impulses",
