@@ -313,7 +313,7 @@ const editImpulse = async (id, interval, percent) => {
             </div>
             <div class="mb-3">
               <p>{{ $t("impulsePrise.timeIntervalSelect") }}</p>
-              <div class="flex gap-2 mt-3 mx-1.5">
+              <div class="flex gap-2 mt-3">
 
                 <chip-button v-for="(interval, index) in [1, 5, 15, 60]" :key="index" @click="selectInterval(index, interval)" :is-active="selectedInterval === index">
                   {{ interval }} {{ $t("impulsePrise.min") }}
@@ -355,7 +355,7 @@ const editImpulse = async (id, interval, percent) => {
             </div>
             <div class="mb-3">
               <p>{{ $t("impulsePrise.timeIntervalSelect") }}</p>
-              <div class="flex gap-2 mt-3 mx-1.5">
+              <div class="flex gap-2 mt-3">
                 <chip-button v-for="(interval, index) in [1, 5, 15, 60]" :key="index" :is-active="selectedInterval === index" @click="selectInterval(index, interval)">
                   {{ interval }} {{ $t("impulsePrise.min") }}
                 </chip-button>

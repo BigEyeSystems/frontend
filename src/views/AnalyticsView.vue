@@ -2,13 +2,11 @@
 import { ref } from "vue";
 import footerMenu from "@/components/footer.vue";
 import ButtonView from "../components/button.vue";
-import  crown  from "../components/icons/crown.vue";
-const selectedActive = ref(null);
+import crown from "../components/icons/crown.vue";
+import chipButton from "@/components/UI/chipButton.vue";
+
+const selectedActive = ref("");
 const activeInfo = ref(null);
-const selectActive = (index, active) => {
-  selectedActive.value = index;
-  activeInfo.value = active;
-};
 const showAnalytics = ref(false);
 
 const toggleAnalytics = () => {
@@ -33,7 +31,7 @@ const toggleAnalytics = () => {
     <div class="text-xs">
       <div class="flex gap-3">
         <crown />
-        <h1 class="text-lg font-semibold"> {{ $t("analytics.title") }}</h1>
+        <h1 class="text-lg font-semibold">{{ $t("analytics.title") }}</h1>
       </div>
 
       <div class="flex gap-2 my-4">
@@ -46,23 +44,20 @@ const toggleAnalytics = () => {
       </div>
       <p>{{ $t("tickerTracking.assetName") }}</p>
       <input
+        v-model="selectedActive"
         class="w-full mt-4 mb-3 p-3 rounded-lg border-transparent focus:outline-none bg-[#17181C] focus:bg-[#17181C]"
         type="text"
         :placeholder="$t('analytics.searchHere')"
       />
       <div class="flex gap-2">
-        <button
+        <chip-button
           v-for="(active, index) in ['BTC', 'ETH', 'TON', 'SOL']"
           :key="index"
-          :class="{
-            'bg-[#92FBDB] text-black font-semibold': selectedActive === index,
-            'bg-[#17181C]': selectedActive !== index,
-          }"
-          @click="selectActive(index, active)"
-          class="w-full py-2 rounded"
+          :is-active="selectedActive.trim().toUpperCase() === active"
+          @click="selectedActive = active"
         >
           {{ active }}
-        </button>
+        </chip-button>
       </div>
       <ButtonView
         v-if="!showAnalytics"

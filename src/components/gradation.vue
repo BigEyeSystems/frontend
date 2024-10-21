@@ -86,7 +86,7 @@ const formattedDate = (date) => {
         <p>
           {{ $t('gradationGrowth.timeIntervalSelect') }}
         </p>
-        <div class="flex gap-2 mt-3 mx-1.5">
+        <div class="flex gap-2 mt-3">
           <chip-button v-for="(interval, index) in [5, 30, 60, 4]" :key="index" :is-active="selectedInterval === index" @click="selectInterval(index, interval)">
             <p v-if="interval !== 4">{{ interval }} {{ $t('impulsePrise.min') }}</p>
             <p v-else>{{ interval }} {{ $t('gradationGrowth.hour') }}</p>

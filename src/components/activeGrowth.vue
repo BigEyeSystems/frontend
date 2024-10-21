@@ -82,7 +82,7 @@ const formattedDate = (date) => {
     <div v-if="!showGradationGrowth">
       <div class="mb-3">
         <p>{{ $t('gradationActiveGrowth.selectInterval') }}</p>
-        <div class="flex gap-2 mt-3 mx-1.5">
+        <div class="flex gap-2 mt-3">
           <chip-button v-for="(interval, index) in [5, 30, 60, 4]" :key="index" :is-active="selectedInterval === index" @click="selectInterval(index, interval)">
             <p v-if="interval !== 4">{{ interval }} {{ $t('impulsePrise.min') }}</p>
             <p v-else>{{ interval }} {{ $t('gradationGrowth.hour') }}</p>
@@ -93,7 +93,7 @@ const formattedDate = (date) => {
     <ButtonView v-if="!showGradationGrowth" :text="$t('impulsePrise.getInfo')" :on-click="toggleGradationGrowth"
       class="my-3" />
     <div v-else>
-      <div class="flex gap-2 mt-3 mx-1.5">
+      <div class="flex gap-2 mt-3">
         <chip-button v-for="(interval, index) in [5, 30, 60, 4]" :key="index" :is-active="selectedInterval === index" @click="selectInterval(index, interval)">
           <p v-if="interval !== 4">{{ interval }} {{ $t('impulsePrise.min') }}</p>
           <p v-else>{{ interval }} {{ $t('gradationGrowth.hour') }}</p>

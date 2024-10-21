@@ -4,7 +4,7 @@
     :class="
       isActive
         ? 'bg-[#92FBDB] font-semibold text-black animate-pulse transition-all duration-300 ease-in-out relative overflow-hidden'
-        : 'font-normal text-gray-400'
+        : 'font-normal text-gray-300'
     "
   >
     <slot />
