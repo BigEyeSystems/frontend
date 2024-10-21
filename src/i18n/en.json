@@ -34,7 +34,7 @@
     "addTracking": "Add Tracking(max. 3)",
     "addInfo": "Add Info",
     "editInfo": "Edit Info",
-    "minimalPercent": "Percent must be bigger than 5",
+    "minimalPercent": "Percent must be bigger than 5%",
     "fillAllFields": "Fill all fields"
   },
   "lang": "EN",
@@ -124,7 +124,8 @@
     "dailyAssetVolume": "Daily asset volume",
     "forEntireTimeVolumeChanged":"Over the entire time, the volume has changed to",
     "date": "Date",
-    "volume": "Volume"
+    "volume": "Volume",
+    "numberDays": "Enter the number of days (maximum 30)"
   },
   "fundingPage": {
     "title": "Funding rate",

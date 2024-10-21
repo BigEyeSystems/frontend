@@ -192,7 +192,7 @@ const downloadFile = async () => {
         </div>
 
         <div>
-          <label>{{ $t("tickerTracking.alertsTimer") }}</label>
+          <label>{{ $t("dailyVolume.numberDays") }}</label>
           <div class="flex gap-2 my-3">
             <chipButton
               v-for="(interval, index) in [5, 10, 20, 30]"
@@ -206,7 +206,7 @@ const downloadFile = async () => {
         </div>
 
         <div class="my-4">
-          <ButtonView :text="$t('tickerTracking.addTracker')" type="submit" />
+          <ButtonView :text="$t('impulsePrise.getInfo')" type="submit" />
         </div>
       </form>
     </div>

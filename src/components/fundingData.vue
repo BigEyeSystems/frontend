@@ -29,8 +29,8 @@ use([
   UniversalTransition,
 ]);
 const option = ref(null);
-const dayData = ref(false);
-const weekData = ref(true);
+const dayData = ref(true);
+const weekData = ref(false);
 const monthData = ref(false);
 const intervalIndex = ref(7);
 const isLoading = ref(false);
@@ -251,7 +251,7 @@ const showDate = (timestamp) => {
         <p class="text-xs">{{ $t('homePage.lastUpdate') }}:</p>
         <time-and-date />
       </div>
-      <div class="flex gap-2 mt-4 mx-1.5">
+      <div class="flex gap-2 my-4 mx-1.5">
         <chip-button :is-active="dayData" @click="showDailyData">
           {{ $t('fundingPage.day') }}
         </chip-button>
@@ -262,9 +262,9 @@ const showDate = (timestamp) => {
           {{ $t('fundingPage.month') }}
         </chip-button>
       </div>
-      <div v-if="fundingData && !isLoading" class="flex justify-center">
+      <!-- <div v-if="fundingData && !isLoading" class="flex justify-center">
         <v-chart class="chart" :option="option" />
-      </div>
+      </div> -->
       <div v-if="isLoading">
         <div class="w-full flex justify-center">
           <div class="shadow rounded-md p-4 max-w-sm w-full mx-auto">
@@ -278,19 +278,19 @@ const showDate = (timestamp) => {
       </div>
       <div class="flex flex-col gap-2">
         <div class="flex gap-2 items-center">
-          <div class="px-3 bg-[#33A721] text-sm font-semibold h-4 flex items-center">
+          <div class="px-3 bg-[#33A721] text-sm font-semibold h-5 flex items-center">
             {{ fundingData?.positive_quantity }}
           </div>
           <p class="text-xs text-[#B8B8B8]">{{ $t('fundingPage.positiveAmount') }}</p>
         </div>
         <div class="flex gap-2 items-center">
-          <p class="px-3 bg-[#CA3140] text-sm font-semibold h-4 flex items-center">
+          <p class="px-3 bg-[#CA3140] text-sm font-semibold h-5 flex items-center">
             {{ fundingData?.negative_quantity }}
           </p>
           <p class="text-xs text-[#B8B8B8]">{{ $t('fundingPage.negativeAmount') }}</p>
         </div>
         <div class="flex gap-2 items-center">
-          <p class="px-3 bg-white text-sm font-semibold h-4 flex items-center text-black">
+          <p class="px-3 bg-white text-sm font-semibold h-5 flex items-center text-black">
             {{ fundingData?.neutral_quantity }}
           </p>
           <p class="text-xs text-[#B8B8B8]">{{ $t('fundingPage.neutralAmount') }}</p>
