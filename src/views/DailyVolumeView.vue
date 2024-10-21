@@ -231,35 +231,21 @@ const downloadFile = async () => {
         </div>
         <PhDownloadSimple :size="24" />
       </div>
-      <div>
-        <p>{{ $t("dailyVolume.forEntireTimeVolumeChanged") }}</p>
-        <div v-if="dailyVolumeDate" class="flex mt-2">
+      <div class="flex flex-col items-center">
+        <div v-if="dailyVolumeDate" class="flex gap-2 items-center mt-2">
+          <p>{{ $t("dailyVolume.forEntireTimeVolumeChanged") }}</p>
           <div
-            :class="[
-              dailyVolumeDate.difference_percent > 0
-                ? 'bg-[#33A721]'
-                : 'bg-[#CA3140]',
-            ]"
+            :class=" dailyVolumeDate.difference_percent > 0 ? 'bg-[#33A721]' : 'bg-[#CA3140]'"
             class="flex p-1 rounded text-sm font-medium gap-1"
           >
-            <p>
-              <span v-if="dailyVolumeDate.difference_percent > 0">+</span
-              >{{ Math.floor(dailyVolumeDate.difference_percent) }}%
-            </p>
-            <span
-              v-if="dailyVolumeDate.difference_percent > 0"
-              class="flex align-items-center"
-            >
-              <PhCaretUp :size="16" weight="fill" />
-            </span>
-            <span v-else class="flex align-items-center">
-              <PhCaretDown :size="16" weight="fill" />
-            </span>
+          {{ Math.floor(dailyVolumeDate.difference_percent) }}%
+              <PhCaretUp v-if="dailyVolumeDate.difference_percent > 0" :size="16" weight="fill" />
+              <PhCaretDown v-else :size="16" weight="fill" />
           </div>
         </div>
-        <div class="flex justify-center">
-          <v-chart class="chart" :option="option" />
-        </div>
+        <!-- <div class="flex justify-center"> -->
+          <v-chart class="w-full h-[500px]" :option="option" />
+        <!-- </div> -->
       </div>
     </div>
     <Teleport to="body">
@@ -286,9 +272,3 @@ const downloadFile = async () => {
     </Teleport>
   </div>
 </template>
-<style scoped>
-.chart {
-  height: 360px;
-  width: 100%;
-}
-</style>
