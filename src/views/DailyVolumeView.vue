@@ -200,7 +200,7 @@ const downloadFile = async () => {
               :is-active="selectedInterval === index"
               @click.prevent="selectInterval(index, interval)"
             >
-              {{ interval }} {{ $t("tickerTracking.days") }}
+              {{ interval }}{{ $t("tickerTracking.days") }}
             </chipButton>
           </div>
         </div>
@@ -220,7 +220,7 @@ const downloadFile = async () => {
       </div>
       <p class="mb-3">{{ $t("fundingPage.searchResult") }}</p>
       <div
-        class="bg-[#17181C] p-2 rounded-xl cursor-pointer my-4 flex justify-between items-center active:opacity-80"
+        class="bg-[#17181C] p-2 rounded-xl cursor-pointer my-4 flex justify-between items-center transform transition-transform duration-150 active:scale-95"
         @click="downloadFile"
       >
         <div class="flex gap-3 items-center">
@@ -231,20 +231,29 @@ const downloadFile = async () => {
         </div>
         <PhDownloadSimple :size="24" />
       </div>
+
       <div class="flex flex-col items-center">
         <div v-if="dailyVolumeDate" class="flex gap-2 items-center mt-2">
           <p>{{ $t("dailyVolume.forEntireTimeVolumeChanged") }}</p>
           <div
-            :class=" dailyVolumeDate.difference_percent > 0 ? 'bg-[#33A721]' : 'bg-[#CA3140]'"
+            :class="
+              dailyVolumeDate.difference_percent > 0
+                ? 'bg-[#33A721]'
+                : 'bg-[#CA3140]'
+            "
             class="flex p-1 rounded text-sm font-medium gap-1"
           >
-          {{ Math.floor(dailyVolumeDate.difference_percent) }}%
-              <PhCaretUp v-if="dailyVolumeDate.difference_percent > 0" :size="16" weight="fill" />
-              <PhCaretDown v-else :size="16" weight="fill" />
+            {{ Math.floor(dailyVolumeDate.difference_percent) }}%
+            <PhCaretUp
+              v-if="dailyVolumeDate.difference_percent > 0"
+              :size="16"
+              weight="fill"
+            />
+            <PhCaretDown v-else :size="16" weight="fill" />
           </div>
         </div>
         <!-- <div class="flex justify-center"> -->
-          <v-chart class="w-full h-[500px]" :option="option" />
+        <v-chart class="w-full h-[500px]" :option="option" />
         <!-- </div> -->
       </div>
     </div>
@@ -254,7 +263,9 @@ const downloadFile = async () => {
         class="modal fixed inset-0 flex items-center justify-center z-50 px-4"
       >
         <transition name="modal">
-          <div class="bg-[#222222f2] pt-4 pb-6 px-5 rounded-lg w-full border-[#92FBDB] border-2">
+          <div
+            class="bg-[#222222f2] pt-4 pb-6 px-5 rounded-lg w-full border-[#92FBDB] border-2"
+          >
             <div class="flex justify-end">
               <button
                 @click="isNotification = false"

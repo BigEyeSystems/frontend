@@ -195,6 +195,9 @@ const editImpulse = async (id, interval, percent) => {
   }
   await fetchImpulse();
 };
+const toggleWindow = () => {
+  openAddImpulse.value = false;
+}
 </script>
 
 <template>
@@ -300,7 +303,7 @@ const editImpulse = async (id, interval, percent) => {
       <Teleport to="body">
         <transition name="modal">
           <div v-if="openAddImpulse">
-            <modalWindow/>
+            <modalWindow  @closeWindow="toggleWindow"/>
             <!-- <div class="flex justify-between mb-3">
               <div class="flex gap-3 items-center">
                 <PhList :size="32" />
