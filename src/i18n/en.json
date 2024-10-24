@@ -1,4 +1,12 @@
 {
+  "shared": {
+    "selectAsset": "Select Asset:",
+    "selectTimeframe": "Select timframe:",
+    "maximum": "Maximum",
+    "timeframe_hours": "hours",
+    "addAsset": "Add Asset",
+    "trackedAssets": "Tracked Assets"
+  },
   "homePage": {
     "impulsePrice": "Price Impulses",
     "dailyVolume": "Daily Asset Volume",
@@ -174,6 +182,9 @@
     "correlation": "Assets correlator",
     "dailyVolume": "Daily asset volume",
     "searchHere": "Search here"
+  },
+  "imbalance": {
+    "conditions": "Select conditions for imbalance:"
   },
   "footer": {
     "home": "Home",

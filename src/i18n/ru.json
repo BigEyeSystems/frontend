@@ -1,4 +1,12 @@
 {
+  "shared": {
+    "selectAsset": "Выберите актив:",
+    "selectTimeframe": "Выберите таймфрейм:",
+    "maximum": "Максимум",
+    "timeframe_hours": "часа",
+    "addAsset": "Добавить актив",
+    "trackedAssets": "Отслеживаемые активы"
+  },
   "homePage": {
     "impulsePrice": "Импульсы Цены",
     "dailyVolume": "Объёмы Актива",
@@ -174,6 +182,9 @@
     "correlation": "Коррелятор активов",
     "dailyVolume": "Суточный объём актива",
     "searchHere": "Search here"
+  },
+  "imbalance": {
+    "conditions": "Выберите условия для имбаланса:"
   },
   "footer": {
     "home": "Главная",

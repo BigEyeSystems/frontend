@@ -11,6 +11,7 @@ import {
   Fibonacci,
   Divergence
 } from "@/components/icons/home-page";
+import ButtonView from "../components/button.vue"
 import LocalesView from "./LocalesView.vue";
 import menuItem from "../components/menuItem.vue";
 import Header from "../components/Header.vue";
@@ -39,6 +40,7 @@ const openGradationGrowth = ref(false);
 const openTrackingTicker = ref(false);
 const openFundingData = ref(false);
 const openNotification = ref(false);
+const openImbalance = ref(false);
 
 const lang = ref(localStorage.getItem("lang") === "ru" ? "RU" : "EN");
 const tg = window.Telegram.WebApp;
@@ -183,9 +185,9 @@ const menuItems = computed(() => [
   [
     {
       title: t('homePage.imbalance'),
-      openFunc: () => {},
+      openFunc: () => openImbalance.value = !openImbalance.value,
       icon: VolumeGradation,
-      closed: true
+      closed: false
     },
     {
       title: t('homePage.correlation'),
@@ -201,6 +203,10 @@ const menuItems = computed(() => [
     },
   ]
 ]);
+
+const timeframes = computed(() => [
+  `4 ${t("shared.timeframe_hours")}`, t("fundingPage.day"), t("fundingPage.week"), t("fundingPage.month")
+])
 </script>
 
 <template>
@@ -290,6 +296,49 @@ const menuItems = computed(() => [
               </button>
             </div>
             <GradationView />
+          </div>
+        </transition>
+      </Teleport>
+      <Teleport to="body">
+        <transition name="modal">
+          <div
+            v-if="openImbalance"
+            class="modal h-[90vh] rounded-t-3xl bg-black flex flex-col items-center fixed bottom-0 w-full py-5 px-4 overflow-auto border-t border-white"
+          >
+            <div class="flex justify-between mb-3 w-full">
+              <div class="flex gap-3 items-center">
+                <crown />
+                <p class="font-bold text-sm">
+                  {{ $t("homePage.imbalance") }}
+                </p>
+              </div>
+              <button @click="openImbalance = false">
+                <PhX :size="21" />
+              </button>
+            </div>
+            <div class="w-full flex justify-between mt-1">
+              <p class="text-sm text-start self-start">{{$t('shared.selectAsset')}}</p>
+              <p class="text-sm text-start self-start text-gray-500">({{$t('shared.maximum')}} 3)</p>
+            </div>
+            <div class="mt-2 grid grid-cols-4 gap-2 w-full z-50">
+              <chip-button v-for="(asset, index) in ['SPX', 'XAG', 'XAU', 'EU', 'GBP', 'NQ', 'BTC', 'DJI']" :key="index" :is-active="index === 0">
+                {{asset}}
+              </chip-button>
+            </div>
+            <p class="text-sm text-start self-start mt-4">{{$t('shared.selectTimeframe')}}</p>
+            <div class="mt-2 grid grid-cols-4 gap-2 w-full z-50">
+              <chip-button v-for="(asset, index) in timeframes" :key="index" :is-active="index === 0">
+                {{asset}}
+              </chip-button>
+            </div>
+            <p class="text-sm text-start self-start mt-4">{{$t('imbalance.conditions')}}</p>
+            <div class="mt-2 grid grid-cols-3 gap-2 w-full z-50">
+              <chip-button v-for="(asset, index) in ['0.5 FVG', 'Fullfill FVG', 'FVG']" :key="index" :is-active="index === 0">
+                {{asset}}
+              </chip-button>
+            </div>
+            <ButtonView :text="$t('shared.addAsset')" class="my-4" />
+            <p class="text-base text-start self-start">{{ $t("shared.trackedAssets") }}</p>
           </div>
         </transition>
       </Teleport>
