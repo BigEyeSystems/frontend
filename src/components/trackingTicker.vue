@@ -250,13 +250,16 @@ async function getTickerTrackingHistory(){
 watch(selected_id, () => {
   getTickerTrackingHistory()
 })
+
+import autocompleteTicker from "./widgets/autocompleteTicker.vue";
 </script>
 <template>
   <div class="text-xs">
     <div v-if="openAddTracker">
       <div class="mb-3">
         <p>{{ $t("tickerTracking.assetName") }}</p>
-        <input
+        <autocompleteTicker />
+        <!-- <input
           v-model="tickerName"
           class="w-full my-3 p-3 rounded-lg border-transparent focus:outline-none bg-[#17181C] focus:bg-[#17181C] uppercase"
           type="text"
@@ -265,7 +268,7 @@ watch(selected_id, () => {
           <chip-button v-for="(active, index) in ['BTC', 'ETH', 'TON', 'SOL']" :key="index" :is-active="tickerName.trim().toUpperCase() === active" @click="selectActive(index, active)">
             {{ active }}
           </chip-button>
-        </div>
+        </div> -->
       </div>
       <div>
         <p>{{ $t("tickerTracking.alertsTimer") }}</p>
