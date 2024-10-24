@@ -1,6 +1,7 @@
 <template>
-  <div
+  <button
     class="relative w-full h-full flex flex-col bg-[#222428] rounded-2xl p-2 justify-between items-center"
+    :disabled="isClosed"
     :class="isClosed ? 'opacity-70' : 'hover:opacity-80 hover:bg-gray-300 hover:text-black transition-all duration-300 ease-in-out cursor-pointer'"
   >
     <div v-if="isClosed" class="absolute top-2 right-1.5">
@@ -12,7 +13,7 @@
     <p class="text-[10px] h-[24px] text-center">
       {{ title }}
     </p>
-  </div>
+  </button>
 </template>
 <script setup>
 import { computed } from "vue";

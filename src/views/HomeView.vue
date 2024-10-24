@@ -187,7 +187,7 @@ const menuItems = computed(() => [
       title: t('homePage.imbalance'),
       openFunc: () => openImbalance.value = !openImbalance.value,
       icon: VolumeGradation,
-      closed: false
+      closed: true
     },
     {
       title: t('homePage.correlation'),
