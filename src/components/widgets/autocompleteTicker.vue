@@ -24,6 +24,12 @@ import { DataTickers } from "../shared/constants/autocompleteDict.json";
 const tickerName = ref("");
 const autocompleteSuggests = ref([{Symbol: 'BTC'}, {Symbol: 'ETH'}, {Symbol: 'TON'}, {Symbol: 'SOL'}]);
 
+const emit = defineEmits({
+   setValue(){
+      return true
+   }
+})
+
 watch(tickerName, () => {
   const dataValues = Object.values(DataTickers);
   autocompleteSuggests.value = dataValues
@@ -34,6 +40,7 @@ watch(tickerName, () => {
     )
     .splice(0, 4);
 
-    if(tickerName.value.length < 1 || autocompleteSuggests.value.length < 1) autocompleteSuggests.value = [{Symbol: 'BTC'}, {Symbol: 'ETH'}, {Symbol: 'TON'}, {Symbol: 'SOL'}]    
+    if(tickerName.value.length < 1 || autocompleteSuggests.value.length < 1) autocompleteSuggests.value = [{Symbol: 'BTC'}, {Symbol: 'ETH'}, {Symbol: 'TON'}, {Symbol: 'SOL'}]
+    emit("setValue", tickerName.value)
 });
 </script>
