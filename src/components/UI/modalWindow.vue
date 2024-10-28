@@ -3,25 +3,29 @@ import { ref } from "vue";
 import addTracking from "./addTracking.vue";
 
 const divHeight = ref(window.innerHeight * 0.6);
+const isResizing = ref(false);
 
 const startResize = (event) => {
-  event.preventDefault();
+  if (event.target.closest(".close-button")) return
 
-  let initialY =
-    event.type === "mousedown" ? event.clientY : event.touches[0].clientY;
+  event.preventDefault();
+  isResizing.value = true;
+
+  let initialY = event.type.includes("mouse") ? event.clientY : event.touches[0].clientY;
 
   const resizeHandler = (e) => {
-    const currentY = e.type === "mousemove" ? e.clientY : e.touches[0].clientY;
-    const deltaY = initialY - currentY;
+    if (!isResizing.value) return;
 
+    const currentY = e.type.includes("mouse") ? e.clientY : e.touches[0].clientY;
+    const deltaY = initialY - currentY;
     const newHeight = divHeight.value + deltaY;
 
     divHeight.value = Math.max(window.innerHeight * 0.6, newHeight);
-
     initialY = currentY;
   };
 
   const stopResize = () => {
+    isResizing.value = false;
     window.removeEventListener("mousemove", resizeHandler);
     window.removeEventListener("touchmove", resizeHandler);
     window.removeEventListener("mouseup", stopResize);
@@ -34,35 +38,41 @@ const startResize = (event) => {
   window.addEventListener("touchend", stopResize);
 };
 
-const emit = defineEmits(["closeModal"]);
+const emit = defineEmits(['closeModal'])
+const handleClose = () => {
+  emit("closeModal"); 
+};
 </script>
+
 <template>
   <div
     ref="resizableDiv"
     :style="{ height: divHeight + 'px' }"
-    class="absolute bottom-0 w-full bg-black border-t border-white rounded-t-3xl overflow-auto cursor-ns-resize py-5 px-4"
-    @mousedown="startResize"
-    @touchstart="startResize"
+    class="absolute bottom-0 w-full bg-black border-t border-white rounded-t-3xl overflow-auto py-5 px-4"
   >
-    <div class="flex justify-between mb-3">
+    <div
+      class="flex justify-between mb-3 cursor-ns-resize"
+      @mousedown="startResize"
+      @touchstart="startResize"
+    >
       <div class="flex gap-3 items-center">
         <PhList :size="32" />
         <p class="text-lg font-bold">
           {{ $t("impulsePrise.addInfo") }}
         </p>
       </div>
-      <button @click="$emit('closeWindow')">
+      <button @click="handleClose" class="p-2 close-button">
         <PhX :size="21" />
       </button>
     </div>
-    <addTracking @close-modal="closeWindow" />
+    <addTracking />
   </div>
 </template>
+
 
 <style scoped>
 .resizable-div {
   width: 100%;
-  transition: height 0.3s ease;
   text-align: center;
   position: absolute;
   bottom: 0;

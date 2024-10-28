@@ -303,7 +303,7 @@ const toggleWindow = () => {
       <Teleport to="body">
         <transition name="modal">
           <div v-if="openAddImpulse">
-            <modalWindow  @closeWindow="toggleWindow"/>
+            <modalWindow  @closeModal = "toggleWindow"/>
             <!-- <div class="flex justify-between mb-3">
               <div class="flex gap-3 items-center">
                 <PhList :size="32" />
