@@ -4,6 +4,7 @@ import footerMenu from "@/components/footer.vue";
 import ButtonView from "../components/button.vue";
 import crown from "../components/icons/crown.vue";
 import chipButton from "@/components/UI/chipButton.vue";
+import autocompleteTicker from "@/components/widgets/autocompleteTicker.vue";
 
 const selectedActive = ref("");
 const activeInfo = ref(null);
@@ -43,22 +44,9 @@ const toggleAnalytics = () => {
         </button>
       </div>
       <p>{{ $t("tickerTracking.assetName") }}</p>
-      <input
-        v-model="selectedActive"
-        class="w-full mt-4 mb-3 p-3 rounded-lg border-transparent focus:outline-none bg-[#17181C] focus:bg-[#17181C]"
-        type="text"
-        :placeholder="$t('analytics.searchHere')"
-      />
-      <div class="flex gap-2">
-        <chip-button
-          v-for="(active, index) in ['BTC', 'ETH', 'TON', 'SOL']"
-          :key="index"
-          :is-active="selectedActive.trim().toUpperCase() === active"
-          @click="selectedActive = active"
-        >
-          {{ active }}
-        </chip-button>
-      </div>
+
+      <autocompleteTicker @set-value="(val) => selectedActive = val" />
+
       <ButtonView
         v-if="!showAnalytics"
         :text="$t('impulsePrise.getInfo')"
