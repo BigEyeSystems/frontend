@@ -10,6 +10,7 @@ import { CanvasRenderer } from "echarts/renderers";
 import { LineChart } from "echarts/charts";
 import { UniversalTransition } from "echarts/features";
 import { GridComponent, TooltipComponent } from "echarts/components";
+import autocompleteTicker from "@/components/widgets/autocompleteTicker.vue";
 import VChart, { THEME_KEY } from "vue-echarts";
 use([
   GridComponent,
@@ -170,26 +171,7 @@ const downloadFile = async () => {
       <form @submit.prevent="toggleDailyAssetVolume">
         <div class="mb-3">
           <label for="tickerName">{{ $t("tickerTracking.assetName") }}</label>
-          <input
-            id="tickerName"
-            v-model="tickerName"
-            class="w-full my-3 p-3 rounded-lg border-transparent focus:outline-none bg-[#17181C] focus:bg-[#17181C] uppercase"
-            type="text"
-          />
-        </div>
-
-        <div class="mb-3">
-          <div class="flex gap-2 mt-3">
-            <chipButton
-              v-for="(active, index) in ['BTC', 'ETH', 'TON', 'SOL']"
-              :key="index"
-              :is-active="tickerName.trim().toUpperCase() === active"
-              @click.prevent="tickerName = active"
-              class="w-full py-2 rounded cursor-pointer text-center"
-            >
-              {{ active }}
-            </chipButton>
-          </div>
+          <autocompleteTicker @set-value="(val) => tickerName = val" />
         </div>
 
         <div>

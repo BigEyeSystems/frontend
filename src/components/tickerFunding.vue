@@ -41,7 +41,6 @@ const sortByFundingAsc = () => {
   showFundingFirstFive.value = true;
   showFundingByVolume.value = false;
   showFundingLastFive.value = false;
-  console.log(fundingData.value);
 };
 
 const sortByFundingDesc = () => {

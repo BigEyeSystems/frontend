@@ -241,7 +241,6 @@ async function getTickerTrackingHistory(){
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
     })
-    console.log(data.ticker_tracking_history);
     tickerHistoryData.value = data.ticker_tracking_history
   } catch (error) {
     console.error('err in axi:', error);
@@ -432,16 +431,9 @@ watch(selected_id, () => {
           </div>
           <div class="mb-3">
             <p>{{ $t("tickerTracking.assetName") }}</p>
-            <input
-              v-model="tickerName"
-              class="w-full my-3 p-3 rounded-lg border-transparent focus:outline-none bg-[#17181C] focus:bg-[#17181C] uppercase"
-              type="text"
-            />
-            <div class="flex gap-2 mt-3">
-              <chip-button @click="selectActive(index, active)" v-for="(active, index) in ['BTC', 'ETH', 'TON', 'SOL']" :key="index" :is-active="selectedActive === index">
-                {{ active }}
-              </chip-button>
-            </div>
+            
+            <autocompleteTicker @set-value="(val) => tickerName = val" />
+
           </div>
           <div>
             <p>{{ $t("tickerTracking.alertsTimer") }}</p>
