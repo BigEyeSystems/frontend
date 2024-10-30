@@ -38,9 +38,12 @@ const startResize = (event) => {
   window.addEventListener("touchend", stopResize);
 };
 
-const emit = defineEmits(['closeModal'])
+const emit = defineEmits(['closeModal', 'addImpulseTracking'])
 const handleClose = () => {
   emit("closeModal"); 
+};
+const handleImpulseTracking = () => {
+  emit("addImpulseTracking"); 
 };
 </script>
 
@@ -65,7 +68,7 @@ const handleClose = () => {
         <PhX :size="21" />
       </button>
     </div>
-    <addTracking />
+    <addTracking @add-impulse="handleImpulseTracking"/>
   </div>
 </template>
 

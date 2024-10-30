@@ -265,17 +265,6 @@ const showDate = (timestamp) => {
       <!-- <div v-if="fundingData && !isLoading" class="flex justify-center">
         <v-chart class="chart" :option="option" />
       </div> -->
-      <div v-if="isLoading">
-        <div class="w-full flex justify-center">
-          <div class="shadow rounded-md p-4 max-w-sm w-full mx-auto">
-            <div class="animate-pulse flex space-x-4">
-              <div class="flex-1 space-y-6 py-1">
-                <div class="h-48 bg-slate-700 rounded"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
       <div class="flex flex-col gap-2">
         <div class="flex gap-2 items-center">
           <div class="px-3 bg-[#33A721] text-sm font-semibold h-5 flex items-center">
@@ -330,7 +319,6 @@ const showDate = (timestamp) => {
       <div class="shadow rounded-md p-4 max-w-sm w-full mx-auto">
         <div class="animate-pulse flex space-x-4">
           <div class="flex-1 space-y-6 py-1">
-            <div class="h-44 bg-slate-700 rounded"></div>
             <div class="grid grid-cols-4 gap-4">
               <div class="h-8 bg-slate-700 rounded col-span-1"></div>
               <div class="h-8 bg-slate-700 rounded col-span-1"></div>

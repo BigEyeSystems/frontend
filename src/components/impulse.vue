@@ -198,6 +198,12 @@ const editImpulse = async (id, interval, percent) => {
 const toggleWindow = () => {
   openAddImpulse.value = false;
 }
+const addImpulse = async () => {
+  loading.value = true;
+  await new Promise((resolve) => setTimeout(resolve, 5000));
+  await fetchImpulse();
+  loading.value = false;
+}
 </script>
 
 <template>
@@ -303,7 +309,7 @@ const toggleWindow = () => {
       <Teleport to="body">
         <transition name="modal">
           <div v-if="openAddImpulse">
-            <modalWindow  @closeModal = "toggleWindow"/>
+            <modalWindow  @closeModal="toggleWindow" @addImpulseTracking="addImpulse"/>
             <!-- <div class="flex justify-between mb-3">
               <div class="flex gap-3 items-center">
                 <PhList :size="32" />

@@ -39,7 +39,8 @@ const extractDate = (datetimeStr) => {
 };
 
 const toggleDailyAssetVolume = async () => {
-  dateName.value = tickerName.value;
+  dateName.value = tickerName.value.toUpperCase();
+  console.log(dateName.value)
   if (!dateName.value.includes("USDT")) {
     dateName.value += "USDT";
   }
@@ -232,24 +233,26 @@ const downloadFile = async () => {
         <PhDownloadSimple :size="24" />
       </div>
 
-      <div class="flex flex-col items-center">
-        <div v-if="dailyVolumeDate" class="flex gap-2 items-center mt-2">
+      <div class="flex flex-col">
+        <div v-if="dailyVolumeDate" class="flex flex-col gap-2 mt-2">
           <p>{{ $t("dailyVolume.forEntireTimeVolumeChanged") }}</p>
-          <div
-            :class="
-              dailyVolumeDate.difference_percent > 0
-                ? 'bg-[#33A721]'
-                : 'bg-[#CA3140]'
-            "
-            class="flex p-1 rounded text-sm font-medium gap-1"
-          >
-            {{ Math.floor(dailyVolumeDate.difference_percent) }}%
-            <PhCaretUp
-              v-if="dailyVolumeDate.difference_percent > 0"
-              :size="16"
-              weight="fill"
-            />
-            <PhCaretDown v-else :size="16" weight="fill" />
+          <div class="flex">
+            <div
+              :class="
+                dailyVolumeDate.difference_percent > 0
+                  ? 'bg-[#33A721]'
+                  : 'bg-[#CA3140]'
+              "
+              class="flex p-1 rounded text-sm font-medium gap-1"
+            >
+              {{ Math.floor(dailyVolumeDate.difference_percent) }}%
+              <PhCaretUp
+                v-if="dailyVolumeDate.difference_percent > 0"
+                :size="16"
+                weight="fill"
+              />
+              <PhCaretDown v-else :size="16" weight="fill" />
+            </div>
           </div>
         </div>
         <!-- <div class="flex justify-center"> -->

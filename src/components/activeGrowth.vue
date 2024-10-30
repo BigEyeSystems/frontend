@@ -197,14 +197,19 @@ const formattedDate = (date) => {
     <Teleport to="body">
       <div v-if="isNotification" class="modal fixed inset-0 flex items-center justify-center z-50 px-4">
         <transition name="modal">
-          <div class="bg-[#222222b3] py-4 px-5 rounded-lg w-full">
+          <div
+            class="bg-[#222222f2] pt-4 pb-6 px-5 rounded-lg w-full border-[#92FBDB] border-2"
+          >
             <div class="flex justify-end">
-              <button @click="isNotification = false" class="bg-[#7474802e] p-2 rounded-full">
+              <button
+                @click="isNotification = false"
+                class="bg-[#7474802e] p-2 rounded-full"
+              >
                 <PhX :size="21" />
               </button>
             </div>
             <p class="text-lg py-2 font-semibold text-center">
-              {{ $t('gradationPage.fileSend') }}
+              {{ $t("gradationPage.fileSend") }}
             </p>
           </div>
         </transition>
