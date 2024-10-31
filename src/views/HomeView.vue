@@ -235,7 +235,7 @@ const timeframes = computed(() => [
           <chip-button :is-active="true">
             {{ $t("homePage.top24") }}
           </chip-button>
-          <chip-button :is-active="false">
+          <chip-button :is-active="false" :is-locked="true">
             {{ $t("homePage.lastImpulses") }}
           </chip-button>
         </div>
