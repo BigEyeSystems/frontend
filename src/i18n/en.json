@@ -2,7 +2,7 @@
   "shared": {
     "selectAsset": "Select Asset:",
     "selectTimeframe": "Select timframe:",
-    "maximum": "Maximum",
+    "maximum": "Max",
     "timeframe_hours": "hours",
     "addAsset": "Add Asset",
     "trackedAssets": "Tracked Assets"
@@ -184,7 +184,10 @@
     "searchHere": "Search here"
   },
   "imbalance": {
-    "conditions": "Select conditions for imbalance:"
+    "conditions": "Select conditions for imbalance:",
+    "imbalance_conditions": "Imbalance conditions",
+    "fullfill_svg": "Fullfill FVG",
+    "timeframe": "Timeframe"
   },
   "footer": {
     "home": "Home",

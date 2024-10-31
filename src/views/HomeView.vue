@@ -25,6 +25,8 @@ import trackingTickerView from "./trackingTickerView.vue";
 import FundingDataView from "./FundingDataView.vue";
 import DailyVolumeView from "./DailyVolumeView.vue";
 import crown from "../components/icons/crown.vue";
+import pen from "@/components/icons/pen.vue";
+import trashRed from "@/components/icons/trash-red.vue";
 import chipButton from "@/components/UI/chipButton.vue"; 
 import { useI18n } from "vue-i18n";
 const { t } = useI18n({ useScope: "global" });
@@ -187,7 +189,7 @@ const menuItems = computed(() => [
       title: t('homePage.imbalance'),
       openFunc: () => openImbalance.value = !openImbalance.value,
       icon: VolumeGradation,
-      closed: true
+      closed: false
     },
     {
       title: t('homePage.correlation'),
@@ -318,7 +320,7 @@ const timeframes = computed(() => [
             </div>
             <div class="w-full flex justify-between mt-1">
               <p class="text-sm text-start self-start">{{$t('shared.selectAsset')}}</p>
-              <p class="text-sm text-start self-start text-gray-500">({{$t('shared.maximum')}} 3)</p>
+              <p class="text-sm text-start self-start text-gray-500">(3 {{$t('shared.maximum')}})</p>
             </div>
             <div class="mt-2 grid grid-cols-4 gap-2 w-full z-50">
               <chip-button v-for="(asset, index) in ['SPX', 'XAG', 'XAU', 'EU', 'GBP', 'NQ', 'BTC', 'DJI']" :key="index" :is-active="index === 0">
@@ -337,8 +339,33 @@ const timeframes = computed(() => [
                 {{asset}}
               </chip-button>
             </div>
-            <ButtonView :text="$t('shared.addAsset')" class="my-4" />
+            <ButtonView :text="`${$t('shared.addAsset')} +`" class="my-4" />
             <p class="text-base text-start self-start">{{ $t("shared.trackedAssets") }}</p>
+            <div class="w-full flex flex-col gap-4 mt-4 p-4 rounded-xl bg-[#17181C]">
+              <div class="flex items-center justify-between w-full">
+                <span>DJI</span>
+                <div class="flex items-center gap-2">
+                  <pen class="w-5 h-5" />
+                  <trash-red class="w-5 h-5" />
+                </div>
+              </div>
+              <div class="w-full text-xs rounded-lg p-4 bg-[#2A2B2F] flex items-center justify-between">
+                <span class="text-[#B8B8B8]">
+                  {{ $t("imbalance.timeframe") }}
+                </span>
+                <span class="font-medium">
+                  4 {{ $t("shared.timeframe_hours") }}
+                </span>
+              </div>
+              <div class="w-full text-xs rounded-lg p-4 bg-[#2A2B2F] flex items-center justify-between">
+                <span class="text-[#B8B8B8]">
+                  {{ $t("imbalance.imbalance_conditions") }}
+                </span>
+                <span class="font-medium">
+                  {{ $t("imbalance.fullfill_svg") }}
+                </span>
+              </div>
+            </div>
           </div>
         </transition>
       </Teleport>

@@ -2,7 +2,7 @@
   "shared": {
     "selectAsset": "Выберите актив:",
     "selectTimeframe": "Выберите таймфрейм:",
-    "maximum": "Максимум",
+    "maximum": "Макс",
     "timeframe_hours": "часа",
     "addAsset": "Добавить актив",
     "trackedAssets": "Отслеживаемые активы"
@@ -184,7 +184,10 @@
     "searchHere": "Search here"
   },
   "imbalance": {
-    "conditions": "Выберите условия для имбаланса:"
+    "conditions": "Выберите условия для имбаланса:",
+    "imbalance_conditions": "Условия имбаланса",
+    "fullfill_svg": "Заполнение FVG",
+    "timeframe": "Таймфрейм"
   },
   "footer": {
     "home": "Главная",
