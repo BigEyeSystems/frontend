@@ -8,6 +8,7 @@ import referralsWorkProcess from "../components/referralsWorkProcess.vue";
 import axios from "axios";
 import { useI18n } from "vue-i18n";
 const { t } = useI18n({ useScope: 'global' });
+import modal from "@/components/UI/modal.vue";
 
 const isrTansaction = ref(true);
 const isProcess = ref(false);
@@ -35,59 +36,32 @@ const copyReferral = async () => {
       }
     );
     link.value = response.data.link;
+  } catch{}
+}
 
-    const isIphone = /iPhone|iPad|iPod/i.test(navigator.userAgent);
-
-    if (!isIphone && navigator.clipboard && typeof navigator.clipboard.writeText === "function") {
-      try {
-        await navigator.clipboard.writeText(link.value);
-        isNotification.value = true;
-        console.log("Referral link copied to clipboard!");
-        setTimeout(() => {
-          isNotification.value = false;
-        }, 3000);
-      } catch (err) {
-        console.error("Clipboard API not allowed or failed:", err);
-        prompt("Copy this link:", link.value);
-      }
-    } else {
-      const textArea = document.createElement("textarea");
-      textArea.value = link.value;
-      textArea.style.position = "absolute";
-      textArea.style.left = "-9999px"; // Move it off-screen
-      document.body.appendChild(textArea);
-      textArea.select();
-      textArea.setSelectionRange(0, 99999); // For iOS devices
-
-      const successful = document.execCommand("copy");
-
-      if (successful) {
-        console.log("Referral link copied using textarea fallback");
-      } else {
-        prompt("Copy this link:", link.value);
-        console.log("Manual copy prompt displayed for the user");
-      }
-
-      document.body.removeChild(textArea);
-      isNotification.value = true;
-      setTimeout(() => {
-        isNotification.value = false;
-      }, 3000);
-    }
-  } catch (error) {
-    console.error("Failed to copy referral link:", error);
-    isNotification.value = true;
-    setTimeout(() => {
-      isNotification.value = false;
-    }, 3000);
-  }
-};
-
-
-
+const isOpenModal = ref(false);
+function openModal() {
+  console.log('oppp');
+  isOpenModal.value = true;
+  copyReferral()
+}
+function closeModal(){
+  isOpenModal.value = false
+}
 </script>
 
 <template>
+  <modal
+  :open="isOpenModal"
+    @close="closeModal"
+  >
+  <div class="flex flex-col items-center gap-2">
+    <p class="text-lg font-semibold">{{ $t("referralsPage.copyLink") }}:</p>
+    <p v-if="link" class="w-full p-2 bg-[#7474802E] rounded-xl mb-2">{{ link }}</p>
+    <p v-else>{{ $t("shared.loading") }}...</p>
+  </div>
+  </modal>
+
   <div class="relative">
     <div class="flex gap-3">
       <div>
@@ -108,7 +82,7 @@ const copyReferral = async () => {
           <img src="../components/icons/ton_logo.png" alt="ton" class="w-20" />
         </div>
       </div>
-      <ButtonView :text="$t('referralsPage.copyLink')" class="mt-4" @click="copyReferral">
+      <ButtonView :text="$t('referralsPage.copyLink')" class="mt-4" @click="openModal">
         <template #icon>
           <PhCards :size="21" />
         </template>

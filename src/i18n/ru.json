@@ -8,7 +8,8 @@
     "trackedAssets": "Отслеживаемые активы",
     "sure": "Вы уверены что хотите удалить актив",
     "delete": "Удалить",
-    "cancel": "Отмена"
+    "cancel": "Отмена",
+    "loading": "Загрузка"
   },
   "homePage": {
     "impulsePrice": "Импульсы Цены",
@@ -112,7 +113,7 @@
     "inviteFriends": "Пригласите друзей!",
     "receiveBonus": "Вы получите бонус который",
     "withdrawWallet": "сможете вывести в TON кошелек",
-    "copyLink": "Скопировать ссылку",
+    "copyLink": "Скопируйте ссылку",
     "withdraw": "Вывести",
     "yourBalance": "Ваш баланс:",
     "transactions": "Транзакции",

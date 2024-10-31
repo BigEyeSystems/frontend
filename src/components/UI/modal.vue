@@ -10,7 +10,7 @@
             <close-icon @click="close()" />
          </div>
        </slot>
-       <div class="mt-8">
+       <div class="mt-1.5">
           <slot />
        </div>
     </div>
