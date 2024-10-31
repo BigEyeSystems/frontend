@@ -9,6 +9,7 @@ import { useImpulse } from "../store/impulse.js";
 import { storeToRefs } from "pinia";
 import chipButton from "./UI/chipButton.vue";
 import modalWindow from "./UI/modalWindow.vue";
+import modalComponent from "./UI/modal.vue"
 
 const { t } = useI18n({ useScope: "global" });
 
@@ -169,6 +170,8 @@ const deleteImpulse = async (id) => {
     showImpulse.value = false;
     showHistory.value = false;
   }
+
+  closeModal()
 };
 const showEditImpulse = async () => {
   openEditImpulse.value = true;
@@ -204,9 +207,32 @@ const addImpulse = async () => {
   await fetchImpulse();
   loading.value = false;
 }
+
+const isOpenModal = ref(false);
+function openModal() {
+  isOpenModal.value = true;
+}
+function closeModal(){
+  isOpenModal.value = false
+}
 </script>
 
 <template>
+  <modalComponent
+    :open="isOpenModal"
+    @close="closeModal"
+  >
+  <div class="flex flex-col items-center gap-2">
+    <p class="font-semibold">
+      {{ $t("shared.sure") }} - {{ `${selectedImpulse.conditions[0].time}/${selectedImpulse.conditions[0].percent}%` }}
+    </p>
+    <div class="flex w-full items-center gap-2">
+      <ButtonView @click="deleteImpulse(selected_id)" class="bg-[#242424] text-white" :text="$t('shared.delete')" />
+      <ButtonView @click="closeModal" :text="$t('shared.cancel')" />
+    </div>
+  </div>
+  </modalComponent>
+
   <div class="text-xs">
     <div v-if="loading">
       <div class="w-full flex justify-center">
@@ -289,7 +315,7 @@ const addImpulse = async () => {
           <button @click="showEditImpulse">
             <PhNotePencil :size="24" />
           </button>
-          <button @click="deleteImpulse(selected_id)">
+          <button @click="openModal">
             <PhTrash :size="24" color="#ca3140" />
           </button>
         </div>

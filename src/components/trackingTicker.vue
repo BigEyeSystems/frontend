@@ -8,6 +8,7 @@ import chipButton from "./UI/chipButton.vue";
 import { ref, onMounted, onBeforeMount, shallowRef, watch } from "vue";
 import axios from "axios";
 import { useI18n } from "vue-i18n";
+import modalComponent from "./UI/modal.vue";
 const { t } = useI18n({ useScope: "global" });
 
 import { useAssetTracking } from "../store/assetTracking.js";
@@ -179,6 +180,7 @@ const deleteTicker = async (id) => {
   } catch (error) {
     console.log("Error fetching data: " + error);
   }
+  closeModal()
 };
 const showAddTracker = () => {
   openAddTracker.value = true;
@@ -250,8 +252,31 @@ async function getTickerTrackingHistory(){
 watch(selected_id, () => {
   getTickerTrackingHistory()
 })
+
+const isOpenModal = ref(false);
+function openModal() {
+  isOpenModal.value = true;
+}
+function closeModal(){
+  isOpenModal.value = false
+}
 </script>
 <template>
+  <modalComponent
+    :open="isOpenModal"
+    @close="closeModal"
+  >
+  <div class="flex flex-col items-center gap-2">
+    <p class="font-semibold">
+      {{ $t("shared.sure") }} - {{ selectedTicker }}
+    </p>
+    <div class="flex w-full items-center gap-2">
+      <ButtonView @click="deleteTicker(selected_id)" class="bg-[#242424] text-white" :text="$t('shared.delete')" />
+      <ButtonView @click="closeModal" :text="$t('shared.cancel')" />
+    </div>
+  </div>
+  </modalComponent>
+
   <div class="text-xs">
     <div v-if="openAddTracker">
       <div class="mb-3">
@@ -281,23 +306,9 @@ watch(selected_id, () => {
     <div v-if="!showTrackingTicker">
       <form @submit.prevent="toggleTrackingTicker">
         <div class="mb-3">
-          <label for="tickerName">{{ $t("tickerTracking.assetName") }}</label>
-          <input
-            id="tickerName"
-            v-model="tickerName"
-            class="w-full my-3 p-3 rounded-lg border-transparent focus:outline-none bg-[#17181C] focus:bg-[#17181C] uppercase"
-            type="text"
-          />
+          <p>{{ $t("tickerTracking.assetName") }}</p>
+          <autocompleteTicker @set-value="(val) => tickerName = val" />
         </div>
-
-        <div class="mb-3">
-          <div class="flex gap-2 mt-3">
-            <chip-button v-for="(active, index) in ['BTC', 'ETH', 'TON', 'SOL']" :key="index" :is-active="tickerName.trim().toUpperCase() === active" @click="selectActive(index, active)">
-              {{ active }}
-            </chip-button>
-          </div>
-        </div>
-
         <div>
           <label>{{ $t("tickerTracking.alertsTimer") }}</label>
           <div class="flex gap-2 my-3 mx-1.5">
@@ -343,7 +354,7 @@ watch(selected_id, () => {
           <button @click="editTracker">
             <PhNotePencil :size="24" />
           </button>
-          <button @click="deleteTicker(selected_id)">
+          <button @click="openModal()">
             <PhTrash :size="24" color="#ca3140" />
           </button>
         </div>

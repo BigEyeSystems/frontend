@@ -5,7 +5,10 @@
     "maximum": "Макс",
     "timeframe_hours": "часа",
     "addAsset": "Добавить актив",
-    "trackedAssets": "Отслеживаемые активы"
+    "trackedAssets": "Отслеживаемые активы",
+    "sure": "Вы уверены что хотите удалить актив",
+    "delete": "Удалить",
+    "cancel": "Отмена"
   },
   "homePage": {
     "impulsePrice": "Импульсы Цены",

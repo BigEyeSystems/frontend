@@ -5,7 +5,10 @@
     "maximum": "Max",
     "timeframe_hours": "hours",
     "addAsset": "Add Asset",
-    "trackedAssets": "Tracked Assets"
+    "trackedAssets": "Tracked Assets",
+    "sure": "Are you sure you want to delete the asset",
+    "delete": "Delete",
+    "cancel": "Cancel"
   },
   "homePage": {
     "impulsePrice": "Price Impulses",
