@@ -1,6 +1,10 @@
 <template>
   <input
     v-model="tickerName"
+    @input="setSuggestions"
+    @change="setSuggestions"
+    @compositionstart="onCompositionStart"
+    @compositionend="onCompositionEnd"
     class="w-full my-3 p-3 rounded-lg border-transparent focus:outline-none bg-[#17181C] focus:bg-[#17181C] uppercase"
     type="text"
   />
@@ -21,17 +25,31 @@ import { ref, watch } from "vue";
 import chipButton from "../UI/chipButton.vue";
 import { DataTickers } from "../shared/constants/autocompleteDict.json";
 
-const tickerName = ref("");
-const autocompleteSuggests = ref([{Symbol: 'BTC'}, {Symbol: 'ETH'}, {Symbol: 'TON'}, {Symbol: 'SOL'}]);
-
 const emit = defineEmits({
-   setValue(){
-      return true
-   }
-})
+  setValue() {
+    return true;
+  },
+});
 
-watch(tickerName, () => {
-  const dataValues = Object.values(DataTickers);
+const tickerName = ref("");
+const isComposing = ref(false)
+const autocompleteSuggests = ref([
+  { Symbol: "BTC" },
+  { Symbol: "ETH" },
+  { Symbol: "TON" },
+  { Symbol: "SOL" },
+]);
+
+function onCompositionStart() {
+  isComposing.value = true;
+}
+function onCompositionEnd() {
+  isComposing.value = false;
+  setSuggestions();
+}
+
+const dataValues = Object.values(DataTickers);
+function setSuggestions() {
   autocompleteSuggests.value = dataValues
     .filter(
       (tik) =>
@@ -40,7 +58,13 @@ watch(tickerName, () => {
     )
     .splice(0, 4);
 
-    if(tickerName.value.length < 1 || autocompleteSuggests.value.length < 1) autocompleteSuggests.value = [{Symbol: 'BTC'}, {Symbol: 'ETH'}, {Symbol: 'TON'}, {Symbol: 'SOL'}]
-    emit("setValue", tickerName.value)
-});
+  if (tickerName.value.length < 1 || autocompleteSuggests.value.length < 1)
+    autocompleteSuggests.value = [
+      { Symbol: "BTC" },
+      { Symbol: "ETH" },
+      { Symbol: "TON" },
+      { Symbol: "SOL" },
+    ];
+  emit("setValue", tickerName.value);
+};
 </script>
