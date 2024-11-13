@@ -1,8 +1,8 @@
 <script setup>
-import buttonView from './button.vue';
+import { Button } from '@/shared/ui';
 </script>
 <template>
     <p>Пригласите друзей!</p>
     <p>Вы получите бонус который сможете вывести в TON кошелек</p>
-    <buttonView/>
+    <Button/>
 </template>

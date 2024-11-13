@@ -1,8 +1,7 @@
 <script setup>
 import axios from "axios";
-import ButtonView from "./button.vue";
+import { Button, TimeDate } from "@/shared/ui";
 import ticker from "./ticker.vue";
-import timeAndDate from "./UI/timeAndDate.vue";
 import { ref, onMounted } from "vue";
 import { useI18n } from "vue-i18n";
 import { useImpulse } from "../store/impulse.js";
@@ -227,8 +226,8 @@ function closeModal(){
       {{ $t("shared.sure") }} - {{ `${selectedImpulse.conditions[0].time}/${selectedImpulse.conditions[0].percent}%` }}
     </p>
     <div class="flex w-full items-center gap-2">
-      <ButtonView @click="deleteImpulse(selected_id)" class="bg-[#242424] text-white" :text="$t('shared.delete')" />
-      <ButtonView @click="closeModal" :text="$t('shared.cancel')" />
+      <Button @click="deleteImpulse(selected_id)" class="bg-[#242424] text-white" :text="$t('shared.delete')" />
+      <Button @click="closeModal" :text="$t('shared.cancel')" />
     </div>
   </div>
   </modalComponent>
@@ -295,11 +294,11 @@ function closeModal(){
             </chip-button>
           </div>
         </div>
-        <ButtonView :text="$t('impulsePrise.getInfo')" class="mt-4" @click="showImpulseData" />
+        <Button :text="$t('impulsePrise.getInfo')" class="mt-4" @click="showImpulseData" />
       </div>
 
       <div v-if="showImpulse" class="text-xs rounded mb-2">
-        <ButtonView :text="$t('impulsePrise.addTracking')" class="my-3" @click="openAddImpulse = true" />
+        <Button :text="$t('impulsePrise.addTracking')" class="my-3" @click="openAddImpulse = true" />
         <div class="flex text-xs border rounded border-[#2F2F2F99] m-1.5 mx-2.5">
           <chip-button v-for="(condition, index) in selectedImpulse.conditions" :key="index" @click="updateImpulse(condition.id, condition.time, condition.percent)" :is-active="selected_id === condition.id">
             {{ condition.time }} {{ $t("impulsePrise.min") }} /
@@ -328,7 +327,7 @@ function closeModal(){
         </p>
         <div class="flex justify-between mb-4">
           <p class="text-xs">{{ $t("homePage.lastUpdate") }}:</p>
-          <time-and-date />
+          <TimeDate />
         </div>
         <ticker :detail="impulseData?.impulses_history" />
       </div>
@@ -370,7 +369,7 @@ function closeModal(){
                 </chip-button>
               </div>
             </div>
-            <ButtonView :text="$t('impulsePrise.getInfo')" class="mt-4" @click="showImpulseData" /> -->
+            <Button :text="$t('impulsePrise.getInfo')" class="mt-4" @click="showImpulseData" /> -->
           </div>
         </transition>
       </Teleport>
@@ -411,7 +410,7 @@ function closeModal(){
                 </chip-button>
               </div>
             </div>
-            <ButtonView :text="$t('impulsePrise.getInfo')" class="mt-4"
+            <Button :text="$t('impulsePrise.getInfo')" class="mt-4"
               @click="editImpulse(selected_id, changeInterval, changePercent)" />
           </div>
         </transition>

@@ -1,6 +1,5 @@
 <script setup>
-import ButtonView from "./button.vue";
-import timeAndDate from "./UI/timeAndDate.vue";
+import { Button, TimeDate } from "@/shared/ui";
 import chipButton from "./UI/chipButton.vue";
 import axios from "axios";
 import { use } from "echarts/core";
@@ -244,12 +243,12 @@ const showDate = (timestamp) => {
 </script>
 <template>
   <div v-if="fundingData" class="text-xs">
-    <ButtonView :text="$t('fundingPage.updateInfo')" class="my-3" />
+    <Button :text="$t('fundingPage.updateInfo')" class="my-3" />
     <div>
       <p class="mb-3">{{ $t('fundingPage.searchResult') }}</p>
       <div class="flex justify-between">
         <p class="text-xs">{{ $t('homePage.lastUpdate') }}:</p>
-        <time-and-date />
+        <TimeDate />
       </div>
       <div class="flex gap-2 my-4 mx-1.5">
         <chip-button :is-active="dayData" @click="showDailyData">

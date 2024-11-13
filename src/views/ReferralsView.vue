@@ -1,6 +1,6 @@
 <script setup>
 import crown from "../components/icons/crown.vue";
-import ButtonView from "../components/button.vue";
+import { Button } from '@/shared/ui';
 import chipButton from "@/components/UI/chipButton.vue";
 import footerMenu from "@/components/footer.vue";
 import { ref } from "vue";
@@ -82,11 +82,11 @@ function closeModal(){
           <img src="../components/icons/ton_logo.png" alt="ton" class="w-20" />
         </div>
       </div>
-      <ButtonView :text="$t('referralsPage.copyLink')" class="mt-4" @click="openModal">
+      <Button :text="$t('referralsPage.copyLink')" class="mt-4" @click="openModal">
         <template #icon>
           <PhCards :size="21" />
         </template>
-      </ButtonView>
+      </Button>
     </div>
 
     <div

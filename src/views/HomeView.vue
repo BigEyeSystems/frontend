@@ -11,7 +11,7 @@ import {
   Fibonacci,
   Divergence
 } from "@/components/icons/home-page";
-import ButtonView from "../components/button.vue"
+import { Button } from '@/shared/ui';
 import LocalesView from "./LocalesView.vue";
 import menuItem from "../components/menuItem.vue";
 import Header from "../components/Header.vue";
@@ -339,7 +339,7 @@ const timeframes = computed(() => [
                 {{asset}}
               </chip-button>
             </div>
-            <ButtonView :text="`${$t('shared.addAsset')} +`" class="my-4" />
+            <Button :text="`${$t('shared.addAsset')} +`" class="my-4" />
             <p class="text-base text-start self-start">{{ $t("shared.trackedAssets") }}</p>
             <div class="w-full flex flex-col gap-4 mt-4 p-4 rounded-xl bg-[#17181C]">
               <div class="flex items-center justify-between w-full">

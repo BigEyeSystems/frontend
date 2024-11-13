@@ -1,5 +1,5 @@
 <script setup>
-import ButtonView from "../components/button.vue";
+import { Button } from '@/shared/ui';
 import { ref } from "vue";
 import { useI18n } from "vue-i18n";
 const { t } = useI18n( {useScope: 'global'} ); 
@@ -31,7 +31,7 @@ const bindWallet = () => {
           </div>
         </div>
       </div>
-      <ButtonView v-if="!isBinded" :text="$t('walletPage.connectWallet')" class="mt-4" :on-click="bindWallet"/>
+      <Button v-if="!isBinded" :text="$t('walletPage.connectWallet')" class="mt-4" :on-click="bindWallet"/>
       <button v-if="isBinded" class="bg-[#17181C] w-full p-3 rounded-xl font-semibold flex  justify-center items-center gap-2 mt-4" @click="bindWallet">
         {{ $t('walletPage.untieWallet')}} 
     </button>

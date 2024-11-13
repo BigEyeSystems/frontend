@@ -1,7 +1,7 @@
 <script setup>
 import { useI18n } from "vue-i18n";
 import chipButton from "./chipButton.vue";
-import ButtonView from "../button.vue";
+import { Button } from '@/shared/ui';
 import { ref } from "vue";
 import axios from "axios";
 const { t } = useI18n({ useScope: "global" });
@@ -90,7 +90,7 @@ const handleImpulseTracking = async () => {
       </chip-button>
     </div>
   </div>
-  <ButtonView
+  <Button
     :text="$t('impulsePrise.getInfo')"
     class="mt-4"
     @click="handleImpulseTracking"

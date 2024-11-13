@@ -23,7 +23,7 @@
 <script setup>
 import { ref, watch } from "vue";
 import chipButton from "../UI/chipButton.vue";
-import { DataTickers } from "../shared/constants/autocompleteDict.json";
+import { DataTickers } from "/autocomplete/tokens.json";
 
 const emit = defineEmits({
   setValue() {

@@ -1,6 +1,5 @@
 <script setup>
-import ButtonView from "./button.vue";
-import timeAndDate from "./UI/timeAndDate.vue";
+import { Button, TimeDate } from "@/shared/ui";
 import chipButton from "./UI/chipButton.vue";
 import { ref } from "vue";
 import axios from "axios";
@@ -94,7 +93,7 @@ const formattedDate = (date) => {
         </div>
       </div>
     </div>
-    <ButtonView v-if="!showGradation" :text="$t('impulsePrise.getInfo')" :on-click="toggleGradation" class="my-3" />
+    <Button v-if="!showGradation" :text="$t('impulsePrise.getInfo')" :on-click="toggleGradation" class="my-3" />
     <div v-else>
       <div class="flex gap-2 mt-3">
         <chip-button v-for="(interval, index) in [5, 30, 60, 4]" :key="index" :is-active="selectedInterval === index" @click="selectInterval(index, interval)">
@@ -102,7 +101,7 @@ const formattedDate = (date) => {
           <p v-else>{{ interval }} {{ $t('gradationGrowth.hour') }}</p>
         </chip-button>
       </div>
-      <ButtonView :text="$t('fundingPage.updateInfo')" class="my-3" />
+      <Button :text="$t('fundingPage.updateInfo')" class="my-3" />
     </div>
 
     <div v-if="showGradation">
@@ -110,7 +109,7 @@ const formattedDate = (date) => {
         <p class="mb-3 text-sm font-semibold">{{ $t('fundingPage.searchResult') }}</p>
         <div class="flex justify-between">
           <p class="text-xs">{{ $t('homePage.lastUpdate') }}:</p>
-          <time-and-date />
+          <TimeDate />
         </div>
         <div class="bg-[#17181C] p-2 rounded-xl cursor-pointer my-4 flex justify-between items-center active:opacity-80"
           @click="downloadGradationGrowthFile(gradationData?.file_id)">

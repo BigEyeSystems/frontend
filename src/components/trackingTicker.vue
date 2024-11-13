@@ -1,9 +1,8 @@
 <script setup>
+import { Button, TimeDate } from '@/shared/ui';
 import autocompleteTicker from "./widgets/autocompleteTicker.vue";
 import arrowUp from "./icons/arrowUp.vue";
 import arrowDown from "./icons/arrow-down.vue";
-import timeAndDate from "./UI/timeAndDate.vue";
-import ButtonView from "./button.vue";
 import chipButton from "./UI/chipButton.vue";
 import { ref, onMounted, onBeforeMount, shallowRef, watch } from "vue";
 import axios from "axios";
@@ -271,8 +270,8 @@ function closeModal(){
       {{ $t("shared.sure") }} - {{ selectedTicker }}
     </p>
     <div class="flex w-full items-center gap-2">
-      <ButtonView @click="deleteTicker(selected_id)" class="bg-[#242424] text-white" :text="$t('shared.delete')" />
-      <ButtonView @click="closeModal" :text="$t('shared.cancel')" />
+      <Button @click="deleteTicker(selected_id)" class="bg-[#242424] text-white" :text="$t('shared.delete')" />
+      <Button @click="closeModal" :text="$t('shared.cancel')" />
     </div>
   </div>
   </modalComponent>
@@ -294,7 +293,7 @@ function closeModal(){
         </div>
       </div>
       <div class="my-4">
-        <ButtonView
+        <Button
           @click="toggleTrackingTicker"
           :text="$t('tickerTracking.addTracker')"
           type="submit"
@@ -319,7 +318,7 @@ function closeModal(){
         </div>
 
         <div class="my-4">
-          <ButtonView
+          <Button
             :text="$t('tickerTracking.addTracker')"
             type="submit"
           />
@@ -328,7 +327,7 @@ function closeModal(){
     </div>
 
     <div v-if="showTrackingTicker">
-      <ButtonView
+      <Button
         @click="openAddTracker = !openAddTracker"
         :text="
           openAddTracker
@@ -363,7 +362,7 @@ function closeModal(){
       <div v-for="(history, index) in tickerHistoryData" :key="index" class="mt-5">
         <div class="flex justify-between">
           <p class="text-xs">{{ $t('homePage.lastUpdate') }}:</p>
-          <time-and-date :date="localDateWithOffset(history.date)" />
+          <TimeDate :date="localDateWithOffset(history.date)" />
         </div>
         <!-- Доделать i18n, разобраться с интервалом времени -->
         <div class="w-full h-auto flex flex-col items-center mt-4 p-2 bg-[#17181C] rounded-xl">
@@ -454,7 +453,7 @@ function closeModal(){
               </chip-button>
             </div>
           </div>
-          <ButtonView
+          <Button
             :text="$t('tickerTracking.addTracker')"
             @click="saveChanges(selected_id, tickerName, changeInterval)"
             class="my-4"

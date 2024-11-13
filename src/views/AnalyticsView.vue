@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from "vue";
 import footerMenu from "@/components/footer.vue";
-import ButtonView from "../components/button.vue";
+import { Button } from '@/shared/ui';
 import crown from "../components/icons/crown.vue";
 import chipButton from "@/components/UI/chipButton.vue";
 import autocompleteTicker from "@/components/widgets/autocompleteTicker.vue";
@@ -47,13 +47,13 @@ const toggleAnalytics = () => {
 
       <autocompleteTicker @set-value="(val) => selectedActive = val" />
 
-      <ButtonView
+      <Button
         v-if="!showAnalytics"
         :text="$t('impulsePrise.getInfo')"
         :on-click="toggleAnalytics"
         class="mt-4"
       />
-      <ButtonView
+      <Button
         v-else
         :text="$t('fundingPage.updateInfo')"
         :on-click="toggleAnalytics"

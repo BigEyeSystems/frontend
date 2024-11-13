@@ -1,5 +1,5 @@
 <script setup>
-import ButtonView from "../components/button.vue";
+import { Button } from '@/shared/ui';
 import { ref } from "vue";
 
 import { useI18n } from "vue-i18n";
@@ -56,7 +56,7 @@ const selectEnglish = () => {
             </div>
         </div>
         <footer class="fixed bottom-0 left-0 w-full mt-48 mb-4 px-4">
-            <ButtonView :text="$t('localeModal.save')" class="mt-4" @click="$emit('submit')"/>
+            <Button :text="$t('localeModal.save')" class="mt-4" @click="$emit('submit')"/>
         </footer>
     </div>
 </template>

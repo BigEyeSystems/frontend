@@ -1,5 +1,5 @@
 <script setup>
-import ButtonView from "../components/button.vue";
+import { Button } from '@/shared/ui';
 import chipButton from "@/components/UI/chipButton.vue";
 import { useI18n } from "vue-i18n";
 import { ref, onMounted, onBeforeMount, computed } from "vue";
@@ -189,7 +189,7 @@ const downloadFile = async () => {
         </div>
 
         <div class="my-4">
-          <ButtonView :text="$t('impulsePrise.getInfo')" type="submit" />
+          <Button :text="$t('impulsePrise.getInfo')" type="submit" />
         </div>
       </form>
     </div>
